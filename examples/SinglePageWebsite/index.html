@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="styles/styles.min.css" type="text/css" media="screen" charset="utf-8" />
+</head>
+<body data-lang="sp" onload="javascript:init();">
+
+    <script type="text/javascript" src="../../deploy/libs/jquery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="../../deploy/libs/bind.min.js"></script>
+    <script type="text/javascript" src="../../deploy/libs/jaml/jaml.min.js"></script>
+
+    <script type="text/javascript" src="../../deploy/libs/signals/signals.min.js"></script>
+    <script type="text/javascript" src="../../src/libs/crossroads/crossroads.js"></script>
+    <script type="text/javascript" src="../../deploy/libs/hasher/hasher.min.js"></script>
+
+    <script type="text/javascript" src="../../deploy/libs/greensock/easing/EasePack.min.js"></script>
+    <script type="text/javascript" src="../../deploy/libs/greensock/TweenLite.min.js"></script>
+    <script type="text/javascript" src="../../deploy/libs/underscore/underscore.js"></script>
+    <script type="text/javascript" src="../../deploy/libs/parse-1.2.8.min.js"></script>
+
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="scripts/templates.js"></script>
+    <script type="text/javascript">
+        function init() {
+            var app = new WebsiteBootstrap();
+            app.enabled(true);
+        }
+    </script>
+</body>

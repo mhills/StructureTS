@@ -1,0 +1,19 @@
+{
+    "data": [
+        {
+            "id": "en",
+            "type": "English",
+            "path": "data/languages/main.en.json"
+        },
+        {
+            "id": "fr",
+            "type": "French",
+            "path": "data/languages/main.fr.json"
+        },
+        {
+            "id": "sp",
+            "type": "Spanish",
+            "path": "data/languages/main.sp.json"
+        }
+    ]
+}

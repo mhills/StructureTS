@@ -1,0 +1,1 @@
+tsc --out ../scripts/todo.js TodoBootstrap.ts
