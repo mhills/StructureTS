@@ -1,1 +1,1 @@
-tsc --out ../scripts/todo.js TodoBootstrap.ts
+tsc --watch --out ../scripts/todo.js TodoBootstrap.ts

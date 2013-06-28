@@ -4,9 +4,9 @@ class BaseEvent implements ICore  {
 
     public CLASS_NAME:string = 'BaseEvent';
 
-    static CHANGE:string = "Event.change";
-    static COMPLETE:string = "Event.complete";
-    static ENTER_FRAME:string = "Event.enterFrame";
+    static CHANGE:string = "BaseEvent.change";
+    static COMPLETE:string = "BaseEvent.complete";
+    static ENTER_FRAME:string = "BaseEvent.enterFrame";
 
     public type:string = null;
     public target:any = null;

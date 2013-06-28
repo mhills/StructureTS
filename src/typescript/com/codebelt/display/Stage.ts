@@ -14,6 +14,12 @@ class Stage extends DOMElement
         this.createChildren();
     }
 
+    /**
+     *
+     * @method createChildren
+     * @override
+     * @public
+     */
     public createChildren():void
     {
         this.$el = jQuery(this._type);

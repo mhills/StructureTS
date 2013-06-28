@@ -44,7 +44,6 @@ class DisplayObject extends EventDispatcher
 
     public removeChild(displayObject:DisplayObject):DisplayObject
     {
-        console.log(displayObject);
         var index = this.children.indexOf(displayObject);
         if (index !== -1) {
             this.children.splice(index, 1);

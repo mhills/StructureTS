@@ -4,6 +4,8 @@ class ValueObject implements ICore {
 
     public CLASS_NAME:string = 'ValueObject';
 
+    public id:string;
+
     constructor()
     {
 
@@ -22,6 +24,14 @@ class ValueObject implements ICore {
     public clone()
     {
         //TODO: deep clone object.
+    }
+
+    public copy(data) {
+        for (var key in this) {
+            if (key !== 'id' && this.hasOwnProperty(key) && data.hasOwnProperty(key)) {
+                this[key] = data[key];
+            }
+        }
     }
 
     public set(prop:any, value?:any):any

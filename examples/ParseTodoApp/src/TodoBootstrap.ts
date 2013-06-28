@@ -1,39 +1,49 @@
 ///<reference path='../../../src/typescript/_declare/jquery.d.ts'/>
 ///<reference path='../../../src/typescript/_declare/underscore.d.ts'/>
 ///<reference path='../../../src/typescript/_declare/parse.d.ts'/>
+///<reference path='_declare/backbone.d.ts'/>
 
 ///<reference path='../../../src/typescript/com/codebelt/display/DOMElement.ts'/>
 ///<reference path='../../../src/typescript/com/codebelt/display/Stage.ts'/>
 ///<reference path='../../../src/typescript/com/codebelt/events/MouseEventType.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/events/RequestEvent.ts'/>
 ///<reference path='../../../src/typescript/com/codebelt/utils/TemplateFactory.ts'/>
+///<reference path='event/ListItemEvent.ts'/>
 ///<reference path='model/ListItemModel.ts'/>
+///<reference path='model/AppModel.ts'/>
 
+/**
+ *
+ * @class TodoBootstrap
+ * @extends Stage
+ * @constructor
+ **/
 class TodoBootstrap extends Stage
 {
-    public static BASE_PATH:string = 'images/';
+    private _appModel:AppModel;
 
-    private APP_ID:string = '5tfOk1NPi4KxQwWDbGdaw0eY0GFKAnrp3upTzRo8';
-    private REST_KEY:string = 'Tz2OgC9TZTEgGvMQhtk7IHQT6c46mBuCbF545Dgn';
-    private JS_KEY:string = 'NM7u0mZxJbr41J9SrX3qGQA45BNmAnhMqLyw9UsR';
-
-    private _query;
     private _submitBtn:DOMElement;
     private _noTasksMessage:DOMElement;
     private _incompleteItemList:DOMElement;
     private _completeItemList:DOMElement;
     private _input:DOMElement;
-    private _listItem:ListItemModel;
-    private _selectedItem:JQuery;
+    private _$selectedItem:JQuery;
 
-    constructor() {
+    constructor()
+    {
         super('.js-todo');
-
-        Parse.initialize(this.APP_ID, this.JS_KEY);
     }
 
-    public createChildren():void {
+    /**
+     *
+     * @method createChildren
+     * @override
+     * @public
+     */
+    public createChildren():void
+    {
         super.createChildren();
+
+        this._appModel = new AppModel();
 
         this._submitBtn = this.getChild('#js-submit-button');
         this._noTasksMessage = this.getChild('#js-none-message');
@@ -41,108 +51,115 @@ class TodoBootstrap extends Stage
         this._input = this.getChild('#js-todo-input');
         this._completeItemList = this.getChild('#js-submit-button');
 
-        setTimeout(() => {
-            this.updateList();
-        }, 500)
+        this.updateItemList();
     }
 
-    public enabled(value:boolean):void {
+    /**
+     *
+     * @method enabled
+     * @override
+     * @public
+     */
+    public enabled(value:boolean):void
+    {
         if (value == this.isEnabled) return;
 
         if (value) {
             this._submitBtn.el.addEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
 //            this._submitBtn.$el.on(MouseEventType.CLICK, this.onSubmitButton.bind(this));
             this._incompleteItemList.$el.on(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this) );
+
+            this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
+            this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
+            this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
+
         } else {
             this._submitBtn.el.removeEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
 //            this._submitBtn.$el.off(MouseEventType.CLICK, this.onSubmitButton.bind(this));
             this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
+
+            this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved);
+            this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess);
         }
 
         super.enabled(value);
     }
 
-    private onSubmitButton(event:MouseEvent):void {
-        var text = this._input.$el.val();
+    private onSubmitButton(event:MouseEvent):void
+    {
+        var text:string = this._input.$el.val();
 
-        if (text != '') {
-            this._listItem = new ListItemModel();
-            this._listItem.addEventListener(RequestEvent.SUCCESS, this.onSuccess, this);
-            this._listItem.set('content', text);
-            this._listItem.set('isComplete', false);
-            this._listItem.save();
-        }
+        this._appModel.addListItem(text);
     }
 
-    private onTodoSelected(event:JQueryEventObject):void {
-        this._selectedItem = $(event.currentTarget);
+    private onTodoSelected(event:JQueryEventObject):void
+    {
+        this._$selectedItem = $(event.currentTarget);
 
-        var id:number = this._selectedItem.children('input').data('id');
-
-        this._query = new Parse.Query('ListItem');
-        this._query.get(id, {
-            success: this.onGetSuccess.bind(this),
-            error: this.onParseError.bind(this)
-        });
+        var id:number = this._$selectedItem.children('input').data('id');
+        this._appModel.markItemComplete(id);
     }
 
-    private onGetSuccess(item, element:JQuery):void {
-        item.set('isComplete', true);
-        item.save();
+    private onRemoveItemSuccess(event:ListItemEvent):void
+    {
+        var removedListItem:ListItemVO = event.data;
+        console.log("onRemoveItemSuccess", event)
+        this._$selectedItem.remove();//TODO: what if item was a DOMElement is still a child of this view. Need a way to remove it. Maybe like backbones cid.
+        this._$selectedItem = null;
 
-        this._selectedItem.remove();//TODO: what if item was a DOMElement is still a child of this view. Need a way to remove it. Maybe like backbones cid.
-        this._selectedItem = null;
-//                    if (incompleteItemList.all('li').size() >= 1) {
-//                        noTasksMessage.removeClass('hidden');
-//                    }
+//        if (incompleteItemList.all('li').size() >= 1) {
+//            noTasksMessage.removeClass('hidden');
+//        }
     }
 
-    private onSuccess(event:RequestEvent):void {
-        var listItem = event.data;
-
-        this._listItem.removeEventListener(RequestEvent.SUCCESS, this.onSuccess);
+    private onAddItemSuccess(event:ListItemEvent):void
+    {
         this._input.$el.val('')
-            .focus();
+                       .focus();
 
-        this.updateList();
+        this.updateItemList();
     }
 
-    private updateList():void {
-        //Get 10 most recent incomplete Todos.
-        var self = this;
-
-        this._query = new Parse.Query('ListItem');
-        this._query.equalTo('isComplete', false)
-        this._query.limit(10);
-        this._query.descending('createdAt');
-        this._query.find({
-            success: this.onQuerySuccess.bind(self),
-            error: this.onParseError.bind(self)
-        });
+    /**
+     * This method will be user to fetch the list items from the AppModel.
+     *
+     * @method getItemList
+     * @return void
+     * @private
+     */
+    private updateItemList():void
+    {
+        this._appModel.getListItems();
     }
 
-    private onQuerySuccess(results:any[]):void {
+    /**
+     * This method will get a list of ListItemVO objects from the ListItemEvent data property to be used to create the list.
+     * Fist it will remove all current children in the list and then add the new list items.
+     *
+     * @param event {ListItemEvent}
+     * @method onListRecieved
+     * @return void
+     * @private
+     */
+    private onListRecieved(event:ListItemEvent):void
+    {
+        var listItems:ListItemVO[] = event.data;
+
         this._incompleteItemList.removeChildren();
 
-        if (results.length > 0) {
+        if (listItems.length > 0) {
             this._noTasksMessage.$el.addClass('hidden');
         }
 
-        _.each(results, function(item, index, array) {
+        _.each(listItems, function(item) {
             var view:DOMElement = TemplateFactory.createView('#todo-items-template', {
-                content: item.get('content'),
                 id: item.id,
-                isComplete: item.get('isComplete')
+                content: item.content,
+                isComplete: item.isComplete
             });
 
             this._incompleteItemList.addChild(view);
         }.bind(this));
-
-        this._query = null;
-    }
-
-    private onParseError(error):void {
-        alert('onParseError: ' + error.code + ' ' + error.message);
     }
 
 }

@@ -22,6 +22,12 @@ class DOMElement extends DisplayObject
         this._options = params;
     }
 
+    /**
+     *
+     * @method createChildren
+     * @override
+     * @public
+     */
     public createChildren():void
     {
         if (this._node && !this.$el) {
@@ -33,6 +39,14 @@ class DOMElement extends DisplayObject
         this.el = this.$el[0];
     }
 
+    /**
+     *
+     * @method addChild
+     * @param displayObject {DOMElement}
+     * @returns {DOMElement}
+     * @override
+     * @public
+     */
     public addChild(displayObject:DOMElement):DOMElement
     {
         super.addChild(displayObject);
@@ -47,6 +61,15 @@ class DOMElement extends DisplayObject
         return this;
     }
 
+    /**
+     *
+     * @method addChildAt
+     * @param displayObject {DOMElement}
+     * @param displayIndex {int}
+     * @returns {DOMElement}
+     * @override
+     * @public
+     */
     public addChildAt(displayObject:DOMElement, displayIndex:number):DOMElement
     {
         var children = this.$el.children();
@@ -76,8 +99,19 @@ class DOMElement extends DisplayObject
         return this;
     }
 
+
+    /**
+     *
+     * @method getChild
+     * @param selector {string}
+     * @returns {DOMElement}
+     * @override
+     * @public
+     */
     public getChild(selector:string):DOMElement
     {
+        //TODO: Maybe add a selector property to the DOMElement so you can get the class object and not the same DOM element when requesting the same child multiple times.
+
         var jQueryElement = this.$el.find(selector);
 
         if (jQueryElement.length == 0) {
@@ -110,6 +144,14 @@ class DOMElement extends DisplayObject
 //        return null;
 //    }
 
+    /**
+     *
+     * @method removeChild
+     * @param displayObject {DOMElement}
+     * @returns {DOMElement}
+     * @override
+     * @public
+     */
     public removeChild(displayObject:DOMElement):DOMElement
     {
         displayObject.enabled(false);
@@ -121,6 +163,13 @@ class DOMElement extends DisplayObject
         return this;
     }
 
+    /**
+     *
+     * @method removeChildren
+     * @returns {DOMElement}
+     * @override
+     * @public
+     */
     public removeChildren():DOMElement
     {
         super.removeChildren();
@@ -130,6 +179,13 @@ class DOMElement extends DisplayObject
         return this;
     }
 
+    /**
+     *
+     * @param value {boolean}
+     * @method enabled
+     * @override
+     * @public
+     */
     public enabled(value:boolean):void
     {
         if (value == this.isEnabled) return;
@@ -151,26 +207,26 @@ class DOMElement extends DisplayObject
     }
 
     /*public addEventListener(type:string, callback:Function, scope:any)
-    {
-        if (document.addEventListener) {
-            this.$el.addEventListener(type, callback, false);
-        } else if (document.attachEvent)  {
-            this.$el.attachEvent("on" + type, callback);
-        } else {
-            this.$el["on" + type] = callback;
-        }
-    }
+     {
+     if (document.addEventListener) {
+     this.$el.addEventListener(type, callback, false);
+     } else if (document.attachEvent)  {
+     this.$el.attachEvent("on" + type, callback);
+     } else {
+     this.$el["on" + type] = callback;
+     }
+     }
 
-    public removeEventListener(type:string, callback:Function)
-    {
-        if (document.removeEventListener) {
-            this.$el.removeEventListener(type, callback, false);
-        } else if (document.detachEvent)  {
-            this.$el.detachEvent("on" + type, callback);
-        } else {
-            this.$el["on" + type] = null;
-        }
-    }*/
+     public removeEventListener(type:string, callback:Function)
+     {
+     if (document.removeEventListener) {
+     this.$el.removeEventListener(type, callback, false);
+     } else if (document.detachEvent)  {
+     this.$el.detachEvent("on" + type, callback);
+     } else {
+     this.$el["on" + type] = null;
+     }
+     }*/
 
     public alpha(number):DOMElement
     {
