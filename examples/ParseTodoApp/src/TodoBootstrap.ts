@@ -8,7 +8,6 @@
 ///<reference path='../../../src/typescript/com/codebelt/events/MouseEventType.ts'/>
 ///<reference path='../../../src/typescript/com/codebelt/utils/TemplateFactory.ts'/>
 ///<reference path='event/ListItemEvent.ts'/>
-///<reference path='model/ListItemModel.ts'/>
 ///<reference path='model/AppModel.ts'/>
 
 /**
@@ -96,7 +95,7 @@ class TodoBootstrap extends Stage
     {
         this._$selectedItem = $(event.currentTarget);
 
-        var id:number = this._$selectedItem.children('input').data('id');
+        var id:string = this._$selectedItem.children('input').data('id');
         this._appModel.markItemComplete(id);
     }
 

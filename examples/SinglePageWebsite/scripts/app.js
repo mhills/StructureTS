@@ -9,21 +9,24 @@ var BaseEvent = (function () {
         this.isPropagationStopped = true;
         this.isImmediatePropagationStopped = true;
         this.type = type;
+
         this.data = data;
     }
-    BaseEvent.CHANGE = "Event.change";
-    BaseEvent.COMPLETE = "Event.complete";
-    BaseEvent.ENTER_FRAME = "Event.enterFrame";
     BaseEvent.prototype.stopPropagation = function () {
         this.isPropagationStopped = false;
     };
+
     BaseEvent.prototype.stopImmediatePropagation = function () {
         this.stopPropagation();
         this.isImmediatePropagationStopped = false;
     };
+
     BaseEvent.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
     };
+    BaseEvent.CHANGE = "BaseEvent.change";
+    BaseEvent.COMPLETE = "BaseEvent.complete";
+    BaseEvent.ENTER_FRAME = "BaseEvent.enterFrame";
     return BaseEvent;
 })();
 var EventDispatcher = (function () {
@@ -41,7 +44,7 @@ var EventDispatcher = (function () {
         var index = 0;
         var listener;
         var i = list.length;
-        while(--i > -1) {
+        while (--i > -1) {
             listener = list[i];
             if (listener.c === callback) {
                 list.splice(i, 1);
@@ -49,53 +52,57 @@ var EventDispatcher = (function () {
                 index = i + 1;
             }
         }
-        list.splice(index, 0, {
-            c: callback,
-            s: scope,
-            pr: priority
-        });
+        list.splice(index, 0, { c: callback, s: scope, pr: priority });
+
         return this;
     };
+
     EventDispatcher.prototype.removeEventListener = function (type, callback) {
         var list = this._listeners[type];
         if (list) {
             var i = list.length;
-            while(--i > -1) {
+            while (--i > -1) {
                 if (list[i].c === callback) {
                     list.splice(i, 1);
                     break;
                 }
             }
         }
+
         return this;
     };
+
     EventDispatcher.prototype.dispatchEvent = function (event) {
         if (event.target == null) {
             event.target = this;
         }
+
         var list = this._listeners[event.type];
         if (list) {
             var i = list.length;
             var listener;
-            while(--i > -1) {
-                if (event.isImmediatePropagationStopped == false) {
+            while (--i > -1) {
+                if (event.isImmediatePropagationStopped == false)
                     break;
-                }
                 listener = list[i];
                 listener.c.call(listener.s, event);
             }
         }
+
         if (this.parent && event.isPropagationStopped) {
             this.parent.dispatchEvent(event);
         }
+
         return this;
     };
+
     EventDispatcher.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
     };
     return EventDispatcher;
 })();
 var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
@@ -112,50 +119,63 @@ var DisplayObject = (function (_super) {
     }
     DisplayObject.prototype.createChildren = function () {
     };
+
     DisplayObject.prototype.addChild = function (displayObject) {
         if (displayObject.parent) {
             displayObject.parent.removeChild(displayObject);
         }
+
         this.children.unshift(displayObject);
+
         displayObject.parent = this;
+
         return this;
     };
+
     DisplayObject.prototype.removeChild = function (displayObject) {
-        console.log(displayObject);
         var index = this.children.indexOf(displayObject);
         if (index !== -1) {
             this.children.splice(index, 1);
         }
         displayObject.enabled(false);
         displayObject.parent = null;
+
         return this;
     };
+
     DisplayObject.prototype.removeChildren = function () {
-        while(this.children.length > 0) {
+        while (this.children.length > 0) {
             this.removeChild(this.children.pop());
         }
         return this;
     };
+
     DisplayObject.prototype.addChildAt = function (displayObject, displayIndex) {
         this.children.unshift(displayObject);
+
         return this;
     };
+
     DisplayObject.prototype.getChild = function (displayObject) {
         var index = this.children.indexOf(displayObject);
         return this.children[index];
     };
+
     DisplayObject.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
         } else {
         }
+
         this.isEnabled = value;
     };
+
     DisplayObject.prototype.invalidateLayout = function () {
         this.layoutChildren();
     };
+
     DisplayObject.prototype.layoutChildren = function () {
     };
     return DisplayObject;
@@ -172,6 +192,7 @@ var DOMElement = (function (_super) {
         this._isVisible = true;
         this.el = null;
         this.$el = null;
+
         this._node = type;
         this._options = params;
     }
@@ -181,21 +202,27 @@ var DOMElement = (function (_super) {
         } else if (!this._node && !this.$el) {
             this.$el = jQuery(Jaml.render(this.templateName, this._options));
         }
+
         this.el = this.$el[0];
     };
+
     DOMElement.prototype.addChild = function (displayObject) {
         _super.prototype.addChild.call(this, displayObject);
+
         if (!displayObject.isCreated) {
             displayObject.createChildren();
             displayObject.isCreated = true;
         }
         displayObject.layoutChildren();
         this.$el.append(displayObject.$el);
+
         return this;
     };
+
     DOMElement.prototype.addChildAt = function (displayObject, displayIndex) {
         var children = this.$el.children();
         var length = children.length;
+
         if (displayIndex < 0 || displayIndex >= length) {
             this.addChild(displayObject);
         } else {
@@ -206,56 +233,74 @@ var DOMElement = (function (_super) {
             }
             displayObject.layoutChildren();
             jQuery(children.get(displayIndex)).before(displayObject.$el);
+
             _super.prototype.addChildAt.call(this, displayObject, displayIndex);
         }
+
         return this;
     };
+
     DOMElement.prototype.getChild = function (selector) {
         var jQueryElement = this.$el.find(selector);
+
         if (jQueryElement.length == 0) {
             throw new Error('[DOMElement] getChild("' + selector + '") Cannot find DOM $el');
         }
-        for(var index in this.children) {
+
+        for (var index in this.children) {
             var displayObject = this.children[index];
             if (jQueryElement.is(displayObject.$el)) {
                 return displayObject;
             }
         }
+
         var domElement = new DOMElement();
         domElement.$el = jQueryElement;
         domElement.el = jQueryElement[0];
         return domElement;
     };
+
     DOMElement.prototype.removeChild = function (displayObject) {
         displayObject.enabled(false);
         displayObject.$el.unbind();
         displayObject.$el.remove();
+
         _super.prototype.removeChild.call(this, displayObject);
+
         return this;
     };
+
     DOMElement.prototype.removeChildren = function () {
         _super.prototype.removeChildren.call(this);
+
         this.$el.empty();
+
         return this;
     };
+
     DOMElement.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
         } else {
         }
+
         _super.prototype.enabled.call(this, value);
     };
+
     DOMElement.prototype.invalidateLayout = function () {
         this.layoutChildren();
     };
+
     DOMElement.prototype.layoutChildren = function () {
     };
+
     DOMElement.prototype.alpha = function (number) {
         this.$el.css('opacity', number);
         return this;
     };
+
     DOMElement.prototype.visible = function (value) {
         if (value == false) {
             this._isVisible = false;
@@ -274,6 +319,7 @@ var Stage = (function (_super) {
     __extends(Stage, _super);
     function Stage(type) {
         _super.call(this, type);
+
         this._type = type;
         this.createChildren();
     }
@@ -285,17 +331,19 @@ var Stage = (function (_super) {
 var BrowserUtils = (function () {
     function BrowserUtils() {
     }
-    BrowserUtils.hasBrowserHistory = function hasBrowserHistory() {
+    BrowserUtils.hasBrowserHistory = function () {
         return !!(window.history && history.pushState);
     };
-    BrowserUtils.hasLocalStorage = function hasLocalStorage() {
+
+    BrowserUtils.hasLocalStorage = function () {
         try  {
             return ('localStorage' in window) && window.localStorage !== null;
         } catch (error) {
             return false;
         }
     };
-    BrowserUtils.hasSessionStorage = function hasSessionStorage() {
+
+    BrowserUtils.hasSessionStorage = function () {
         try  {
             return ('sessionStorage' in window) && window.sessionStorage !== null;
         } catch (error) {
@@ -310,11 +358,13 @@ var RouterController = (function () {
     RouterController.prototype.addRoute = function (pattern, handler, scope, priority) {
         crossroads.addRoute(pattern, handler.bind(scope), priority);
     };
+
     RouterController.prototype.start = function () {
         hasher.initialized.add(this.parseHash);
         hasher.changed.add(this.parseHash);
         hasher.init();
     };
+
     RouterController.prototype.parseHash = function (newHash, oldHash) {
         crossroads.parse(newHash);
     };
@@ -336,48 +386,58 @@ var BulkLoader = (function (_super) {
     function BulkLoader() {
         _super.call(this);
         this._dataStores = [];
+
         this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
     }
-    BulkLoader.getInstance = function getInstance() {
+    BulkLoader.getInstance = function () {
         if (this._instance == null) {
             this._instance = new BulkLoader();
         }
         return this._instance;
     };
+
     BulkLoader.prototype.addFile = function (dataStore, key) {
         this._dataStores[key] = dataStore;
     };
+
     BulkLoader.prototype.getFile = function (key) {
         return this._dataStores[key];
     };
+
     BulkLoader.prototype.getImage = function (key) {
         return this._dataStores[key].data;
     };
+
     BulkLoader.prototype.getHtmlTemplate = function (key, templateId) {
         var rawHtml = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
         return rawHtml;
     };
+
     BulkLoader.prototype.load = function () {
-        for(var key in this._dataStores) {
+        for (var key in this._dataStores) {
             var dataStore = this._dataStores[key];
             dataStore.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
             dataStore.load();
         }
     };
+
     BulkLoader.prototype.onLoadComplete = function (event) {
         event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete);
-        for(var key in this._dataStores) {
+
+        for (var key in this._dataStores) {
             var dataStore = this._dataStores[key];
             if (!dataStore.complete) {
                 return;
             }
         }
+
         this.dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_COMPLETE));
     };
     return BulkLoader;
 })(EventDispatcher);
 var URLRequestMethod = (function () {
-    function URLRequestMethod() { }
+    function URLRequestMethod() {
+    }
     URLRequestMethod.DELETE = "DELETE";
     URLRequestMethod.GET = "GET";
     URLRequestMethod.POST = "POST";
@@ -387,7 +447,8 @@ var URLRequestMethod = (function () {
     return URLRequestMethod;
 })();
 var URLContentType = (function () {
-    function URLContentType() { }
+    function URLContentType() {
+    }
     URLContentType.DEFAULT = "application/x-www-form-urlencoded";
     URLContentType.ATOM = "application/atom+xml";
     URLContentType.JSON = "application/json";
@@ -400,6 +461,7 @@ var URLContentType = (function () {
     URLContentType.XHTML = "application/xhtml+xml";
     URLContentType.ZIP = "application/zip";
     URLContentType.GZIP = "application/gzip";
+
     URLContentType.BASIC = "audio/basic";
     URLContentType.L24 = "audio/L24";
     URLContentType.MP4 = "audio/mp4";
@@ -424,7 +486,8 @@ var URLRequest = (function () {
     return URLRequest;
 })();
 var URLLoaderDataFormat = (function () {
-    function URLLoaderDataFormat() { }
+    function URLLoaderDataFormat() {
+    }
     URLLoaderDataFormat.XML = "xml";
     URLLoaderDataFormat.HTML = "html";
     URLLoaderDataFormat.SCRIPT = "script";
@@ -441,6 +504,7 @@ var URLLoader = (function (_super) {
         this.data = null;
         this.dataFormat = URLLoaderDataFormat.TEXT;
         this.ready = false;
+
         if (request) {
             this.load(request);
         }
@@ -448,6 +512,7 @@ var URLLoader = (function (_super) {
     URLLoader.prototype.load = function (request) {
         this.ready = false;
         var self = this;
+
         jQuery.ajax({
             type: request.method,
             url: request.url,
@@ -460,8 +525,10 @@ var URLLoader = (function (_super) {
             complete: self.onComplete.bind(this)
         });
     };
+
     URLLoader.prototype.onLoadSuccess = function () {
     };
+
     URLLoader.prototype.onBeforeSend = function () {
     };
     URLLoader.prototype.onLoadError = function () {
@@ -469,6 +536,7 @@ var URLLoader = (function (_super) {
     };
     URLLoader.prototype.onComplete = function (data) {
         this.ready = true;
+
         this.data = data.responseText;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
     };
@@ -482,6 +550,7 @@ var BaseRequest = (function (_super) {
         this._endpoint = "";
         this.data = null;
         this.complete = false;
+
         this._baseUrl = baseUrl;
         this._endpoint = endpoint;
         this.configureRequest();
@@ -489,21 +558,25 @@ var BaseRequest = (function (_super) {
     BaseRequest.prototype.configureRequest = function () {
         this._request = new URLRequest(this._baseUrl + this._endpoint);
         this._request.method = URLRequestMethod.GET;
+
         this._loader = new URLLoader();
         this._loader.addEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
         this._loader.dataFormat = URLLoaderDataFormat.HTML;
     };
+
     BaseRequest.prototype.onLoaderComplete = function (event) {
         this.complete = true;
         this.data = this._loader.data;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
+
         this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete);
         this._loader = null;
     };
+
     BaseRequest.prototype.load = function () {
-        if (this.complete) {
+        if (this.complete)
             return;
-        }
+
         this._loader.load(this._request);
     };
     return BaseRequest;
@@ -522,31 +595,44 @@ var ValueObject = (function () {
     ValueObject.prototype.toJsonString = function () {
         return JSON.stringify(this);
     };
+
     ValueObject.prototype.toJSON = function () {
         return JSON.parse(JSON.stringify(this));
     };
+
     ValueObject.prototype.clone = function () {
     };
-    ValueObject.prototype.set = function (prop, value) {
-        if (!prop) {
-            throw new Error('You must pass a argument into the set method.');
+
+    ValueObject.prototype.copy = function (data) {
+        for (var key in this) {
+            if (key !== 'id' && this.hasOwnProperty(key) && data.hasOwnProperty(key)) {
+                this[key] = data[key];
+            }
         }
+    };
+
+    ValueObject.prototype.set = function (prop, value) {
+        if (!prop)
+            throw new Error('You must pass a argument into the set method.');
+
         if (typeof (prop) === "object") {
-            for(var key in prop) {
+            for (var key in prop) {
                 this[key] = prop[key];
             }
         } else if (typeof (prop) === "string") {
             this[prop] = value;
         }
+
         console.log("Event.change, todo: make it dispatch event?");
         return this;
     };
+
     ValueObject.prototype.get = function (prop) {
-        if (!prop) {
+        if (!prop)
             return this;
-        }
         return this[prop];
     };
+
     ValueObject.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
     };
@@ -559,6 +645,7 @@ var LanguageConfigVO = (function (_super) {
         this.id = null;
         this.type = null;
         this.path = null;
+
         if (data) {
             this.update(data);
         }
@@ -579,43 +666,52 @@ var LanguageManager = (function (_super) {
         this.currentLanguage = null;
         this.data = null;
     }
-    LanguageManager.getInstance = function getInstance() {
+    LanguageManager.getInstance = function () {
         if (this._instance == null) {
             this._instance = new LanguageManager();
         }
         return this._instance;
     };
+
     LanguageManager.prototype.getLangConfigById = function (id) {
         return this._availableLanguagesDictionary[id];
     };
+
     LanguageManager.prototype.onConfigLoaded = function (event) {
         var jsonData = JSON.parse(event.target.data);
         var len = jsonData.data.length;
-        for(var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             var vo = new LanguageConfigVO(jsonData.data[i]);
             this._availableLanguagesDictionary[vo.id] = vo;
         }
+
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded);
+
         var currentLanguageVO = this.getLangConfigById(this.currentLanguage);
         this.loadLanguageData(currentLanguageVO.path);
     };
+
     LanguageManager.prototype.loadConfig = function (path) {
         this._request = new BaseRequest(path, '');
         this._request.addEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
         this._request.load();
     };
+
     LanguageManager.prototype.setLang = function (value) {
         this.currentLanguage = value;
     };
+
     LanguageManager.prototype.loadLanguageData = function (path) {
         this._request = new BaseRequest(path, '');
         this._request.addEventListener(LoaderEvent.COMPLETE, this.onLanguageDataLoad, this);
         this._request.load();
     };
+
     LanguageManager.prototype.onLanguageDataLoad = function (event) {
         this.data = JSON.parse(event.target.data);
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded);
         this._request = null;
+
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
     };
     return LanguageManager;
@@ -625,25 +721,29 @@ var LocalStorageController = (function (_super) {
     function LocalStorageController() {
         _super.call(this);
     }
-    LocalStorageController._instance = null;
-    LocalStorageController.getInstance = function getInstance() {
+    LocalStorageController.getInstance = function () {
         if (this._instance == null) {
             this._instance = new LocalStorageController();
         }
         return this._instance;
     };
+
     LocalStorageController.prototype.setItem = function (key, data) {
         localStorage.setItem(key, data);
     };
+
     LocalStorageController.prototype.getItem = function (key) {
         return localStorage.getItem(key);
     };
+
     LocalStorageController.prototype.removeItem = function (key) {
         localStorage.removeItem(key);
     };
+
     LocalStorageController.prototype.clear = function () {
         localStorage.clear();
     };
+    LocalStorageController._instance = null;
     return LocalStorageController;
 })(EventDispatcher);
 var LanguageEvent = (function (_super) {
@@ -660,40 +760,44 @@ var LanguageSelect = (function (_super) {
     __extends(LanguageSelect, _super);
     function LanguageSelect() {
         _super.call(this);
+
         var languageManagerData = LanguageManager.getInstance().data;
+
         console.log(languageManagerData);
+
         this.templateName = 'LanguageSelect';
         this._options = {};
     }
     LanguageSelect.prototype.createChildren = function () {
         Jaml.register(this.templateName, function (data) {
-            select(option({
-                value: 'en'
-            }, 'English'), option({
-                value: 'fr'
-            }, 'French'), option({
-                value: 'sp'
-            }, 'Spanish'));
+            select(option({ value: 'en' }, 'English'), option({ value: 'fr' }, 'French'), option({ value: 'sp' }, 'Spanish'));
         });
+
         _super.prototype.createChildren.call(this);
+
         this.enabled(true);
     };
+
     LanguageSelect.prototype.layoutChildren = function () {
     };
+
     LanguageSelect.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
             this.$el.on('change', this.onLanguageChange.bind(this));
         } else {
         }
+
         this.isEnabled = value;
     };
+
     LanguageSelect.prototype.onLanguageChange = function (event) {
         var languageId = $(event.currentTarget).val();
         this.dispatchEvent(new LanguageEvent(LanguageEvent.LANGUAGE_CHANGE, languageId));
     };
+
     LanguageSelect.prototype.value = function (value) {
         this.$el.val(value);
     };
@@ -704,7 +808,9 @@ var NavigationView = (function (_super) {
     function NavigationView() {
         _super.call(this);
         this._languageSelect = null;
+
         var languageManagerData = LanguageManager.getInstance().data;
+
         this.templateName = 'HeaderView';
         this._options = {
             title: languageManagerData.mainTitle,
@@ -717,43 +823,32 @@ var NavigationView = (function (_super) {
     }
     NavigationView.prototype.createChildren = function () {
         Jaml.register(this.templateName, function (data) {
-            div({
-                id: 'header'
-            }, div({
-                cls: 'background'
-            }, h1(a({
-                href: '#home',
-                html: 'DelliStore'
-            })), ul(li(a({
-                cls: 'active',
-                href: '#home'
-            }, data.link1)), li(a({
-                href: '#about/robert'
-            }, data.link2)), li(a({
-                href: '#artists/'
-            }, data.link3)), li(a({
-                href: '#reservations/'
-            }, data.link4)), li(a({
-                href: '#contact?name=robert&age=34'
-            }, data.link5)))));
+            div({ id: 'header' }, div({ cls: 'background' }, h1(a({ href: '#home', html: 'DelliStore' })), ul(li(a({ cls: 'active', href: '#home' }, data.link1)), li(a({ href: '#about/robert' }, data.link2)), li(a({ href: '#artists/' }, data.link3)), li(a({ href: '#reservations/' }, data.link4)), li(a({ href: '#contact?name=robert&age=34' }, data.link5)))));
         });
+
         _super.prototype.createChildren.call(this);
+
         this.enabled(true);
     };
+
     NavigationView.prototype.layoutChildren = function () {
     };
+
     NavigationView.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
         } else {
         }
+
         this.isEnabled = value;
     };
+
     NavigationView.prototype.onLanguageChange = function (event) {
         var ls = LocalStorageController.getInstance();
         ls.setItem('language', event.data);
+
         document.location.reload(false);
     };
     return NavigationView;
@@ -761,26 +856,33 @@ var NavigationView = (function (_super) {
 var TemplateFactory = (function () {
     function TemplateFactory() {
     }
-    TemplateFactory.createTemplate = function createTemplate(templatePath, data) {
+    TemplateFactory.createTemplate = function (templatePath, data) {
         var template = TemplateFactory.create(templatePath, data);
+
         return jQuery(template);
     };
-    TemplateFactory.createView = function createView(templatePath, data) {
+
+    TemplateFactory.createView = function (templatePath, data) {
         var template = TemplateFactory.create(templatePath, data);
+
         var view = new DOMElement();
         view.$el = jQuery(template);
         return view;
     };
-    TemplateFactory.create = function create(templatePath, data) {
+
+    TemplateFactory.create = function (templatePath, data) {
         var regex = /^([.#])(.+)/;
+
         var template;
         var isClassOrIdName = regex.test(templatePath);
+
         if (isClassOrIdName) {
             var templateMethod = _.template($(templatePath).html());
             template = templateMethod(data);
         } else {
             template = window['JST'][templatePath](data);
         }
+
         return template;
     };
     return TemplateFactory;
@@ -792,17 +894,21 @@ var FooterView = (function (_super) {
     }
     FooterView.prototype.createChildren = function () {
         this.$el = TemplateFactory.createTemplate('templates/Footer.tpl');
+
         _super.prototype.createChildren.call(this);
     };
+
     FooterView.prototype.layoutChildren = function () {
     };
+
     FooterView.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
         } else {
         }
+
         this.isEnabled = value;
     };
     return FooterView;
@@ -813,23 +919,28 @@ var HtmlLoader = (function (_super) {
         _super.call(this);
         this._urlLoader = null;
         this.complete = false;
+
         this.src = path;
+
         this._urlLoader = new URLLoader();
         this._urlLoader.addEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
         this._urlLoader.dataFormat = URLLoaderDataFormat.HTML;
     }
     HtmlLoader.prototype.load = function () {
-        if (this.complete) {
+        if (this.complete)
             return;
-        }
+
         var request = new URLRequest(this.src);
         request.method = URLRequestMethod.GET;
+
         this._urlLoader.load(request);
     };
+
     HtmlLoader.prototype.onLoaderComplete = function (event) {
         this.complete = true;
         this.data = this._urlLoader.data;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
+
         this._urlLoader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete);
         this._urlLoader = null;
     };
@@ -842,21 +953,23 @@ var HomeView = (function (_super) {
         this.TITLE = "Home View";
     }
     HomeView.prototype.createChildren = function () {
-        this.$el = TemplateFactory.createTemplate('templates/HomeBody.tpl', {
-            name: "Robert"
-        });
+        this.$el = TemplateFactory.createTemplate('templates/HomeBody.tpl', { name: "Robert" });
+
         _super.prototype.createChildren.call(this);
     };
+
     HomeView.prototype.layoutChildren = function () {
         document.title = this.TITLE;
     };
+
     HomeView.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
         } else {
         }
+
         this.isEnabled = value;
     };
     return HomeView;
@@ -872,6 +985,7 @@ var AlbumVO = (function (_super) {
         this.price = "";
         this.title = "";
         this.url = "";
+
         if (data) {
             this.update(data);
         }
@@ -898,6 +1012,7 @@ var ArtistVO = (function (_super) {
         this.url = "";
         this.image = "";
         this.albumList = [];
+
         if (data) {
             this.update(data);
         }
@@ -909,8 +1024,9 @@ var ArtistVO = (function (_super) {
         this.years = data.years;
         this.url = data.url;
         this.image = data.image;
+
         var len = data.albums.length;
-        for(var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             this.albumList.push(new AlbumVO(data.albums[i]));
         }
     };
@@ -924,77 +1040,81 @@ var ArtistsView = (function (_super) {
         this._artistVOList = [];
         this._container = null;
         this.urlLoader = null;
+
         this.templateName = "ArtistsView";
         this._options = {};
     }
     ArtistsView.prototype.createChildren = function () {
         Jaml.register(this.templateName, function (data) {
-            div({
-                id: 'bodyPan'
-            }, h1("Artists View"), div({
-                id: "dynamic-container"
-            }, "Robert is cool this is the home view"));
+            div({ id: 'bodyPan' }, h1("Artists View"), div({ id: "dynamic-container" }, "Robert is cool this is the home view"));
         });
+
         _super.prototype.createChildren.call(this);
+
         this._container = this.getChild("#dynamic-container");
     };
+
     ArtistsView.prototype.layoutChildren = function () {
         document.title = this.TITLE;
     };
+
     ArtistsView.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
         } else {
         }
+
         this.isEnabled = value;
     };
+
     ArtistsView.prototype.requestData = function () {
         var request = new URLRequest();
         request.url = "data/artist-album.json";
         request.method = URLRequestMethod.GET;
         request.contentType = "application/json";
+
         this.urlLoader = new URLLoader();
         this.urlLoader.addEventListener(LoaderEvent.COMPLETE, this.loaderCompleteHandler, this);
         this.urlLoader.dataFormat = URLLoaderDataFormat.JSON;
         this.urlLoader.load(request);
     };
+
     ArtistsView.prototype.loaderCompleteHandler = function (event) {
         console.log("loaderCompleteHandler");
         var urlLoader = event.target;
+
         var parsedData = JSON.parse(urlLoader.data);
         var len = parsedData.length;
-        for(var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++) {
             this._artistVOList.push(new ArtistVO(parsedData[i]));
         }
+
         var hasherData = hasher.getHashAsArray();
         this.update(hasherData[1], hasherData[2]);
     };
+
     ArtistsView.prototype.update = function (artist, album) {
         if (!this.urlLoader || this.urlLoader.ready == false) {
             this.requestData();
             return;
         }
+
         if (artist && !album) {
             var artistMarkup = new DOMElement();
-            artistMarkup.$el = TemplateFactory.createTemplate('templates/Albums.tpl', {
-                data: this._artistVOList[artist]
-            });
+            artistMarkup.$el = TemplateFactory.createTemplate('templates/Albums.tpl', { data: this._artistVOList[artist] });
             this._container.removeChildren();
             this._container.addChild(artistMarkup);
         } else if (artist && album) {
             var artistMarkup = new DOMElement();
-            artistMarkup.$el = TemplateFactory.createTemplate('templates/BuyAlbum.tpl', {
-                data: this._artistVOList[artist].albumList[album]
-            });
+            artistMarkup.$el = TemplateFactory.createTemplate('templates/BuyAlbum.tpl', { data: this._artistVOList[artist].albumList[album] });
             this._container.removeChildren();
             this._container.addChild(artistMarkup);
         } else {
             var artistMarkup = new DOMElement();
-            artistMarkup.$el = TemplateFactory.createTemplate('templates/Artists.tpl', {
-                data: this._artistVOList
-            });
+            artistMarkup.$el = TemplateFactory.createTemplate('templates/Artists.tpl', { data: this._artistVOList });
+
             this._container.removeChildren();
             this._container.addChild(artistMarkup);
         }
@@ -1008,21 +1128,23 @@ var ContactView = (function (_super) {
         this.TITLE = "Contact View";
     }
     ContactView.prototype.createChildren = function () {
-        this.$el = TemplateFactory.createTemplate('templates/ContactTemplate.tpl', {
-            name: "Robert"
-        });
+        this.$el = TemplateFactory.createTemplate('templates/ContactTemplate.tpl', { name: "Robert" });
+
         _super.prototype.createChildren.call(this);
     };
+
     ContactView.prototype.layoutChildren = function () {
         document.title = this.TITLE;
     };
+
     ContactView.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
         } else {
         }
+
         this.isEnabled = value;
     };
     return ContactView;
@@ -1034,21 +1156,23 @@ var AboutView = (function (_super) {
         this.TITLE = "About View";
     }
     AboutView.prototype.createChildren = function () {
-        this.$el = TemplateFactory.createTemplate('templates/AboutTemplate.tpl', {
-            name: "Robert"
-        });
+        this.$el = TemplateFactory.createTemplate('templates/AboutTemplate.tpl', { name: "Robert" });
+
         _super.prototype.createChildren.call(this);
     };
+
     AboutView.prototype.layoutChildren = function () {
         document.title = this.TITLE;
     };
+
     AboutView.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
         } else {
         }
+
         this.isEnabled = value;
     };
     return AboutView;
@@ -1063,18 +1187,23 @@ var MainView = (function (_super) {
         this._artistsView = null;
         this._contactView = null;
         this._aboutView = null;
+
         this._router = router;
     }
     MainView.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
+
         this._homeView = new HomeView();
         this._artistsView = new ArtistsView();
         this._contactView = new ContactView();
         this._aboutView = new AboutView();
+
         this.setupRoutes();
     };
+
     MainView.prototype.layoutChildren = function () {
     };
+
     MainView.prototype.setupRoutes = function () {
         this._router.addRoute("", this.homeRouterHandler, this);
         this._router.addRoute("home", this.homeRouterHandler, this);
@@ -1083,37 +1212,46 @@ var MainView = (function (_super) {
         this._router.addRoute('contact{?query}', this.contactRouterHandler, this);
         this._router.start();
     };
+
     MainView.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return this;
-        }
+
         if (value) {
         } else {
         }
+
         _super.prototype.enabled.call(this, value);
     };
+
     MainView.prototype.homeRouterHandler = function () {
         console.log("homeRouterHandler", arguments);
         this.changeViewTo(this._homeView);
     };
+
     MainView.prototype.aboutMeRouterHandler = function () {
         console.log("aboutMeRouterHandler", arguments);
         this.changeViewTo(this._aboutView);
     };
+
     MainView.prototype.artistsRouterHandler = function (artist, album) {
         console.log("artistsRouterHandler", artist, album);
+
         this.changeViewTo(this._artistsView);
         this._artistsView.update(artist, album);
     };
+
     MainView.prototype.contactRouterHandler = function () {
         console.log("contactRouterHandler", arguments);
         this.changeViewTo(this._contactView);
     };
+
     MainView.prototype.changeViewTo = function (view) {
         if (this._currentView) {
             this._currentView.enabled(false);
             this.removeChild(this._currentView);
         }
+
         this._currentView = view;
         this.addChild(this._currentView);
         this._currentView.enabled(true);
@@ -1129,41 +1267,47 @@ var WebsiteBootstrap = (function (_super) {
         this._navigationView = null;
         this._footerView = null;
         this._mainView = null;
+
         var ls = LocalStorageController.getInstance();
         var languageId = ls.getItem('language') || 'en';
+
         this._languageManager = LanguageManager.getInstance();
         this._languageManager.addEventListener(LoaderEvent.COMPLETE, this.init, this);
         this._languageManager.setLang(languageId);
         this._languageManager.loadConfig('data/languages/languages.json');
+
         this._router = new RouterController();
+
         this._request = new JsonRequest();
     }
-    WebsiteBootstrap.BASE_PATH = "images/";
     WebsiteBootstrap.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
     };
+
     WebsiteBootstrap.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+        if (value == this.isEnabled)
             return;
-        }
+
         if (value) {
         } else {
         }
+
         _super.prototype.enabled.call(this, value);
     };
+
     WebsiteBootstrap.prototype.init = function (event) {
-        this._pageContainer = new DOMElement("div", {
-            id: "page"
-        });
+        this._pageContainer = new DOMElement("div", { id: "page" });
         this.addChild(this._pageContainer);
+
         this._navigationView = new NavigationView();
         this._pageContainer.addChild(this._navigationView);
-        this._mainView = new MainView("div", {
-            id: "content"
-        }, this._router);
+
+        this._mainView = new MainView("div", { id: "content" }, this._router);
         this._pageContainer.addChild(this._mainView);
+
         this._footerView = new FooterView();
         this._pageContainer.addChild(this._footerView);
     };
+    WebsiteBootstrap.BASE_PATH = "images/";
     return WebsiteBootstrap;
 })(Stage);
