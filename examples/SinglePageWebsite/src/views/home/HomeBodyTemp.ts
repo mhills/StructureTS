@@ -1,6 +1,6 @@
-///<reference path='../../../../../src/typescript/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../../src/typescript/com/codebelt/utils/BulkLoader.ts'/>
-///<reference path='../../../../../src/typescript/com/codebelt/utils/TemplateFactory.ts'/>
+///<reference path='../../../../../src/com/codebelt/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/utils/BulkLoader.ts'/>
+///<reference path='../../../../../src/com/codebelt/utils/TemplateFactory.ts'/>
 
 
 class HomeBodyTemp extends DOMElement

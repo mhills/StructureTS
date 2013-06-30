@@ -1,19 +1,19 @@
-///<reference path='../../../src/typescript/_declare/jquery.d.ts'/>
-///<reference path='../../../src/typescript/_declare/crossroads.d.ts'/>
-///<reference path='../../../src/typescript/_declare/signals.d.ts'/>
-///<reference path='../../../src/typescript/_declare/route.d.ts'/>
-///<reference path='../../../src/typescript/_declare/hasher.d.ts'/>
-///<reference path='../../../src/typescript/_declare/greensock.d.ts'/>
-///<reference path='../../../src/typescript/_declare/underscore.d.ts'/>
-///<reference path='../../../src/typescript/_declare/parse.d.ts'/>
+///<reference path='../../../src/_declare/jquery.d.ts'/>
+///<reference path='../../../src/_declare/crossroads.d.ts'/>
+///<reference path='../../../src/_declare/signals.d.ts'/>
+///<reference path='../../../src/_declare/route.d.ts'/>
+///<reference path='../../../src/_declare/hasher.d.ts'/>
+///<reference path='../../../src/_declare/greensock.d.ts'/>
+///<reference path='../../../src/_declare/underscore.d.ts'/>
+///<reference path='../../../src/_declare/parse.d.ts'/>
 
-///<reference path='../../../src/typescript/com/codebelt/display/Stage.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/controller/RouterController.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/utils/BulkLoader.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/requests/JsonRequest.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/utils/LanguageManager.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/controller/LocalStorageController.ts'/>
+///<reference path='../../../src/com/codebelt/display/Stage.ts'/>
+///<reference path='../../../src/com/codebelt/display/DOMElement.ts'/>
+///<reference path='../../../src/com/codebelt/controller/RouterController.ts'/>
+///<reference path='../../../src/com/codebelt/utils/BulkLoader.ts'/>
+///<reference path='../../../src/com/codebelt/requests/JsonRequest.ts'/>
+///<reference path='../../../src/com/codebelt/utils/LanguageManager.ts'/>
+///<reference path='../../../src/com/codebelt/controller/LocalStorageController.ts'/>
 
 ///<reference path='views/layout/NavigationView.ts'/>
 ///<reference path='views/layout/FooterView.ts'/>

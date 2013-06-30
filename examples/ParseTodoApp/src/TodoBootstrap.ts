@@ -1,12 +1,12 @@
-///<reference path='../../../src/typescript/_declare/jquery.d.ts'/>
-///<reference path='../../../src/typescript/_declare/underscore.d.ts'/>
-///<reference path='../../../src/typescript/_declare/parse.d.ts'/>
+///<reference path='../../../src/_declare/jquery.d.ts'/>
+///<reference path='../../../src/_declare/underscore.d.ts'/>
+///<reference path='../../../src/_declare/parse.d.ts'/>
 ///<reference path='_declare/backbone.d.ts'/>
 
-///<reference path='../../../src/typescript/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/display/Stage.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/events/MouseEventType.ts'/>
-///<reference path='../../../src/typescript/com/codebelt/utils/TemplateFactory.ts'/>
+///<reference path='../../../src/com/codebelt/display/DOMElement.ts'/>
+///<reference path='../../../src/com/codebelt/display/Stage.ts'/>
+///<reference path='../../../src/com/codebelt/events/MouseEventType.ts'/>
+///<reference path='../../../src/com/codebelt/utils/TemplateFactory.ts'/>
 ///<reference path='event/ListItemEvent.ts'/>
 ///<reference path='model/AppModel.ts'/>
 

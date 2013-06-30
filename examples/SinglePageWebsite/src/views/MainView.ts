@@ -1,6 +1,6 @@
-///<reference path='../../../../src/typescript/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../src/typescript/com/codebelt/controller/RouterController.ts'/>
-///<reference path='../../../../src/typescript/com/codebelt/utils/HtmlLoader.ts'/>
+///<reference path='../../../../src/com/codebelt/display/DOMElement.ts'/>
+///<reference path='../../../../src/com/codebelt/controller/RouterController.ts'/>
+///<reference path='../../../../src/com/codebelt/utils/HtmlLoader.ts'/>
 
 ///<reference path='home/HomeView.ts'/>
 ///<reference path='artists/ArtistsView.ts'/>
