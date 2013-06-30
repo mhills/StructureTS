@@ -22,13 +22,17 @@
             <div>
                 <h2>Incomplete Tasks</h2>
                 <ul id="js-incomplete-items" class="incomplete-items">
-                    <li id="js-none-message" class="no-incomplete-message">There are no incomplete tasks! Consider adding one above.</li>
+
                 </ul>
             </div>
         </div>
 
-        <script id="todo-items-template" type="text/template">
+        <script id="todoItemsTemplate" type="text/template">
             <li class="list-item"><input type="checkbox" data-id="<%= id %>"><%= content %></li>
+        </script>
+
+        <script id="noTodoItemsTemplate" type="text/template">
+            <li class="no-incomplete-message">There are no incomplete tasks! Consider adding one above.</li>
         </script>
 
         <script type="text/javascript">

@@ -23,9 +23,7 @@ class TodoBootstrap extends Stage
     private _submitBtn:DOMElement;
     private _noTasksMessage:DOMElement;
     private _incompleteItemList:DOMElement;
-    private _completeItemList:DOMElement;
     private _input:DOMElement;
-    private _$selectedItem:JQuery;
 
     constructor()
     {
@@ -44,11 +42,13 @@ class TodoBootstrap extends Stage
 
         this._appModel = new AppModel();
 
-        this._submitBtn = this.getChild('#js-submit-button');
-        this._noTasksMessage = this.getChild('#js-none-message');
-        this._incompleteItemList = this.getChild('#js-incomplete-items');
         this._input = this.getChild('#js-todo-input');
-        this._completeItemList = this.getChild('#js-submit-button');
+        this._submitBtn = this.getChild('#js-submit-button');
+
+        this._noTasksMessage = TemplateFactory.createView('#noTodoItemsTemplate');
+
+        this._incompleteItemList = this.getChild('#js-incomplete-items');
+        this._incompleteItemList.addChild(this._noTasksMessage);
 
         this.updateItemList();
     }
@@ -93,22 +93,21 @@ class TodoBootstrap extends Stage
 
     private onTodoSelected(event:JQueryEventObject):void
     {
-        this._$selectedItem = $(event.currentTarget);
+        var $element:JQuery = $(event.currentTarget);
 
-        var id:string = this._$selectedItem.children('input').data('id');
+        var cid:number = $element.data('cid');
+        var domElement:DOMElement = this._incompleteItemList.getChild(cid);
+        var id:string = domElement.$el.children('input').data('id');
+
         this._appModel.markItemComplete(id);
+        this._incompleteItemList.removeChild(domElement);
     }
 
     private onRemoveItemSuccess(event:ListItemEvent):void
     {
-        var removedListItem:ListItemVO = event.data;
-        console.log("onRemoveItemSuccess", event)
-        this._$selectedItem.remove();//TODO: what if item was a DOMElement is still a child of this view. Need a way to remove it. Maybe like backbones cid.
-        this._$selectedItem = null;
-
-//        if (incompleteItemList.all('li').size() >= 1) {
-//            noTasksMessage.removeClass('hidden');
-//        }
+        if (this._incompleteItemList.numChildren <= 0) {
+            this._incompleteItemList.addChild(this._noTasksMessage);
+        }
     }
 
     private onAddItemSuccess(event:ListItemEvent):void
@@ -144,14 +143,12 @@ class TodoBootstrap extends Stage
     {
         var listItems:ListItemVO[] = event.data;
 
-        this._incompleteItemList.removeChildren();
-
         if (listItems.length > 0) {
-            this._noTasksMessage.$el.addClass('hidden');
+            this._incompleteItemList.removeChildren();
         }
 
         _.each(listItems, function(item) {
-            var view:DOMElement = TemplateFactory.createView('#todo-items-template', {
+            var view:DOMElement = TemplateFactory.createView('#todoItemsTemplate', {
                 id: item.id,
                 content: item.content,
                 isComplete: item.isComplete

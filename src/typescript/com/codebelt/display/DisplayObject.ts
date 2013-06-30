@@ -15,7 +15,7 @@ class DisplayObject extends EventDispatcher
     public name:string = null;
     public isEnabled:boolean = false;
     public isCreated:boolean = false;
-//    public numChildren:number = 0;//TODO: Figure out nice way to manage StructureTS children and actual dom children.
+    public numChildren:number = 0;
     public children:DisplayObject[] = [];
 
     constructor()
@@ -36,6 +36,7 @@ class DisplayObject extends EventDispatcher
         }
 
         this.children.unshift(displayObject);
+        this.numChildren = this.children.length;
 
         displayObject.parent = this;
 
@@ -51,6 +52,8 @@ class DisplayObject extends EventDispatcher
         displayObject.enabled(false);
         displayObject.parent = null;
 
+        this.numChildren = this.children.length;
+
         return this;
     }
 
@@ -59,6 +62,9 @@ class DisplayObject extends EventDispatcher
         while (this.children.length > 0) {
             this.removeChild( <DisplayObject>this.children.pop() );
         }
+
+        this.numChildren = this.children.length;
+
         return this;
     }
 
@@ -68,12 +74,15 @@ class DisplayObject extends EventDispatcher
         // All siblings need to be DisplayObjects but there could be a case where the parent doesn't have all dom children.
         this.children.unshift(displayObject);//Temp fix.
 
+        this.numChildren = this.children.length;
+
         return this;
     }
 
     public getChild(displayObject:any):DisplayObject
     {
         var index = this.children.indexOf(displayObject);
+        // TODO: throw error in displayObject is not found.
         return this.children[index];
     }
 

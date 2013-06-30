@@ -14,12 +14,16 @@ class EventDispatcher
 {
     public CLASS_NAME:string = 'EventDispatcher';
 
-    private _listeners:any[] = [];
+    private _listeners:any[];
+
+    public cid:number;
 
     public parent:any = null;
 
     constructor()
     {
+        this._listeners = [];
+        this.cid = _.uniqueId();
     }
 
     /**

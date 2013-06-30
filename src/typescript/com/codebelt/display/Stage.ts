@@ -2,27 +2,14 @@
 
 class Stage extends DOMElement
 {
-    private _type:string;
-
     public template:any;
 
-    constructor(type?:string)
+    constructor(type:string)
     {
-        super(type);
+        super();
 
-        this._type = type;//TODO: change how this class works.
+        this.$el = jQuery(type);
         this.createChildren();
-    }
-
-    /**
-     *
-     * @method createChildren
-     * @override
-     * @public
-     */
-    public createChildren():void
-    {
-        this.$el = jQuery(this._type);
     }
 
 }
