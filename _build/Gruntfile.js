@@ -3,21 +3,34 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
 
-        //Read the package.json (optional)
+        // This will load in our package.json file so we can have access
+        // to the project name and version number.
         pkg: grunt.file.readJSON('package.json'),
 
-        // Metadata.
-        meta: {
-            basePath: '../',
-            srcPath: '../src/',
-            deployPath: '../deploy/',
-            examplePath: '../examples/',
-            filmPath: '../../src/scripts/'
-        },
 
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-            '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-            '* Copyright (c) <%= grunt.template.today("yyyy") %> ',
+        // Constants for the Gruntfile so we can easily change the path for
+        // our environments.
+        BASE_PATH: '../',
+        DEVELOPMENT_PATH: '../dev/',
+        PRODUCTION_PATH: '../prod/',
+        EXAMPLE_PATH: '../examples/',
+        WINDOW_FILM_PATH: '../../src/scripts/',
+        SRC_PATH: '../src/',
+        DEPLOY_PATH: '../deploy/',
+
+
+        // A code block that will be added to all our minified code files.
+        // Gets the name and version from the above loaded 'package.json' file.
+        // To use: '<%= banner.join("\\n") %>'
+        banner: [
+            '/*',
+            '* Project: <%= pkg.name %>',
+            '* Version: <%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd") %>)',
+            '* Development By: <%= pkg.developedBy %>',
+            '* Copyright(c): <%= grunt.template.today("yyyy") %>',
+            '*/'
+        ],
+
 
         // Task configuration.
         concat: {
@@ -27,11 +40,11 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    '<%= meta.examplePath %>SinglePageWebsite/styles/styles.min.css': [
-                        '<%= meta.examplePath %>SinglePageWebsite/styles/gallery.css',
-                        '<%= meta.examplePath %>SinglePageWebsite/styles/shadows.css',
-                        '<%= meta.examplePath %>SinglePageWebsite/styles/buttons.css',
-                        '<%= meta.examplePath %>SinglePageWebsite/styles/style.css'
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/styles.min.css': [
+                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/gallery.css',
+                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/shadows.css',
+                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/buttons.css',
+                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/style.css'
                     ]
                 }
             }
@@ -40,27 +53,21 @@ module.exports = function(grunt) {
         cssmin: {
             compress: {
                 files: {
-                    '<%= meta.examplePath %>SinglePageWebsite/styles/styles.min.css': [
-//                        '<%= meta.srcPath %>styles/gallery.css',
-//                        '<%= meta.srcPath %>styles/shadows.css',
-//                        '<%= meta.srcPath %>styles/buttons.css',
-//                        '<%= meta.srcPath %>styles/style.css',
-                        '<%= meta.examplePath %>SinglePageWebsite/styles/dellistore.css'
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/styles.min.css': [
+//                        '<%= SRC_PATH %>styles/gallery.css',
+//                        '<%= SRC_PATH %>styles/shadows.css',
+//                        '<%= SRC_PATH %>styles/buttons.css',
+//                        '<%= SRC_PATH %>styles/style.css',
+                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/dellistore.css'
                     ]
                 }
             }
         },
 
-        ts: {
-            base: {
-                src: ['<%= meta.examplePath %>SinglePageWebsite/src/**/*.ts']
-            }
-        },
-
         typescript: {
             website: {
-                src: ['<%= meta.examplePath %>SinglePageWebsite/src/WebsiteApp.ts'],
-                dest: '<%= meta.examplePath %>SinglePageWebsite/scripts/app.js',
+                src: ['<%= EXAMPLE_PATH %>SinglePageWebsite/src/WebsiteApp.ts'],
+                dest: '<%= EXAMPLE_PATH %>SinglePageWebsite/scripts/app.js',
                 options: {
                     target: 'es3', //or es5
                     base_path: '',
@@ -69,8 +76,8 @@ module.exports = function(grunt) {
                 }
             },
             todo: {
-                src: ['<%= meta.examplePath %>ParseTodoApp/src/TodoApp.ts'],
-                dest: '<%= meta.examplePath %>ParseTodoApp/scripts/todo.js',
+                src: ['<%= EXAMPLE_PATH %>ParseTodoApp/src/TodoApp.ts'],
+                dest: '<%= EXAMPLE_PATH %>ParseTodoApp/scripts/todo.js',
                 options: {
                     target: 'es3', //or es3
                     base_path: '',
@@ -79,8 +86,8 @@ module.exports = function(grunt) {
                 }
             },
             film: {
-                src: ['<%= meta.examplePath %>WindowFilm/dev/WindowFilmApp.ts'],
-                dest: '<%= meta.examplePath %>WindowFilm/prod/film.js',
+                src: ['<%= EXAMPLE_PATH %>WindowFilm/dev/WindowFilmApp.ts'],
+                dest: '<%= EXAMPLE_PATH %>WindowFilm/prod/film.js',
                 options: {
                     target: 'es3', //or es3
                     base_path: '',
@@ -105,22 +112,8 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "<%= meta.examplePath %>SinglePageWebsite/scripts/templates.js": ["<%= meta.examplePath %>SinglePageWebsite/templates/*.tpl"]
+                    "<%= EXAMPLE_PATH %>SinglePageWebsite/scripts/templates.js": ["<%= EXAMPLE_PATH %>SinglePageWebsite/templates/*.tpl"]
                 }
-            }
-        },
-
-        replace: {
-            dist: {
-                options: {
-                    variables: {
-                        'timestamp': '<%= grunt.template.today() %>',
-                        'version': '<%= pkg.version %>'
-                    }
-                },
-                files: [
-                    {expand: true, flatten: true, src: ['<%= meta.srcPath %>offline/offline.manifest'], dest: '<%= meta.deployPath %>offline/'}
-                ]
             }
         },
 
@@ -129,7 +122,7 @@ module.exports = function(grunt) {
                 force: false
             },
             build: {
-                src: ['<%= meta.deployPath %>templates.js']
+                src: ['<%= DEPLOY_PATH %>templates.js']
             }
         },
 
@@ -139,9 +132,9 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    '<%= meta.deployPath %>scripts/app.min.js': [
-                                                                    '<%= meta.deployPath %>templates.js',
-                                                                    '<%= meta.deployPath %>scripts/app.min.js'
+                    '<%= DEPLOY_PATH %>scripts/app.min.js': [
+                                                                    '<%= DEPLOY_PATH %>templates.js',
+                                                                    '<%= DEPLOY_PATH %>scripts/app.min.js'
                                                                 ]
                 }
             }
@@ -154,8 +147,8 @@ module.exports = function(grunt) {
                 version: '<%= pkg.version %>',
                 url: '<%= pkg.homepage %>',
                 options: {
-                    paths: '<%= meta.srcPath %>' + 'typescript/',
-                    outdir: '<%= meta.basePath %>' + 'docs/'
+                    paths: '<%= SRC_PATH %>' + 'typescript/',
+                    outdir: '<%= BASE_PATH %>' + 'docs/'
                 }
             }
         },
@@ -163,10 +156,10 @@ module.exports = function(grunt) {
         watch: {
             website: {
                 files: [
-                    '<%= meta.examplePath %>SinglePageWebsite/src/**/*.ts',
-                    '<%= meta.examplePath %>SinglePageWebsite/styles/**/*.css',
-                    '<%= meta.basePath %>**/*.tpl',
-                    '<%= meta.examplePath %>SinglePageWebsite/index.html'
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/src/**/*.ts',
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/**/*.css',
+                    '<%= BASE_PATH %>**/*.tpl',
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/index.html'
                 ],
                 tasks: ['website'],
                 options: {
@@ -175,7 +168,7 @@ module.exports = function(grunt) {
             },
             todo: {
                 files: [
-                    '<%= meta.basePath %>**/*.ts',
+                    '<%= BASE_PATH %>**/*.ts',
                 ],
                 tasks: ['todo'],
                 options: {
@@ -189,7 +182,6 @@ module.exports = function(grunt) {
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -200,9 +192,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-typescript');
 
     // Default task.
-    grunt.registerTask('default', ['cssmin', 'type:website', 'jst']);
-    grunt.registerTask('website', ['type:website']);
-    grunt.registerTask('todo', ['type:todo']);
-    grunt.registerTask('film', ['type:film']);
+    grunt.registerTask('default', ['cssmin', 'typescript:website', 'jst']);
+    grunt.registerTask('website', ['typescript:website']);
+    grunt.registerTask('todo', ['typescript:todo']);
+    grunt.registerTask('film', ['typescript:film']);
 
 };

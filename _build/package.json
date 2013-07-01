@@ -1,11 +1,11 @@
 {
-    "name": "Structure-Project",
+    "name": "StructureTS-Project",
     "version": "0.1.0",
-    "description": "This is the description.",
-    "url": "http://www.test.com",
+    "description": "This is a framework for TypeScript.",
+    "url": "http://www.codebelt.com",
+    "developedBy": "codeBelt",
     "devDependencies": {
         "grunt": "~0.4.1",
-        "grunt-replace": "~0.4.0",
         "grunt-usemin": "~0.1.10",
         "grunt-contrib-jst": "~0.5.0",
         "grunt-contrib-watch": "~0.3.1",
