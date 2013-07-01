@@ -1281,9 +1281,9 @@ var MainView = (function (_super) {
     };
     return MainView;
 })(DOMElement);
-var WebsiteBootstrap = (function (_super) {
-    __extends(WebsiteBootstrap, _super);
-    function WebsiteBootstrap() {
+var WebsiteApp = (function (_super) {
+    __extends(WebsiteApp, _super);
+    function WebsiteApp() {
         _super.call(this, 'body');
         this._router = null;
         this._pageContainer = null;
@@ -1303,11 +1303,11 @@ var WebsiteBootstrap = (function (_super) {
 
         this._request = new JsonRequest();
     }
-    WebsiteBootstrap.prototype.createChildren = function () {
+    WebsiteApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
     };
 
-    WebsiteBootstrap.prototype.enabled = function (value) {
+    WebsiteApp.prototype.enabled = function (value) {
         if (value == this.isEnabled)
             return;
 
@@ -1318,7 +1318,7 @@ var WebsiteBootstrap = (function (_super) {
         _super.prototype.enabled.call(this, value);
     };
 
-    WebsiteBootstrap.prototype.init = function (event) {
+    WebsiteApp.prototype.init = function (event) {
         this._pageContainer = new DOMElement("div", { id: "page" });
         this.addChild(this._pageContainer);
 
@@ -1331,6 +1331,6 @@ var WebsiteBootstrap = (function (_super) {
         this._footerView = new FooterView();
         this._pageContainer.addChild(this._footerView);
     };
-    WebsiteBootstrap.BASE_PATH = "images/";
-    return WebsiteBootstrap;
+    WebsiteApp.BASE_PATH = "images/";
+    return WebsiteApp;
 })(Stage);

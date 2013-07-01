@@ -19,7 +19,7 @@
 ///<reference path='views/layout/FooterView.ts'/>
 ///<reference path='views/MainView.ts'/>
 
-class WebsiteBootstrap extends Stage
+class WebsiteApp extends Stage
 {
     static BASE_PATH:string = "images/";
 

@@ -57,9 +57,9 @@ module.exports = function(grunt) {
             }
         },
 
-        type: {
+        typescript: {
             website: {
-                src: ['<%= meta.examplePath %>SinglePageWebsite/src/WebsiteBootstrap.ts'],
+                src: ['<%= meta.examplePath %>SinglePageWebsite/src/WebsiteApp.ts'],
                 dest: '<%= meta.examplePath %>SinglePageWebsite/scripts/app.js',
                 options: {
                     target: 'es3', //or es5
@@ -69,7 +69,7 @@ module.exports = function(grunt) {
                 }
             },
             todo: {
-                src: ['<%= meta.examplePath %>ParseTodoApp/src/TodoBootstrap.ts'],
+                src: ['<%= meta.examplePath %>ParseTodoApp/src/TodoApp.ts'],
                 dest: '<%= meta.examplePath %>ParseTodoApp/scripts/todo.js',
                 options: {
                     target: 'es3', //or es3
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
                 }
             },
             film: {
-                src: ['<%= meta.examplePath %>WindowFilm/dev/WindowFilmBootstrap.ts'],
+                src: ['<%= meta.examplePath %>WindowFilm/dev/WindowFilmApp.ts'],
                 dest: '<%= meta.examplePath %>WindowFilm/prod/film.js',
                 options: {
                     target: 'es3', //or es3
@@ -197,7 +197,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
-    grunt.loadNpmTasks('grunt-type');
+    grunt.loadNpmTasks('grunt-typescript');
 
     // Default task.
     grunt.registerTask('default', ['cssmin', 'type:website', 'jst']);

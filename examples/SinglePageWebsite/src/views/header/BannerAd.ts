@@ -4,7 +4,7 @@
 ///<reference path='../../../../../src/com/codebelt/display/Canvas.ts'/>
 ///<reference path='../../../../../src/com/codebelt/display/Bitmap.ts'/>
 
-///<reference path='../../WebsiteBootstrap.ts'/>
+///<reference path='../../WebsiteApp.ts'/>
 
 class BannerAd extends DOMElement {
 
@@ -47,10 +47,10 @@ class BannerAd extends DOMElement {
     {
         this._bulkLoader = BulkLoader.getInstance();
         this._bulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.onLoadComplete, this);
-        this._bulkLoader.addFile(new ImageLoader(WebsiteBootstrap.BASE_PATH + "cherry.png"), "cherry");
-        this._bulkLoader.addFile(new ImageLoader(WebsiteBootstrap.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
-        this._bulkLoader.addFile(new ImageLoader(WebsiteBootstrap.BASE_PATH + "logo.png"), "logo");
-        this._bulkLoader.addFile(new ImageLoader(WebsiteBootstrap.BASE_PATH + "box.png"), "box");
+        this._bulkLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "cherry.png"), "cherry");
+        this._bulkLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
+        this._bulkLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "logo.png"), "logo");
+        this._bulkLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "box.png"), "box");
         this._bulkLoader.load();
     }
 

@@ -575,12 +575,12 @@ var AppModel = (function (_super) {
     };
     return AppModel;
 })(EventDispatcher);
-var TodoBootstrap = (function (_super) {
-    __extends(TodoBootstrap, _super);
-    function TodoBootstrap() {
+var TodoApp = (function (_super) {
+    __extends(TodoApp, _super);
+    function TodoApp() {
         _super.call(this, '.js-todo');
     }
-    TodoBootstrap.prototype.createChildren = function () {
+    TodoApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
 
         this._appModel = new AppModel();
@@ -596,7 +596,7 @@ var TodoBootstrap = (function (_super) {
         this.updateItemList();
     };
 
-    TodoBootstrap.prototype.enabled = function (value) {
+    TodoApp.prototype.enabled = function (value) {
         var _this = this;
         if (value == this.isEnabled)
             return;
@@ -625,13 +625,13 @@ var TodoBootstrap = (function (_super) {
         _super.prototype.enabled.call(this, value);
     };
 
-    TodoBootstrap.prototype.onSubmitButton = function (event) {
+    TodoApp.prototype.onSubmitButton = function (event) {
         var text = this._input.$el.val();
 
         this._appModel.addListItem(text);
     };
 
-    TodoBootstrap.prototype.onTodoSelected = function (event) {
+    TodoApp.prototype.onTodoSelected = function (event) {
         var $element = $(event.currentTarget);
 
         var cid = $element.data('cid');
@@ -642,23 +642,23 @@ var TodoBootstrap = (function (_super) {
         this._incompleteItemList.removeChild(domElement);
     };
 
-    TodoBootstrap.prototype.onRemoveItemSuccess = function (event) {
+    TodoApp.prototype.onRemoveItemSuccess = function (event) {
         if (this._incompleteItemList.numChildren <= 0) {
             this._incompleteItemList.addChild(this._noTasksMessage);
         }
     };
 
-    TodoBootstrap.prototype.onAddItemSuccess = function (event) {
+    TodoApp.prototype.onAddItemSuccess = function (event) {
         this._input.$el.val('').focus();
 
         this.updateItemList();
     };
 
-    TodoBootstrap.prototype.updateItemList = function () {
+    TodoApp.prototype.updateItemList = function () {
         this._appModel.getListItems();
     };
 
-    TodoBootstrap.prototype.onListRecieved = function (event) {
+    TodoApp.prototype.onListRecieved = function (event) {
         var listItems = event.data;
 
         if (listItems.length > 0) {
@@ -675,5 +675,5 @@ var TodoBootstrap = (function (_super) {
             this._incompleteItemList.addChild(view);
         }.bind(this));
     };
-    return TodoBootstrap;
+    return TodoApp;
 })(Stage);

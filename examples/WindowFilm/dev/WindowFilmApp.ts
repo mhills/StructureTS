@@ -7,7 +7,7 @@
 ///<reference path='../../../src/com/codebelt/events/RequestEvent.ts'/>
 ///<reference path='../../../src/com/codebelt/utils/TemplateFactory.ts'/>
 
-class WindowFilmBootstrap extends Stage
+class WindowFilmApp extends Stage
 {
     public static BASE_PATH:string = 'images/';
 

@@ -12,11 +12,11 @@
 
 /**
  *
- * @class TodoBootstrap
+ * @class TodoApp
  * @extends Stage
  * @constructor
  **/
-class TodoBootstrap extends Stage
+class TodoApp extends Stage
 {
     private _appModel:AppModel;
 
