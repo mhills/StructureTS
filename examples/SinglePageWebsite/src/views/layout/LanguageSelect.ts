@@ -15,15 +15,6 @@ class LanguageSelect extends DOMElement {
 
     public createChildren():void
     {
-//        Jaml.register(this.templateName, function(data)
-//        {
-//            select(
-//                option({value: 'en'}, 'English'),
-//                option({value: 'fr'}, 'French'),
-//                option({value: 'sp'}, 'Spanish')
-//            )
-//        });
-
         super.createChildren(function(data)
         {
             select(
