@@ -27,7 +27,6 @@ class SelectBoxTemp extends DOMElement {
                 option({value: 'sp'}, 'Spanish')
             )
         });
-
     }
 
 }

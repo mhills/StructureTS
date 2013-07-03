@@ -117,7 +117,7 @@ module.exports = function(grunt) {
         jst: {
             compile: {
                 options: {
-                    //namespace: "templates",                 //Default: 'JST'
+                    namespace: "TEMPLATES",                 //Default: 'JST'
                     prettify: false,                        //Default: false|true
                     amdWrapper: false,                      //Default: false|true
                     templateSettings: {
@@ -205,28 +205,25 @@ module.exports = function(grunt) {
                     '<%= BASE_PATH %>**/*.tpl',
                     '<%= EXAMPLE_PATH %>SinglePageWebsite/index.html'
                 ],
-                tasks: ['website'],
-                options: {
-                    nospawn: false
-                }
+                tasks: ['website']
             },
             todo: {
                 files: [
                     '<%= BASE_PATH %>**/*.ts',
                 ],
-                tasks: ['todo'],
-                options: {
-                    nospawn: false
-                }
+                tasks: ['todo']
             },
             film: {
                 files: [
                     '<%= EXAMPLE_PATH %>WindowFilm/dev/**/*.ts'
                 ],
-                tasks: ['film'],
-                options: {
-                    nospawn: true
-                }
+                tasks: ['film']
+            },
+            temp: {
+                files: [
+                    '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/typescript.js'
+                ],
+                tasks: ['temp']
             }
         }
 
@@ -251,6 +248,7 @@ module.exports = function(grunt) {
     grunt.registerTask('todo', ['typescript:todo']);
     grunt.registerTask('filmprod', ['typescript:film', 'jst:film', 'json:film', 'concat']);
     grunt.registerTask('film', ['typescript:film', 'concat']);
+    grunt.registerTask('temp', ['concat']);
     grunt.registerTask('all', ['website', 'todo', 'film']);
 
 };

@@ -191,6 +191,54 @@ var DisplayObject = (function (_super) {
     };
     return DisplayObject;
 })(EventDispatcher);
+var TemplateFactory = (function () {
+    function TemplateFactory() {
+    }
+    TemplateFactory.createTemplate = function (templatePath, data) {
+        var template = TemplateFactory.create(templatePath, data);
+
+        return jQuery(template);
+    };
+
+    TemplateFactory.createView = function (templatePath, data) {
+        var template = TemplateFactory.create(templatePath, data);
+
+        var view = new DOMElement();
+        view.$el = jQuery(template);
+        return view;
+    };
+
+    TemplateFactory.create = function (templatePath, data) {
+        var regex = /^([.#])(.+)/;
+        var template;
+        var isClassOrIdName = regex.test(templatePath);
+
+        if (isClassOrIdName) {
+            var templateMethod = _.template($(templatePath).html());
+            template = templateMethod(data);
+        } else {
+            var templateObj = window[TemplateFactory.templateNamespace];
+            if (!templateObj) {
+                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
+            }
+
+            var templateFunction = templateObj[templatePath];
+            if (!templateFunction) {
+                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+            }
+
+            template = templateFunction(data);
+        }
+
+        if (!template) {
+            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+        }
+
+        return template;
+    };
+    TemplateFactory.templateNamespace = 'TEMPLATES';
+    return TemplateFactory;
+})();
 var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
@@ -207,10 +255,12 @@ var DOMElement = (function (_super) {
         this._node = type;
         this._options = params;
     }
-    DOMElement.prototype.createChildren = function (jaml) {
-        if (jaml) {
-            Jaml.register(this.CLASS_NAME, jaml);
+    DOMElement.prototype.createChildren = function (template) {
+        if (typeof template === 'function') {
+            Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
+        } else if (typeof template === 'string') {
+            this.$el = TemplateFactory.createTemplate(template);
         } else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);
         }
@@ -381,45 +431,6 @@ var RequestEvent = (function (_super) {
     RequestEvent.ERROR = "RequestEvent.error";
     return RequestEvent;
 })(BaseEvent);
-var TemplateFactory = (function () {
-    function TemplateFactory() {
-    }
-    TemplateFactory.createTemplate = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        return jQuery(template);
-    };
-
-    TemplateFactory.createView = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        var view = new DOMElement();
-        view.$el = jQuery(template);
-        return view;
-    };
-
-    TemplateFactory.create = function (templatePath, data) {
-        var regex = /^([.#])(.+)/;
-
-        var template;
-        var isClassOrIdName = regex.test(templatePath);
-
-        if (isClassOrIdName) {
-            var templateMethod = _.template($(templatePath).html());
-            template = templateMethod(data);
-        } else {
-            if (!window[TemplateFactory.templateNamespace]) {
-                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
-            }
-
-            template = window[TemplateFactory.templateNamespace][templatePath](data);
-        }
-
-        return template;
-    };
-    TemplateFactory.templateNamespace = 'TEMPLATES';
-    return TemplateFactory;
-})();
 var TopNavigationView = (function (_super) {
     __extends(TopNavigationView, _super);
     function TopNavigationView() {
@@ -427,8 +438,7 @@ var TopNavigationView = (function (_super) {
         this.CLASS_NAME = 'TopNavigationView';
     }
     TopNavigationView.prototype.createChildren = function () {
-        this.$el = TemplateFactory.createTemplate('templates/topbar/TopNavigationTemplate.tpl');
-        this.el = this.$el[0];
+        _super.prototype.createChildren.call(this, 'templates/topbar/TopNavigationTemplate.tpl');
     };
     return TopNavigationView;
 })(DOMElement);
@@ -459,8 +469,6 @@ var WindowFilmApp = (function (_super) {
 
         this._topBar = new TopNavigationView();
         this.addChild(this._topBar);
-
-        var did = TemplateFactory.createView('templates/topbar/TopNavigationTemplate.tpl');
 
         this._contentContainer = new DOMElement('div', { id: 'content-container' });
         this.addChild(this._contentContainer);

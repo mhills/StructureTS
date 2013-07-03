@@ -1,6 +1,6 @@
-this["JST"] = this["JST"] || {};
+this["TEMPLATES"] = this["TEMPLATES"] || {};
 
-this["JST"]["templates/AboutTemplate.tpl"] = function(obj) {
+this["TEMPLATES"]["templates/AboutTemplate.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -10,7 +10,7 @@ __p += '<div id="leftcol">\n    <div class="block">\n        <div class="block-t
 return __p
 };
 
-this["JST"]["templates/Albums.tpl"] = function(obj) {
+this["TEMPLATES"]["templates/Albums.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
@@ -47,7 +47,7 @@ __p += '\n<div class="item drop-shadow round">\n    <div class="item-image  suba
 return __p
 };
 
-this["JST"]["templates/Artists.tpl"] = function(obj) {
+this["TEMPLATES"]["templates/Artists.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
@@ -78,7 +78,7 @@ __p += '\n\n<div class="item drop-shadow round">\n    <div class="item-image">\n
 return __p
 };
 
-this["JST"]["templates/BuyAlbum.tpl"] = function(obj) {
+this["TEMPLATES"]["templates/BuyAlbum.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -100,7 +100,7 @@ __p += '<div class="item-detail">\n    <div class="item-image drop-shadow round"
 return __p
 };
 
-this["JST"]["templates/ContactTemplate.tpl"] = function(obj) {
+this["TEMPLATES"]["templates/ContactTemplate.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -110,7 +110,7 @@ __p += '<div id="leftcol">\n    <div class="block">\n        <div class="block-t
 return __p
 };
 
-this["JST"]["templates/Footer.tpl"] = function(obj) {
+this["TEMPLATES"]["templates/Footer.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -120,7 +120,7 @@ __p += '<div id="footer">\n    <p>©2009 The DelliStore. Design by <a href="http
 return __p
 };
 
-this["JST"]["templates/Header.tpl"] = function(obj) {
+this["TEMPLATES"]["templates/Header.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -130,7 +130,7 @@ __p += '<div id="header">\n    <div class="background">\n        <h1><a href="in
 return __p
 };
 
-this["JST"]["templates/HomeBody.tpl"] = function(obj) {
+this["TEMPLATES"]["templates/HomeBody.tpl"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {

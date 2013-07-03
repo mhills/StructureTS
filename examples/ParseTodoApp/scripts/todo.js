@@ -191,15 +191,63 @@ var DisplayObject = (function (_super) {
     };
     return DisplayObject;
 })(EventDispatcher);
+var TemplateFactory = (function () {
+    function TemplateFactory() {
+    }
+    TemplateFactory.createTemplate = function (templatePath, data) {
+        var template = TemplateFactory.create(templatePath, data);
+
+        return jQuery(template);
+    };
+
+    TemplateFactory.createView = function (templatePath, data) {
+        var template = TemplateFactory.create(templatePath, data);
+
+        var view = new DOMElement();
+        view.$el = jQuery(template);
+        return view;
+    };
+
+    TemplateFactory.create = function (templatePath, data) {
+        var regex = /^([.#])(.+)/;
+        var template;
+        var isClassOrIdName = regex.test(templatePath);
+
+        if (isClassOrIdName) {
+            var templateMethod = _.template($(templatePath).html());
+            template = templateMethod(data);
+        } else {
+            var templateObj = window[TemplateFactory.templateNamespace];
+            if (!templateObj) {
+                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
+            }
+
+            var templateFunction = templateObj[templatePath];
+            if (!templateFunction) {
+                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+            }
+
+            template = templateFunction(data);
+        }
+
+        if (!template) {
+            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+        }
+
+        return template;
+    };
+    TemplateFactory.templateNamespace = 'TEMPLATES';
+    return TemplateFactory;
+})();
 var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
+        if (typeof type === "undefined") { type = 'div'; }
         if (typeof params === "undefined") { params = {}; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
         this._node = null;
         this._options = {};
-        this.templateName = "DOMElement";
         this._isVisible = true;
         this.el = null;
         this.$el = null;
@@ -207,11 +255,14 @@ var DOMElement = (function (_super) {
         this._node = type;
         this._options = params;
     }
-    DOMElement.prototype.createChildren = function () {
-        if (this._node && !this.$el) {
+    DOMElement.prototype.createChildren = function (template) {
+        if (typeof template === 'function') {
+            Jaml.register(this.CLASS_NAME, template);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
+        } else if (typeof template === 'string') {
+            this.$el = TemplateFactory.createTemplate(template);
+        } else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);
-        } else if (!this._node && !this.$el) {
-            this.$el = jQuery(Jaml.render(this.templateName, this._options));
         }
 
         this.el = this.$el[0];
@@ -368,40 +419,6 @@ var MouseEventType = (function () {
 
     MouseEventType.MOUSE_UP = "mouseup";
     return MouseEventType;
-})();
-var TemplateFactory = (function () {
-    function TemplateFactory() {
-    }
-    TemplateFactory.createTemplate = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        return jQuery(template);
-    };
-
-    TemplateFactory.createView = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        var view = new DOMElement();
-        view.$el = jQuery(template);
-        return view;
-    };
-
-    TemplateFactory.create = function (templatePath, data) {
-        var regex = /^([.#])(.+)/;
-
-        var template;
-        var isClassOrIdName = regex.test(templatePath);
-
-        if (isClassOrIdName) {
-            var templateMethod = _.template($(templatePath).html());
-            template = templateMethod(data);
-        } else {
-            template = window['JST'][templatePath](data);
-        }
-
-        return template;
-    };
-    return TemplateFactory;
 })();
 var ListItemEvent = (function (_super) {
     __extends(ListItemEvent, _super);

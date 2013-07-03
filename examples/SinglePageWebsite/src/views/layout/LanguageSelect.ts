@@ -4,22 +4,27 @@
 
 class LanguageSelect extends DOMElement {
 
+    public CLASS_NAME:string = 'LanguageSelect';
+
     constructor()
     {
         super();
 
         var languageManagerData = LanguageManager.getInstance().data;
-
-        console.log(languageManagerData)
-
-        this.templateName = 'LanguageSelect';
-        this._options = {
-        }
     }
 
     public createChildren():void
     {
-        Jaml.register(this.templateName, function(data)
+//        Jaml.register(this.templateName, function(data)
+//        {
+//            select(
+//                option({value: 'en'}, 'English'),
+//                option({value: 'fr'}, 'French'),
+//                option({value: 'sp'}, 'Spanish')
+//            )
+//        });
+
+        super.createChildren(function(data)
         {
             select(
                 option({value: 'en'}, 'English'),
@@ -27,8 +32,6 @@ class LanguageSelect extends DOMElement {
                 option({value: 'sp'}, 'Spanish')
             )
         });
-
-        super.createChildren();
 
         this.enabled(true);
     }

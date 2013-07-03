@@ -29,26 +29,19 @@ class WindowFilmApp extends Stage
         this._topBar = new TopNavigationView();//({controller: this.appController});
         this.addChild(this._topBar);
 
-        //TODO: Ask someone if this is understandable.
-        var did:DOMElement = TemplateFactory.createView('templates/topbar/TopNavigationTemplate.tpl')
-//        this.addChild(did);
-
         this._contentContainer = new DOMElement('div', {id: 'content-container'});
         this.addChild(this._contentContainer);
 
         this._selectBoxTemp = new SelectBoxTemp();
         this._contentContainer.addChild(this._selectBoxTemp);
+
     }
 
     public enabled(value:boolean):void {
         if (value == this.isEnabled) return;
 
         if (value) {
-//            this._submitBtn.el.addEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
-//            this._incompleteItemList.$el.on(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this) );
         } else {
-//            this._submitBtn.el.removeEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
-//            this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
         }
 
         this._topBar.enabled(value);

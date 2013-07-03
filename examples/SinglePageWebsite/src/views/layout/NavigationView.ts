@@ -7,6 +7,8 @@
 
 class NavigationView extends DOMElement
 {
+    public CLASS_NAME:string = 'NavigationView';
+
     private _languageSelect:LanguageSelect = null;
 
     constructor()
@@ -15,7 +17,6 @@ class NavigationView extends DOMElement
 
         var languageManagerData = LanguageManager.getInstance().data;
 
-        this.templateName = 'HeaderView';
         this._options = {
             title: languageManagerData.mainTitle,
             link1: languageManagerData.mainNavigation.home,
@@ -28,7 +29,7 @@ class NavigationView extends DOMElement
 
     public createChildren():void
     {
-        Jaml.register(this.templateName, function(data)
+        super.createChildren(function(data)
         {
             div({id: 'header'},
                 div({cls: 'background'},
@@ -45,8 +46,6 @@ class NavigationView extends DOMElement
                 )
             )
         });
-
-        super.createChildren();
 
 //        this._languageSelect = new LanguageSelect();
 //        this.addChildAt(this._languageSelect, 0);

@@ -26,7 +26,6 @@ class TemplateFactory {
     {
         //Checks the first charactor to see if it is a "." or "#".
         var regex = /^([.#])(.+)/;
-
         var template:string;
         var isClassOrIdName:boolean = regex.test(templatePath);
 
@@ -34,12 +33,23 @@ class TemplateFactory {
             var templateMethod:Function = _.template( $(templatePath).html() );
             template = templateMethod(data);
         } else {
-            if (!window[TemplateFactory.templateNamespace]) {
+            var templateObj:Object = window[TemplateFactory.templateNamespace];
+            if (!templateObj) {
                 throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
             }
+
+            var templateFunction:Function = templateObj[templatePath];
+            if (!templateFunction) {
+                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+            }
+
             //The templatePath gets a function storage in the associative array.
             //we call the function by passing in the data as the argument.
-            template = window[TemplateFactory.templateNamespace][templatePath](data);
+            template = templateFunction(data);
+        }
+
+        if (!template) {
+            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
         }
 
         return template;

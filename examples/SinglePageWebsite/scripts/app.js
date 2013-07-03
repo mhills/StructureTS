@@ -191,15 +191,63 @@ var DisplayObject = (function (_super) {
     };
     return DisplayObject;
 })(EventDispatcher);
+var TemplateFactory = (function () {
+    function TemplateFactory() {
+    }
+    TemplateFactory.createTemplate = function (templatePath, data) {
+        var template = TemplateFactory.create(templatePath, data);
+
+        return jQuery(template);
+    };
+
+    TemplateFactory.createView = function (templatePath, data) {
+        var template = TemplateFactory.create(templatePath, data);
+
+        var view = new DOMElement();
+        view.$el = jQuery(template);
+        return view;
+    };
+
+    TemplateFactory.create = function (templatePath, data) {
+        var regex = /^([.#])(.+)/;
+        var template;
+        var isClassOrIdName = regex.test(templatePath);
+
+        if (isClassOrIdName) {
+            var templateMethod = _.template($(templatePath).html());
+            template = templateMethod(data);
+        } else {
+            var templateObj = window[TemplateFactory.templateNamespace];
+            if (!templateObj) {
+                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
+            }
+
+            var templateFunction = templateObj[templatePath];
+            if (!templateFunction) {
+                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+            }
+
+            template = templateFunction(data);
+        }
+
+        if (!template) {
+            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+        }
+
+        return template;
+    };
+    TemplateFactory.templateNamespace = 'TEMPLATES';
+    return TemplateFactory;
+})();
 var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
+        if (typeof type === "undefined") { type = 'div'; }
         if (typeof params === "undefined") { params = {}; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
         this._node = null;
         this._options = {};
-        this.templateName = "DOMElement";
         this._isVisible = true;
         this.el = null;
         this.$el = null;
@@ -207,11 +255,14 @@ var DOMElement = (function (_super) {
         this._node = type;
         this._options = params;
     }
-    DOMElement.prototype.createChildren = function () {
-        if (this._node && !this.$el) {
+    DOMElement.prototype.createChildren = function (template) {
+        if (typeof template === 'function') {
+            Jaml.register(this.CLASS_NAME, template);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
+        } else if (typeof template === 'string') {
+            this.$el = TemplateFactory.createTemplate(template);
+        } else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);
-        } else if (!this._node && !this.$el) {
-            this.$el = jQuery(Jaml.render(this.templateName, this._options));
         }
 
         this.el = this.$el[0];
@@ -783,20 +834,14 @@ var LanguageSelect = (function (_super) {
     __extends(LanguageSelect, _super);
     function LanguageSelect() {
         _super.call(this);
+        this.CLASS_NAME = 'LanguageSelect';
 
         var languageManagerData = LanguageManager.getInstance().data;
-
-        console.log(languageManagerData);
-
-        this.templateName = 'LanguageSelect';
-        this._options = {};
     }
     LanguageSelect.prototype.createChildren = function () {
-        Jaml.register(this.templateName, function (data) {
+        _super.prototype.createChildren.call(this, function (data) {
             select(option({ value: 'en' }, 'English'), option({ value: 'fr' }, 'French'), option({ value: 'sp' }, 'Spanish'));
         });
-
-        _super.prototype.createChildren.call(this);
 
         this.enabled(true);
     };
@@ -830,11 +875,11 @@ var NavigationView = (function (_super) {
     __extends(NavigationView, _super);
     function NavigationView() {
         _super.call(this);
+        this.CLASS_NAME = 'NavigationView';
         this._languageSelect = null;
 
         var languageManagerData = LanguageManager.getInstance().data;
 
-        this.templateName = 'HeaderView';
         this._options = {
             title: languageManagerData.mainTitle,
             link1: languageManagerData.mainNavigation.home,
@@ -845,11 +890,9 @@ var NavigationView = (function (_super) {
         };
     }
     NavigationView.prototype.createChildren = function () {
-        Jaml.register(this.templateName, function (data) {
+        _super.prototype.createChildren.call(this, function (data) {
             div({ id: 'header' }, div({ cls: 'background' }, h1(a({ href: '#home', html: 'DelliStore' })), ul(li(a({ cls: 'active', href: '#home' }, data.link1)), li(a({ href: '#about/robert' }, data.link2)), li(a({ href: '#artists/' }, data.link3)), li(a({ href: '#reservations/' }, data.link4)), li(a({ href: '#contact?name=robert&age=34' }, data.link5)))));
         });
-
-        _super.prototype.createChildren.call(this);
 
         this.enabled(true);
     };
@@ -876,40 +919,6 @@ var NavigationView = (function (_super) {
     };
     return NavigationView;
 })(DOMElement);
-var TemplateFactory = (function () {
-    function TemplateFactory() {
-    }
-    TemplateFactory.createTemplate = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        return jQuery(template);
-    };
-
-    TemplateFactory.createView = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        var view = new DOMElement();
-        view.$el = jQuery(template);
-        return view;
-    };
-
-    TemplateFactory.create = function (templatePath, data) {
-        var regex = /^([.#])(.+)/;
-
-        var template;
-        var isClassOrIdName = regex.test(templatePath);
-
-        if (isClassOrIdName) {
-            var templateMethod = _.template($(templatePath).html());
-            template = templateMethod(data);
-        } else {
-            template = window['JST'][templatePath](data);
-        }
-
-        return template;
-    };
-    return TemplateFactory;
-})();
 var FooterView = (function (_super) {
     __extends(FooterView, _super);
     function FooterView() {
@@ -1059,20 +1068,18 @@ var ArtistsView = (function (_super) {
     __extends(ArtistsView, _super);
     function ArtistsView() {
         _super.call(this);
+        this.CLASS_NAME = 'ArtistsView';
         this.TITLE = "Artists View";
         this._artistVOList = [];
         this._container = null;
         this.urlLoader = null;
 
-        this.templateName = "ArtistsView";
         this._options = {};
     }
     ArtistsView.prototype.createChildren = function () {
-        Jaml.register(this.templateName, function (data) {
+        _super.prototype.createChildren.call(this, function (data) {
             div({ id: 'bodyPan' }, h1("Artists View"), div({ id: "dynamic-container" }, "Robert is cool this is the home view"));
         });
-
-        _super.prototype.createChildren.call(this);
 
         this._container = this.getChild("#dynamic-container");
     };

@@ -1,5 +1,6 @@
 ///<reference path='../../../_declare/jaml.d.ts'/>
 ///<reference path='DisplayObject.ts'/>
+///<reference path='../utils/TemplateFactory.ts'/>
 
 class DOMElement extends DisplayObject {
 
@@ -26,11 +27,15 @@ class DOMElement extends DisplayObject {
      * @override
      * @public
      */
-    public createChildren(jaml?:Function):void {
-        if (jaml)
+    public createChildren(template?:any) {
+        if (typeof template === 'function')
         {
-            Jaml.register(this.CLASS_NAME, jaml);
+            Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
+        }
+        else if (typeof template === 'string')
+        {
+            this.$el = TemplateFactory.createTemplate(template);
         }
         else if (this._node && !this.$el)
         {

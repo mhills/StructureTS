@@ -9,6 +9,8 @@
 
 class ArtistsView extends DOMElement
 {
+    public CLASS_NAME:string = 'ArtistsView';
+
     private TITLE:string = "Artists View";
 
     private _artistVOList:any[] = [];
@@ -20,21 +22,18 @@ class ArtistsView extends DOMElement
     {
         super();
 
-        this.templateName = "ArtistsView";
         this._options = {}
     }
 
     public createChildren():void
     {
-        Jaml.register(this.templateName, function(data)
+        super.createChildren(function(data)
         {
             div({id: 'bodyPan'},
                 h1("Artists View"),
                 div({id: "dynamic-container"},"Robert is cool this is the home view")
             )
         });
-
-        super.createChildren();
 
         this._container = this.getChild("#dynamic-container");
     }
