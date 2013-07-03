@@ -414,13 +414,26 @@ var TemplateFactory = (function () {
     };
     return TemplateFactory;
 })();
+var TopNavigationView = (function (_super) {
+    __extends(TopNavigationView, _super);
+    function TopNavigationView() {
+        _super.call(this);
+        this.CLASS_NAME = 'TopNavigationView';
+    }
+    return TopNavigationView;
+})(DOMElement);
 var WindowFilmApp = (function (_super) {
     __extends(WindowFilmApp, _super);
-    function WindowFilmApp() {
-        _super.call(this, '.js-todo');
+    function WindowFilmApp(selector) {
+        _super.call(this, selector);
+
+        console.log(selector);
     }
     WindowFilmApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
+
+        this._topBar = new TopNavigationView();
+        this.addChild(this._topBar);
     };
 
     WindowFilmApp.prototype.enabled = function (value) {
@@ -430,6 +443,8 @@ var WindowFilmApp = (function (_super) {
         if (value) {
         } else {
         }
+
+        this._topBar.enabled(value);
 
         _super.prototype.enabled.call(this, value);
     };

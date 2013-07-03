@@ -25,9 +25,9 @@ class TodoApp extends Stage
     private _incompleteItemList:DOMElement;
     private _input:DOMElement;
 
-    constructor()
+    constructor(selector:string)
     {
-        super('.js-todo');
+        super(selector);
     }
 
     /**

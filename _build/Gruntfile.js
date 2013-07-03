@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         DEVELOPMENT_PATH: '../dev/',
         PRODUCTION_PATH: '../prod/',
         EXAMPLE_PATH: '../examples/',
-        WINDOW_FILM_PATH: '../../src/scripts/',
+        WINDOW_FILM_PATH: '../../../deploy/scripts/',
         SRC_PATH: '../src/',
         DEPLOY_PATH: '../deploy/',
 
@@ -34,20 +34,37 @@ module.exports = function(grunt) {
 
         // Task configuration.
         concat: {
-            options: {
-                separator: '',
-                stripBanners: true
-            },
-            dist: {
-                files: {
-                    '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/styles.min.css': [
-                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/gallery.css',
-                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/shadows.css',
-                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/buttons.css',
-                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/style.css'
-                    ]
+//            main: {
+//                options: {
+//                    separator: '',
+//                    stripBanners: true
+//                },
+//                dist: {
+//                    files: {
+//                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/styles.min.css': [
+//                            '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/gallery.css',
+//                            '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/shadows.css',
+//                            '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/buttons.css',
+//                            '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/style.css'
+//                        ]
+//                    }
+//                }
+//            },
+//            film: {
+                options: {
+                    separator: '\n',
+                    stripBanners: true
+                },
+                dist: {
+                    files: {
+                        '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/filmapp.js': [
+                            '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/json.js',
+                            '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/templates.js',
+                            '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/typescript.js'
+                        ]
+                    }
                 }
-            }
+//            }
         },
 
         cssmin: {
@@ -87,9 +104,9 @@ module.exports = function(grunt) {
             },
             film: {
                 src: ['<%= EXAMPLE_PATH %>WindowFilm/dev/WindowFilmApp.ts'],
-                dest: '<%= EXAMPLE_PATH %>WindowFilm/prod/film.js',
+                dest: '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/typescript.js',
                 options: {
-                    target: 'es3', //or es3
+                    target: 'es3', // Options: es3, es5
                     base_path: '',
                     sourcemap: false,
                     declaration: false
@@ -113,6 +130,23 @@ module.exports = function(grunt) {
                 },
                 files: {
                     "<%= EXAMPLE_PATH %>SinglePageWebsite/scripts/templates.js": ["<%= EXAMPLE_PATH %>SinglePageWebsite/templates/*.tpl"]
+                }
+            },
+            film: {
+                options: {
+                    namespace: "TEMPLATES",                 //Default: 'JST'
+                    prettify: false,                        //Default: false|true
+                    amdWrapper: false,                      //Default: false|true
+                    templateSettings: {
+                        //interpolate : /\{\{(.+?)\}\}/g    //Mustache Syntax
+                    },
+                    processName: function(filename) {
+                        //Shortens the file path for the template.
+                        return filename.slice(filename.indexOf("template"), filename.length);
+                    }
+                },
+                files: {
+                    "<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/templates.js": ["<%= EXAMPLE_PATH %>WindowFilm/dev/templates/*.tpl"]
                 }
             }
         },
@@ -153,6 +187,16 @@ module.exports = function(grunt) {
             }
         },
 
+        json: {
+            film: {
+                options: {
+                    namespace: 'JSON_DATA'
+                },
+                src: ['<%= EXAMPLE_PATH %>WindowFilm/dev/data/**/*.json'],
+                dest: '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/json.js'
+            }
+        },
+
         watch: {
             website: {
                 files: [
@@ -174,6 +218,15 @@ module.exports = function(grunt) {
                 options: {
                     nospawn: false
                 }
+            },
+            film: {
+                files: [
+                    '<%= EXAMPLE_PATH %>WindowFilm/dev/**/*.ts',
+                ],
+                tasks: ['film'],
+                options: {
+                    nospawn: false
+                }
             }
         }
 
@@ -190,11 +243,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
     grunt.loadNpmTasks('grunt-typescript');
+    grunt.loadNpmTasks('grunt-json');
 
     // Default task.
     grunt.registerTask('default', ['cssmin', 'typescript:website', 'jst']);
     grunt.registerTask('website', ['typescript:website']);
     grunt.registerTask('todo', ['typescript:todo']);
-    grunt.registerTask('film', ['typescript:film']);
+    grunt.registerTask('filmprod', ['typescript:film', 'jst:film', 'json:film', 'concat']);
+    grunt.registerTask('film', ['typescript:film', 'concat']);
 
 };
