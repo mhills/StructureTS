@@ -129,7 +129,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "<%= EXAMPLE_PATH %>SinglePageWebsite/scripts/templates.js": ["<%= EXAMPLE_PATH %>SinglePageWebsite/templates/*.tpl"]
+                    "<%= EXAMPLE_PATH %>SinglePageWebsite/scripts/templates.js": ["<%= EXAMPLE_PATH %>SinglePageWebsite/templates/**/*.tpl"]
                 }
             },
             film: {
@@ -146,7 +146,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/templates.js": ["<%= EXAMPLE_PATH %>WindowFilm/dev/templates/*.tpl"]
+                    "<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/templates.js": ["<%= EXAMPLE_PATH %>WindowFilm/dev/templates/**/*.tpl"]
                 }
             }
         },
@@ -221,11 +221,11 @@ module.exports = function(grunt) {
             },
             film: {
                 files: [
-                    '<%= EXAMPLE_PATH %>WindowFilm/dev/**/*.ts',
+                    '<%= EXAMPLE_PATH %>WindowFilm/dev/**/*.ts'
                 ],
                 tasks: ['film'],
                 options: {
-                    nospawn: false
+                    nospawn: true
                 }
             }
         }
@@ -251,5 +251,6 @@ module.exports = function(grunt) {
     grunt.registerTask('todo', ['typescript:todo']);
     grunt.registerTask('filmprod', ['typescript:film', 'jst:film', 'json:film', 'concat']);
     grunt.registerTask('film', ['typescript:film', 'concat']);
+    grunt.registerTask('all', ['website', 'todo', 'film']);
 
 };

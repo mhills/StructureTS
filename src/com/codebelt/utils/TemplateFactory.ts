@@ -2,6 +2,8 @@
 
 class TemplateFactory {
 
+    public static templateNamespace:string = 'TEMPLATES';
+
     constructor() {}
 
     public static createTemplate(templatePath:string, data?:Object)
@@ -32,9 +34,12 @@ class TemplateFactory {
             var templateMethod:Function = _.template( $(templatePath).html() );
             template = templateMethod(data);
         } else {
+            if (!window[TemplateFactory.templateNamespace]) {
+                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
+            }
             //The templatePath gets a function storage in the associative array.
             //we call the function by passing in the data as the argument.
-            template = window['JST'][templatePath](data);
+            template = window[TemplateFactory.templateNamespace][templatePath](data);
         }
 
         return template;

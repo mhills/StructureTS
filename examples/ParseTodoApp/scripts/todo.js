@@ -577,8 +577,8 @@ var AppModel = (function (_super) {
 })(EventDispatcher);
 var TodoApp = (function (_super) {
     __extends(TodoApp, _super);
-    function TodoApp() {
-        _super.call(this, '.js-todo');
+    function TodoApp(selector) {
+        _super.call(this, selector);
     }
     TodoApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);

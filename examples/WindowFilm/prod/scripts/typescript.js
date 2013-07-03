@@ -194,12 +194,12 @@ var DisplayObject = (function (_super) {
 var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
+        if (typeof type === "undefined") { type = 'div'; }
         if (typeof params === "undefined") { params = {}; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
         this._node = null;
         this._options = {};
-        this.templateName = "DOMElement";
         this._isVisible = true;
         this.el = null;
         this.$el = null;
@@ -207,11 +207,12 @@ var DOMElement = (function (_super) {
         this._node = type;
         this._options = params;
     }
-    DOMElement.prototype.createChildren = function () {
-        if (this._node && !this.$el) {
+    DOMElement.prototype.createChildren = function (jaml) {
+        if (jaml) {
+            Jaml.register(this.CLASS_NAME, jaml);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
+        } else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);
-        } else if (!this._node && !this.$el) {
-            this.$el = jQuery(Jaml.render(this.templateName, this._options));
         }
 
         this.el = this.$el[0];
@@ -407,11 +408,16 @@ var TemplateFactory = (function () {
             var templateMethod = _.template($(templatePath).html());
             template = templateMethod(data);
         } else {
-            template = window['JST'][templatePath](data);
+            if (!window[TemplateFactory.templateNamespace]) {
+                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
+            }
+
+            template = window[TemplateFactory.templateNamespace][templatePath](data);
         }
 
         return template;
     };
+    TemplateFactory.templateNamespace = 'TEMPLATES';
     return TemplateFactory;
 })();
 var TopNavigationView = (function (_super) {
@@ -420,20 +426,47 @@ var TopNavigationView = (function (_super) {
         _super.call(this);
         this.CLASS_NAME = 'TopNavigationView';
     }
+    TopNavigationView.prototype.createChildren = function () {
+        this.$el = TemplateFactory.createTemplate('templates/topbar/TopNavigationTemplate.tpl');
+        this.el = this.$el[0];
+    };
     return TopNavigationView;
+})(DOMElement);
+var SelectBoxTemp = (function (_super) {
+    __extends(SelectBoxTemp, _super);
+    function SelectBoxTemp() {
+        _super.call(this);
+        this.CLASS_NAME = 'SelectBoxTemp';
+
+        this._options = {
+            car: "red"
+        };
+    }
+    SelectBoxTemp.prototype.createChildren = function () {
+        _super.prototype.createChildren.call(this, function (data) {
+            select(option({ value: 'en' }, 'English'), option({ value: 'fr' }, data.car), option({ value: 'sp' }, 'Spanish'));
+        });
+    };
+    return SelectBoxTemp;
 })(DOMElement);
 var WindowFilmApp = (function (_super) {
     __extends(WindowFilmApp, _super);
     function WindowFilmApp(selector) {
         _super.call(this, selector);
-
-        console.log(selector);
     }
     WindowFilmApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
 
         this._topBar = new TopNavigationView();
         this.addChild(this._topBar);
+
+        var did = TemplateFactory.createView('templates/topbar/TopNavigationTemplate.tpl');
+
+        this._contentContainer = new DOMElement('div', { id: 'content-container' });
+        this.addChild(this._contentContainer);
+
+        this._selectBoxTemp = new SelectBoxTemp();
+        this._contentContainer.addChild(this._selectBoxTemp);
     };
 
     WindowFilmApp.prototype.enabled = function (value) {

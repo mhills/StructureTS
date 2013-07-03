@@ -8,13 +8,12 @@ class DOMElement extends DisplayObject {
     private _node:string = null;
     public _options:any = {};//TODO: fix this. it should not be public or should it?
 
-    public templateName:string = "DOMElement";
     private _isVisible:boolean = true;
 
     public el:Element = null;
     public $el:JQuery = null;
 
-    constructor(type?:string, params:any = {}) {
+    constructor(type:string='div', params:any = {}) {
         super();
 
         this._node = type;
@@ -27,12 +26,15 @@ class DOMElement extends DisplayObject {
      * @override
      * @public
      */
-    public createChildren():void {
-        if (this._node && !this.$el) {
-            this.$el = jQuery("<" + this._node + "/>", this._options);//.get(0);//Gets raw html
+    public createChildren(jaml?:Function):void {
+        if (jaml)
+        {
+            Jaml.register(this.CLASS_NAME, jaml);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
         }
-        else if (!this._node && !this.$el) {
-            this.$el = jQuery(Jaml.render(this.templateName, this._options));
+        else if (this._node && !this.$el)
+        {
+            this.$el = jQuery("<" + this._node + "/>", this._options);
         }
 
         this.el = this.$el[0];

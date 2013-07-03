@@ -8,18 +8,19 @@
 ///<reference path='../../../src/com/codebelt/utils/TemplateFactory.ts'/>
 
 ///<reference path='views/topbar/TopNavigationView.ts'/>
+///<reference path='views/SelectBoxTemp.ts'/>
 
 class WindowFilmApp extends Stage
 {
     public static BASE_PATH:string = 'images/';
 
     private _topBar:TopNavigationView;
+    private _contentContainer:DOMElement;
+
+    private _selectBoxTemp:SelectBoxTemp;
 
     constructor(selector:string) {
         super(selector);
-
-        console.log(selector);
-
     }
 
     public createChildren():void {
@@ -27,9 +28,16 @@ class WindowFilmApp extends Stage
 
         this._topBar = new TopNavigationView();//({controller: this.appController});
         this.addChild(this._topBar);
-//
-//        this.contentContainer = new BaseView();
-//        this.addChild(this.contentContainer);
+
+        //TODO: Ask someone if this is understandable.
+        var did:DOMElement = TemplateFactory.createView('templates/topbar/TopNavigationTemplate.tpl')
+//        this.addChild(did);
+
+        this._contentContainer = new DOMElement('div', {id: 'content-container'});
+        this.addChild(this._contentContainer);
+
+        this._selectBoxTemp = new SelectBoxTemp();
+        this._contentContainer.addChild(this._selectBoxTemp);
     }
 
     public enabled(value:boolean):void {

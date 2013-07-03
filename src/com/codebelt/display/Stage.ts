@@ -2,7 +2,6 @@
 
 class Stage extends DOMElement
 {
-    public template:any;
 
     constructor(type:string)
     {
