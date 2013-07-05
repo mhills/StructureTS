@@ -1,5 +1,6 @@
 ///<reference path='../../../_declare/jaml.d.ts'/>
 ///<reference path='DisplayObject.ts'/>
+///<reference path='../events/BaseEvent.ts'/>
 ///<reference path='../utils/TemplateFactory.ts'/>
 
 class DOMElement extends DisplayObject {
@@ -48,24 +49,26 @@ class DOMElement extends DisplayObject {
     /**
      *
      * @method addChild
-     * @param displayObject {DOMElement}
+     * @param child {DOMElement}
      * @returns {DOMElement}
      * @override
      * @public
      */
-    public addChild(displayObject:DOMElement):DOMElement {
-        super.addChild(displayObject);
+    public addChild(child:DOMElement):DOMElement {
+        super.addChild(child);
 
-        if (!displayObject.isCreated) {
-            displayObject.createChildren();// Render the item before adding to the DOM
-            displayObject.isCreated = true;
+        if (!child.isCreated) {
+            child.createChildren();// Render the item before adding to the DOM
+            child.isCreated = true;
         }
-        displayObject.layoutChildren();
+        child.layoutChildren();
 
         // Adds the cid to the DOM element so we can know what what Class object the element belongs too.
-        displayObject.$el.attr('data-cid', displayObject.cid);
+        child.$el.attr('data-cid', child.cid);
 
-        this.$el.append(displayObject.$el);
+        this.$el.append(child.$el);
+
+        this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
         return this;
     }
@@ -73,34 +76,35 @@ class DOMElement extends DisplayObject {
     /**
      *
      * @method addChildAt
-     * @param displayObject {DOMElement}
-     * @param displayIndex {int}
+     * @param child {DOMElement}
+     * @param index {int}
      * @returns {DOMElement}
      * @override
      * @public
      */
-    public addChildAt(displayObject:DOMElement, displayIndex:number):DOMElement {
+    public addChildAt(child:DOMElement, index:number):DOMElement {
+        //TODO:test this out.
         var children = this.$el.children();
         var length = children.length;
 
-        // If the displayIndex passed in is less than 0 and greater than
+        // If the index passed in is less than 0 and greater than
         // the total number of children then place the item at the end.
-        if (displayIndex < 0 || displayIndex >= length) {
-            this.addChild(displayObject);
+        if (index < 0 || index >= length) {
+            this.addChild(child);
         }
         // Else get the child in the children array by the
-        // displayIndex passed in and place the item before that child.
+        // index passed in and place the item before that child.
         else {
-            displayObject.parent = this;
-            if (!displayObject.isCreated) {
-                displayObject.createChildren();// Render the item before adding to the DOM
-                displayObject.isCreated = true;
+            child.parent = this;
+            if (!child.isCreated) {
+                child.createChildren();// Render the item before adding to the DOM
+                child.isCreated = true;
             }
-            displayObject.layoutChildren();
-            jQuery(children.get(displayIndex)).before(displayObject.$el);
+            child.layoutChildren();
+            jQuery(children.get(index)).before(child.$el);
 
             // TODO: super addChildAt is not working how it should.
-            super.addChildAt(displayObject, displayIndex);
+            super.addChildAt(child, index);
         }
 
         return this;
@@ -169,24 +173,30 @@ class DOMElement extends DisplayObject {
 //    }
 
     /**
+     * Removes the specified child object instance from the child list of the parent object instance.
+     * The parent property of the removed child is set to null , and the object is garbage collected if no other references
+     * to the child exist. The index positions of any objects above the child in the parent object are decreased by 1.
      *
      * @method removeChild
-     * @param displayObject {DOMElement}
-     * @returns {DOMElement}
+     * @param child {DOMElement} The DisplayObject instance to remove.
+     * @returns {DOMElement} The DisplayObject instance that you pass in the child parameter.
      * @override
      * @public
      */
-    public removeChild(displayObject:DOMElement):DOMElement {
-        displayObject.enabled(false);
-        displayObject.$el.unbind();
-        displayObject.$el.remove();
+    public removeChild(child:DOMElement):DOMElement {
+        child.enabled(false);
+        child.$el.unbind();
+        child.$el.remove();
 
-        super.removeChild(displayObject);
+        super.removeChild(child);
 
-        return this;
+        return child;
     }
 
     /**
+     * Removes all child object instances from the child list of the parent object instance.
+     * The parent property of the removed children is set to null , and the objects are garbage collected if no other
+     * references to the children exist.
      *
      * @method removeChildren
      * @returns {DOMElement}

@@ -19,6 +19,14 @@ class DisplayObject extends EventDispatcher
 
     public isEnabled:boolean = false;
     public isCreated:boolean = false;
+
+    /**
+     * Returns the number of children of this object.
+     *
+     * @property numChildren
+     * @type {init}
+     * @readonly
+     */
     public numChildren:number = 0;
     public children:DisplayObject[] = [];
 
@@ -32,29 +40,43 @@ class DisplayObject extends EventDispatcher
         //Meant to be overridden.
     }
 
-    public addChild(displayObject:DisplayObject):DisplayObject
+    /**
+     * Adds a child DisplayObject instance to this parent object instance. The child is added to the front (top) of all other
+     * children in this parent object instance. (To add a child to a specific index position, use the addChildAt() method.)
+     *
+     * If you add a child object that already has a different parent, the object is removed from the child
+     * list of the other parent object.
+     *
+     * @param child {DisplayObject} The DisplayObject instance to add as a child of this DisplayObjectContainer instance.
+     * @returns {DisplayObject} The DisplayObject instance that you pass in the child parameter.
+     */
+    public addChild(child:DisplayObject):DisplayObject
     {
-        //If the displayObject being passed in already has a parent the remove the reference from there.
-        if (displayObject.parent) {
-            displayObject.parent.removeChild(displayObject);
+        //If the child being passed in already has a parent the remove the reference from there.
+        if (child.parent) {
+            child.parent.removeChild(child);
         }
 
-        this.children.unshift(displayObject);
+        this.children.unshift(child);
         this.numChildren = this.children.length;
 
-        displayObject.parent = this;
+        child.parent = this;
 
-        return this;
+
+//        added:Event — Dispatched when a display object is added to the display list.
+
+
+        return child;
     }
 
-    public removeChild(displayObject:DisplayObject):DisplayObject
+    public removeChild(child:DisplayObject):DisplayObject
     {
-        var index = this.children.indexOf(displayObject);
+        var index = this.children.indexOf(child);
         if (index !== -1) {
             this.children.splice(index, 1);
         }
-        displayObject.enabled(false);
-        displayObject.parent = null;
+        child.enabled(false);
+        child.parent = null;
 
         this.numChildren = this.children.length;
 
@@ -72,21 +94,19 @@ class DisplayObject extends EventDispatcher
         return this;
     }
 
-    public addChildAt(displayObject:DisplayObject, displayIndex:number):DisplayObject
+    public addChildAt(child:DisplayObject, index:number):DisplayObject
     {
-        //TODO: Figure out nice way to manage StructureTS children and actual dom children.
-        // All siblings need to be DisplayObjects but there could be a case where the parent doesn't have all dom children.
-        this.children.unshift(displayObject);//Temp fix.
+        this.children.unshift(child);//Temp fix.
 
         this.numChildren = this.children.length;
 
         return this;
     }
 
-    public getChild(displayObject:any):DisplayObject
+    public getChild(child:any):DisplayObject
     {
-        var index = this.children.indexOf(displayObject);
-        // TODO: throw error in displayObject is not found.
+        var index = this.children.indexOf(child);
+        // TODO: throw error in child is not found.
         return this.children[index];
     }
 

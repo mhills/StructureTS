@@ -36,18 +36,18 @@ class Canvas extends CanvasElement {
     /**
      * @override
      */
-    public addChild(displayObject:CanvasElement):void
+    public addChild(child:CanvasElement):void
     {
-        displayObject.parent = this.stage;
-        displayObject.stage = this.stage;
-        displayObject.context = this.context;
-        displayObject.createChildren();
+        child.parent = this.stage;
+        child.stage = this.stage;
+        child.context = this.context;
+        child.createChildren();
     }
 
-    public removeChild(displayObject:CanvasElement):void
+    public removeChild(child:CanvasElement):void
     {
-        displayObject.stage = null;
-        displayObject.context = null;
+        child.stage = null;
+        child.context = null;
     }
 
     public render():void

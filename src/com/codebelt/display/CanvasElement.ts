@@ -62,20 +62,20 @@ class CanvasElement extends DisplayObject {
         this.context.restore();
     }
 
-    public addChild(displayObject:CanvasElement):void
+    public addChild(child:CanvasElement):void
     {
         //TODO: Add to children array with super DisplayObject.
-        displayObject.parent = this;
-        displayObject.stage = this.stage;
-        displayObject.context = this.context;
-        displayObject.createChildren();
+        child.parent = this;
+        child.stage = this.stage;
+        child.context = this.context;
+        child.createChildren();
     }
 
-    public removeChild(displayObject:CanvasElement):void
+    public removeChild(child:CanvasElement):void
     {
         //TODO: Remove children from array with super DisplayObject.
-        displayObject.stage = null;
-        displayObject.context = null;
+        child.stage = null;
+        child.context = null;
     }
 
 }
