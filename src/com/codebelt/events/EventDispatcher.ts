@@ -7,17 +7,45 @@
  * {{#crossLink "DisplayObject"}}{{/crossLink}} classes dispatch events.
  *
  * @class EventDispatcher
- * @namespace com.codebelt.EventDispatcher
  * @constructor
  **/
 class EventDispatcher
 {
+    /**
+     * The actually class name for the object.
+     *
+     * @property CLASS_NAME
+     * @type {string}
+     * @final
+     */
     public CLASS_NAME:string = 'EventDispatcher';
 
+    /**
+     * Holds a reference to added listeners.
+     *
+     * @property _listeners
+     * @type {array}
+     * @private
+     */
     private _listeners:any[];
 
+    /**
+     * The cid or client id is a unique identifier automatically assigned to all StructureTS objects
+     * when they're first created.
+     *
+     * @property cid
+     * @type {int}
+     */
     public cid:number;
 
+    /**
+     * Indicates the object that contains child object. Use the parent property
+     * to specify a relative path to display objects that are above the current display object in the display
+     * list hierarchy.
+     *
+     * @property parent
+     * @type {any}
+     */
     public parent:any = null;
 
     constructor()
@@ -29,6 +57,7 @@ class EventDispatcher
     /**
      * Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
      *
+     * @method addEventListener
      * @param type {String} The type of event.
      * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void
      * @param scope {any} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
@@ -60,6 +89,7 @@ class EventDispatcher
     /**
      * Removes a specified listener from the EventDispatcher object.
      *
+     * @method removeEventListener
      * @param type {String} The type of event.
      * @param callback {Function} The listener object to remove.
      * @returns {EventDispatcher}
@@ -83,6 +113,7 @@ class EventDispatcher
     /**
      * Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the dispatchEvent() method is called.
      *
+     * @method dispatchEvent
      * @param event {Event} The Event object that is dispatched into the event flow.
      * @returns {EventDispatcher}
      */
@@ -114,7 +145,9 @@ class EventDispatcher
     /**
      * Returns the fully qualified class name of an object.
      *
+     * @method getQualifiedClassName
      * @returns {string}
+     * @public
      */
     public getQualifiedClassName():string
     {

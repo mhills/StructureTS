@@ -113,7 +113,6 @@ var DisplayObject = (function (_super) {
     function DisplayObject() {
         _super.call(this);
         this.CLASS_NAME = 'DisplayObject';
-        this.name = null;
         this.isEnabled = false;
         this.isCreated = false;
         this.numChildren = 0;

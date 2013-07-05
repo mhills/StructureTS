@@ -10,9 +10,13 @@
  **/
 class DisplayObject extends EventDispatcher
 {
+    /**
+     * @property CLASS_NAME
+     * @type {string}
+     * @final
+     */
     public CLASS_NAME:string = 'DisplayObject';
 
-    public name:string = null;
     public isEnabled:boolean = false;
     public isCreated:boolean = false;
     public numChildren:number = 0;

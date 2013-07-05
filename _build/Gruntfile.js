@@ -181,7 +181,8 @@ module.exports = function(grunt) {
                 version: '<%= pkg.version %>',
                 url: '<%= pkg.homepage %>',
                 options: {
-                    paths: '<%= SRC_PATH %>' + 'typescript/',
+                    extension: '.ts',
+                    paths: '<%= SRC_PATH %>' + 'com/',
                     outdir: '<%= BASE_PATH %>' + 'docs/'
                 }
             }
