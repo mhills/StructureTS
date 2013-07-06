@@ -111,6 +111,16 @@ module.exports = function(grunt) {
                     sourcemap: false,
                     declaration: false
                 }
+            },
+            gallery: {
+                src: ['<%= EXAMPLE_PATH %>PhotoGalleryApp/dev/PhotoGalleryApp.ts'],
+                dest: '<%= EXAMPLE_PATH %>PhotoGalleryApp/prod/scripts/photoGalleryApp.js',
+                options: {
+                    target: 'es3', // Options: es3, es5
+                    base_path: '',
+                    sourcemap: false,
+                    declaration: false
+                }
             }
         },
 
@@ -249,6 +259,7 @@ module.exports = function(grunt) {
     grunt.registerTask('todo', ['typescript:todo']);
     grunt.registerTask('filmprod', ['typescript:film', 'jst:film', 'json:film', 'concat']);
     grunt.registerTask('film', ['typescript:film', 'concat']);
+    grunt.registerTask('gallery', ['typescript:gallery']);
     grunt.registerTask('temp', ['concat']);
     grunt.registerTask('all', ['website', 'todo', 'film']);
 

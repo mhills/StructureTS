@@ -114,7 +114,7 @@ class EventDispatcher
      * Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the dispatchEvent() method is called.
      *
      * @method dispatchEvent
-     * @param event {Event} The Event object that is dispatched into the event flow.
+     * @param event {BaseEvent} The Event object that is dispatched into the event flow.
      * @returns {EventDispatcher}
      */
     public dispatchEvent(event:BaseEvent):any

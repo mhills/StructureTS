@@ -1,5 +1,11 @@
 ///<reference path='../interfaces/ICore.ts'/>
 
+/**
+ * The ValueObject...
+ *
+ * @class ValueObject
+ * @constructor
+ **/
 class ValueObject implements ICore {
 
     public CLASS_NAME:string = 'ValueObject';

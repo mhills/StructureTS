@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body onload="init();">
+    //http://wowslider.com/slider-jquery-elegant-linear-demo.html
+    <div id="gallery">
+        <div class="gallery-large">
+
+        </div>
+        <div class="gallery-thumbnails">
+            <img name="img1" src="http://bit.ly/2rz3hy" alt=""/>
+            <img name="img2" src="http://bit.ly/1ug1e6" alt=""/>
+            <img name="img3" src="http://bit.ly/1yIAYc" alt=""/>
+            <img name="img4" src="http://bit.ly/2LHyDW" alt=""/>
+            <img name="img5" src="http://bit.ly/2wyHSR" alt=""/>
+            <img name="img6" src="http://bit.ly/yRo1i" alt=""/>
+            <div class="ll">asdfasdf</div>
+            <div>asdfff</div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../../libs/lodash.v1.3.1.min.js"></script>
+    <script type="text/javascript" src="../../libs/jquery/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="prod/scripts/photoGalleryApp.js"></script>
+    <script type="text/javascript">
+        function init() {
+            var app = new PhotoGalleryApp('body');
+            app.enabled(true);
+        }
+    </script>
+</body>
+</html>

@@ -1,6 +1,13 @@
 ///<reference path='DisplayObject.ts'/>
 ///<reference path='Canvas.ts'/>
 
+/**
+ * The CanvasElement...
+ *
+ * @class CanvasElement
+ * @extends DisplayObject
+ * @constructor
+ **/
 class CanvasElement extends DisplayObject {
 
     public stage:Canvas = null;

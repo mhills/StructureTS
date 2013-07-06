@@ -3,16 +3,47 @@
 ///<reference path='../events/BaseEvent.ts'/>
 ///<reference path='../utils/TemplateFactory.ts'/>
 
+/**
+ * The DOMElement class is the base class for all objects that can be placed into the HTML DOM.
+ *
+ * @class DOMElement
+ * @extends DisplayObject
+ * @constructor
+ **/
 class DOMElement extends DisplayObject {
 
+    /**
+     * @copy DisplayObject.CLASS_NAME
+     */
     public CLASS_NAME:string = 'DOMElement';
 
     private _node:string = null;
     public _options:any = {};//TODO: fix this. it should not be public or should it?
 
+    /**
+     * Whether or not the display object is visible. Display objects that are not visible are disabled.
+     * For example, if visible=false for an InteractiveObject instance, it cannot be clicked.
+     *
+     * @type {boolean}
+     * @default true
+     * @private
+     */
     private _isVisible:boolean = true;
 
+    /**
+     * A cached of the DOM Element.
+     *
+     * @type {Element}
+     * @default null
+     */
     public el:Element = null;
+
+    /**
+     * A cached jQuery object for the view's element.
+     *
+     * @type {JQuery}
+     * @default null
+     */
     public $el:JQuery = null;
 
     constructor(type:string='div', params:any = {}) {
@@ -23,10 +54,8 @@ class DOMElement extends DisplayObject {
     }
 
     /**
-     *
-     * @method createChildren
-     * @override
-     * @public
+     * @copy DisplayObject.CLASS_NAME
+     * @overriden
      */
     public createChildren(template?:any) {
         if (typeof template === 'function')
@@ -47,12 +76,7 @@ class DOMElement extends DisplayObject {
     }
 
     /**
-     *
-     * @method addChild
-     * @param child {DOMElement}
-     * @returns {DOMElement}
-     * @override
-     * @public
+     * @copy DisplayObject.addChild
      */
     public addChild(child:DOMElement):DOMElement {
         super.addChild(child);
@@ -74,13 +98,7 @@ class DOMElement extends DisplayObject {
     }
 
     /**
-     *
-     * @method addChildAt
-     * @param child {DOMElement}
-     * @param index {int}
-     * @returns {DOMElement}
-     * @override
-     * @public
+     * @copy DisplayObject.addChildAt
      */
     public addChildAt(child:DOMElement, index:number):DOMElement {
         //TODO:test this out.
@@ -149,6 +167,7 @@ class DOMElement extends DisplayObject {
                 domElement.$el = jQueryElement;
                 domElement.$el.attr('data-cid', domElement.cid);
                 domElement.el = jQueryElement[0];
+                domElement.isCreated = true;
 
                 // Added to the super addChild method because we don't need to append the element to the DOM.
                 // At this point it already exists and we are just getting a reference to the DOM element.
@@ -159,18 +178,32 @@ class DOMElement extends DisplayObject {
         return domElement;
     }
 
-//    public getChildAt(index:number):DisplayObject
-//    {
-//        //TODO: Need to figure out. What if the user is looking for and dom $el and not an $el in "this.children" array.
-//    }
+    public getChildren(selector:string = ''):DOMElement[]
+    {
+        //TODO: Make sure the index of the children added is the same as the what is in the actual DOM.
+        var $child:JQuery;
+        var domElement:DOMElement;
+        var $list:JQuery = this.$el.children(selector || '');
 
-//    public getChildren(selector:string=""):DOMElement[]
-//    {
-//        //TODO: Need to figure out.
-//        //TODO: return array of display object if jquery does.
-//        console.log(this.$el.children(selector));
-//        return null;
-//    }
+        //TODO: Make sure elements that are in this.children are not duplicated.
+        _.each($list, (item, index) => {
+            $child = jQuery(item);
+            // If the jQuery element already has cid data property then must be an existing DisplayObject (DOMElement).
+            if (!$child.data('cid')) {
+                domElement = new DOMElement();
+                domElement.$el = $child;
+                domElement.$el.attr('data-cid', domElement.cid);
+                domElement.el = item;
+                domElement.isCreated = true;
+
+                // Added to the super addChild method because we don't need to append the element to the DOM.
+                // At this point it already exists and we are just getting a reference to the DOM element.
+                super.addChild(domElement);
+            }
+        });
+
+        return <DOMElement[]>this.children;
+    }
 
     /**
      * Removes the specified child object instance from the child list of the parent object instance.
@@ -212,11 +245,7 @@ class DOMElement extends DisplayObject {
     }
 
     /**
-     *
-     * @param value {boolean}
-     * @method enabled
-     * @override
-     * @public
+     * @copy DisplayObject.enabled
      */
     public enabled(value:boolean):void {
         if (value == this.isEnabled) {
@@ -231,18 +260,32 @@ class DOMElement extends DisplayObject {
         super.enabled(value);
     }
 
-    public invalidateLayout():void {
-        this.layoutChildren();
-    }
-
+    /**
+     * @copy DisplayObject.layoutChildren
+     */
     public layoutChildren():void {
     }
 
+    /**
+     * Indicates the alpha transparency value of the object specified. Valid values are 0 (fully transparent)
+     * to 1 (fully opaque). The default value is 1. Display objects with alpha set to 0 are active, even though
+     * they are invisible.
+     *
+     * @method alpha
+     * @param number
+     * @returns {DOMElement}
+     */
     public alpha(number):DOMElement {
         this.$el.css('opacity', number);
         return this;
     }
 
+    /**
+     *
+     * @method visible
+     * @param value
+     * @returns {*}
+     */
     public visible(value:boolean):any {
         if (value == false) {
             this._isVisible = false;

@@ -1,5 +1,12 @@
 ///<reference path='DOMElement.ts'/>
 
+/**
+ * The Stage...
+ *
+ * @class Stage
+ * @extends DOMElement
+ * @constructor
+ **/
 class Stage extends DOMElement
 {
 

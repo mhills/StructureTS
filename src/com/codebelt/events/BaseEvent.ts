@@ -1,5 +1,12 @@
 ///<reference path='../interfaces/ICore.ts'/>
 
+/**
+ * The BaseEvent...
+ *
+ * @class BaseEvent
+ * @requires ICore
+ * @constructor
+ **/
 class BaseEvent implements ICore {
 
     public CLASS_NAME:string = 'BaseEvent';

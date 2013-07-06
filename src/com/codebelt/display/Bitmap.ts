@@ -1,6 +1,13 @@
 ///<reference path='CanvasElement.ts'/>
 ///<reference path='../utils/NumberUtil.ts'/>
 
+/**
+ * The Bitmap...
+ *
+ * @class Bitmap
+ * @extends CanvasElement
+ * @constructor
+ **/
 class Bitmap extends CanvasElement {
 
     private _image:HTMLImageElement = null;

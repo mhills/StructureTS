@@ -1,6 +1,13 @@
 ///<reference path='CanvasElement.ts'/>
 ///<reference path='DOMElement.ts'/>
 
+/**
+ * The Canvas...
+ *
+ * @class Canvas
+ * @extends CanvasElement
+ * @constructor
+ **/
 class Canvas extends CanvasElement {
 
     public element:any = null;
