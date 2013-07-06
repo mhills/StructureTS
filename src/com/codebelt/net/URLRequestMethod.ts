@@ -1,4 +1,10 @@
 
+/**
+ * The URLRequestMethod...
+ *
+ * @class URLRequestMethod
+ * @constructor
+ **/
 class URLRequestMethod {
 
     static DELETE:string = "DELETE";

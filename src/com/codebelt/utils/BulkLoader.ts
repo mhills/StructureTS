@@ -2,6 +2,12 @@
 ///<reference path='../events/EventDispatcher.ts'/>
 ///<reference path='../events/LoaderEvent.ts'/>
 
+/**
+ * The BulkLoader...
+ *
+ * @class BulkLoader
+ * @constructor
+ **/
 class BulkLoader extends EventDispatcher {
 
     private static _instance:BulkLoader;

@@ -1,5 +1,11 @@
 ///<reference path=''/>
 
+/**
+ * The Util...
+ *
+ * @class Util
+ * @constructor
+ **/
 class Util {
 
     constructor() {}

@@ -1,5 +1,11 @@
 ///<reference path='../utils/BrowserUtils.ts'/>
 
+/**
+ * The RouterController...
+ *
+ * @class RouterController
+ * @constructor
+ **/
 class RouterController {
 
     constructor()

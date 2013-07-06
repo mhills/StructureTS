@@ -1,5 +1,11 @@
 ///<reference path='../events/EventDispatcher.ts'/>
 
+/**
+ * The LocalStorageController...
+ *
+ * @class LocalStorageController
+ * @constructor
+ **/
 class LocalStorageController extends EventDispatcher {
 
     private static _instance:LocalStorageController = null;

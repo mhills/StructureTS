@@ -1,3 +1,4 @@
+///<reference path='../BaseObject.ts'/>
 ///<reference path='../interfaces/ICore.ts'/>
 
 /**
@@ -6,8 +7,9 @@
  * @class BaseEvent
  * @requires ICore
  * @constructor
+ * @static
  **/
-class BaseEvent implements ICore {
+class BaseEvent extends BaseObject implements ICore {
 
     public CLASS_NAME:string = 'BaseEvent';
 
@@ -255,6 +257,8 @@ class BaseEvent implements ICore {
     public isImmediatePropagationStopped:boolean = true;
 
     constructor(type:string, data:any = null) {
+        super();
+
         this.type = type;
 //        this.target = target;
         this.data = data;
@@ -267,15 +271,6 @@ class BaseEvent implements ICore {
     stopImmediatePropagation():void {
         this.stopPropagation();
         this.isImmediatePropagationStopped = false;
-    }
-
-    /**
-     * Returns the fully qualified class name of an object.
-     *
-     * @returns {string}
-     */
-    public getQualifiedClassName():string {
-        return this.CLASS_NAME;
     }
 
 }

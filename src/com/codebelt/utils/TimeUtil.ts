@@ -1,5 +1,11 @@
 ///<reference path=''/>
 
+/**
+ * The TimeUtil...
+ *
+ * @class TimeUtil
+ * @constructor
+ **/
 class TimeUtil {
 
     constructor() {}

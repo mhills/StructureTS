@@ -38,8 +38,9 @@ class WebsiteApp extends Stage
 
     //http://www.codeproject.com/Articles/499490/JavaScript-UI-Control-Suite-using-TypeScript
 
-    constructor() {
-        super('body');
+
+    constructor(selector:string) {
+        super(selector);
 
         var ls = LocalStorageController.getInstance();
         var languageId = ls.getItem('language') || 'en';

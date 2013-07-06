@@ -4,6 +4,12 @@
 ///<reference path='../requests/BaseRequest.ts'/>
 ///<reference path='../models/vo/LanguageConfigVO.ts'/>
 
+/**
+ * The LanguageManager...
+ *
+ * @class LanguageManager
+ * @constructor
+ **/
 class LanguageManager extends EventDispatcher {
 
     private static _instance:LanguageManager;
@@ -74,4 +80,5 @@ class LanguageManager extends EventDispatcher {
 
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
     }
+
 }

@@ -1,6 +1,12 @@
 ///<reference path='../interfaces/IDataStore.ts'/>
 ///<reference path='../events/EventDispatcher.ts'/>
 
+/**
+ * The ImageLoader...
+ *
+ * @class ImageLoader
+ * @constructor
+ **/
 class ImageLoader extends EventDispatcher implements IDataStore {
 
     private _image:HTMLImageElement = null;

@@ -1,5 +1,11 @@
 ///<reference path='BaseEvent.ts'/>
 
+/**
+ * The RequestEvent...
+ *
+ * @class RequestEvent
+ * @constructor
+ **/
 class RequestEvent extends BaseEvent {
 
     public CLASS_NAME:string = 'RequestEvent';

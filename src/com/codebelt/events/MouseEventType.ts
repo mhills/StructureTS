@@ -1,3 +1,9 @@
+/**
+ * The MouseEventType...
+ *
+ * @class MouseEventType
+ * @static
+ **/
 class MouseEventType {
 
     /**
@@ -5,7 +11,7 @@ class MouseEventType {
      *
      * @property CLICK
      * @type {string}
-     * @final
+     * @static
      */
     static CLICK:string = "click";
 
@@ -14,7 +20,7 @@ class MouseEventType {
      *
      * @property DBL_CLICK
      * @type {string}
-     * @final
+     * @static
      */
     static DBL_CLICK:string = "dblclick";
 
@@ -23,7 +29,7 @@ class MouseEventType {
      *
      * @property MOUSE_DOWN
      * @type {string}
-     * @final
+     * @static
      */
     static MOUSE_DOWN:string = "mousedown";
 
@@ -32,7 +38,7 @@ class MouseEventType {
      *
      * @property MOUSE_MOVE
      * @type {string}
-     * @final
+     * @static
      */
     static MOUSE_MOVE:string = "mousemove";
 
@@ -41,7 +47,7 @@ class MouseEventType {
      *
      * @property MOUSE_OVER
      * @type {string}
-     * @final
+     * @static
      */
     static MOUSE_OVER:string = "mouseover";
 
@@ -50,7 +56,7 @@ class MouseEventType {
      *
      * @property MOUSE_OUT
      * @type {string}
-     * @final
+     * @static
      */
     static MOUSE_OUT:string = "mouseout";
 
@@ -59,7 +65,7 @@ class MouseEventType {
      *
      * @property MOUSE_UP
      * @type {string}
-     * @final
+     * @static
      */
     static MOUSE_UP:string = "mouseup";
 

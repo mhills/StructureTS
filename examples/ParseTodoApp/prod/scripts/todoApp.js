@@ -1,6 +1,24 @@
-var BaseEvent = (function () {
+var BaseObject = (function () {
+    function BaseObject() {
+        this.CLASS_NAME = 'BaseObject';
+        this.cid = _.uniqueId();
+    }
+    BaseObject.prototype.getQualifiedClassName = function () {
+        return this.CLASS_NAME;
+    };
+    return BaseObject;
+})();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var BaseEvent = (function (_super) {
+    __extends(BaseEvent, _super);
     function BaseEvent(type, data) {
         if (typeof data === "undefined") { data = null; }
+        _super.call(this);
         this.CLASS_NAME = 'BaseEvent';
         this.type = null;
         this.target = null;
@@ -8,6 +26,7 @@ var BaseEvent = (function () {
         this.bubble = true;
         this.isPropagationStopped = true;
         this.isImmediatePropagationStopped = true;
+
         this.type = type;
 
         this.data = data;
@@ -19,10 +38,6 @@ var BaseEvent = (function () {
     BaseEvent.prototype.stopImmediatePropagation = function () {
         this.stopPropagation();
         this.isImmediatePropagationStopped = false;
-    };
-
-    BaseEvent.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
     };
     BaseEvent.ACTIVATE = 'BaseEvent.activate';
 
@@ -76,13 +91,15 @@ var BaseEvent = (function () {
 
     BaseEvent.RESIZE = 'BaseEvent.resize';
     return BaseEvent;
-})();
-var EventDispatcher = (function () {
+})(BaseObject);
+var EventDispatcher = (function (_super) {
+    __extends(EventDispatcher, _super);
     function EventDispatcher() {
+        _super.call(this);
         this.CLASS_NAME = 'EventDispatcher';
         this.parent = null;
+
         this._listeners = [];
-        this.cid = _.uniqueId();
     }
     EventDispatcher.prototype.addEventListener = function (type, callback, scope, priority) {
         if (typeof priority === "undefined") { priority = 0; }
@@ -144,18 +161,8 @@ var EventDispatcher = (function () {
 
         return this;
     };
-
-    EventDispatcher.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
-    };
     return EventDispatcher;
-})();
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
+})(BaseObject);
 var DisplayObject = (function (_super) {
     __extends(DisplayObject, _super);
     function DisplayObject() {
@@ -336,7 +343,7 @@ var DOMElement = (function (_super) {
 
         this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
-        return this;
+        return child;
     };
 
     DOMElement.prototype.addChildAt = function (child, index) {
@@ -474,6 +481,7 @@ var Stage = (function (_super) {
         _super.call(this);
 
         this.$el = jQuery(type);
+
         this.createChildren();
     }
     return Stage;
@@ -495,6 +503,26 @@ var MouseEventType = (function () {
 
     MouseEventType.MOUSE_UP = "mouseup";
     return MouseEventType;
+})();
+var EventBroker = (function () {
+    function EventBroker() {
+    }
+    EventBroker.addEventListener = function (type, callback, scope, priority) {
+        if (typeof priority === "undefined") { priority = 0; }
+        EventBroker._eventDispatcher.addEventListener(type, callback, scope, priority);
+    };
+
+    EventBroker.removeEventListener = function (type, callback) {
+        EventBroker._eventDispatcher.removeEventListener(type, callback);
+    };
+
+    EventBroker.dispatchEvent = function (event) {
+        EventBroker._eventDispatcher.dispatchEvent(event);
+    };
+    EventBroker.CLASS_NAME = 'EventBroker';
+
+    EventBroker._eventDispatcher = new EventDispatcher();
+    return EventBroker;
 })();
 var ListItemEvent = (function (_super) {
     __extends(ListItemEvent, _super);
@@ -519,8 +547,10 @@ var RequestEvent = (function (_super) {
     RequestEvent.ERROR = "RequestEvent.error";
     return RequestEvent;
 })(BaseEvent);
-var ValueObject = (function () {
+var ValueObject = (function (_super) {
+    __extends(ValueObject, _super);
     function ValueObject() {
+        _super.call(this);
         this.CLASS_NAME = 'ValueObject';
     }
     ValueObject.prototype.toJsonString = function () {
@@ -563,12 +593,8 @@ var ValueObject = (function () {
             return this;
         return this[prop];
     };
-
-    ValueObject.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
-    };
     return ValueObject;
-})();
+})(BaseObject);
 var ListItemVO = (function (_super) {
     __extends(ListItemVO, _super);
     function ListItemVO() {
@@ -576,7 +602,13 @@ var ListItemVO = (function (_super) {
         this.CLASS_NAME = 'ListItemVO';
         this.content = null;
         this.isComplete = false;
+        EventBroker.addEventListener(BaseEvent.CHANGE, this.eventBrokerExample, this);
+
+        console.log(EventBroker._eventDispatcher);
     }
+    ListItemVO.prototype.eventBrokerExample = function (event) {
+        console.log(event, this.cid, typeof this.cid);
+    };
     return ListItemVO;
 })(ValueObject);
 var AppModel = (function (_super) {
@@ -661,6 +693,7 @@ var AppModel = (function (_super) {
 
         this.dispatchEvent(new ListItemEvent(ListItemEvent.LIST_SUCCESS, list));
         this._query = null;
+        EventBroker.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
     };
 
     AppModel.prototype.onParseError = function (error) {
@@ -675,6 +708,8 @@ var TodoApp = (function (_super) {
     }
     TodoApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
+
+        EventBroker.addEventListener(BaseEvent.CHANGE, this.eventBrokerExample, this);
 
         this._appModel = new AppModel();
 
@@ -767,6 +802,10 @@ var TodoApp = (function (_super) {
 
             this._incompleteItemList.addChild(view);
         }.bind(this));
+    };
+
+    TodoApp.prototype.eventBrokerExample = function (event) {
+        console.log(event);
     };
     return TodoApp;
 })(Stage);

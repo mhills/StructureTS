@@ -54,8 +54,8 @@ class DOMElement extends DisplayObject {
     }
 
     /**
-     * @copy DisplayObject.CLASS_NAME
-     * @overriden
+     * @copy DisplayObject.createChildren
+     * @overridden
      */
     public createChildren(template?:any) {
         if (typeof template === 'function')
@@ -77,6 +77,11 @@ class DOMElement extends DisplayObject {
 
     /**
      * @copy DisplayObject.addChild
+     *
+     * @method addChild
+     * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
+     * @returns {DOMElement} The DOMElement instance that you pass in the child parameter.
+     * @overridden
      */
     public addChild(child:DOMElement):DOMElement {
         super.addChild(child);
@@ -94,11 +99,12 @@ class DOMElement extends DisplayObject {
 
         this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
-        return this;
+        return child;
     }
 
     /**
      * @copy DisplayObject.addChildAt
+     * @overridden
      */
     public addChildAt(child:DOMElement, index:number):DOMElement {
         //TODO:test this out.
@@ -178,6 +184,14 @@ class DOMElement extends DisplayObject {
         return domElement;
     }
 
+    /**
+     * Gets all the HTML elements children of this object.
+     *
+     * @method getChildren
+     * @param selector {string} You can pass in any type of jQuery selector.
+     * @returns {Array} Returns a list of DOMElement's. It will grab all children HTML DOM elements of this object and will create a DOMElement for each DOM child.
+     * If the 'data-cid' property exists is on an HTML element a DOMElement will not be create for that element because it will be assumed it already exists as a DOMElement.
+     */
     public getChildren(selector:string = ''):DOMElement[]
     {
         //TODO: Make sure the index of the children added is the same as the what is in the actual DOM.

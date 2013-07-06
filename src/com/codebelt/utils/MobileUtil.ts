@@ -1,4 +1,10 @@
 
+/**
+ * The MobileUtil...
+ *
+ * @class MobileUtil
+ * @constructor
+ **/
 class MobileUtil {
 
     constructor() {}

@@ -1,4 +1,9 @@
-
+/**
+ * The BrowserUtils...
+ *
+ * @class BrowserUtils
+ * @constructor
+ **/
 class BrowserUtils {
                      //http://css-tricks.com/snippets/javascript/
     constructor() {}

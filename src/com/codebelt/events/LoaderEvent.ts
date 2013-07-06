@@ -1,5 +1,11 @@
 ///<reference path='BaseEvent.ts'/>
 
+/**
+ * The LoaderEvent...
+ *
+ * @class LoaderEvent
+ * @constructor
+ **/
 class LoaderEvent extends BaseEvent {
 
     public CLASS_NAME:string = 'LoaderEvent';

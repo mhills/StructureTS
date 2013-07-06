@@ -1,5 +1,11 @@
 ///<reference path=''/>
 
+/**
+ * The StringUtil...
+ *
+ * @class StringUtil
+ * @constructor
+ **/
 class StringUtil {
 
     constructor() {}

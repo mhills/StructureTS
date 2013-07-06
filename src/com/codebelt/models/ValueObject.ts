@@ -1,4 +1,5 @@
 ///<reference path='../interfaces/ICore.ts'/>
+///<reference path='../BaseObject.ts'/>
 
 /**
  * The ValueObject...
@@ -6,7 +7,7 @@
  * @class ValueObject
  * @constructor
  **/
-class ValueObject implements ICore {
+class ValueObject extends BaseObject implements ICore {
 
     public CLASS_NAME:string = 'ValueObject';
 
@@ -14,7 +15,7 @@ class ValueObject implements ICore {
 
     constructor()
     {
-
+        super();
     }
 
     public toJsonString()
@@ -64,15 +65,6 @@ class ValueObject implements ICore {
     {
         if (!prop) return this;
         return this[prop];
-    }
-
-    /**
-     * Returns the fully qualified class name of an object.
-     *
-     * @returns {string}
-     */
-    public getQualifiedClassName():string {
-        return this.CLASS_NAME;
     }
 
 }

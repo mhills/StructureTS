@@ -1,5 +1,11 @@
 ///<reference path='BaseEvent.ts'/>
 
+/**
+ * The LanguageEvent...
+ *
+ * @class LanguageEvent
+ * @constructor
+ **/
 class LanguageEvent extends BaseEvent {
 
     public CLASS_NAME:string = 'LanguageEvent';

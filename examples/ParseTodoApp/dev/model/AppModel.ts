@@ -1,5 +1,7 @@
 ///<reference path='../../../../src/com/codebelt/events/EventDispatcher.ts'/>
 ///<reference path='../../../../src/com/codebelt/events/RequestEvent.ts'/>
+///<reference path='../../../../src/com/codebelt/events/BaseEvent.ts'/>
+///<reference path='../../../../src/com/codebelt/events/EventBroker.ts'/>
 ///<reference path='../event/ListItemEvent.ts'/>
 ///<reference path='valueobjects/ListItemVO.ts'/>
 
@@ -29,6 +31,8 @@ class AppModel extends EventDispatcher
         super();
 
         Parse.initialize(this.APP_ID, this.JS_KEY);
+
+//        EventBroker.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
     }
 
     /**
@@ -143,6 +147,7 @@ class AppModel extends EventDispatcher
 
         this.dispatchEvent(new ListItemEvent(ListItemEvent.LIST_SUCCESS, list));
         this._query = null;
+        EventBroker.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
     }
 
     /**

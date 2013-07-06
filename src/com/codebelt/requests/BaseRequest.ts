@@ -3,6 +3,12 @@
 ///<reference path='../net/URLLoader.ts'/>
 ///<reference path='../events/LoaderEvent.ts'/>
 
+/**
+ * The BaseRequest...
+ *
+ * @class BaseRequest
+ * @constructor
+ **/
 class BaseRequest extends EventDispatcher {
 
     private _baseUrl:string = "";

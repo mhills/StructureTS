@@ -1,6 +1,12 @@
 ///<reference path='URLRequestMethod.ts'/>
 ///<reference path='URLContentType.ts'/>
 
+/**
+ * The URLRequest...
+ *
+ * @class URLRequest
+ * @constructor
+ **/
 class URLRequest {
 
     public url:string = null;

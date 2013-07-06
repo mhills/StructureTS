@@ -1,5 +1,11 @@
 ///<reference path=''/>
 
+/**
+ * The URLLoaderDataFormat...
+ *
+ * @class URLLoaderDataFormat
+ * @constructor
+ **/
 class URLLoaderDataFormat {
 
     static XML:string = "xml";

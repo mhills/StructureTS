@@ -93,8 +93,8 @@ module.exports = function(grunt) {
                 }
             },
             todo: {
-                src: ['<%= EXAMPLE_PATH %>ParseTodoApp/src/TodoApp.ts'],
-                dest: '<%= EXAMPLE_PATH %>ParseTodoApp/scripts/todo.js',
+                src: ['<%= EXAMPLE_PATH %>ParseTodoApp/dev/TodoApp.ts'],
+                dest: '<%= EXAMPLE_PATH %>ParseTodoApp/prod/scripts/todoApp.js',
                 options: {
                     target: 'es3', //or es3
                     base_path: '',
@@ -221,6 +221,7 @@ module.exports = function(grunt) {
             todo: {
                 files: [
                     '<%= BASE_PATH %>**/*.ts',
+                    '<%= SRC_PATH %>com/**/*.ts'
                 ],
                 tasks: ['todo']
             },
@@ -235,6 +236,12 @@ module.exports = function(grunt) {
                     '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/typescript.js'
                 ],
                 tasks: ['temp']
+            },
+            docs: {
+                files: [
+                    '<%= SRC_PATH %>com/**/*.ts'
+                ],
+                tasks: ['yuidoc']
             }
         }
 

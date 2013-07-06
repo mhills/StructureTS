@@ -3,6 +3,12 @@
 ///<reference path='URLRequest.ts'/>
 ///<reference path='URLLoaderDataFormat.ts'/>
 
+/**
+ * The URLLoader...
+ *
+ * @class URLLoader
+ * @constructor
+ **/
 class URLLoader extends EventDispatcher{
 
     public data:any = null;

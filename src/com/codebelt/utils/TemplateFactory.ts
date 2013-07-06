@@ -1,5 +1,11 @@
 ///<reference path='../display/DOMElement.ts'/>
 
+/**
+ * The TemplateFactory...
+ *
+ * @class TemplateFactory
+ * @constructor
+ **/
 class TemplateFactory {
 
     public static templateNamespace:string = 'TEMPLATES';

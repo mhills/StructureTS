@@ -5,6 +5,12 @@
 ///<reference path='../net/URLRequestMethod.ts'/>
 ///<reference path='../net/URLLoaderDataFormat.ts'/>
 
+/**
+ * The HtmlLoader...
+ *
+ * @class HtmlLoader
+ * @constructor
+ **/
 class HtmlLoader extends EventDispatcher implements IDataStore {
 
     private _urlLoader:URLLoader = null;

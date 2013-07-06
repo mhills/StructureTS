@@ -1,5 +1,11 @@
 ///<reference path=''/>
 
+/**
+ * The URLContentType...
+ *
+ * @class URLContentType
+ * @constructor
+ **/
 class URLContentType {
 //http://www.freeformatter.com/mime-types-list.html
 

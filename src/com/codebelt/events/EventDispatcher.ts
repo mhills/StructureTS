@@ -1,3 +1,4 @@
+///<reference path='../BaseObject.ts'/>
 ///<reference path='BaseEvent.ts'/>
 
 /**
@@ -7,16 +8,13 @@
  * {{#crossLink "DisplayObject"}}{{/crossLink}} classes dispatch events.
  *
  * @class EventDispatcher
+ * @extends BaseObject
  * @constructor
  **/
-class EventDispatcher
+class EventDispatcher extends BaseObject
 {
     /**
-     * The actually class name for the object.
-     *
-     * @property CLASS_NAME
-     * @type {string}
-     * @final
+     * @copy BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'EventDispatcher';
 
@@ -30,15 +28,6 @@ class EventDispatcher
     private _listeners:any[];
 
     /**
-     * The cid or client id is a unique identifier automatically assigned to all StructureTS objects
-     * when they're first created.
-     *
-     * @property cid
-     * @type {int}
-     */
-    public cid:number;
-
-    /**
      * Indicates the object that contains child object. Use the parent property
      * to specify a relative path to display objects that are above the current display object in the display
      * list hierarchy.
@@ -50,8 +39,9 @@ class EventDispatcher
 
     constructor()
     {
+        super();
+
         this._listeners = [];
-        this.cid = _.uniqueId();
     }
 
     /**
@@ -140,18 +130,6 @@ class EventDispatcher
         }
 
         return this;
-    }
-
-    /**
-     * Returns the fully qualified class name of an object.
-     *
-     * @method getQualifiedClassName
-     * @returns {string}
-     * @public
-     */
-    public getQualifiedClassName():string
-    {
-        return this.CLASS_NAME;
     }
 
 }
