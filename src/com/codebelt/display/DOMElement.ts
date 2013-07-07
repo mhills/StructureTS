@@ -82,6 +82,8 @@ class DOMElement extends DisplayObject {
      * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
      * @returns {DOMElement} The DOMElement instance that you pass in the child parameter.
      * @overridden
+     * @example
+     *      container.addChild(domElementInstance);
      */
     public addChild(child:DOMElement):DOMElement {
         super.addChild(child);
@@ -188,7 +190,7 @@ class DOMElement extends DisplayObject {
      * Gets all the HTML elements children of this object.
      *
      * @method getChildren
-     * @param selector {string} You can pass in any type of jQuery selector.
+     * @param [selector] {string} You can pass in any type of jQuery selector.
      * @returns {Array} Returns a list of DOMElement's. It will grab all children HTML DOM elements of this object and will create a DOMElement for each DOM child.
      * If the 'data-cid' property exists is on an HTML element a DOMElement will not be create for that element because it will be assumed it already exists as a DOMElement.
      */

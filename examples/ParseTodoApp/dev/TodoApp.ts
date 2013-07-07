@@ -6,7 +6,6 @@
 ///<reference path='../../../src/com/codebelt/display/DOMElement.ts'/>
 ///<reference path='../../../src/com/codebelt/display/Stage.ts'/>
 ///<reference path='../../../src/com/codebelt/events/MouseEventType.ts'/>
-///<reference path='../../../src/com/codebelt/events/BaseEvent.ts'/>
 ///<reference path='../../../src/com/codebelt/events/EventBroker.ts'/>
 ///<reference path='../../../src/com/codebelt/utils/TemplateFactory.ts'/>
 ///<reference path='event/ListItemEvent.ts'/>
@@ -22,7 +21,7 @@ class TodoApp extends Stage
 {
     private _appModel:AppModel;
 
-    private _submitBtn:DOMElement;
+    private _submitBtn:DOMElement = null;
     private _noTasksMessage:DOMElement;
     private _incompleteItemList:DOMElement;
     private _input:DOMElement;
@@ -41,8 +40,6 @@ class TodoApp extends Stage
     public createChildren():void
     {
         super.createChildren();
-
-        EventBroker.addEventListener(BaseEvent.CHANGE, this.eventBrokerExample, this);
 
         this._appModel = new AppModel();
 
@@ -160,11 +157,6 @@ class TodoApp extends Stage
 
             this._incompleteItemList.addChild(view);
         }.bind(this));
-    }
-
-    private eventBrokerExample(event:BaseEvent):void
-    {
-        console.log(event);
     }
 
 }

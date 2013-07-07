@@ -97,6 +97,7 @@ var EventDispatcher = (function (_super) {
     function EventDispatcher() {
         _super.call(this);
         this.CLASS_NAME = 'EventDispatcher';
+        this._listeners = null;
         this.parent = null;
 
         this._listeners = [];
@@ -602,13 +603,7 @@ var ListItemVO = (function (_super) {
         this.CLASS_NAME = 'ListItemVO';
         this.content = null;
         this.isComplete = false;
-        EventBroker.addEventListener(BaseEvent.CHANGE, this.eventBrokerExample, this);
-
-        console.log(EventBroker._eventDispatcher);
     }
-    ListItemVO.prototype.eventBrokerExample = function (event) {
-        console.log(event, this.cid, typeof this.cid);
-    };
     return ListItemVO;
 })(ValueObject);
 var AppModel = (function (_super) {
@@ -693,7 +688,6 @@ var AppModel = (function (_super) {
 
         this.dispatchEvent(new ListItemEvent(ListItemEvent.LIST_SUCCESS, list));
         this._query = null;
-        EventBroker.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
     };
 
     AppModel.prototype.onParseError = function (error) {
@@ -705,11 +699,10 @@ var TodoApp = (function (_super) {
     __extends(TodoApp, _super);
     function TodoApp(selector) {
         _super.call(this, selector);
+        this._submitBtn = null;
     }
     TodoApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
-
-        EventBroker.addEventListener(BaseEvent.CHANGE, this.eventBrokerExample, this);
 
         this._appModel = new AppModel();
 
@@ -802,10 +795,6 @@ var TodoApp = (function (_super) {
 
             this._incompleteItemList.addChild(view);
         }.bind(this));
-    };
-
-    TodoApp.prototype.eventBrokerExample = function (event) {
-        console.log(event);
     };
     return TodoApp;
 })(Stage);

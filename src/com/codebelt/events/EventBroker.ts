@@ -10,7 +10,7 @@ class EventBroker {
 
     public static CLASS_NAME:string = 'EventBroker';
 
-    public static _eventDispatcher:EventDispatcher = new EventDispatcher();
+    private static _eventDispatcher:EventDispatcher = new EventDispatcher();
 
     constructor() {}
 
