@@ -124,6 +124,13 @@ module.exports = function(grunt) {
             }
         },
 
+        ts: {
+            todo: {
+                src: ['<%= EXAMPLE_PATH %>ParseTodoApp/dev/TodoApp.ts'],
+                dest: '<%= EXAMPLE_PATH %>ParseTodoApp/prod/scripts/todoApp.js'
+            }
+        },
+
         jst: {
             compile: {
                 options: {
@@ -227,7 +234,8 @@ module.exports = function(grunt) {
             },
             film: {
                 files: [
-                    '<%= EXAMPLE_PATH %>WindowFilm/dev/**/*.ts'
+                    '<%= EXAMPLE_PATH %>WindowFilm/dev/**/*.ts',
+                    '<%= SRC_PATH %>com/**/*.ts'
                 ],
                 tasks: ['film']
             },
@@ -257,8 +265,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
-    grunt.loadNpmTasks('grunt-typescript');
     grunt.loadNpmTasks('grunt-json');
+    grunt.loadNpmTasks('grunt-typescript');
+
+    grunt.loadNpmTasks('grunt-ts');
+    grunt.loadNpmTasks('grunt-type');
 
     // Default task.
     grunt.registerTask('default', ['cssmin', 'typescript:website', 'jst']);

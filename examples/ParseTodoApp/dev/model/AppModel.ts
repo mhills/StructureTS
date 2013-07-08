@@ -102,7 +102,7 @@ class AppModel extends EventDispatcher
         listItemVO.content = item.get('content');
         listItemVO.isComplete = item.get('isComplete');
 
-        this.dispatchEvent(new ListItemEvent(ListItemEvent.REMOVE_SUCCESS, listItemVO));
+        this.dispatchEvent(new ListItemEvent(ListItemEvent.REMOVE_SUCCESS, false, false, listItemVO));
     }
 
     /**
@@ -118,7 +118,7 @@ class AppModel extends EventDispatcher
         listItemVO.content = item.get('content');
         listItemVO.isComplete = item.get('isComplete');
 
-        this.dispatchEvent(new ListItemEvent(ListItemEvent.ADD_SUCCESS, listItemVO));
+        this.dispatchEvent(new ListItemEvent(ListItemEvent.ADD_SUCCESS, false, false, listItemVO));
     }
 
     /**
@@ -141,7 +141,7 @@ class AppModel extends EventDispatcher
             list.push(listItem);
         });
 
-        this.dispatchEvent(new ListItemEvent(ListItemEvent.LIST_SUCCESS, list));
+        this.dispatchEvent(new ListItemEvent(ListItemEvent.LIST_SUCCESS, false, false, list));
         this._query = null;
     }
 

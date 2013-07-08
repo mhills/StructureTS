@@ -16,28 +16,32 @@ var __extends = this.__extends || function (d, b) {
 };
 var BaseEvent = (function (_super) {
     __extends(BaseEvent, _super);
-    function BaseEvent(type, data) {
+    function BaseEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
         _super.call(this);
         this.CLASS_NAME = 'BaseEvent';
         this.type = null;
         this.target = null;
         this.data = null;
-        this.bubble = true;
-        this.isPropagationStopped = true;
-        this.isImmediatePropagationStopped = true;
+        this.bubble = false;
+        this.cancelable = false;
+        this.isPropagationStopped = false;
+        this.isImmediatePropagationStopped = false;
 
         this.type = type;
-
+        this.bubble = bubbles;
+        this.cancelable = cancelable;
         this.data = data;
     }
     BaseEvent.prototype.stopPropagation = function () {
-        this.isPropagationStopped = false;
+        this.isPropagationStopped = true;
     };
 
     BaseEvent.prototype.stopImmediatePropagation = function () {
         this.stopPropagation();
-        this.isImmediatePropagationStopped = false;
+        this.isImmediatePropagationStopped = true;
     };
     BaseEvent.ACTIVATE = 'BaseEvent.activate';
 
@@ -149,14 +153,18 @@ var EventDispatcher = (function (_super) {
             var i = list.length;
             var listener;
             while (--i > -1) {
-                if (event.isImmediatePropagationStopped == false)
+                if (event.cancelable && event.isImmediatePropagationStopped)
                     break;
+
                 listener = list[i];
                 listener.c.call(listener.s, event);
             }
         }
 
-        if (this.parent && event.isPropagationStopped) {
+        if (this.parent && event.bubble) {
+            if (event.cancelable && event.isPropagationStopped)
+                return this;
+
             this.parent.dispatchEvent(event);
         }
 
@@ -390,6 +398,8 @@ var DOMElement = (function (_super) {
                 domElement = new DOMElement();
                 domElement.$el = jQueryElement;
                 domElement.$el.attr('data-cid', domElement.cid);
+
+                console.log(selector, jQueryElement[0]);
                 domElement.el = jQueryElement[0];
                 domElement.isCreated = true;
 
@@ -480,11 +490,18 @@ var Stage = (function (_super) {
     __extends(Stage, _super);
     function Stage(type) {
         _super.call(this);
-
+    }
+    Stage.prototype.appendTo = function (type, enabled) {
+        if (typeof enabled === "undefined") { enabled = true; }
         this.$el = jQuery(type);
 
-        this.createChildren();
-    }
+        if (!this.isCreated) {
+            this.createChildren();
+            this.isCreated = true;
+        }
+
+        this.enabled(enabled);
+    };
     return Stage;
 })(DOMElement);
 var MouseEventType = (function () {
@@ -527,9 +544,11 @@ var EventBroker = (function () {
 })();
 var ListItemEvent = (function (_super) {
     __extends(ListItemEvent, _super);
-    function ListItemEvent(type, data) {
+    function ListItemEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
-        _super.call(this, type, data);
+        _super.call(this, type, bubbles, cancelable, data);
         this.CLASS_NAME = 'ListItemEvent';
     }
     ListItemEvent.LIST_SUCCESS = "ListItemEvent.listSuccess";
@@ -661,7 +680,7 @@ var AppModel = (function (_super) {
         listItemVO.content = item.get('content');
         listItemVO.isComplete = item.get('isComplete');
 
-        this.dispatchEvent(new ListItemEvent(ListItemEvent.REMOVE_SUCCESS, listItemVO));
+        this.dispatchEvent(new ListItemEvent(ListItemEvent.REMOVE_SUCCESS, false, false, listItemVO));
     };
 
     AppModel.prototype.onItemAddSuccess = function (item) {
@@ -670,7 +689,7 @@ var AppModel = (function (_super) {
         listItemVO.content = item.get('content');
         listItemVO.isComplete = item.get('isComplete');
 
-        this.dispatchEvent(new ListItemEvent(ListItemEvent.ADD_SUCCESS, listItemVO));
+        this.dispatchEvent(new ListItemEvent(ListItemEvent.ADD_SUCCESS, false, false, listItemVO));
     };
 
     AppModel.prototype.onQuerySuccess = function (results) {
@@ -686,7 +705,7 @@ var AppModel = (function (_super) {
             list.push(listItem);
         });
 
-        this.dispatchEvent(new ListItemEvent(ListItemEvent.LIST_SUCCESS, list));
+        this.dispatchEvent(new ListItemEvent(ListItemEvent.LIST_SUCCESS, false, false, list));
         this._query = null;
     };
 
@@ -699,7 +718,6 @@ var TodoApp = (function (_super) {
     __extends(TodoApp, _super);
     function TodoApp(selector) {
         _super.call(this, selector);
-        this._submitBtn = null;
     }
     TodoApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
@@ -708,7 +726,7 @@ var TodoApp = (function (_super) {
 
         this._input = this.getChild('#js-todo-input');
         this._submitBtn = this.getChild('#js-submit-button');
-
+        console.log("_submitBtn", this._submitBtn);
         this._noTasksMessage = TemplateFactory.createView('#noTodoItemsTemplate');
 
         this._incompleteItemList = this.getChild('#js-incomplete-items');
@@ -722,6 +740,11 @@ var TodoApp = (function (_super) {
         if (value == this.isEnabled)
             return;
 
+        console.log(this._appModel);
+        console.log(this._input);
+        console.log(this._noTasksMessage);
+        console.log(this._submitBtn);
+        console.log(this._submitBtn.$el);
         if (value) {
             this._submitBtn.el.addEventListener(MouseEventType.CLICK, function (event) {
                 return _this.onSubmitButton(event);

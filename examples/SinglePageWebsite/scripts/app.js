@@ -1,40 +1,110 @@
-var BaseEvent = (function () {
-    function BaseEvent(type, data) {
+var BaseObject = (function () {
+    function BaseObject() {
+        this.CLASS_NAME = 'BaseObject';
+        this.cid = _.uniqueId();
+    }
+    BaseObject.prototype.getQualifiedClassName = function () {
+        return this.CLASS_NAME;
+    };
+    return BaseObject;
+})();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var BaseEvent = (function (_super) {
+    __extends(BaseEvent, _super);
+    function BaseEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
+        _super.call(this);
         this.CLASS_NAME = 'BaseEvent';
         this.type = null;
         this.target = null;
         this.data = null;
-        this.bubble = true;
-        this.isPropagationStopped = true;
-        this.isImmediatePropagationStopped = true;
-        this.type = type;
+        this.bubble = false;
+        this.cancelable = false;
+        this.isPropagationStopped = false;
+        this.isImmediatePropagationStopped = false;
 
+        this.type = type;
+        this.bubble = bubbles;
+        this.cancelable = cancelable;
         this.data = data;
     }
     BaseEvent.prototype.stopPropagation = function () {
-        this.isPropagationStopped = false;
+        this.isPropagationStopped = true;
     };
 
     BaseEvent.prototype.stopImmediatePropagation = function () {
         this.stopPropagation();
-        this.isImmediatePropagationStopped = false;
+        this.isImmediatePropagationStopped = true;
     };
+    BaseEvent.ACTIVATE = 'BaseEvent.activate';
 
-    BaseEvent.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
-    };
-    BaseEvent.CHANGE = "BaseEvent.change";
-    BaseEvent.COMPLETE = "BaseEvent.complete";
-    BaseEvent.ENTER_FRAME = "BaseEvent.enterFrame";
+    BaseEvent.ADDED = 'BaseEvent.added';
+
+    BaseEvent.ADDED_TO_STAGE = 'BaseEvent.addedToStage';
+
+    BaseEvent.CANCEL = 'BaseEvent.cancel';
+
+    BaseEvent.CHANGE = 'BaseEvent.change';
+
+    BaseEvent.CLEAR = 'BaseEvent.clear';
+
+    BaseEvent.CLOSE = 'BaseEvent.close';
+
+    BaseEvent.CLOSING = 'BaseEvent.closing';
+
+    BaseEvent.COMPLETE = 'BaseEvent.complete';
+
+    BaseEvent.CONNECT = 'BaseEvent.connect';
+
+    BaseEvent.COPY = 'BaseEvent.copy';
+
+    BaseEvent.CUT = 'BaseEvent.cut';
+
+    BaseEvent.DEACTIVATE = 'BaseEvent.deactivate';
+
+    BaseEvent.DISPLAYING = 'BaseEvent.displaying';
+
+    BaseEvent.ENTER_FRAME = 'BaseEvent.enterFrame';
+
+    BaseEvent.EXIT_FRAME = 'BaseEvent.exitFrame';
+
+    BaseEvent.EXITING = 'BaseEvent.exiting';
+
+    BaseEvent.FULLSCREEN = 'BaseEvent.fullScreen';
+
+    BaseEvent.INIT = 'BaseEvent.init';
+
+    BaseEvent.NETWORK_CHANGE = 'BaseEvent.networkChange';
+
+    BaseEvent.OPEN = 'BaseEvent.open';
+
+    BaseEvent.PASTE = 'BaseEvent.paste';
+
+    BaseEvent.PREPARING = 'BaseEvent.preparing';
+
+    BaseEvent.REMOVED = 'BaseEvent.removed';
+
+    BaseEvent.RENDER = 'BaseEvent.render';
+
+    BaseEvent.RESIZE = 'BaseEvent.resize';
     return BaseEvent;
-})();
-var EventDispatcher = (function () {
+})(BaseObject);
+var EventDispatcher = (function (_super) {
+    __extends(EventDispatcher, _super);
     function EventDispatcher() {
+        _super.call(this);
         this.CLASS_NAME = 'EventDispatcher';
+        this._listeners = null;
         this.parent = null;
+
         this._listeners = [];
-        this.cid = _.uniqueId();
     }
     EventDispatcher.prototype.addEventListener = function (type, callback, scope, priority) {
         if (typeof priority === "undefined") { priority = 0; }
@@ -83,37 +153,30 @@ var EventDispatcher = (function () {
             var i = list.length;
             var listener;
             while (--i > -1) {
-                if (event.isImmediatePropagationStopped == false)
+                if (event.cancelable && event.isImmediatePropagationStopped)
                     break;
+
                 listener = list[i];
                 listener.c.call(listener.s, event);
             }
         }
 
-        if (this.parent && event.isPropagationStopped) {
+        if (this.parent && event.bubble) {
+            if (event.cancelable && event.isPropagationStopped)
+                return this;
+
             this.parent.dispatchEvent(event);
         }
 
         return this;
     };
-
-    EventDispatcher.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
-    };
     return EventDispatcher;
-})();
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
+})(BaseObject);
 var DisplayObject = (function (_super) {
     __extends(DisplayObject, _super);
     function DisplayObject() {
         _super.call(this);
         this.CLASS_NAME = 'DisplayObject';
-        this.name = null;
         this.isEnabled = false;
         this.isCreated = false;
         this.numChildren = 0;
@@ -122,26 +185,26 @@ var DisplayObject = (function (_super) {
     DisplayObject.prototype.createChildren = function () {
     };
 
-    DisplayObject.prototype.addChild = function (displayObject) {
-        if (displayObject.parent) {
-            displayObject.parent.removeChild(displayObject);
+    DisplayObject.prototype.addChild = function (child) {
+        if (child.parent) {
+            child.parent.removeChild(child);
         }
 
-        this.children.unshift(displayObject);
+        this.children.unshift(child);
         this.numChildren = this.children.length;
 
-        displayObject.parent = this;
+        child.parent = this;
 
-        return this;
+        return child;
     };
 
-    DisplayObject.prototype.removeChild = function (displayObject) {
-        var index = this.children.indexOf(displayObject);
+    DisplayObject.prototype.removeChild = function (child) {
+        var index = this.children.indexOf(child);
         if (index !== -1) {
             this.children.splice(index, 1);
         }
-        displayObject.enabled(false);
-        displayObject.parent = null;
+        child.enabled(false);
+        child.parent = null;
 
         this.numChildren = this.children.length;
 
@@ -158,17 +221,21 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.addChildAt = function (displayObject, displayIndex) {
-        this.children.unshift(displayObject);
+    DisplayObject.prototype.addChildAt = function (child, index) {
+        this.children.unshift(child);
 
         this.numChildren = this.children.length;
 
-        return this;
+        return child;
     };
 
-    DisplayObject.prototype.getChild = function (displayObject) {
-        var index = this.children.indexOf(displayObject);
+    DisplayObject.prototype.getChild = function (child) {
+        var index = this.children.indexOf(child);
 
+        return this.children[index];
+    };
+
+    DisplayObject.prototype.getChildAt = function (index) {
         return this.children[index];
     };
 
@@ -183,11 +250,13 @@ var DisplayObject = (function (_super) {
         this.isEnabled = value;
     };
 
-    DisplayObject.prototype.invalidateLayout = function () {
-        this.layoutChildren();
+    DisplayObject.prototype.layoutChildren = function () {
     };
 
-    DisplayObject.prototype.layoutChildren = function () {
+    DisplayObject.prototype.destroy = function () {
+        this.enabled(false);
+        this.children = [];
+        this.numChildren = 0;
     };
     return DisplayObject;
 })(EventDispatcher);
@@ -268,38 +337,40 @@ var DOMElement = (function (_super) {
         this.el = this.$el[0];
     };
 
-    DOMElement.prototype.addChild = function (displayObject) {
-        _super.prototype.addChild.call(this, displayObject);
+    DOMElement.prototype.addChild = function (child) {
+        _super.prototype.addChild.call(this, child);
 
-        if (!displayObject.isCreated) {
-            displayObject.createChildren();
-            displayObject.isCreated = true;
+        if (!child.isCreated) {
+            child.createChildren();
+            child.isCreated = true;
         }
-        displayObject.layoutChildren();
+        child.layoutChildren();
 
-        displayObject.$el.attr('data-cid', displayObject.cid);
+        child.$el.attr('data-cid', child.cid);
 
-        this.$el.append(displayObject.$el);
+        this.$el.append(child.$el);
 
-        return this;
+        this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
+
+        return child;
     };
 
-    DOMElement.prototype.addChildAt = function (displayObject, displayIndex) {
+    DOMElement.prototype.addChildAt = function (child, index) {
         var children = this.$el.children();
         var length = children.length;
 
-        if (displayIndex < 0 || displayIndex >= length) {
-            this.addChild(displayObject);
+        if (index < 0 || index >= length) {
+            this.addChild(child);
         } else {
-            displayObject.parent = this;
-            if (!displayObject.isCreated) {
-                displayObject.createChildren();
-                displayObject.isCreated = true;
+            child.parent = this;
+            if (!child.isCreated) {
+                child.createChildren();
+                child.isCreated = true;
             }
-            displayObject.layoutChildren();
-            jQuery(children.get(displayIndex)).before(displayObject.$el);
+            child.layoutChildren();
+            jQuery(children.get(index)).before(child.$el);
 
-            _super.prototype.addChildAt.call(this, displayObject, displayIndex);
+            _super.prototype.addChildAt.call(this, child, index);
         }
 
         return this;
@@ -328,6 +399,7 @@ var DOMElement = (function (_super) {
                 domElement.$el = jQueryElement;
                 domElement.$el.attr('data-cid', domElement.cid);
                 domElement.el = jQueryElement[0];
+                domElement.isCreated = true;
 
                 _super.prototype.addChild.call(this, domElement);
             }
@@ -336,14 +408,38 @@ var DOMElement = (function (_super) {
         return domElement;
     };
 
-    DOMElement.prototype.removeChild = function (displayObject) {
-        displayObject.enabled(false);
-        displayObject.$el.unbind();
-        displayObject.$el.remove();
+    DOMElement.prototype.getChildren = function (selector) {
+        if (typeof selector === "undefined") { selector = ''; }
+        var _this = this;
+        var $child;
+        var domElement;
+        var $list = this.$el.children(selector || '');
 
-        _super.prototype.removeChild.call(this, displayObject);
+        _.each($list, function (item, index) {
+            $child = jQuery(item);
 
-        return this;
+            if (!$child.data('cid')) {
+                domElement = new DOMElement();
+                domElement.$el = $child;
+                domElement.$el.attr('data-cid', domElement.cid);
+                domElement.el = item;
+                domElement.isCreated = true;
+
+                _super.prototype.addChild.call(_this, domElement);
+            }
+        });
+
+        return this.children;
+    };
+
+    DOMElement.prototype.removeChild = function (child) {
+        child.enabled(false);
+        child.$el.unbind();
+        child.$el.remove();
+
+        _super.prototype.removeChild.call(this, child);
+
+        return child;
     };
 
     DOMElement.prototype.removeChildren = function () {
@@ -364,10 +460,6 @@ var DOMElement = (function (_super) {
         }
 
         _super.prototype.enabled.call(this, value);
-    };
-
-    DOMElement.prototype.invalidateLayout = function () {
-        this.layoutChildren();
     };
 
     DOMElement.prototype.layoutChildren = function () {
@@ -398,6 +490,7 @@ var Stage = (function (_super) {
         _super.call(this);
 
         this.$el = jQuery(type);
+
         this.createChildren();
     }
     return Stage;
@@ -662,8 +755,10 @@ var JsonRequest = (function (_super) {
     }
     return JsonRequest;
 })(BaseRequest);
-var ValueObject = (function () {
+var ValueObject = (function (_super) {
+    __extends(ValueObject, _super);
     function ValueObject() {
+        _super.call(this);
         this.CLASS_NAME = 'ValueObject';
     }
     ValueObject.prototype.toJsonString = function () {
@@ -706,12 +801,8 @@ var ValueObject = (function () {
             return this;
         return this[prop];
     };
-
-    ValueObject.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
-    };
     return ValueObject;
-})();
+})(BaseObject);
 var LanguageConfigVO = (function (_super) {
     __extends(LanguageConfigVO, _super);
     function LanguageConfigVO(data) {
@@ -822,9 +913,11 @@ var LocalStorageController = (function (_super) {
 })(EventDispatcher);
 var LanguageEvent = (function (_super) {
     __extends(LanguageEvent, _super);
-    function LanguageEvent(type, data) {
+    function LanguageEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
-        _super.call(this, type, data);
+        _super.call(this, type, bubbles, cancelable, data);
         this.CLASS_NAME = 'LanguageEvent';
     }
     LanguageEvent.LANGUAGE_CHANGE = "LanguageEvent.languageChange";
@@ -863,7 +956,7 @@ var LanguageSelect = (function (_super) {
 
     LanguageSelect.prototype.onLanguageChange = function (event) {
         var languageId = $(event.currentTarget).val();
-        this.dispatchEvent(new LanguageEvent(LanguageEvent.LANGUAGE_CHANGE, languageId));
+        this.dispatchEvent(new LanguageEvent(LanguageEvent.LANGUAGE_CHANGE, false, false, languageId));
     };
 
     LanguageSelect.prototype.value = function (value) {
@@ -1290,8 +1383,8 @@ var MainView = (function (_super) {
 })(DOMElement);
 var WebsiteApp = (function (_super) {
     __extends(WebsiteApp, _super);
-    function WebsiteApp() {
-        _super.call(this, 'body');
+    function WebsiteApp(selector) {
+        _super.call(this, selector);
         this._router = null;
         this._pageContainer = null;
         this._navigationView = null;

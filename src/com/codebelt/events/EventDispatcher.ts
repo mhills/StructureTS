@@ -52,7 +52,7 @@ class EventDispatcher extends BaseObject
      * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void
      * @param scope {any} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
      * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
-     * @returns {EventDispatcher}
+     * @returns {*}
      * @example
      *      instance.addEventListener(BaseEvent.CHANGE, handlerMethod, this);
      *      private handlerMethod(event:BaseEvent):void {
@@ -87,7 +87,7 @@ class EventDispatcher extends BaseObject
      * @method removeEventListener
      * @param type {String} The type of event.
      * @param callback {Function} The listener object to remove.
-     * @returns {EventDispatcher}
+     * @returns {*}
      * @example
      *      instance.removeEventListener(BaseEvent.CHANGE, handlerMethod);
      *      private handlerMethod(event:BaseEvent):void {
@@ -111,12 +111,13 @@ class EventDispatcher extends BaseObject
     }
 
     /**
-     * Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the dispatchEvent() method is called.
+     * <p>Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the dispatchEvent() method is called.</p>
+     * TODO: show this example: http://www.rubenswieringa.com/blog/eventbubbles-eventcancelable-and-eventcurrenttarget
      *
      * @method dispatchEvent
      * @param event {BaseEvent} The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
      * extend the {{#crossLink "BaseEvent"}}{{/crossLink}}.
-     * @returns {EventDispatcher}
+     * @returns {*}
      * @example
      *      var event:BaseEvent = new BaseEvent(BaseEvent.CHANGE);
      *      instance.dispatchEvent(event);
@@ -135,14 +136,19 @@ class EventDispatcher extends BaseObject
             var i:number = list.length;
             var listener:any;
             while (--i > -1) {
-                if (event.isImmediatePropagationStopped == false) break;
+                // If cancelable and isImmediatePropagationStopped are true then break out of the while loop.
+                if (event.cancelable && event.isImmediatePropagationStopped) break;
+
                 listener = list[i];
                 listener.c.call(listener.s, event);
             }
         }
 
         //Dispatches up the chain of classes that have a parent.
-        if (this.parent && event.isPropagationStopped) {
+        if (this.parent && event.bubble) {
+            // If cancelable and isPropagationStopped then don't dispatch the event on the parent object.
+            if (event.cancelable && event.isPropagationStopped) return this;
+
             this.parent.dispatchEvent(event);
         }
 

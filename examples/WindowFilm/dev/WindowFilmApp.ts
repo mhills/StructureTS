@@ -26,7 +26,15 @@ class WindowFilmApp extends Stage
     public createChildren():void {
         super.createChildren();
 
+        this.addEventListener(BaseEvent.ACTIVATE, function(event:BaseEvent){
+            console.log(this, event)
+        }, this)
+
+
         this._topBar = new TopNavigationView();//({controller: this.appController});
+        this._topBar.addEventListener(BaseEvent.ACTIVATE, function(event:BaseEvent){
+            console.log("_topBar", this, event)
+        }, this)
         this.addChild(this._topBar);
 
         this._contentContainer = new DOMElement('div', {id: 'content-container'});
@@ -48,5 +56,30 @@ class WindowFilmApp extends Stage
 
         super.enabled(value);
     }
+
+    private changeView(view):void {
+        //If the current view exists then do anything.
+        //If there is a current view the disable it and then remove it.
+        //Enable a new view and add it to the contentContainer.
+//        if (this.currentView != view) {
+//
+//            if (this.currentView) {
+//                this.contentContainer.removeChild(this.currentView);
+//                if (this.currentView.destroy) {
+//                    this.currentView.destroy();
+//                }
+//            }
+//
+//            if (this.currentViewController && this.currentViewController.view !== view) {
+//                this.currentViewController.destroy();
+//                this.currentViewController = null;
+//            }
+//
+//            this.currentView = view;
+//            this.currentView.enabled(true);
+//            this.contentContainer.addChild(this.currentView);
+//        }
+    }
+
 
 }

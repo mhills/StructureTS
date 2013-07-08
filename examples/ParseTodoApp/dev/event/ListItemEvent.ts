@@ -15,9 +15,9 @@ class ListItemEvent extends BaseEvent {
     static ADD_SUCCESS:string = "ListItemEvent.addSuccess";
     static REMOVE_SUCCESS:string = "ListItemEvent.removeSuccess";
 
-    constructor(type:string, data:any=null)
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
     {
-        super(type, data);
+        super(type, bubbles, cancelable, data);
     }
 
 }

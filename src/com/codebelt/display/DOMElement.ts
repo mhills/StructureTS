@@ -4,7 +4,7 @@
 ///<reference path='../utils/TemplateFactory.ts'/>
 
 /**
- * The DOMElement class is the base class for all objects that can be placed into the HTML DOM.
+ * The {{#crossLink "DOMElement"}}{{/crossLink}} class is the base class for all objects that can be placed into the HTML DOM.
  *
  * @class DOMElement
  * @extends DisplayObject
@@ -174,6 +174,8 @@ class DOMElement extends DisplayObject {
                 domElement = new DOMElement();
                 domElement.$el = jQueryElement;
                 domElement.$el.attr('data-cid', domElement.cid);
+
+                console.log(selector, jQueryElement[0])
                 domElement.el = jQueryElement[0];
                 domElement.isCreated = true;
 

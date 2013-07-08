@@ -46,7 +46,7 @@ class LanguageSelect extends DOMElement {
     public onLanguageChange(event):void
     {
         var languageId:string = $(event.currentTarget).val();
-        this.dispatchEvent(new LanguageEvent(LanguageEvent.LANGUAGE_CHANGE, languageId));
+        this.dispatchEvent(new LanguageEvent(LanguageEvent.LANGUAGE_CHANGE, false, false, languageId));
     }
 
     public value(value:any):void

@@ -49,9 +49,9 @@ class MainView extends DOMElement {
         this._router.start();
     }
 
-    public enabled(value:boolean):DOMElement
+    public enabled(value:boolean):void
     {
-        if (value == this.isEnabled) return this;
+        if (value == this.isEnabled) return;
 
         if (value) {
         } else {

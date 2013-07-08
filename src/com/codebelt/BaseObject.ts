@@ -1,7 +1,7 @@
 ///<reference path=''/>
 
 /**
- * The BaseObject class is an abstract class that provides common properties and functionality for all StructureTS classes.
+ * The {{#crossLink "BaseObject"}}{{/crossLink}} class is an abstract class that provides common properties and functionality for all StructureTS classes.
  *
  * @class BaseObject
  * @constructor

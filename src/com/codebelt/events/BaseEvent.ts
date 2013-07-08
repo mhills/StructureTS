@@ -2,15 +2,27 @@
 ///<reference path='../interfaces/ICore.ts'/>
 
 /**
- * The BaseEvent...
+ * <p>The {{#crossLink "BaseEvent"}}{{/crossLink}} class is used as the base class for the creation of Event objects, which are passed as parameters to event listeners when an event occurs.</p>
+ *
+ * <p>The properties of the {{#crossLink "BaseEvent"}}{{/crossLink}} class carry basic information about an event, such as the event's type or whether the event's default behavior can be canceled.
+ * For many events, such as the events represented by the Event class constants, this basic information is sufficient. Other events, however, may require more
+ * detailed information.</p>
  *
  * @class BaseEvent
+ * @param type {string} The type of event. The type is case-sensitive.
+ * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
+ * Note: Bubbling will only work with DisplayObject classes throw the display list hierarchy. Any classes that do not have a parent cannot bubble.
+ * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
+ * @param [data=null] {Object}
+ * @extends BaseObject
  * @requires ICore
  * @constructor
- * @static
  **/
 class BaseEvent extends BaseObject implements ICore {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
     public CLASS_NAME:string = 'BaseEvent';
 
     /**
@@ -252,25 +264,42 @@ class BaseEvent extends BaseObject implements ICore {
     public target:any = null;
     public data:any = null;
 
-    public bubble:boolean = true;
-    public isPropagationStopped:boolean = true;
-    public isImmediatePropagationStopped:boolean = true;
+    public bubble:boolean = false;
+    public cancelable:boolean = false;
+    public isPropagationStopped:boolean = false;
+    public isImmediatePropagationStopped:boolean = false;
 
-    constructor(type:string, data:any = null) {
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null) {
         super();
 
         this.type = type;
-//        this.target = target;
+        this.bubble = bubbles;
+        this.cancelable = cancelable;
         this.data = data;
     }
 
+    /**
+     * Prevents processing of any event listeners in nodes subsequent to the current node in the event flow.
+     * This method does not affect any event listeners in the current node (currentTarget). In contrast, the stopImmediatePropagation()
+     * method prevents processing of event listeners in both the current node and subsequent nodes. Additional calls to this method have no effect.
+     * This method can be called in any phase of
+     *
+     * @method stopPropagation
+     */
     stopPropagation():void {
-        this.isPropagationStopped = false;
+        this.isPropagationStopped = true;
     }
 
+    /**
+     * Prevents processing of any event listeners in the current node and any subsequent nodes in the event flow.
+     * This method takes effect immediately, and it affects event listeners in the current node. In contrast, the stopPropagation()
+     * method doesn't take effect until all the event listeners in the current node finish processing.
+     *
+     * @method stopImmediatePropagation
+     */
     stopImmediatePropagation():void {
         this.stopPropagation();
-        this.isImmediatePropagationStopped = false;
+        this.isImmediatePropagationStopped = true;
     }
 
 }

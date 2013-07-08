@@ -1,7 +1,7 @@
 ///<reference path='../events/EventDispatcher.ts'/>
 
 /**
- * The DisplayObject class is the base class for all objects that can be placed on the display list.
+ * The {{#crossLink "DisplayObject"}}{{/crossLink}} class is the base class for all objects that can be placed on the display list.
  *
  * @class DisplayObject
  * @extends EventDispatcher

@@ -12,9 +12,9 @@ class LanguageEvent extends BaseEvent {
 
     static LANGUAGE_CHANGE:string = "LanguageEvent.languageChange";
 
-    constructor(type:string, data:any=null)
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
     {
-        super(type, data);
+        super(type, bubbles, cancelable, data);
     }
 
 }

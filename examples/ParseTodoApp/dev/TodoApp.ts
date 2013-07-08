@@ -21,7 +21,7 @@ class TodoApp extends Stage
 {
     private _appModel:AppModel;
 
-    private _submitBtn:DOMElement = null;
+    private _submitBtn:DOMElement;
     private _noTasksMessage:DOMElement;
     private _incompleteItemList:DOMElement;
     private _input:DOMElement;

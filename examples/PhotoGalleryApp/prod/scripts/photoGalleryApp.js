@@ -1,28 +1,47 @@
-var BaseEvent = (function () {
-    function BaseEvent(type, data) {
+var BaseObject = (function () {
+    function BaseObject() {
+        this.CLASS_NAME = 'BaseObject';
+        this.cid = _.uniqueId();
+    }
+    BaseObject.prototype.getQualifiedClassName = function () {
+        return this.CLASS_NAME;
+    };
+    return BaseObject;
+})();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var BaseEvent = (function (_super) {
+    __extends(BaseEvent, _super);
+    function BaseEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
+        _super.call(this);
         this.CLASS_NAME = 'BaseEvent';
         this.type = null;
         this.target = null;
         this.data = null;
-        this.bubble = true;
-        this.isPropagationStopped = true;
-        this.isImmediatePropagationStopped = true;
-        this.type = type;
+        this.bubble = false;
+        this.cancelable = false;
+        this.isPropagationStopped = false;
+        this.isImmediatePropagationStopped = false;
 
+        this.type = type;
+        this.bubble = bubbles;
+        this.cancelable = cancelable;
         this.data = data;
     }
     BaseEvent.prototype.stopPropagation = function () {
-        this.isPropagationStopped = false;
+        this.isPropagationStopped = true;
     };
 
     BaseEvent.prototype.stopImmediatePropagation = function () {
         this.stopPropagation();
-        this.isImmediatePropagationStopped = false;
-    };
-
-    BaseEvent.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
+        this.isImmediatePropagationStopped = true;
     };
     BaseEvent.ACTIVATE = 'BaseEvent.activate';
 
@@ -76,13 +95,16 @@ var BaseEvent = (function () {
 
     BaseEvent.RESIZE = 'BaseEvent.resize';
     return BaseEvent;
-})();
-var EventDispatcher = (function () {
+})(BaseObject);
+var EventDispatcher = (function (_super) {
+    __extends(EventDispatcher, _super);
     function EventDispatcher() {
+        _super.call(this);
         this.CLASS_NAME = 'EventDispatcher';
+        this._listeners = null;
         this.parent = null;
+
         this._listeners = [];
-        this.cid = _.uniqueId();
     }
     EventDispatcher.prototype.addEventListener = function (type, callback, scope, priority) {
         if (typeof priority === "undefined") { priority = 0; }
@@ -131,31 +153,25 @@ var EventDispatcher = (function () {
             var i = list.length;
             var listener;
             while (--i > -1) {
-                if (event.isImmediatePropagationStopped == false)
+                if (event.cancelable && event.isImmediatePropagationStopped)
                     break;
+
                 listener = list[i];
                 listener.c.call(listener.s, event);
             }
         }
 
-        if (this.parent && event.isPropagationStopped) {
+        if (this.parent && event.bubble) {
+            if (event.cancelable && event.isPropagationStopped)
+                return this;
+
             this.parent.dispatchEvent(event);
         }
 
         return this;
     };
-
-    EventDispatcher.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
-    };
     return EventDispatcher;
-})();
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
+})(BaseObject);
 var DisplayObject = (function (_super) {
     __extends(DisplayObject, _super);
     function DisplayObject() {
@@ -336,7 +352,7 @@ var DOMElement = (function (_super) {
 
         this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
-        return this;
+        return child;
     };
 
     DOMElement.prototype.addChildAt = function (child, index) {
@@ -474,6 +490,7 @@ var Stage = (function (_super) {
         _super.call(this);
 
         this.$el = jQuery(type);
+
         this.createChildren();
     }
     return Stage;
