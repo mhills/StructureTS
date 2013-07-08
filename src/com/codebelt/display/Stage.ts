@@ -57,6 +57,12 @@ class Stage extends DOMElement
 //        this.createChildren();
     }
 
+    /**
+     *
+     * @method appendTo
+     * @param type
+     * @param enabled
+     */
     public appendTo(type:string, enabled:boolean = true)
     {
         this.$el = jQuery(type);
