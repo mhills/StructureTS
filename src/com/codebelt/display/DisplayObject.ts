@@ -229,6 +229,7 @@ class DisplayObject extends EventDispatcher
         this.enabled(false);
         this.children = [];
         this.numChildren = 0;
+        // TODO: maybe do what is Destruction Lifecycle: http://js.nerderylabs.com/best-practices/view-objects-in-javascript/
     }
 
 }
