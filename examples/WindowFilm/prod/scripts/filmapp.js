@@ -1428,9 +1428,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="wrapperFixed wrapper-primaryImage">\n    <div class="frame">\n        <div class="gapTop-primary smallPanel">\n            <div class="well">\n                <form novalidate="novalidate"  id="js-login-form" class="form-horizontal">\n                    <h2 class="hd hd_3 text-center">' +
 ((__t = ( title )) == null ? '' : __t) +
-'</h2>\n                    <div class="control-group">\n                        <input class="required" type="email" placeholder="Email" name="emailAddress" value="">\n                    </div>\n                    <div class="control-group">\n                        <input class="required" type="password" placeholder="Password" name="password" value="">\n                    </div>\n                    <div class="control-group">\n                        <button id="js-login-btn" type="submit" class="btn btn-primary">Sign in</button>\n                    </div>\n                    <p><a href="' +
-((__t = ( _.route('forgot-password') )) == null ? '' : __t) +
-'" class="online-only">Forgot your password?</a></p>\n                </form>\n            </div>\n            <!-- /well -->\n        </div>\n        <!-- /gapTop-primary -->\n    </div>\n    <!-- /frame -->\n</div>\n<!-- /wrapperBackground -->';
+'</h2>\n                    <div class="control-group">\n                        <input class="required" type="email" placeholder="Email" name="emailAddress" value="">\n                    </div>\n                    <div class="control-group">\n                        <input class="required" type="password" placeholder="Password" name="password" value="">\n                    </div>\n                    <div class="control-group">\n                        <button id="js-login-btn" type="submit" class="btn btn-primary">Sign in</button>\n                    </div>\n                    <p><a href="#" class="online-only">Forgot your password?</a></p>\n                </form>\n            </div>\n            <!-- /well -->\n        </div>\n        <!-- /gapTop-primary -->\n    </div>\n    <!-- /frame -->\n</div>\n<!-- /wrapperBackground -->';
 
 }
 return __p
@@ -2520,12 +2518,12 @@ var DOMElement = (function (_super) {
         this._node = type;
         this._options = params;
     }
-    DOMElement.prototype.createChildren = function (template) {
+    DOMElement.prototype.createChildren = function (template, data) {
         if (typeof template === 'function') {
             Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
         } else if (typeof template === 'string') {
-            this.$el = TemplateFactory.createTemplate(template);
+            this.$el = TemplateFactory.createTemplate(template, data);
         } else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);
         }
@@ -2744,6 +2742,17 @@ var TopNavigationView = (function (_super) {
     };
     return TopNavigationView;
 })(DOMElement);
+var LoginView = (function (_super) {
+    __extends(LoginView, _super);
+    function LoginView() {
+        _super.call(this);
+        this.CLASS_NAME = 'LoginView';
+    }
+    LoginView.prototype.createChildren = function () {
+        _super.prototype.createChildren.call(this, 'templates/login/LoginTemplate.tpl', { title: 'Sign In' });
+    };
+    return LoginView;
+})(DOMElement);
 var SelectBoxTemp = (function (_super) {
     __extends(SelectBoxTemp, _super);
     function SelectBoxTemp() {
@@ -2776,7 +2785,9 @@ var WindowFilmApp = (function (_super) {
         this.addChild(this._contentContainer);
 
         this._selectBoxTemp = new SelectBoxTemp();
-        this._contentContainer.addChild(this._selectBoxTemp);
+
+        var loginView = new LoginView();
+        this.changeView(loginView);
     };
 
     WindowFilmApp.prototype.enable = function () {
@@ -2798,6 +2809,18 @@ var WindowFilmApp = (function (_super) {
     };
 
     WindowFilmApp.prototype.changeView = function (view) {
+        if (this._currentView != view) {
+            if (this._currentView) {
+                this._contentContainer.removeChild(this._currentView);
+                if (this._currentView.destroy) {
+                    this._currentView.destroy();
+                }
+            }
+
+            this._currentView = view;
+            this._currentView.enable();
+            this._contentContainer.addChild(this._currentView);
+        }
     };
     return WindowFilmApp;
 })(Stage);

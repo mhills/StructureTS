@@ -57,13 +57,13 @@ class DOMElement extends DisplayObject {
      * @copy DisplayObject.createChildren
      * @overridden
      */
-    public createChildren(template?:any) {
+    public createChildren(template?:any, data?:any) {
         if (typeof template === 'function') {
             Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
         }
         else if (typeof template === 'string') {
-            this.$el = TemplateFactory.createTemplate(template);
+            this.$el = TemplateFactory.createTemplate(template, data);
         }
         else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);

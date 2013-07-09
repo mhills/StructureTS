@@ -13,7 +13,7 @@
                     <div class="control-group">
                         <button id="js-login-btn" type="submit" class="btn btn-primary">Sign in</button>
                     </div>
-                    <p><a href="<%= _.route('forgot-password') %>" class="online-only">Forgot your password?</a></p>
+                    <p><a href="#" class="online-only">Forgot your password?</a></p>
                 </form>
             </div>
             <!-- /well -->

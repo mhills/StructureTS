@@ -8,12 +8,14 @@
 ///<reference path='../../../../src/com/codebelt/utils/TemplateFactory.ts'/>
 
 ///<reference path='views/topbar/TopNavigationView.ts'/>
+///<reference path='views/login/LoginView.ts'/>
 ///<reference path='views/SelectBoxTemp.ts'/>
 
 class WindowFilmApp extends Stage {
 
     private _topBar:TopNavigationView;
     private _contentContainer:DOMElement;
+    private _currentView:DOMElement;
 
     private _selectBoxTemp:SelectBoxTemp;
 
@@ -31,8 +33,10 @@ class WindowFilmApp extends Stage {
         this.addChild(this._contentContainer);
 
         this._selectBoxTemp = new SelectBoxTemp();
-        this._contentContainer.addChild(this._selectBoxTemp);
+//        this._contentContainer.addChild(this._selectBoxTemp);
 
+        var loginView = new LoginView();//({controller: this.appController});
+        this.changeView(loginView);
     }
 
     /**
@@ -61,24 +65,24 @@ class WindowFilmApp extends Stage {
         //If the current view exists then do anything.
         //If there is a current view the disable it and then remove it.
         //Enable a new view and add it to the contentContainer.
-//        if (this.currentView != view) {
-//
-//            if (this.currentView) {
-//                this.contentContainer.removeChild(this.currentView);
-//                if (this.currentView.destroy) {
-//                    this.currentView.destroy();
-//                }
+        if (this._currentView != view) {
+
+            if (this._currentView) {
+                this._contentContainer.removeChild(this._currentView);
+                if (this._currentView.destroy) {
+                    this._currentView.destroy();
+                }
+            }
+
+//            if (this._currentViewController && this._currentViewController.view !== view) {
+//                this._currentViewController.destroy();
+//                this._currentViewController = null;
 //            }
-//
-//            if (this.currentViewController && this.currentViewController.view !== view) {
-//                this.currentViewController.destroy();
-//                this.currentViewController = null;
-//            }
-//
-//            this.currentView = view;
-//            this.currentView.enabled(true);
-//            this.contentContainer.addChild(this.currentView);
-//        }
+
+            this._currentView = view;
+            this._currentView.enable();
+            this._contentContainer.addChild(this._currentView);
+        }
     }
 
 }

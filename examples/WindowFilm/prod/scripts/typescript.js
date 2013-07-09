@@ -327,12 +327,12 @@ var DOMElement = (function (_super) {
         this._node = type;
         this._options = params;
     }
-    DOMElement.prototype.createChildren = function (template) {
+    DOMElement.prototype.createChildren = function (template, data) {
         if (typeof template === 'function') {
             Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
         } else if (typeof template === 'string') {
-            this.$el = TemplateFactory.createTemplate(template);
+            this.$el = TemplateFactory.createTemplate(template, data);
         } else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);
         }
@@ -551,6 +551,17 @@ var TopNavigationView = (function (_super) {
     };
     return TopNavigationView;
 })(DOMElement);
+var LoginView = (function (_super) {
+    __extends(LoginView, _super);
+    function LoginView() {
+        _super.call(this);
+        this.CLASS_NAME = 'LoginView';
+    }
+    LoginView.prototype.createChildren = function () {
+        _super.prototype.createChildren.call(this, 'templates/login/LoginTemplate.tpl', { title: 'Sign In' });
+    };
+    return LoginView;
+})(DOMElement);
 var SelectBoxTemp = (function (_super) {
     __extends(SelectBoxTemp, _super);
     function SelectBoxTemp() {
@@ -583,7 +594,9 @@ var WindowFilmApp = (function (_super) {
         this.addChild(this._contentContainer);
 
         this._selectBoxTemp = new SelectBoxTemp();
-        this._contentContainer.addChild(this._selectBoxTemp);
+
+        var loginView = new LoginView();
+        this.changeView(loginView);
     };
 
     WindowFilmApp.prototype.enable = function () {
@@ -605,6 +618,18 @@ var WindowFilmApp = (function (_super) {
     };
 
     WindowFilmApp.prototype.changeView = function (view) {
+        if (this._currentView != view) {
+            if (this._currentView) {
+                this._contentContainer.removeChild(this._currentView);
+                if (this._currentView.destroy) {
+                    this._currentView.destroy();
+                }
+            }
+
+            this._currentView = view;
+            this._currentView.enable();
+            this._contentContainer.addChild(this._currentView);
+        }
     };
     return WindowFilmApp;
 })(Stage);
