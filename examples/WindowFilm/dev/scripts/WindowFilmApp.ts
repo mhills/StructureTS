@@ -1,40 +1,30 @@
-///<reference path='../../../src/_declare/jquery.d.ts'/>
-///<reference path='../../../src/_declare/underscore.d.ts'/>
+///<reference path='../../../../src/_declare/jquery.d.ts'/>
+///<reference path='../../../../src/_declare/underscore.d.ts'/>
 
-///<reference path='../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../src/com/codebelt/display/Stage.ts'/>
-///<reference path='../../../src/com/codebelt/events/MouseEventType.ts'/>
-///<reference path='../../../src/com/codebelt/events/RequestEvent.ts'/>
-///<reference path='../../../src/com/codebelt/utils/TemplateFactory.ts'/>
+///<reference path='../../../../src/com/codebelt/display/DOMElement.ts'/>
+///<reference path='../../../../src/com/codebelt/display/Stage.ts'/>
+///<reference path='../../../../src/com/codebelt/events/MouseEventType.ts'/>
+///<reference path='../../../../src/com/codebelt/events/RequestEvent.ts'/>
+///<reference path='../../../../src/com/codebelt/utils/TemplateFactory.ts'/>
 
 ///<reference path='views/topbar/TopNavigationView.ts'/>
 ///<reference path='views/SelectBoxTemp.ts'/>
 
-class WindowFilmApp extends Stage
-{
-    public static BASE_PATH:string = 'images/';
+class WindowFilmApp extends Stage {
 
     private _topBar:TopNavigationView;
     private _contentContainer:DOMElement;
 
     private _selectBoxTemp:SelectBoxTemp;
 
-    constructor(selector:string) {
-        super(selector);
+    constructor() {
+        super();
     }
 
     public createChildren():void {
         super.createChildren();
 
-        this.addEventListener(BaseEvent.ACTIVATE, function(event:BaseEvent){
-            console.log(this, event)
-        }, this)
-
-
         this._topBar = new TopNavigationView();//({controller: this.appController});
-        this._topBar.addEventListener(BaseEvent.ACTIVATE, function(event:BaseEvent){
-            console.log("_topBar", this, event)
-        }, this)
         this.addChild(this._topBar);
 
         this._contentContainer = new DOMElement('div', {id: 'content-container'});
@@ -45,16 +35,26 @@ class WindowFilmApp extends Stage
 
     }
 
-    public enabled(value:boolean):void {
-        if (value == this.isEnabled) return;
+    /**
+     * @copy DisplayObject.enable
+     */
+    public enable():void {
+        if (this.isEnabled === true) return;
 
-        if (value) {
-        } else {
-        }
+        this._topBar.enable();
 
-        this._topBar.enabled(value);
+        super.enable();
+    }
 
-        super.enabled(value);
+    /**
+     * @copy DisplayObject.disable
+     */
+    public disable():void {
+        if (this.isEnabled === false) return;
+
+        this._topBar.disable();
+
+        super.disable();
     }
 
     private changeView(view):void {
@@ -80,6 +80,5 @@ class WindowFilmApp extends Stage
 //            this.contentContainer.addChild(this.currentView);
 //        }
     }
-
 
 }

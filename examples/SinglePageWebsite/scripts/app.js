@@ -203,7 +203,7 @@ var DisplayObject = (function (_super) {
         if (index !== -1) {
             this.children.splice(index, 1);
         }
-        child.enabled(false);
+        child.disable();
         child.parent = null;
 
         this.numChildren = this.children.length;
@@ -239,22 +239,25 @@ var DisplayObject = (function (_super) {
         return this.children[index];
     };
 
-    DisplayObject.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
+    DisplayObject.prototype.enable = function () {
+        if (this.isEnabled === true)
             return;
 
-        if (value) {
-        } else {
-        }
+        this.isEnabled = true;
+    };
 
-        this.isEnabled = value;
+    DisplayObject.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        this.isEnabled = false;
     };
 
     DisplayObject.prototype.layoutChildren = function () {
     };
 
     DisplayObject.prototype.destroy = function () {
-        this.enabled(false);
+        this.disable();
         this.children = [];
         this.numChildren = 0;
     };
@@ -398,6 +401,7 @@ var DOMElement = (function (_super) {
                 domElement = new DOMElement();
                 domElement.$el = jQueryElement;
                 domElement.$el.attr('data-cid', domElement.cid);
+
                 domElement.el = jQueryElement[0];
                 domElement.isCreated = true;
 
@@ -433,7 +437,6 @@ var DOMElement = (function (_super) {
     };
 
     DOMElement.prototype.removeChild = function (child) {
-        child.enabled(false);
         child.$el.unbind();
         child.$el.remove();
 
@@ -450,16 +453,18 @@ var DOMElement = (function (_super) {
         return this;
     };
 
-    DOMElement.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+    DOMElement.prototype.enable = function () {
+        if (this.isEnabled === true)
             return;
-        }
 
-        if (value) {
-        } else {
-        }
+        _super.prototype.enable.call(this);
+    };
 
-        _super.prototype.enabled.call(this, value);
+    DOMElement.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        _super.prototype.disable.call(this);
     };
 
     DOMElement.prototype.layoutChildren = function () {
@@ -486,13 +491,24 @@ var DOMElement = (function (_super) {
 })(DisplayObject);
 var Stage = (function (_super) {
     __extends(Stage, _super);
-    function Stage(type) {
+    function Stage() {
         _super.call(this);
-
+    }
+    Stage.prototype.appendTo = function (type, enabled) {
+        if (typeof enabled === "undefined") { enabled = true; }
         this.$el = jQuery(type);
 
-        this.createChildren();
-    }
+        if (!this.isCreated) {
+            this.createChildren();
+            this.isCreated = true;
+        }
+
+        if (enabled) {
+            this.enable();
+        } else {
+            this.disable();
+        }
+    };
     return Stage;
 })(DOMElement);
 var BrowserUtils = (function () {
@@ -986,22 +1002,23 @@ var NavigationView = (function (_super) {
         _super.prototype.createChildren.call(this, function (data) {
             div({ id: 'header' }, div({ cls: 'background' }, h1(a({ href: '#home', html: 'DelliStore' })), ul(li(a({ cls: 'active', href: '#home' }, data.link1)), li(a({ href: '#about/robert' }, data.link2)), li(a({ href: '#artists/' }, data.link3)), li(a({ href: '#reservations/' }, data.link4)), li(a({ href: '#contact?name=robert&age=34' }, data.link5)))));
         });
-
-        this.enabled(true);
     };
 
     NavigationView.prototype.layoutChildren = function () {
     };
 
-    NavigationView.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
+    NavigationView.prototype.enable = function () {
+        if (this.isEnabled === true)
             return;
 
-        if (value) {
-        } else {
-        }
+        _super.prototype.enable.call(this);
+    };
 
-        this.isEnabled = value;
+    NavigationView.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        _super.prototype.disable.call(this);
     };
 
     NavigationView.prototype.onLanguageChange = function (event) {
@@ -1336,15 +1353,18 @@ var MainView = (function (_super) {
         this._router.start();
     };
 
-    MainView.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
-            return this;
+    MainView.prototype.enable = function () {
+        if (this.isEnabled === true)
+            return;
 
-        if (value) {
-        } else {
-        }
+        _super.prototype.enable.call(this);
+    };
 
-        _super.prototype.enabled.call(this, value);
+    MainView.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        _super.prototype.disable.call(this);
     };
 
     MainView.prototype.homeRouterHandler = function () {
@@ -1371,20 +1391,20 @@ var MainView = (function (_super) {
 
     MainView.prototype.changeViewTo = function (view) {
         if (this._currentView) {
-            this._currentView.enabled(false);
+            this._currentView.disable();
             this.removeChild(this._currentView);
         }
 
         this._currentView = view;
         this.addChild(this._currentView);
-        this._currentView.enabled(true);
+        this._currentView.enable();
     };
     return MainView;
 })(DOMElement);
 var WebsiteApp = (function (_super) {
     __extends(WebsiteApp, _super);
-    function WebsiteApp(selector) {
-        _super.call(this, selector);
+    function WebsiteApp() {
+        _super.call(this);
         this._router = null;
         this._pageContainer = null;
         this._navigationView = null;
@@ -1407,15 +1427,18 @@ var WebsiteApp = (function (_super) {
         _super.prototype.createChildren.call(this);
     };
 
-    WebsiteApp.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
+    WebsiteApp.prototype.enable = function () {
+        if (this.isEnabled === true)
             return;
 
-        if (value) {
-        } else {
-        }
+        _super.prototype.enable.call(this);
+    };
 
-        _super.prototype.enabled.call(this, value);
+    WebsiteApp.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        _super.prototype.disable.call(this);
     };
 
     WebsiteApp.prototype.init = function (event) {
@@ -1424,6 +1447,7 @@ var WebsiteApp = (function (_super) {
 
         this._navigationView = new NavigationView();
         this._pageContainer.addChild(this._navigationView);
+        this._navigationView.enable();
 
         this._mainView = new MainView("div", { id: "content" }, this._router);
         this._pageContainer.addChild(this._mainView);

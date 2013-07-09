@@ -203,7 +203,7 @@ var DisplayObject = (function (_super) {
         if (index !== -1) {
             this.children.splice(index, 1);
         }
-        child.enabled(false);
+        child.disable();
         child.parent = null;
 
         this.numChildren = this.children.length;
@@ -239,22 +239,25 @@ var DisplayObject = (function (_super) {
         return this.children[index];
     };
 
-    DisplayObject.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
+    DisplayObject.prototype.enable = function () {
+        if (this.isEnabled === true)
             return;
 
-        if (value) {
-        } else {
-        }
+        this.isEnabled = true;
+    };
 
-        this.isEnabled = value;
+    DisplayObject.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        this.isEnabled = false;
     };
 
     DisplayObject.prototype.layoutChildren = function () {
     };
 
     DisplayObject.prototype.destroy = function () {
-        this.enabled(false);
+        this.disable();
         this.children = [];
         this.numChildren = 0;
     };
@@ -398,6 +401,7 @@ var DOMElement = (function (_super) {
                 domElement = new DOMElement();
                 domElement.$el = jQueryElement;
                 domElement.$el.attr('data-cid', domElement.cid);
+
                 domElement.el = jQueryElement[0];
                 domElement.isCreated = true;
 
@@ -433,7 +437,6 @@ var DOMElement = (function (_super) {
     };
 
     DOMElement.prototype.removeChild = function (child) {
-        child.enabled(false);
         child.$el.unbind();
         child.$el.remove();
 
@@ -450,16 +453,18 @@ var DOMElement = (function (_super) {
         return this;
     };
 
-    DOMElement.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+    DOMElement.prototype.enable = function () {
+        if (this.isEnabled === true)
             return;
-        }
 
-        if (value) {
-        } else {
-        }
+        _super.prototype.enable.call(this);
+    };
 
-        _super.prototype.enabled.call(this, value);
+    DOMElement.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        _super.prototype.disable.call(this);
     };
 
     DOMElement.prototype.layoutChildren = function () {
@@ -486,19 +491,30 @@ var DOMElement = (function (_super) {
 })(DisplayObject);
 var Stage = (function (_super) {
     __extends(Stage, _super);
-    function Stage(type) {
+    function Stage() {
         _super.call(this);
-
+    }
+    Stage.prototype.appendTo = function (type, enabled) {
+        if (typeof enabled === "undefined") { enabled = true; }
         this.$el = jQuery(type);
 
-        this.createChildren();
-    }
+        if (!this.isCreated) {
+            this.createChildren();
+            this.isCreated = true;
+        }
+
+        if (enabled) {
+            this.enable();
+        } else {
+            this.disable();
+        }
+    };
     return Stage;
 })(DOMElement);
 var PhotoGalleryApp = (function (_super) {
     __extends(PhotoGalleryApp, _super);
-    function PhotoGalleryApp(selector) {
-        _super.call(this, selector);
+    function PhotoGalleryApp() {
+        _super.call(this);
     }
     PhotoGalleryApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
@@ -509,15 +525,18 @@ var PhotoGalleryApp = (function (_super) {
         console.log(images);
     };
 
-    PhotoGalleryApp.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
+    PhotoGalleryApp.prototype.enable = function () {
+        if (this.isEnabled === true)
             return;
 
-        if (value) {
-        } else {
-        }
+        _super.prototype.enable.call(this);
+    };
 
-        _super.prototype.enabled.call(this, value);
+    PhotoGalleryApp.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        _super.prototype.disable.call(this);
     };
     return PhotoGalleryApp;
 })(Stage);

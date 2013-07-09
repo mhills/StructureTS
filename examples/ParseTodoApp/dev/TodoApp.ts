@@ -26,9 +26,9 @@ class TodoApp extends Stage
     private _incompleteItemList:DOMElement;
     private _input:DOMElement;
 
-    constructor(selector:string)
+    constructor()
     {
-        super(selector);
+        super();
     }
 
     /**
@@ -55,34 +55,36 @@ class TodoApp extends Stage
     }
 
     /**
-     *
-     * @method enabled
-     * @override
-     * @public
+     * @copy DisplayObject.enable
      */
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
+    public enable():void {
+        if (this.isEnabled === true) return;
 
-        if (value) {
-            this._submitBtn.el.addEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
+        this._submitBtn.el.addEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
 //            this._submitBtn.$el.on(MouseEventType.CLICK, this.onSubmitButton.bind(this));
-            this._incompleteItemList.$el.on(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this) );
+        this._incompleteItemList.$el.on(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this) );
 
-            this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
-            this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
-            this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
+        this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
+        this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
+        this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
-        } else {
-            this._submitBtn.el.removeEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
+        super.enable();
+    }
+
+    /**
+     * @copy DisplayObject.disable
+     */
+    public disable():void {
+        if (this.isEnabled === false) return;
+
+        this._submitBtn.el.removeEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
 //            this._submitBtn.$el.off(MouseEventType.CLICK, this.onSubmitButton.bind(this));
-            this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
+        this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
 
-            this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved);
-            this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess);
-        }
+        this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved);
+        this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess);
 
-        super.enabled(value);
+        super.disable();
     }
 
     private onSubmitButton(event:MouseEvent):void

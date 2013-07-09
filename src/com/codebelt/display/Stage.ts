@@ -45,16 +45,9 @@
 class Stage extends DOMElement
 {
 
-    constructor(type:string)
+    constructor()
     {
         super();
-
-//        this.$el = jQuery(type);
-
-        // Sine this class is main or root class it is never added to another DOMElement and the createChildren method is never called.
-        // We need to call it here.
-        //TODO: come up with solution for createChildren not being call in constructor.
-//        this.createChildren();
     }
 
     /**
@@ -72,7 +65,12 @@ class Stage extends DOMElement
             this.isCreated = true;
         }
 
-        this.enabled(enabled);
+        if (enabled) {
+            this.enable();
+        } else {
+            this.disable();
+        }
+
     }
 
 }

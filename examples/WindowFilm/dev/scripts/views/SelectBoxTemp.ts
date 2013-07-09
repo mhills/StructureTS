@@ -1,4 +1,4 @@
-///<reference path='../../../../src/com/codebelt/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/display/DOMElement.ts'/>
 
 
 /**

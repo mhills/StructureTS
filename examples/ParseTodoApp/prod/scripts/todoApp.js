@@ -203,7 +203,7 @@ var DisplayObject = (function (_super) {
         if (index !== -1) {
             this.children.splice(index, 1);
         }
-        child.enabled(false);
+        child.disable();
         child.parent = null;
 
         this.numChildren = this.children.length;
@@ -239,22 +239,25 @@ var DisplayObject = (function (_super) {
         return this.children[index];
     };
 
-    DisplayObject.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
+    DisplayObject.prototype.enable = function () {
+        if (this.isEnabled === true)
             return;
 
-        if (value) {
-        } else {
-        }
+        this.isEnabled = true;
+    };
 
-        this.isEnabled = value;
+    DisplayObject.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        this.isEnabled = false;
     };
 
     DisplayObject.prototype.layoutChildren = function () {
     };
 
     DisplayObject.prototype.destroy = function () {
-        this.enabled(false);
+        this.disable();
         this.children = [];
         this.numChildren = 0;
     };
@@ -399,7 +402,6 @@ var DOMElement = (function (_super) {
                 domElement.$el = jQueryElement;
                 domElement.$el.attr('data-cid', domElement.cid);
 
-                console.log(selector, jQueryElement[0]);
                 domElement.el = jQueryElement[0];
                 domElement.isCreated = true;
 
@@ -435,7 +437,6 @@ var DOMElement = (function (_super) {
     };
 
     DOMElement.prototype.removeChild = function (child) {
-        child.enabled(false);
         child.$el.unbind();
         child.$el.remove();
 
@@ -452,16 +453,18 @@ var DOMElement = (function (_super) {
         return this;
     };
 
-    DOMElement.prototype.enabled = function (value) {
-        if (value == this.isEnabled) {
+    DOMElement.prototype.enable = function () {
+        if (this.isEnabled === true)
             return;
-        }
 
-        if (value) {
-        } else {
-        }
+        _super.prototype.enable.call(this);
+    };
 
-        _super.prototype.enabled.call(this, value);
+    DOMElement.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        _super.prototype.disable.call(this);
     };
 
     DOMElement.prototype.layoutChildren = function () {
@@ -488,7 +491,7 @@ var DOMElement = (function (_super) {
 })(DisplayObject);
 var Stage = (function (_super) {
     __extends(Stage, _super);
-    function Stage(type) {
+    function Stage() {
         _super.call(this);
     }
     Stage.prototype.appendTo = function (type, enabled) {
@@ -500,7 +503,11 @@ var Stage = (function (_super) {
             this.isCreated = true;
         }
 
-        this.enabled(enabled);
+        if (enabled) {
+            this.enable();
+        } else {
+            this.disable();
+        }
     };
     return Stage;
 })(DOMElement);
@@ -716,8 +723,8 @@ var AppModel = (function (_super) {
 })(EventDispatcher);
 var TodoApp = (function (_super) {
     __extends(TodoApp, _super);
-    function TodoApp(selector) {
-        _super.call(this, selector);
+    function TodoApp() {
+        _super.call(this);
     }
     TodoApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
@@ -726,7 +733,7 @@ var TodoApp = (function (_super) {
 
         this._input = this.getChild('#js-todo-input');
         this._submitBtn = this.getChild('#js-submit-button');
-        console.log("_submitBtn", this._submitBtn);
+
         this._noTasksMessage = TemplateFactory.createView('#noTodoItemsTemplate');
 
         this._incompleteItemList = this.getChild('#js-incomplete-items');
@@ -735,38 +742,39 @@ var TodoApp = (function (_super) {
         this.updateItemList();
     };
 
-    TodoApp.prototype.enabled = function (value) {
+    TodoApp.prototype.enable = function () {
         var _this = this;
-        if (value == this.isEnabled)
+        if (this.isEnabled === true)
             return;
 
-        console.log(this._appModel);
-        console.log(this._input);
-        console.log(this._noTasksMessage);
-        console.log(this._submitBtn);
-        console.log(this._submitBtn.$el);
-        if (value) {
-            this._submitBtn.el.addEventListener(MouseEventType.CLICK, function (event) {
-                return _this.onSubmitButton(event);
-            }, false);
+        this._submitBtn.el.addEventListener(MouseEventType.CLICK, function (event) {
+            return _this.onSubmitButton(event);
+        }, false);
 
-            this._incompleteItemList.$el.on(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
+        this._incompleteItemList.$el.on(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
 
-            this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
-            this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
-            this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
-        } else {
-            this._submitBtn.el.removeEventListener(MouseEventType.CLICK, function (event) {
-                return _this.onSubmitButton(event);
-            }, false);
+        this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
+        this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
+        this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
-            this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
+        _super.prototype.enable.call(this);
+    };
 
-            this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved);
-            this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess);
-        }
+    TodoApp.prototype.disable = function () {
+        var _this = this;
+        if (this.isEnabled === false)
+            return;
 
-        _super.prototype.enabled.call(this, value);
+        this._submitBtn.el.removeEventListener(MouseEventType.CLICK, function (event) {
+            return _this.onSubmitButton(event);
+        }, false);
+
+        this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
+
+        this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved);
+        this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess);
+
+        _super.prototype.disable.call(this);
     };
 
     TodoApp.prototype.onSubmitButton = function (event) {

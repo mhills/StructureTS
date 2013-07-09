@@ -46,7 +46,7 @@ class DOMElement extends DisplayObject {
      */
     public $el:JQuery = null;
 
-    constructor(type:string='div', params:any = {}) {
+    constructor(type:string = 'div', params:any = {}) {
         super();
 
         this._node = type;
@@ -58,17 +58,14 @@ class DOMElement extends DisplayObject {
      * @overridden
      */
     public createChildren(template?:any) {
-        if (typeof template === 'function')
-        {
+        if (typeof template === 'function') {
             Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
         }
-        else if (typeof template === 'string')
-        {
+        else if (typeof template === 'string') {
             this.$el = TemplateFactory.createTemplate(template);
         }
-        else if (this._node && !this.$el)
-        {
+        else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);
         }
 
@@ -175,7 +172,6 @@ class DOMElement extends DisplayObject {
                 domElement.$el = jQueryElement;
                 domElement.$el.attr('data-cid', domElement.cid);
 
-                console.log(selector, jQueryElement[0])
                 domElement.el = jQueryElement[0];
                 domElement.isCreated = true;
 
@@ -196,8 +192,7 @@ class DOMElement extends DisplayObject {
      * @returns {Array} Returns a list of DOMElement's. It will grab all children HTML DOM elements of this object and will create a DOMElement for each DOM child.
      * If the 'data-cid' property exists is on an HTML element a DOMElement will not be create for that element because it will be assumed it already exists as a DOMElement.
      */
-    public getChildren(selector:string = ''):DOMElement[]
-    {
+    public getChildren(selector:string = ''):DOMElement[] {
         //TODO: Make sure the index of the children added is the same as the what is in the actual DOM.
         var $child:JQuery;
         var domElement:DOMElement;
@@ -235,7 +230,6 @@ class DOMElement extends DisplayObject {
      * @public
      */
     public removeChild(child:DOMElement):DOMElement {
-        child.enabled(false);
         child.$el.unbind();
         child.$el.remove();
 
@@ -262,20 +256,38 @@ class DOMElement extends DisplayObject {
         return this;
     }
 
+//    /**
+//     * @copy DisplayObject.enabled
+//     */
+//    public enabled(value:boolean):void {
+//        if (value == this.isEnabled) {
+//            return;
+//        }
+//
+//        if (value) {
+//        }
+//        else {
+//        }
+//
+//        super.enabled(value);
+//    }
+
     /**
-     * @copy DisplayObject.enabled
+     * @copy DisplayObject.enable
      */
-    public enabled(value:boolean):void {
-        if (value == this.isEnabled) {
-            return;
-        }
+    public enable():void {
+        if (this.isEnabled === true) return;
 
-        if (value) {
-        }
-        else {
-        }
+        super.enable();
+    }
 
-        super.enabled(value);
+    /**
+     * @copy DisplayObject.disable
+     */
+    public disable():void {
+        if (this.isEnabled === false) return;
+
+        super.disable();
     }
 
     /**

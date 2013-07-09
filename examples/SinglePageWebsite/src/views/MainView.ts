@@ -49,15 +49,22 @@ class MainView extends DOMElement {
         this._router.start();
     }
 
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
+    /**
+     * @copy DisplayObject.enable
+     */
+    public enable():void {
+        if (this.isEnabled === true) return;
 
-        if (value) {
-        } else {
-        }
+        super.enable();
+    }
 
-        super.enabled(value);
+    /**
+     * @copy DisplayObject.disable
+     */
+    public disable():void {
+        if (this.isEnabled === false) return;
+
+        super.disable();
     }
 
     private homeRouterHandler():void
@@ -89,12 +96,12 @@ class MainView extends DOMElement {
     private changeViewTo(view:DOMElement):void
     {
         if (this._currentView) {
-            this._currentView.enabled(false);
+            this._currentView.disable();
             this.removeChild(this._currentView);
         }
 
         this._currentView = view;
         this.addChild(this._currentView);
-        this._currentView.enabled(true);
+        this._currentView.enable();
     }
 }

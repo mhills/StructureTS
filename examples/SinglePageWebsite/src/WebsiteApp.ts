@@ -39,8 +39,8 @@ class WebsiteApp extends Stage
     //http://www.codeproject.com/Articles/499490/JavaScript-UI-Control-Suite-using-TypeScript
 
 
-    constructor(selector:string) {
-        super(selector);
+    constructor() {
+        super();
 
         var ls = LocalStorageController.getInstance();
         var languageId = ls.getItem('language') || 'en';
@@ -69,14 +69,22 @@ class WebsiteApp extends Stage
         super.createChildren();
     }
 
-    public enabled(value:boolean):void {
-        if (value == this.isEnabled) return;
+    /**
+     * @copy DisplayObject.enable
+     */
+    public enable():void {
+        if (this.isEnabled === true) return;
 
-        if (value) {
-        } else {
-        }
+        super.enable();
+    }
 
-        super.enabled(value);
+    /**
+     * @copy DisplayObject.disable
+     */
+    public disable():void {
+        if (this.isEnabled === false) return;
+
+        super.disable();
     }
 
     private init(event):void
@@ -88,6 +96,7 @@ class WebsiteApp extends Stage
 
         this._navigationView = new NavigationView();
         this._pageContainer.addChild(this._navigationView);
+        this._navigationView.enable();
 
         //Add the main content to manage the changing views
         this._mainView = new MainView("div", {id: "content"}, this._router);

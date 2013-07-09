@@ -49,8 +49,6 @@ class NavigationView extends DOMElement
 
 //        this._languageSelect = new LanguageSelect();
 //        this.addChildAt(this._languageSelect, 0);
-
-        this.enabled(true);
     }
 
     public layoutChildren():void
@@ -58,17 +56,26 @@ class NavigationView extends DOMElement
 //        this._languageSelect.value( LocalStorageController.getInstance().getItem('language') );
     }
 
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
+    /**
+     * @copy DisplayObject.enable
+     */
+    public enable():void {
+        if (this.isEnabled === true) return;
 
-        if (value) {
 //            this._languageSelect.addEventListener(LanguageEvent.LANGUAGE_CHANGE, this.onLanguageChange, this);
-        } else {
-//            this._languageSelect.removeEventListener(LanguageEvent.LANGUAGE_CHANGE, this.onLanguageChange);
-        }
 
-        this.isEnabled = value;
+        super.enable();
+    }
+
+    /**
+     * @copy DisplayObject.disable
+     */
+    public disable():void {
+        if (this.isEnabled === false) return;
+
+//            this._languageSelect.removeEventListener(LanguageEvent.LANGUAGE_CHANGE, this.onLanguageChange);
+
+        super.disable();
     }
 
     public onLanguageChange(event):void

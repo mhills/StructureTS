@@ -1,5 +1,5 @@
-///<reference path='../../../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../../src/com/codebelt/events/BaseEvent.ts'/>
+///<reference path='../../../../../../src/com/codebelt/display/DOMElement.ts'/>
+///<reference path='../../../../../../src/com/codebelt/events/BaseEvent.ts'/>
 
 /**
  * YUIDoc_comment
@@ -17,8 +17,6 @@ class TopNavigationView extends DOMElement {
 
     public createChildren():void {
         super.createChildren('templates/topbar/TopNavigationTemplate.tpl');
-
-        this.dispatchEvent(new BaseEvent(BaseEvent.ACTIVATE, true, false, null));
     }
 
 }

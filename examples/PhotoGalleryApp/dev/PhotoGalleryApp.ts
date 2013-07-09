@@ -6,8 +6,8 @@
 
 class PhotoGalleryApp extends Stage
 {
-    constructor(selector:string) {
-        super(selector);
+    constructor() {
+        super();
     }
 
     public createChildren():void {
@@ -19,14 +19,22 @@ class PhotoGalleryApp extends Stage
         console.log(images)
     }
 
-    public enabled(value:boolean):void {
-        if (value == this.isEnabled) return;
+    /**
+     * @copy DisplayObject.enable
+     */
+    public enable():void {
+        if (this.isEnabled === true) return;
 
-        if (value) {
-        } else {
-        }
+        super.enable();
+    }
 
-        super.enabled(value);
+    /**
+     * @copy DisplayObject.disable
+     */
+    public disable():void {
+        if (this.isEnabled === false) return;
+
+        super.disable();
     }
 
 }

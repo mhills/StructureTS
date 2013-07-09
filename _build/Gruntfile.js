@@ -103,7 +103,7 @@ module.exports = function(grunt) {
                 }
             },
             film: {
-                src: ['<%= EXAMPLE_PATH %>WindowFilm/dev/WindowFilmApp.ts'],
+                src: ['<%= EXAMPLE_PATH %>WindowFilm/dev/scripts/WindowFilmApp.ts'],
                 dest: '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/typescript.js',
                 options: {
                     target: 'es3', // Options: es3, es5
@@ -220,8 +220,8 @@ module.exports = function(grunt) {
                 files: [
                     '<%= EXAMPLE_PATH %>SinglePageWebsite/src/**/*.ts',
                     '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/**/*.css',
-                    '<%= BASE_PATH %>**/*.tpl',
-                    '<%= EXAMPLE_PATH %>SinglePageWebsite/index.html'
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/index.html',
+                    '<%= SRC_PATH %>com/**/*.ts'
                 ],
                 tasks: ['website']
             },
@@ -238,6 +238,13 @@ module.exports = function(grunt) {
                     '<%= SRC_PATH %>com/**/*.ts'
                 ],
                 tasks: ['film']
+            },
+            gallery: {
+                files: [
+                    '<%= EXAMPLE_PATH %>PhotoGalleryApp/dev/**/*.ts',
+                    '<%= SRC_PATH %>com/**/*.ts'
+                ],
+                tasks: ['gallery']
             },
             temp: {
                 files: [

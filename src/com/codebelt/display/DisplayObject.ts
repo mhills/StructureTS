@@ -115,7 +115,7 @@ class DisplayObject extends EventDispatcher
         if (index !== -1) {
             this.children.splice(index, 1);
         }
-        child.enabled(false);
+        child.disable();
         child.parent = null;
 
         this.numChildren = this.children.length;
@@ -154,7 +154,7 @@ class DisplayObject extends EventDispatcher
      */
     public addChildAt(child:DisplayObject, index:number):DisplayObject
     {
-        this.children.unshift(child);//Temp fix.
+        this.children.unshift(child);
 
         this.numChildren = this.children.length;
 
@@ -184,25 +184,51 @@ class DisplayObject extends EventDispatcher
         return this.children[index];
     }
 
+//    /**
+//     * The enabled method is responsible for enabling and disabling all user interaction event listeners.
+//     * By convention, all user interaction event listeners are added and removed in the setter function. This provides
+//     * the benefit of allowing easy verification that all addEventListener calls are balanced by a matching
+//     * removeEventListener call.
+//     *
+//     * @method enabled
+//     * @param value {boolean}
+//     * @public
+//     */
+//    public enabled(value:boolean):void
+//    {
+//        if (value == this.isEnabled) return;
+//
+//        if (value) {
+//        } else {
+//        }
+//
+//        this.isEnabled = value;
+//    }
+
     /**
-     * The enabled method is responsible for enabling and disabling all user interaction event listeners.
-     * By convention, all user interaction event listeners are added and removed in the setter function. This provides
-     * the benefit of allowing easy verification that all addEventListener calls are balanced by a matching
-     * removeEventListener call.
+     * The enable method is responsible for enabling all event listeners and enabling children of the view.
      *
-     * @method enabled
-     * @param value {boolean}
+     * @method enable
      * @public
      */
-    public enabled(value:boolean):void
+    public enable():void
     {
-        if (value == this.isEnabled) return;
+        if (this.isEnabled === true) return;
 
-        if (value) {
-        } else {
-        }
+        this.isEnabled = true;
+    }
 
-        this.isEnabled = value;
+    /**
+     * The disable method is responsible for disabling all event listeners and disabling children of the view.
+     *
+     * @method disable
+     * @public
+     */
+    public disable():void
+    {
+        if (this.isEnabled === false) return;
+
+        this.isEnabled = false;
     }
 
     /**
@@ -226,7 +252,7 @@ class DisplayObject extends EventDispatcher
      */
     public destroy():void
     {
-        this.enabled(false);
+        this.disable();
         this.children = [];
         this.numChildren = 0;
         // TODO: maybe do what is Destruction Lifecycle: http://js.nerderylabs.com/best-practices/view-objects-in-javascript/
