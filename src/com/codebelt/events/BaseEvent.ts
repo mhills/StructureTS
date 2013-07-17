@@ -259,14 +259,71 @@ class BaseEvent extends BaseObject implements ICore {
      */
     public static RESIZE:string = 'BaseEvent.resize';
 
-
+    /**
+     * The type of event.
+     *
+     * @property type
+     * @type {string}
+     * @default null
+     * @readOnly
+     */
     public type:string = null;
+
+    /**
+     * The event target.
+     *
+     * @property target
+     * @type {*}
+     * @default null
+     * @readOnly
+     */
     public target:any = null;
+
+    /**
+     *
+     * @property data
+     * @type {*}
+     * @default null
+     * @readOnly
+     */
     public data:any = null;
 
+    /**
+     * Indicates whether an event is a bubbling event.
+     *
+     * @property bubble
+     * @type {boolean}
+     * @default false
+     * @readOnly
+     */
     public bubble:boolean = false;
+
+    /**
+     * Indicates whether the behavior associated with the event can be prevented.
+     *
+     * @property cancelable
+     * @type {boolean}
+     * @default false
+     * @readOnly
+     */
     public cancelable:boolean = false;
+
+    /**
+     *
+     * @property isPropagationStopped
+     * @type {boolean}
+     * @default false
+     * @readOnly
+     */
     public isPropagationStopped:boolean = false;
+
+    /**
+     *
+     * @property isImmediatePropagationStopped
+     * @type {boolean}
+     * @default false
+     * @readOnly
+     */
     public isImmediatePropagationStopped:boolean = false;
 
     constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null) {

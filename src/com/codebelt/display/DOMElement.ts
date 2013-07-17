@@ -24,6 +24,7 @@ class DOMElement extends DisplayObject {
      * Whether or not the display object is visible. Display objects that are not visible are disabled.
      * For example, if visible=false for an InteractiveObject instance, it cannot be clicked.
      *
+     * @property _isVisible
      * @type {boolean}
      * @default true
      * @private
@@ -33,6 +34,7 @@ class DOMElement extends DisplayObject {
     /**
      * A cached of the DOM Element.
      *
+     * @property el
      * @type {Element}
      * @default null
      */
@@ -41,6 +43,7 @@ class DOMElement extends DisplayObject {
     /**
      * A cached jQuery object for the view's element.
      *
+     * @property $el
      * @type {JQuery}
      * @default null
      */
