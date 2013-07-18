@@ -327,12 +327,12 @@ var DOMElement = (function (_super) {
         this._node = type;
         this._options = params;
     }
-    DOMElement.prototype.createChildren = function (template) {
+    DOMElement.prototype.createChildren = function (template, data) {
         if (typeof template === 'function') {
             Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
         } else if (typeof template === 'string') {
-            this.$el = TemplateFactory.createTemplate(template);
+            this.$el = TemplateFactory.createTemplate(template, data);
         } else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);
         }

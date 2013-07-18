@@ -126,6 +126,9 @@ module.exports = function(grunt) {
 
         ts: {
             todo: {
+                options: {
+                    out: true
+                },
                 src: ['<%= EXAMPLE_PATH %>ParseTodoApp/dev/TodoApp.ts'],
                 dest: '<%= EXAMPLE_PATH %>ParseTodoApp/prod/scripts/todoApp.js'
             }
