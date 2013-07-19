@@ -70,12 +70,12 @@ module.exports = function(grunt) {
         cssmin: {
             compress: {
                 files: {
-                    '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/styles.min.css': [
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/prod/styles/styles.min.css': [
 //                        '<%= SRC_PATH %>styles/gallery.css',
 //                        '<%= SRC_PATH %>styles/shadows.css',
 //                        '<%= SRC_PATH %>styles/buttons.css',
 //                        '<%= SRC_PATH %>styles/style.css',
-                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/dellistore.css'
+                        '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/styles/dellistore.css'
                     ]
                 }
             }
@@ -83,8 +83,8 @@ module.exports = function(grunt) {
 
         typescript: {
             website: {
-                src: ['<%= EXAMPLE_PATH %>SinglePageWebsite/src/WebsiteApp.ts'],
-                dest: '<%= EXAMPLE_PATH %>SinglePageWebsite/scripts/app.js',
+                src: ['<%= EXAMPLE_PATH %>SinglePageWebsite/dev/scripts/WebsiteApp.ts'],
+                dest: '<%= EXAMPLE_PATH %>SinglePageWebsite/prod/scripts/app.js',
                 options: {
                     target: 'es3', //or es5
                     base_path: '',
@@ -149,7 +149,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "<%= EXAMPLE_PATH %>SinglePageWebsite/scripts/templates.js": ["<%= EXAMPLE_PATH %>SinglePageWebsite/templates/**/*.tpl"]
+                    "<%= EXAMPLE_PATH %>SinglePageWebsite/prod/scripts/templates.js": ["<%= EXAMPLE_PATH %>SinglePageWebsite/dev/templates/**/*.tpl"]
                 }
             },
             film: {
@@ -221,8 +221,8 @@ module.exports = function(grunt) {
         watch: {
             website: {
                 files: [
-                    '<%= EXAMPLE_PATH %>SinglePageWebsite/src/**/*.ts',
-                    '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/**/*.css',
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/scripts/**/*.ts',
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/styles/**/*.css',
                     '<%= EXAMPLE_PATH %>SinglePageWebsite/index.html',
                     '<%= SRC_PATH %>com/**/*.ts'
                 ],
@@ -261,6 +261,28 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['yuidoc']
             }
+        },
+
+        // Copies certain files over from the dev/ folder to the prod/ so we don't
+        // have to do it manually.
+        copy: {
+            website:  {
+                files: [
+                    // Copy the image folder from dev/images/ to prod/images/.
+                    {
+                        expand: true,
+                        cwd: '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/',
+                        src: ['images/**'],
+                        dest: '<%= EXAMPLE_PATH %>SinglePageWebsite/prod/'
+                    },
+                    {
+                        expand: true,
+                        cwd: '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/',
+                        src: ['data/**'],
+                        dest: '<%= EXAMPLE_PATH %>SinglePageWebsite/prod/'
+                    }
+                ]
+            }
         }
 
     });
@@ -268,6 +290,7 @@ module.exports = function(grunt) {
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
