@@ -1,6 +1,6 @@
-///<reference path='../../../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../../src/com/codebelt/utils/LanguageManager.ts'/>
-///<reference path='../../../../../src/com/codebelt/events/LanguageEvent.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/utils/LanguageManager.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/events/LanguageEvent.ts'/>
 
 class LanguageSelect extends DOMElement {
 

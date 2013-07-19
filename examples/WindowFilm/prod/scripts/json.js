@@ -1,5 +1,5 @@
-var myjson={};
-myjson["country-list"] = {
+var JSON_DATA = JSON_DATA || {};
+JSON_DATA["country-list"] = {
     "US": "United States",
     "CA": "Canada",
 
@@ -268,7 +268,7 @@ myjson["country-list"] = {
     "ZW": "Zimbabwe",
     "AX": "Åland Islands"
 };
-myjson["language-list"] = {
+JSON_DATA["language-list"] = {
     "ab": {
         "name": "Abkhaz",
         "nativeName": "аҧсуа"

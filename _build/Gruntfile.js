@@ -137,7 +137,7 @@ module.exports = function(grunt) {
         jst: {
             compile: {
                 options: {
-                    namespace: "TEMPLATES",                 //Default: 'JST'
+                    namespace: "JST",                 //Default: 'JST'
                     prettify: false,                        //Default: false|true
                     amdWrapper: false,                      //Default: false|true
                     templateSettings: {
@@ -154,7 +154,7 @@ module.exports = function(grunt) {
             },
             film: {
                 options: {
-                    namespace: "TEMPLATES",                 //Default: 'JST'
+                    namespace: "JST",                 //Default: 'JST'
                     prettify: false,                        //Default: false|true
                     amdWrapper: false,                      //Default: false|true
                     templateSettings: {
@@ -279,7 +279,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-typescript');
 
     grunt.loadNpmTasks('grunt-ts');
-    grunt.loadNpmTasks('grunt-type');
 
     // Default task.
     grunt.registerTask('default', ['cssmin', 'typescript:website', 'jst']);
@@ -289,6 +288,6 @@ module.exports = function(grunt) {
     grunt.registerTask('film', ['typescript:film', 'concat']);
     grunt.registerTask('gallery', ['typescript:gallery']);
     grunt.registerTask('temp', ['concat']);
-    grunt.registerTask('all', ['website', 'todo', 'film']);
+    grunt.registerTask('all', ['website', 'todo', 'filmprod', 'gallery']);
 
 };

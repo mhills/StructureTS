@@ -1,11 +1,8 @@
-///<reference path='../../../../src/_declare/jquery.d.ts'/>
-///<reference path='../../../../src/_declare/underscore.d.ts'/>
-
-///<reference path='../../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../src/com/codebelt/display/Stage.ts'/>
-///<reference path='../../../../src/com/codebelt/events/MouseEventType.ts'/>
-///<reference path='../../../../src/com/codebelt/events/RequestEvent.ts'/>
-///<reference path='../../../../src/com/codebelt/utils/TemplateFactory.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/events/MouseEventType.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/events/RequestEvent.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/utils/TemplateFactory.ts'/>
 
 ///<reference path='views/topbar/TopNavigationView.ts'/>
 ///<reference path='views/login/LoginView.ts'/>

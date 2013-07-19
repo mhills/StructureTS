@@ -1,6 +1,6 @@
-///<reference path='../../../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../../src/com/codebelt/utils/BulkLoader.ts'/>
-///<reference path='../../../../../src/com/codebelt/utils/TemplateFactory.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/utils/BulkLoader.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/utils/TemplateFactory.ts'/>
 
 ///<reference path='LanguageSelect.ts'/>
 

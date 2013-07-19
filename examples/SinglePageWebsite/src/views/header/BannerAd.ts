@@ -1,8 +1,8 @@
-///<reference path='../../../../../src/com/codebelt/utils/BulkLoader.ts'/>
-///<reference path='../../../../../src/com/codebelt/utils/ImageLoader.ts'/>
-///<reference path='../../../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../../src/com/codebelt/display/Canvas.ts'/>
-///<reference path='../../../../../src/com/codebelt/display/Bitmap.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/utils/BulkLoader.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/utils/ImageLoader.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/Canvas.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/Bitmap.ts'/>
 
 ///<reference path='../../WebsiteApp.ts'/>
 

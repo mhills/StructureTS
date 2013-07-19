@@ -308,7 +308,7 @@ var TemplateFactory = (function () {
 
         return template;
     };
-    TemplateFactory.templateNamespace = 'TEMPLATES';
+    TemplateFactory.templateNamespace = 'JST';
     return TemplateFactory;
 })();
 var DOMElement = (function (_super) {
@@ -327,12 +327,12 @@ var DOMElement = (function (_super) {
         this._node = type;
         this._options = params;
     }
-    DOMElement.prototype.createChildren = function (template) {
+    DOMElement.prototype.createChildren = function (template, data) {
         if (typeof template === 'function') {
             Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
         } else if (typeof template === 'string') {
-            this.$el = TemplateFactory.createTemplate(template);
+            this.$el = TemplateFactory.createTemplate(template, data);
         } else if (this._node && !this.$el) {
             this.$el = jQuery("<" + this._node + "/>", this._options);
         }
@@ -493,6 +493,7 @@ var Stage = (function (_super) {
     __extends(Stage, _super);
     function Stage() {
         _super.call(this);
+        this.CLASS_NAME = 'Stage';
     }
     Stage.prototype.appendTo = function (type, enabled) {
         if (typeof enabled === "undefined") { enabled = true; }
@@ -901,6 +902,7 @@ var LocalStorageController = (function (_super) {
     __extends(LocalStorageController, _super);
     function LocalStorageController() {
         _super.call(this);
+        this.CLASS_NAME = 'LocalStorageController';
     }
     LocalStorageController.getInstance = function () {
         if (this._instance == null) {

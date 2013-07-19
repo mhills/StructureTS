@@ -1,4 +1,4 @@
-///<reference path='../../../../src/com/codebelt/models/ValueObject.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/models/ValueObject.ts'/>
 
 class AlbumVO extends ValueObject {
 

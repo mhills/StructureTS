@@ -1,5 +1,5 @@
-///<reference path='../../../../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../../../src/com/codebelt/events/BaseEvent.ts'/>
+///<reference path='../../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../../src/com/codebelt/structurets/events/BaseEvent.ts'/>
 
 /**
  * YUIDoc_comment

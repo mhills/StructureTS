@@ -308,7 +308,7 @@ var TemplateFactory = (function () {
 
         return template;
     };
-    TemplateFactory.templateNamespace = 'TEMPLATES';
+    TemplateFactory.templateNamespace = 'JST';
     return TemplateFactory;
 })();
 var DOMElement = (function (_super) {
@@ -493,6 +493,7 @@ var Stage = (function (_super) {
     __extends(Stage, _super);
     function Stage() {
         _super.call(this);
+        this.CLASS_NAME = 'Stage';
     }
     Stage.prototype.appendTo = function (type, enabled) {
         if (typeof enabled === "undefined") { enabled = true; }

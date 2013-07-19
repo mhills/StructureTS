@@ -1,5 +1,5 @@
-///<reference path='../../../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../../src/com/codebelt/utils/TemplateFactory.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/utils/TemplateFactory.ts'/>
 
 class ContactView extends DOMElement
 {

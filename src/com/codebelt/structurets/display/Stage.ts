@@ -68,6 +68,10 @@
  **/
 class Stage extends DOMElement
 {
+    /**
+     * @copy DOMElement.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'Stage';
 
     constructor()
     {

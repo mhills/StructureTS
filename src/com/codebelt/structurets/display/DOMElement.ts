@@ -22,7 +22,6 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../../../_declare/jaml.d.ts'/>
 ///<reference path='DisplayObject.ts'/>
 ///<reference path='../events/BaseEvent.ts'/>
 ///<reference path='../utils/TemplateFactory.ts'/>

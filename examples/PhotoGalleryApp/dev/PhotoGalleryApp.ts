@@ -1,8 +1,6 @@
-///<reference path='../../../src/_declare/jquery.d.ts'/>
-///<reference path='../../../src/_declare/underscore.d.ts'/>
 
-///<reference path='../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../src/com/codebelt/display/Stage.ts'/>
+///<reference path='../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../src/com/codebelt/structurets/display/Stage.ts'/>
 
 class PhotoGalleryApp extends Stage
 {

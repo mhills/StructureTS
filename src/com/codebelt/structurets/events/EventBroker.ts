@@ -22,49 +22,38 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../events/EventDispatcher.ts'/>
+///<reference path='EventDispatcher.ts'/>
 
 /**
- * The LocalStorageController...
+ * YUIDoc_comment
  *
- * @class LocalStorageController
- * @constructor
+ * @class EventBroker
+ * @static
  **/
-class LocalStorageController extends EventDispatcher {
+class EventBroker {
 
-    private static _instance:LocalStorageController = null;
+    /**
+     * @copy EventDispatcher.CLASS_NAME
+     */
+    public static CLASS_NAME:string = 'EventBroker';
 
-    constructor()
+    private static _eventDispatcher:EventDispatcher = new EventDispatcher();
+
+    constructor() {}
+
+    public static addEventListener(type:string, callback:Function, scope:any, priority:number=0):any
     {
-        super();
+        EventBroker._eventDispatcher.addEventListener(type, callback, scope, priority);
     }
 
-    public static getInstance():LocalStorageController
+    public static removeEventListener(type:string, callback:Function):any
     {
-        if(this._instance == null) {
-            this._instance = new LocalStorageController();
-        }
-        return this._instance;
+        EventBroker._eventDispatcher.removeEventListener(type, callback);
     }
 
-    public setItem(key:string, data:string):void
+    public static dispatchEvent(event:BaseEvent):any
     {
-        localStorage.setItem(key, data);
-    }
-
-    public getItem(key:string):string
-    {
-        return localStorage.getItem(key);
-    }
-
-    public removeItem(key:string):void
-    {
-        localStorage.removeItem(key);
-    }
-
-    public clear():void
-    {
-        localStorage.clear();
+        EventBroker._eventDispatcher.dispatchEvent(event);
     }
 
 }

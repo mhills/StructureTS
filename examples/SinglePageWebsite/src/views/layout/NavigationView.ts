@@ -1,7 +1,7 @@
-///<reference path='../../../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../../src/com/codebelt/utils/BulkLoader.ts'/>
-///<reference path='../../../../../src/com/codebelt/utils/LanguageManager.ts'/>
-///<reference path='../../../../../src/com/codebelt/controller/LocalStorageController.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/utils/BulkLoader.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/utils/LanguageManager.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/controller/LocalStorageController.ts'/>
 
 ///<reference path='LanguageSelect.ts'/>
 

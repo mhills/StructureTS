@@ -22,7 +22,13 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path=''/>
+///<reference path='_declare/jaml.d.ts'/>
+///<reference path='_declare/jquery.d.ts'/>
+///<reference path='_declare/underscore.d.ts'/>
+///<reference path='_declare/crossroads.d.ts'/>
+///<reference path='_declare/signals.d.ts'/>
+///<reference path='_declare/route.d.ts'/>
+///<reference path='_declare/hasher.d.ts'/>
 
 /**
  * The {{#crossLink "BaseObject"}}{{/crossLink}} class is an abstract class that provides common properties and functionality for all StructureTS classes.

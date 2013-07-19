@@ -32,7 +32,7 @@
  **/
 class TemplateFactory {
 
-    public static templateNamespace:string = 'TEMPLATES';
+    public static templateNamespace:string = 'JST';
 
     constructor() {}
 

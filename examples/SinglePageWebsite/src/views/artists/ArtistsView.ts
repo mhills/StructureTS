@@ -1,9 +1,9 @@
-///<reference path='../../../../../src/com/codebelt/display/DOMElement.ts'/>
-///<reference path='../../../../../src/com/codebelt/net/URLLoader.ts'/>
-///<reference path='../../../../../src/com/codebelt/net/URLRequestMethod.ts'/>
-///<reference path='../../../../../src/com/codebelt/net/URLLoaderDataFormat.ts'/>
-///<reference path='../../../../../src/com/codebelt/events/LoaderEvent.ts'/>
-///<reference path='../../../../../src/com/codebelt/utils/TemplateFactory.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/net/URLLoader.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/net/URLRequestMethod.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/net/URLLoaderDataFormat.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/events/LoaderEvent.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/utils/TemplateFactory.ts'/>
 
 ///<reference path='../../models/ArtistVO.ts'/>
 
