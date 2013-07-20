@@ -79,8 +79,8 @@ class TodoApp extends Stage
 //            this._submitBtn.$el.off(MouseEventType.CLICK, this.onSubmitButton.bind(this));
         this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
 
-        this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved);
-        this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess);
+        this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
+        this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
         super.disable();
     }

@@ -94,8 +94,8 @@ class EventDispatcher extends BaseObject
         var i:number = list.length;
         while (--i > -1) {
             listener = list[i];
-            if (listener.c === callback) {
-                list.splice(i, 1);//If same callback is found remove it. It will be add back below.
+            if (listener.c === callback && listener.s === scope) {
+                list.splice(i, 1);//If same callback and scope is found remove it. Then add the current one below.
             } else if (index === 0 && listener.pr < priority) {
                 index = i + 1;
             }
@@ -111,20 +111,22 @@ class EventDispatcher extends BaseObject
      * @method removeEventListener
      * @param type {String} The type of event.
      * @param callback {Function} The listener object to remove.
+     * @param scope {any} The scope of the listener object to be removed. This was added because it was need for the {{#crossLink "EventBroker"}}{{/crossLink}} class.
+     * To keep things consistent this parameter is required.
      * @returns {*}
      * @example
-     *      instance.removeEventListener(BaseEvent.CHANGE, handlerMethod);
+     *      instance.removeEventListener(BaseEvent.CHANGE, handlerMethod, this);
      *      private handlerMethod(event:BaseEvent):void {
      *          console.log(event.target + " sent the event.");
      *      }
      */
-    public removeEventListener(type:string, callback:Function):any
+    public removeEventListener(type:string, callback:Function, scope:any):any
     {
         var list = this._listeners[type];
         if (list) {
             var i = list.length;
             while (--i > -1) {
-                if (list[i].c === callback) {
+                if (list[i].c === callback && list[i].s === scope) {
                     list.splice(i, 1);
                     break;
                 }
@@ -170,7 +172,7 @@ class EventDispatcher extends BaseObject
 
         //Dispatches up the chain of classes that have a parent.
         if (this.parent && event.bubble) {
-            // If cancelable and isPropagationStopped then don't dispatch the event on the parent object.
+            // If cancelable and isPropagationStopped are true then don't dispatch the event on the parent object.
             if (event.cancelable && event.isPropagationStopped) return this;
 
             this.parent.dispatchEvent(event);

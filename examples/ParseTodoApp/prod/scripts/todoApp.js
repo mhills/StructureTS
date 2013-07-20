@@ -117,7 +117,7 @@ var EventDispatcher = (function (_super) {
         var i = list.length;
         while (--i > -1) {
             listener = list[i];
-            if (listener.c === callback) {
+            if (listener.c === callback && listener.s === scope) {
                 list.splice(i, 1);
             } else if (index === 0 && listener.pr < priority) {
                 index = i + 1;
@@ -128,12 +128,12 @@ var EventDispatcher = (function (_super) {
         return this;
     };
 
-    EventDispatcher.prototype.removeEventListener = function (type, callback) {
+    EventDispatcher.prototype.removeEventListener = function (type, callback, scope) {
         var list = this._listeners[type];
         if (list) {
             var i = list.length;
             while (--i > -1) {
-                if (list[i].c === callback) {
+                if (list[i].c === callback && list[i].s === scope) {
                     list.splice(i, 1);
                     break;
                 }
@@ -538,8 +538,8 @@ var EventBroker = (function () {
         EventBroker._eventDispatcher.addEventListener(type, callback, scope, priority);
     };
 
-    EventBroker.removeEventListener = function (type, callback) {
-        EventBroker._eventDispatcher.removeEventListener(type, callback);
+    EventBroker.removeEventListener = function (type, callback, scope) {
+        EventBroker._eventDispatcher.removeEventListener(type, callback, scope);
     };
 
     EventBroker.dispatchEvent = function (event) {
@@ -772,8 +772,8 @@ var TodoApp = (function (_super) {
 
         this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
 
-        this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved);
-        this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess);
+        this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
+        this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
         _super.prototype.disable.call(this);
     };
