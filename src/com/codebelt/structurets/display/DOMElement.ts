@@ -102,13 +102,12 @@ class DOMElement extends DisplayObject {
 
     /**
      * @copy DisplayObject.addChild
-     *
+     * @example
+     *      container.addChild(domElementInstance);
      * @method addChild
      * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
      * @returns {DOMElement} The DOMElement instance that you pass in the child parameter.
      * @overridden
-     * @example
-     *      container.addChild(domElementInstance);
      */
     public addChild(child:DOMElement):DOMElement {
         super.addChild(child);

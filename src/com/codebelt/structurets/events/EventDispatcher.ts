@@ -72,18 +72,16 @@ class EventDispatcher extends BaseObject
 
     /**
      * Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
-     *
-     * @method addEventListener
-     * @param type {String} The type of event.
-     * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void
-     * @param scope {any} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
-     * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
-     * @returns {*}
      * @example
      *      instance.addEventListener(BaseEvent.CHANGE, handlerMethod, this);
      *      private handlerMethod(event:BaseEvent):void {
      *          console.log(event.target + " sent the event.");
      *      }
+     * @method addEventListener
+     * @param type {String} The type of event.
+     * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void
+     * @param scope {any} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
+     * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
      */
     public addEventListener(type:string, callback:Function, scope:any, priority:number=0):any
     {
@@ -109,18 +107,16 @@ class EventDispatcher extends BaseObject
 
     /**
      * Removes a specified listener from the EventDispatcher object.
-     *
-     * @method removeEventListener
-     * @param type {String} The type of event.
-     * @param callback {Function} The listener object to remove.
-     * @param scope {any} The scope of the listener object to be removed. This was added because it was need for the {{#crossLink "EventBroker"}}{{/crossLink}} class.
-     * To keep things consistent this parameter is required.
-     * @returns {*}
      * @example
      *      instance.removeEventListener(BaseEvent.CHANGE, handlerMethod, this);
      *      private handlerMethod(event:BaseEvent):void {
      *          console.log(event.target + " sent the event.");
      *      }
+     * @method removeEventListener
+     * @param type {String} The type of event.
+     * @param callback {Function} The listener object to remove.
+     * @param scope {any} The scope of the listener object to be removed.
+     * @hide This was added because it was need for the {{#crossLink "EventBroker"}}{{/crossLink}} class. To keep things consistent this parameter is required.
      */
     public removeEventListener(type:string, callback:Function, scope:any):any
     {
@@ -141,17 +137,15 @@ class EventDispatcher extends BaseObject
     /**
      * <p>Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the dispatchEvent() method is called.</p>
      * TODO: show this example: http://www.rubenswieringa.com/blog/eventbubbles-eventcancelable-and-eventcurrenttarget
-     *
-     * @method dispatchEvent
-     * @param event {BaseEvent} The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
-     * extend the {{#crossLink "BaseEvent"}}{{/crossLink}}.
-     * @returns {*}
      * @example
      *      var event:BaseEvent = new BaseEvent(BaseEvent.CHANGE);
      *      instance.dispatchEvent(event);
      *
      *      // Here is a common inline event being dispatched
      *      instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
+     * @method dispatchEvent
+     * @param event {BaseEvent} The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
+     * extend the {{#crossLink "BaseEvent"}}{{/crossLink}}.
      */
     public dispatchEvent(event:BaseEvent):any
     {

@@ -26,11 +26,6 @@
 
 /**
  * The {{#crossLink "Stage"}}{{/crossLink}} class should be extended by your main or root class.
- *
- * @class Stage
- * @extends DOMElement
- * @uses EventDispatcher
- * @param {Object} [target]
  * @example
  * This example illustrates how to setup your main or root class when extending the {{#crossLink "Stage"}}{{/crossLink}} class.
  *
@@ -65,6 +60,8 @@
  *      var app = new MainClass();
  *      app.appendTo('body');
  *
+ * @class Stage
+ * @extends DOMElement
  * @module StructureTS
  * @submodule view
  * @constructor
@@ -82,12 +79,13 @@ class Stage extends DOMElement
     }
 
     /**
+     * The selected HTML element where all the child elements will be created. This method also starts the lifecycle of the application.
      *
      * @method appendTo
-     * @param type
-     * @param enabled
+     * @param type {string} A string value that you want the your code appended too. This can be an element id (#some-id), element class (.some-class) or a element tag (body).
+     * @param [enabled=true] {boolean} Sets the enabled state of the object.
      */
-    public appendTo(type:string, enabled:boolean = true)
+    public appendTo(type:string, enabled:boolean = true):void
     {
         this.$el = jQuery(type);
 
