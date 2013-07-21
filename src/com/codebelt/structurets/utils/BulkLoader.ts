@@ -88,7 +88,7 @@ class BulkLoader extends EventDispatcher {
 
     private onLoadComplete(event:LoaderEvent):void
     {
-        event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete);
+        event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
 
         for (var key in this._dataStores)
         {

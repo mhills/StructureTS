@@ -72,7 +72,7 @@ class HtmlLoader extends EventDispatcher implements IDataStore {
         this.data = this._urlLoader.data;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
 
-        this._urlLoader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete);
+        this._urlLoader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
         this._urlLoader = null;
     }
 

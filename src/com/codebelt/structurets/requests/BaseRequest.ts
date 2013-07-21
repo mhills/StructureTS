@@ -70,7 +70,7 @@ class BaseRequest extends EventDispatcher {
         this.data = this._loader.data;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
 
-        this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete);
+        this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
         this._loader = null;
     }
 

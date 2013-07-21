@@ -117,7 +117,7 @@ var EventDispatcher = (function (_super) {
         var i = list.length;
         while (--i > -1) {
             listener = list[i];
-            if (listener.c === callback) {
+            if (listener.c === callback && listener.s === scope) {
                 list.splice(i, 1);
             } else if (index === 0 && listener.pr < priority) {
                 index = i + 1;
@@ -128,12 +128,12 @@ var EventDispatcher = (function (_super) {
         return this;
     };
 
-    EventDispatcher.prototype.removeEventListener = function (type, callback) {
+    EventDispatcher.prototype.removeEventListener = function (type, callback, scope) {
         var list = this._listeners[type];
         if (list) {
             var i = list.length;
             while (--i > -1) {
-                if (list[i].c === callback) {
+                if (list[i].c === callback && list[i].s === scope) {
                     list.splice(i, 1);
                     break;
                 }
@@ -606,7 +606,7 @@ var BulkLoader = (function (_super) {
     };
 
     BulkLoader.prototype.onLoadComplete = function (event) {
-        event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete);
+        event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
 
         for (var key in this._dataStores) {
             var dataStore = this._dataStores[key];
@@ -753,7 +753,7 @@ var BaseRequest = (function (_super) {
         this.data = this._loader.data;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
 
-        this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete);
+        this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
         this._loader = null;
     };
 
@@ -867,7 +867,7 @@ var LanguageManager = (function (_super) {
             this._availableLanguagesDictionary[vo.id] = vo;
         }
 
-        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded);
+        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
 
         var currentLanguageVO = this.getLangConfigById(this.currentLanguage);
         this.loadLanguageData(currentLanguageVO.path);
@@ -891,7 +891,7 @@ var LanguageManager = (function (_super) {
 
     LanguageManager.prototype.onLanguageDataLoad = function (event) {
         this.data = JSON.parse(event.target.data);
-        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded);
+        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
         this._request = null;
 
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
@@ -1085,7 +1085,7 @@ var HtmlLoader = (function (_super) {
         this.data = this._urlLoader.data;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
 
-        this._urlLoader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete);
+        this._urlLoader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
         this._urlLoader = null;
     };
     return HtmlLoader;
