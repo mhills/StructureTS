@@ -31,6 +31,8 @@
  * The URLLoader...
  *
  * @class URLLoader
+ * @module StructureTS
+ * @submodule net
  * @constructor
  **/
 class URLLoader extends EventDispatcher{

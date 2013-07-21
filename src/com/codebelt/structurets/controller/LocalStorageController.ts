@@ -28,6 +28,7 @@
  * The LocalStorageController...
  *
  * @class LocalStorageController
+ * @module StructureTS
  * @constructor
  **/
 class LocalStorageController extends EventDispatcher {

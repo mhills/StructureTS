@@ -28,6 +28,8 @@
  * The NumberUtil...
  *
  * @class NumberUtil
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class NumberUtil {

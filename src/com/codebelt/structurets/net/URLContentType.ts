@@ -28,6 +28,8 @@
  * The URLContentType...
  *
  * @class URLContentType
+ * @module StructureTS
+ * @submodule net
  * @constructor
  **/
 class URLContentType {

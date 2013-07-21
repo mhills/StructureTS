@@ -34,6 +34,8 @@
  * The {{#crossLink "BaseObject"}}{{/crossLink}} class is an abstract class that provides common properties and functionality for all StructureTS classes.
  *
  * @class BaseObject
+ * @module StructureTS
+ * @submodule core
  * @constructor
  **/
 class BaseObject {

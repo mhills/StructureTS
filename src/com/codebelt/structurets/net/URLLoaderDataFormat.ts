@@ -28,6 +28,8 @@
  * The URLLoaderDataFormat...
  *
  * @class URLLoaderDataFormat
+ * @module StructureTS
+ * @submodule net
  * @constructor
  **/
 class URLLoaderDataFormat {

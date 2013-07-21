@@ -27,6 +27,8 @@
  * The MobileUtil...
  *
  * @class MobileUtil
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class MobileUtil {

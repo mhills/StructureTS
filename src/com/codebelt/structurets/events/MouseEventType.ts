@@ -26,6 +26,8 @@
  * The MouseEventType...
  *
  * @class MouseEventType
+ * @module StructureTS
+ * @submodule event
  * @static
  **/
 class MouseEventType {

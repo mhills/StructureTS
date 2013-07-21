@@ -28,6 +28,8 @@
  * The LanguageEvent...
  *
  * @class LanguageEvent
+ * @module StructureTS
+ * @submodule event
  * @constructor
  **/
 class LanguageEvent extends BaseEvent {

@@ -36,8 +36,8 @@
  *
  *      class MainClass extends Stage {
  *
- *          constructor(selector:string) {
- *              super(selector);
+ *          constructor() {
+ *              super();
  *          }
  *
  *          public createChildren():void {
@@ -45,25 +45,28 @@
  *              // Add children classes.
  *          }
  *
- *          public enabled(value:boolean):void {
- *              if (value == this.isEnabled) return;
+ *           public enable():void {
+ *              if (this.isEnabled === true) return;
+ *              // Add listeners and/or enable children.
+ *              super.enable();
+ *           }
  *
- *              if (value) {
- *                  // Add event listeners.
- *              } else {
- *                  // Remove event listeners.
- *              }
- *              super.enabled(value);
- *          }
+ *           public disable():void {
+ *              if (this.isEnabled === false) return;
+ *              // Remove listeners and/or disable children.
+ *              super.disable();
+ *           }
  *
  *      }
  *
  * <b>Instantiation Example</b><br>
  * This example illustrates how to instantiation your main or root class.
  *
- *      var app = new MainClass('body');
- *      app.enabled(true);
+ *      var app = new MainClass();
+ *      app.appendTo('body');
  *
+ * @module StructureTS
+ * @submodule view
  * @constructor
  **/
 class Stage extends DOMElement

@@ -29,6 +29,8 @@
  * Loosely coupled event handling, the subscriber does not have to know the publisher. Both of them only need to know the event type.
  *
  * @class EventBroker
+ * @module StructureTS
+ * @submodule event
  * @static
  **/
 class EventBroker {

@@ -28,6 +28,8 @@
  * The Util...
  *
  * @class Util
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class Util {

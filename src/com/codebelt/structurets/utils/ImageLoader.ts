@@ -29,6 +29,8 @@
  * The ImageLoader...
  *
  * @class ImageLoader
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class ImageLoader extends EventDispatcher implements IDataStore {

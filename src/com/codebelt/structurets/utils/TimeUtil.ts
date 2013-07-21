@@ -28,6 +28,8 @@
  * The TimeUtil...
  *
  * @class TimeUtil
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class TimeUtil {

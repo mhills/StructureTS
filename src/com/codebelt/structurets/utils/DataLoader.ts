@@ -28,6 +28,8 @@
  * The DataLoader...
  *
  * @class DataLoader
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class DataLoader {

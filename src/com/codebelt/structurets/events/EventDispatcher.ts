@@ -33,6 +33,8 @@
  *
  * @class EventDispatcher
  * @extends BaseObject
+ * @module StructureTS
+ * @submodule event
  * @constructor
  **/
 class EventDispatcher extends BaseObject

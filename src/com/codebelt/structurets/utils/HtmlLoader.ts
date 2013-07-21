@@ -33,6 +33,8 @@
  * The HtmlLoader...
  *
  * @class HtmlLoader
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class HtmlLoader extends EventDispatcher implements IDataStore {

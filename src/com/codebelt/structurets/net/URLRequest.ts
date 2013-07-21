@@ -29,6 +29,8 @@
  * The URLRequest...
  *
  * @class URLRequest
+ * @module StructureTS
+ * @submodule net
  * @constructor
  **/
 class URLRequest {

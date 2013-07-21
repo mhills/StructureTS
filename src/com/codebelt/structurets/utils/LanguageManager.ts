@@ -32,6 +32,8 @@
  * The LanguageManager...
  *
  * @class LanguageManager
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class LanguageManager extends EventDispatcher {

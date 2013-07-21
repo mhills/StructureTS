@@ -29,6 +29,8 @@
  * The ValueObject...
  *
  * @class ValueObject
+ * @module StructureTS
+ * @submodule model
  * @constructor
  **/
 class ValueObject extends BaseObject implements ICore {

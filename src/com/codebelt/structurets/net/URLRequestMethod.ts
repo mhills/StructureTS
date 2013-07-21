@@ -27,6 +27,8 @@
  * The URLRequestMethod...
  *
  * @class URLRequestMethod
+ * @module StructureTS
+ * @submodule net
  * @constructor
  **/
 class URLRequestMethod {

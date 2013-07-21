@@ -1,11 +1,5 @@
 ///<reference path=''/>
 
-/**
- * YUIDoc_comment
- *
- * @class XML
- * @constructor
- **/
 class XML {
 
     public CLASS_NAME:string = 'XML';

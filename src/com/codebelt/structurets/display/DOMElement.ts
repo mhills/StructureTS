@@ -31,6 +31,8 @@
  *
  * @class DOMElement
  * @extends DisplayObject
+ * @module StructureTS
+ * @submodule view
  * @constructor
  **/
 class DOMElement extends DisplayObject {

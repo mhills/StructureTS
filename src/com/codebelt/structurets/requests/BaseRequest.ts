@@ -31,6 +31,8 @@
  * The BaseRequest...
  *
  * @class BaseRequest
+ * @module StructureTS
+ * @submodule net
  * @constructor
  **/
 class BaseRequest extends EventDispatcher {

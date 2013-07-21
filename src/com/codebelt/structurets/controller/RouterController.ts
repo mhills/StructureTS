@@ -28,6 +28,7 @@
  * The RouterController...
  *
  * @class RouterController
+ * @module StructureTS
  * @constructor
  **/
 class RouterController {

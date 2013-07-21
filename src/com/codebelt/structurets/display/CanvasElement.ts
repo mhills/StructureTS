@@ -30,6 +30,8 @@
  *
  * @class CanvasElement
  * @extends DisplayObject
+ * @module StructureTS
+ * @submodule view
  * @constructor
  **/
 class CanvasElement extends DisplayObject {

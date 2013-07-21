@@ -30,6 +30,8 @@
  *
  * @class Bitmap
  * @extends CanvasElement
+ * @module StructureTS
+ * @submodule view
  * @constructor
  **/
 class Bitmap extends CanvasElement {

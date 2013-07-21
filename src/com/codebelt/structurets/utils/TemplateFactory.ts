@@ -28,6 +28,8 @@
  * The TemplateFactory...
  *
  * @class TemplateFactory
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class TemplateFactory {

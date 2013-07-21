@@ -28,6 +28,8 @@
  * The StringUtil...
  *
  * @class StringUtil
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class StringUtil {

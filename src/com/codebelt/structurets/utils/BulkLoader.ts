@@ -30,6 +30,8 @@
  * The BulkLoader...
  *
  * @class BulkLoader
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class BulkLoader extends EventDispatcher {

@@ -28,6 +28,8 @@
  * The RequestEvent...
  *
  * @class RequestEvent
+ * @module StructureTS
+ * @submodule event
  * @constructor
  **/
 class RequestEvent extends BaseEvent {

@@ -29,6 +29,8 @@
  *
  * @class DisplayObject
  * @extends EventDispatcher
+ * @module StructureTS
+ * @submodule view
  * @constructor
  **/
 class DisplayObject extends EventDispatcher

@@ -28,6 +28,8 @@
  * The LoaderEvent...
  *
  * @class LoaderEvent
+ * @module StructureTS
+ * @submodule event
  * @constructor
  **/
 class LoaderEvent extends BaseEvent {

@@ -26,6 +26,8 @@
  * The BrowserUtils...
  *
  * @class BrowserUtils
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class BrowserUtils {

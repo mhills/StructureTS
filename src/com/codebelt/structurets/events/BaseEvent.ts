@@ -40,6 +40,8 @@
  * @param [data=null] {Object}
  * @extends BaseObject
  * @requires ICore
+ * @module StructureTS
+ * @submodule event
  * @constructor
  **/
 class BaseEvent extends BaseObject implements ICore {
