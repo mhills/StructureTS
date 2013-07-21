@@ -69,8 +69,14 @@ class NumberUtil {
 
     public static formatUnit(number:number, decimalPlacement:number = 2, decimalSeparator:string = '.', thousandsSeparator:string = ''):number
     {
-        var n = number, decimalPlacement = isNaN(decimalPlacement = Math.abs(decimalPlacement)) ? 2 : decimalPlacement, decimalSeparator = decimalSeparator == undefined ? "," : decimalSeparator, thousandsSeparator = thousandsSeparator == undefined ? "." : thousandsSeparator, s = n < 0 ? "-" : "", i = parseInt(n = Math.abs(+n || 0).toFixed(decimalPlacement)) + "", j = (j = i.length) > 3 ? j % 3 : 0;
-        return s + (j ? i.substr(0, j) + thousandsSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandsSeparator) + (decimalPlacement ? decimalPlacement + Math.abs(n - i).toFixed(decimalPlacement).slice(2) : "");
+//        var n = number;
+//        var decimalPlacement = isNaN(decimalPlacement = Math.abs(decimalPlacement)) ? 2 : decimalPlacement;
+//        var decimalSeparator = decimalSeparator == undefined ? "," : decimalSeparator
+//        var thousandsSeparator = thousandsSeparator == undefined ? "." : thousandsSeparator, s = n < 0 ? "-" : "";
+//        var i = parseInt(n = Math.abs(+n || 0).toFixed(decimalPlacement)) + "";
+//        var j = (j = i.length) > 3 ? j % 3 : 0;
+//
+//        return s + (j ? i.substr(0, j) + thousandsSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandsSeparator) + (decimalPlacement ? decimalPlacement + Math.abs(n - i).toFixed(decimalPlacement).slice(2) : "");
     }
 
 }

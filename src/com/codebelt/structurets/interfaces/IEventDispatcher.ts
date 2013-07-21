@@ -28,6 +28,6 @@
 interface IEventDispatcher extends ICore
 {
     addEventListener(type:string, func:Function, scope:any, priority?:number);
-    removeEventListener(type:string, func:Function);
+    removeEventListener(type:string, func:Function, scope:any);
     dispatchEvent(event:BaseEvent);
 }

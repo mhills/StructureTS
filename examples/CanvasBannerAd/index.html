@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="assets/scripts/deploy/bind.min.js"></script>
+    <script type="text/javascript" src="../../libs/lodash.v1.3.1.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/deploy/EasePack.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/deploy/TweenLite.min.js"></script>
+    <script type="text/javascript" src="assets/scripts/deploy/app.js"></script>
+</head>
+<body onload="javascript:init();" style="background-color: #F2F2F2;">
+
+    <canvas id="stage" width="738" height="90" onclick="onBannerClick();" style="background-color: #FFFFFF;">Your browser is unsupported</canvas>
+
+    <script type="text/javascript">
+
+        function init() {
+            var app = new BannerAd();
+            app.appendTo('stage');//TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the '#'.
+        }
+
+        function onBannerClick() {
+            console.log("Banner ad was clicked on");
+        }
+
+    </script>
+</body>

@@ -36,51 +36,61 @@
  **/
 class Canvas extends CanvasElement {
 
+    /**
+     * @copy DOMElement.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'Canvas';
+
     public element:any = null;
 
-    constructor(canvas:DOMElement)
+    constructor()
     {
         super();
 
         this.stage = this;
-        this.element = canvas.element[0];
+    }
+
+    //TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the '#'.
+    public appendTo(type:string, enabled:boolean = true):void
+    {
+//        this.element = canvas.element[0];
+        this.element = document.getElementById(type);
         this.context = this.element.getContext("2d");
 
         this.width = this.element.width;
         this.height = this.element.height;
-    }
 
-    /**
-     * @override
-     */
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
-
-        if (value) {
-
-        } else {
-
+        if (!this.isCreated) {
+            this.createChildren();
+            this.isCreated = true;
         }
 
-        super.enabled(value);
+        if (enabled) {
+            this.enable();
+        } else {
+            this.disable();
+        }
     }
 
     /**
      * @override
      */
-    public addChild(child:CanvasElement):void
+    public addChild(child:CanvasElement):CanvasElement
     {
         child.parent = this.stage;
         child.stage = this.stage;
         child.context = this.context;
         child.createChildren();
+
+        return this;
     }
 
-    public removeChild(child:CanvasElement):void
+    public removeChild(child:CanvasElement):CanvasElement
     {
         child.stage = null;
         child.context = null;
+
+        return this;
     }
 
     public render():void
@@ -88,28 +98,31 @@ class Canvas extends CanvasElement {
         this.context.clearRect(0, 0, this.width, this.height);
     }
 
+
+    //TODO: Figure out how to handle both class events and native canvas events.
     //Override event listeners becuase Canvas is both and CanvasElement and DOMElement.
     public addEventListener(type:string, callback:Function, scope:any)
     {
-        if (document.addEventListener) {
-            this.element.addEventListener(type, callback, false);
-        } else if (document.attachEvent)  {
-            this.element.attachEvent("on" + type, callback);
-        } else {
-            this.element["on" + type] = callback;
-        }
+//        if (document.addEventListener) {
+//            this.element.addEventListener(type, callback, false);
+//        } else if (document.attachEvent)  {
+//            this.element.attachEvent("on" + type, callback);
+//        } else {
+//            this.element["on" + type] = callback;
+//        }
     }
 
+    //TODO: Figure out how to handle both class events and native canvas events.
     //Override event listeners becuase Canvas is both and CanvasElement and DOMElement.
-    public removeEventListener(type:string, callback:Function)
+    public removeEventListener(type:string, callback:Function, scope:any)
     {
-        if (document.removeEventListener) {
-            this.element[0].removeEventListener(type, callback, false);
-        } else if (document.detachEvent)  {
-            this.element[0].detachEvent("on" + type, callback);
-        } else {
-            this.element[0]["on" + type] = null;
-        }
+//        if (document.removeEventListener) {
+//            this.element[0].removeEventListener(type, callback, false);
+//        } else if (document.detachEvent)  {
+//            this.element[0].detachEvent("on" + type, callback);
+//        } else {
+//            this.element[0]["on" + type] = null;
+//        }
     }
 
 }

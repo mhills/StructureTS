@@ -64,23 +64,12 @@ class CanvasElement extends DisplayObject {
         //Meant to be overridden.
     }
 
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
-    }
-
     private readerStart():void
     {
         this.context.save();
     }
 
-    private layoutChildren():void
+    public layoutChildren():void
     {
         if (!this.context || this.alpha <= 0 || !this.visible) return;
 
@@ -95,20 +84,24 @@ class CanvasElement extends DisplayObject {
         this.context.restore();
     }
 
-    public addChild(child:CanvasElement):void
+    public addChild(child:CanvasElement):CanvasElement
     {
         //TODO: Add to children array with super DisplayObject.
         child.parent = this;
         child.stage = this.stage;
         child.context = this.context;
         child.createChildren();
+
+        return this;
     }
 
-    public removeChild(child:CanvasElement):void
+    public removeChild(child:CanvasElement):CanvasElement
     {
         //TODO: Remove children from array with super DisplayObject.
         child.stage = null;
         child.context = null;
+
+        return this;
     }
 
 }

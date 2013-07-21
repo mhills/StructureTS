@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-interface IValueObject extends IEventDispatcher
+interface IValueObject
 {
     clone():IValueObject;
     toJson():string;
