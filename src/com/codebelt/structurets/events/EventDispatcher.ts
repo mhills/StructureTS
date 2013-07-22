@@ -192,7 +192,15 @@ class EventDispatcher extends BaseObject
         this.parent = null;
         this._listeners = [];
 
-        // TODO: maybe do what is Destruction Lifecycle: http://js.nerderylabs.com/best-practices/view-objects-in-javascript/
+        var key:string;
+        for (key in this) {
+            // Loop through all Objects and call the destroy function if it has one.
+            if (typeof this[key]['destroy'] === 'function') {
+                this[key].destroy();
+            }
+
+            this[key] = null;
+        }
     }
 
 }
