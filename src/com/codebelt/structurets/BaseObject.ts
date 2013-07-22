@@ -24,6 +24,7 @@
 
 ///<reference path='_declare/jaml.d.ts'/>
 ///<reference path='_declare/jquery.d.ts'/>
+///<reference path='_declare/handlebars.d.ts'/>
 ///<reference path='_declare/underscore.d.ts'/>
 ///<reference path='_declare/crossroads.d.ts'/>
 ///<reference path='_declare/signals.d.ts'/>

@@ -62,8 +62,13 @@ class TemplateFactory {
         var isClassOrIdName:boolean = regex.test(templatePath);
 
         if (isClassOrIdName) {
+            // Underscore Template:
             var templateMethod:Function = _.template( $(templatePath).html() );
             template = templateMethod(data);
+
+            // Handlebars Template
+//            var templateMethod:Function = Handlebars.compile( $(templatePath).html() );
+//            template = templateMethod(data);
         } else {
             var templateObj:Object = window[TemplateFactory.templateNamespace];
             if (!templateObj) {

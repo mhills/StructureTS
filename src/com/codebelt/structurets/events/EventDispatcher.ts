@@ -177,4 +177,22 @@ class EventDispatcher extends BaseObject
         return this;
     }
 
+    /**
+     * The purpose of the destroy method is to make an object ready for garbage collection. This
+     * should be thought of as a one way function. Once destroy is called no further methods should be
+     * called on the object or properties accessed. It is the responsibility of those who implement this
+     * function to stop all running Timers, all running Sounds, remove any event
+     * listeners and take any other steps necessary to make an object eligible for garbage collection.
+     * It is critical that all subclasses call the super for this function in their overridden methods.
+     *
+     * @method destroy
+     */
+    public destroy():void
+    {
+        this.parent = null;
+        this._listeners = [];
+
+        // TODO: maybe do what is Destruction Lifecycle: http://js.nerderylabs.com/best-practices/view-objects-in-javascript/
+    }
+
 }

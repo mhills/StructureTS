@@ -93,7 +93,7 @@ module.exports = function(grunt) {
                 }
             },
             todo: {
-                src: ['<%= EXAMPLE_PATH %>ParseTodoApp/dev/TodoApp.ts'],
+                src: ['<%= EXAMPLE_PATH %>ParseTodoApp/dev/scripts/TodoApp.ts'],
                 dest: '<%= EXAMPLE_PATH %>ParseTodoApp/prod/scripts/todoApp.js',
                 options: {
                     target: 'es3', //or es3
@@ -113,7 +113,7 @@ module.exports = function(grunt) {
                 }
             },
             gallery: {
-                src: ['<%= EXAMPLE_PATH %>PhotoGalleryApp/dev/PhotoGalleryApp.ts'],
+                src: ['<%= EXAMPLE_PATH %>PhotoGalleryApp/dev/scripts/PhotoGalleryApp.ts'],
                 dest: '<%= EXAMPLE_PATH %>PhotoGalleryApp/prod/scripts/photoGalleryApp.js',
                 options: {
                     target: 'es3', // Options: es3, es5
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
                 options: {
                     out: true
                 },
-                src: ['<%= EXAMPLE_PATH %>ParseTodoApp/dev/TodoApp.ts'],
+                src: ['<%= EXAMPLE_PATH %>ParseTodoApp/dev/scripts/TodoApp.ts'],
                 dest: '<%= EXAMPLE_PATH %>ParseTodoApp/prod/scripts/todoApp.js'
             }
         },
@@ -230,7 +230,7 @@ module.exports = function(grunt) {
             },
             todo: {
                 files: [
-                    '<%= BASE_PATH %>**/*.ts',
+                    '<%= EXAMPLE_PATH %>ParseTodoApp/**/*.ts',
                     '<%= SRC_PATH %>com/**/*.ts'
                 ],
                 tasks: ['todo']

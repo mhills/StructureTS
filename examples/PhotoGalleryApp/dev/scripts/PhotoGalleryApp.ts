@@ -1,6 +1,5 @@
-
-///<reference path='../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../src/com/codebelt/structurets/display/Stage.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
 
 class PhotoGalleryApp extends Stage
 {
