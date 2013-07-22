@@ -67,8 +67,8 @@ class NumberUtil {
     }
     //http://www.metric-conversions.org/length/inches-conversion.htm
 
-    public static formatUnit(number:number, decimalPlacement:number = 2, decimalSeparator:string = '.', thousandsSeparator:string = ''):number
-    {
+//    public static formatUnit(number:number, decimalPlacement:number = 2, decimalSeparator:string = '.', thousandsSeparator:string = ''):number
+//    {
 //        var n = number;
 //        var decimalPlacement = isNaN(decimalPlacement = Math.abs(decimalPlacement)) ? 2 : decimalPlacement;
 //        var decimalSeparator = decimalSeparator == undefined ? "," : decimalSeparator
@@ -77,6 +77,6 @@ class NumberUtil {
 //        var j = (j = i.length) > 3 ? j % 3 : 0;
 //
 //        return s + (j ? i.substr(0, j) + thousandsSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandsSeparator) + (decimalPlacement ? decimalPlacement + Math.abs(n - i).toFixed(decimalPlacement).slice(2) : "");
-    }
+//    }
 
 }

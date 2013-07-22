@@ -34,6 +34,10 @@
  **/
 class TemplateFactory {
 
+    public static UNDERSCORE:string = 'underscore';
+    public static HANDLEBARS:string = 'handlebars';
+
+    public static templateEngine:string = TemplateFactory.HANDLEBARS;
     public static templateNamespace:string = 'JST';
 
     constructor() {}
@@ -61,14 +65,17 @@ class TemplateFactory {
         var template:string;
         var isClassOrIdName:boolean = regex.test(templatePath);
 
-        if (isClassOrIdName) {
-            // Underscore Template:
-            var templateMethod:Function = _.template( $(templatePath).html() );
-            template = templateMethod(data);
 
-            // Handlebars Template
-//            var templateMethod:Function = Handlebars.compile( $(templatePath).html() );
-//            template = templateMethod(data);
+        if (isClassOrIdName) {
+            if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
+                // Underscore Template:
+                var templateMethod:Function = _.template( $(templatePath).html() );
+                template = templateMethod(data);
+            } else {
+                // Handlebars Template
+                var templateMethod:Function = Handlebars.compile( $(templatePath).html() );
+                template = templateMethod(data);
+            }
         } else {
             var templateObj:Object = window[TemplateFactory.templateNamespace];
             if (!templateObj) {

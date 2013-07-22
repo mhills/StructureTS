@@ -170,6 +170,11 @@ var EventDispatcher = (function (_super) {
 
         return this;
     };
+
+    EventDispatcher.prototype.destroy = function () {
+        this.parent = null;
+        this._listeners = [];
+    };
     return EventDispatcher;
 })(BaseObject);
 var DisplayObject = (function (_super) {
@@ -260,6 +265,8 @@ var DisplayObject = (function (_super) {
         this.disable();
         this.children = [];
         this.numChildren = 0;
+
+        _super.prototype.destroy.call(this);
     };
     return DisplayObject;
 })(EventDispatcher);
@@ -344,8 +351,15 @@ var TemplateFactory = (function () {
         var isClassOrIdName = regex.test(templatePath);
 
         if (isClassOrIdName) {
-            var templateMethod = _.template($(templatePath).html());
-            template = templateMethod(data);
+            if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
+                console.log(TemplateFactory.templateEngine);
+                var templateMethod = _.template($(templatePath).html());
+                template = templateMethod(data);
+            } else if (TemplateFactory.templateEngine == TemplateFactory.HANDLEBARS) {
+                console.log(TemplateFactory.templateEngine);
+                var templateMethod = Handlebars.compile($(templatePath).html());
+                template = templateMethod(data);
+            }
         } else {
             var templateObj = window[TemplateFactory.templateNamespace];
             if (!templateObj) {
@@ -366,6 +380,10 @@ var TemplateFactory = (function () {
 
         return template;
     };
+    TemplateFactory.UNDERSCORE = 'underscore';
+    TemplateFactory.HANDLEBARS = 'handlebars';
+
+    TemplateFactory.templateEngine = TemplateFactory.HANDLEBARS;
     TemplateFactory.templateNamespace = 'JST';
     return TemplateFactory;
 })();
@@ -731,7 +749,7 @@ var BulkLoader = (function (_super) {
     };
 
     BulkLoader.prototype.onLoadComplete = function (event) {
-        event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete);
+        event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
 
         for (var key in this._dataStores) {
             var dataStore = this._dataStores[key];

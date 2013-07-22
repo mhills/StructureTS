@@ -121,6 +121,16 @@ module.exports = function(grunt) {
                     sourcemap: false,
                     declaration: false
                 }
+            },
+            canvas: {
+                src: ['<%= EXAMPLE_PATH %>CanvasBannerAd/assets/scripts/BannerAd.ts'],
+                dest: '<%= EXAMPLE_PATH %>CanvasBannerAd/assets/scripts/deploy/bannerAd.js',
+                options: {
+                    target: 'es3', // Options: es3, es5
+                    base_path: '',
+                    sourcemap: false,
+                    declaration: false
+                }
             }
         },
 
@@ -307,10 +317,11 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['cssmin', 'typescript:website', 'jst']);
     grunt.registerTask('website', ['typescript:website']);
     grunt.registerTask('todo', ['typescript:todo']);
+    grunt.registerTask('canvas', ['typescript:canvas']);
     grunt.registerTask('filmprod', ['typescript:film', 'jst:film', 'json:film', 'concat']);
     grunt.registerTask('film', ['typescript:film', 'concat']);
     grunt.registerTask('gallery', ['typescript:gallery']);
     grunt.registerTask('temp', ['concat']);
-    grunt.registerTask('all', ['website', 'todo', 'filmprod', 'gallery']);
+    grunt.registerTask('all', ['website', 'todo', 'filmprod', 'gallery', 'canvas']);
 
 };

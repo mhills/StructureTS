@@ -44,6 +44,7 @@ class TodoApp extends Stage
         this._input = this.getChild('#js-todo-input');
         this._submitBtn = this.getChild('#js-submit-button');
 
+//        TemplateFactory.templateEngine = TemplateFactory.HANDLEBARS
         this._noTasksMessage = TemplateFactory.createView('#noTodoItemsTemplate');
 
         this._incompleteItemList = this.getChild('#js-incomplete-items');
