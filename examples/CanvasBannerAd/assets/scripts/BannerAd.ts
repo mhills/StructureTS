@@ -37,6 +37,35 @@ class BannerAd extends Canvas
         this._bulkLoader.load();
     }
 
+    /**
+     * @copy CanvasElement.createChildren
+     * @overridden
+     */
+    public createChildren():void
+    {
+        super.createChildren();
+    }
+
+    /**
+     * @copy DisplayObject.enable
+     * @overridden
+     */
+    public enable():void {
+        if (this.isEnabled === true) return;
+
+        super.enable();
+    }
+
+    /**
+     * @copy DisplayObject.disable
+     * @overridden
+     */
+    public disable():void {
+        if (this.isEnabled === false) return;
+
+        super.disable();
+    }
+
     private init(event:LoaderEvent):void
     {
         this._bulkLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
