@@ -104,7 +104,6 @@ class EventBroker {
      */
     public static dispatchEvent(event:BaseEvent):any
     {
-        //TODO: need to check if the target needs to get set differently. I am thinking target is always going to be this EventBroker object.
         EventBroker._eventDispatcher.dispatchEvent(event);
     }
 

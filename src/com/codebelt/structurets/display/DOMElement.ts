@@ -38,7 +38,7 @@
 class DOMElement extends DisplayObject {
 
     /**
-     * @copy DisplayObject.CLASS_NAME
+     * @copy BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'DOMElement';
 
@@ -283,24 +283,8 @@ class DOMElement extends DisplayObject {
         return this;
     }
 
-//    /**
-//     * @copy DisplayObject.enabled
-//     */
-//    public enabled(value:boolean):void {
-//        if (value == this.isEnabled) {
-//            return;
-//        }
-//
-//        if (value) {
-//        }
-//        else {
-//        }
-//
-//        super.enabled(value);
-//    }
-
     /**
-     * @copy DisplayObject.enable
+     * @copy BaseObject.enable
      */
     public enable():void {
         if (this.isEnabled === true) return;
@@ -309,7 +293,7 @@ class DOMElement extends DisplayObject {
     }
 
     /**
-     * @copy DisplayObject.disable
+     * @copy BaseObject.disable
      */
     public disable():void {
         if (this.isEnabled === false) return;
@@ -341,7 +325,7 @@ class DOMElement extends DisplayObject {
      *
      * @method visible
      * @param value
-     * @returns {*}
+     * @returns {any}
      */
     public visible(value:boolean):any {
         if (value == false) {

@@ -60,6 +60,16 @@ class BaseObject {
      */
     public cid:number;
 
+    /**
+     * The isEnabled property is used to keep track of the enabled state.
+     *
+     * @property isEnabled
+     * @type {boolean}
+     * @default false
+     * @protected
+     */
+    public isEnabled:boolean = false;
+
     constructor() {
         //TODO: why is it converting to a string and not a number?
         this.cid = _.uniqueId();
@@ -75,6 +85,55 @@ class BaseObject {
     public getQualifiedClassName():string
     {
         return this.CLASS_NAME;
+    }
+
+    /**
+     * The enable method is responsible for enabling all event listeners and enabling children.
+     *
+     * @method enable
+     * @public
+     */
+    public enable():void
+    {
+        if (this.isEnabled === true) return;
+
+        this.isEnabled = true;
+    }
+
+    /**
+     * The disable method is responsible for disabling all event listeners and disabling children.
+     *
+     * @method disable
+     * @public
+     */
+    public disable():void
+    {
+        if (this.isEnabled === false) return;
+
+        this.isEnabled = false;
+    }
+
+    /**
+     * The purpose of the destroy method is to make an object ready for garbage collection. This
+     * should be thought of as a one way function. Once destroy is called no further methods should be
+     * called on the object or properties accessed. It is the responsibility of those who implement this
+     * function to stop all running Timers, all running Sounds, remove any event
+     * listeners and take any other steps necessary to make an object eligible for garbage collection.
+     * It is critical that all subclasses call the super for this function in their overridden methods.
+     *
+     * @method destroy
+     */
+    public destroy():void
+    {
+        var key:string;
+        for (key in this) {
+            // Loop through all Objects and call the destroy function if it has one.
+            if (typeof this[key]['destroy'] === 'function') {
+                this[key].destroy();
+            }
+
+            this[key] = null;
+        }
     }
 
 }

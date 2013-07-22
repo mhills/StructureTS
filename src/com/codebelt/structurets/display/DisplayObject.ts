@@ -41,16 +41,6 @@ class DisplayObject extends EventDispatcher
     public CLASS_NAME:string = 'DisplayObject';
 
     /**
-     * The isEnabled property is used to keep track of the enabled start of the DisplayObject.
-     *
-     * @property isEnabled
-     * @type {boolean}
-     * @default false
-     * @protected
-     */
-    public isEnabled:boolean = false;
-
-    /**
      * The isCreated property is used to keep track if it is the first time this DisplayObject is created.
      *
      * @property isCreated
@@ -208,53 +198,6 @@ class DisplayObject extends EventDispatcher
     public getChildAt(index:number):DisplayObject
     {
         return this.children[index];
-    }
-
-//    /**
-//     * The enabled method is responsible for enabling and disabling all user interaction event listeners.
-//     * By convention, all user interaction event listeners are added and removed in the setter function. This provides
-//     * the benefit of allowing easy verification that all addEventListener calls are balanced by a matching
-//     * removeEventListener call.
-//     *
-//     * @method enabled
-//     * @param value {boolean}
-//     * @public
-//     */
-//    public enabled(value:boolean):void
-//    {
-//        if (value == this.isEnabled) return;
-//
-//        if (value) {
-//        } else {
-//        }
-//
-//        this.isEnabled = value;
-//    }
-
-    /**
-     * The enable method is responsible for enabling all event listeners and enabling children of the view.
-     *
-     * @method enable
-     * @public
-     */
-    public enable():void
-    {
-        if (this.isEnabled === true) return;
-
-        this.isEnabled = true;
-    }
-
-    /**
-     * The disable method is responsible for disabling all event listeners and disabling children of the view.
-     *
-     * @method disable
-     * @public
-     */
-    public disable():void
-    {
-        if (this.isEnabled === false) return;
-
-        this.isEnabled = false;
     }
 
     /**

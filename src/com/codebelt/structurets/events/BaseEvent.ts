@@ -37,7 +37,7 @@
  * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
  * Note: Bubbling will only work with DisplayObject classes throw the display list hierarchy. Any classes that do not have a parent cannot bubble.
  * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
- * @param [data=null] {Object}
+ * @param [data=null] {any}
  * @extends BaseObject
  * @requires ICore
  * @module StructureTS
@@ -54,7 +54,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.ACTIVATE constant defines the value of the type property of an activate event object.
      *
-     * @event BaseEvent.activate
+     * @event BaseEvent.ACTIVATE
      * @type {string}
      * @static
      */
@@ -63,7 +63,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.ADDED constant defines the value of the type property of an added event object.
      *
-     * @event BaseEvent.added
+     * @event BaseEvent.ADDED
      * @type {string}
      * @static
      */
@@ -72,7 +72,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.ADDED_TO_STAGE constant defines the value of the type property of an addedToStage event object.
      *
-     * @event BaseEvent.addedToStage
+     * @event BaseEvent.ADDED_TO_STAGE
      * @type {string}
      * @static
      */
@@ -81,7 +81,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.CANCEL constant defines the value of the type property of a cancel event object.
      *
-     * @event BaseEvent.cancel
+     * @event BaseEvent.CANCEL
      * @type {string}
      * @static
      */
@@ -90,7 +90,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.CHANGE constant defines the value of the type property of a change event object.
      *
-     * @event BaseEvent.change
+     * @event BaseEvent.CHANGE
      * @type {string}
      * @static
      */
@@ -99,7 +99,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.CLEAR constant defines the value of the type property of a clear event object.
      *
-     * @event BaseEvent.clear
+     * @event BaseEvent.CLEAR
      * @type {string}
      * @static
      */
@@ -108,7 +108,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.CLOSE constant defines the value of the type property of a close event object.
      *
-     * @event BaseEvent.close
+     * @event BaseEvent.CLOSE
      * @type {string}
      * @static
      */
@@ -117,7 +117,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.CLOSING constant defines the value of the type property of a closing event object.
      *
-     * @event BaseEvent.closing
+     * @event BaseEvent.CLOSING
      * @type {string}
      * @static
      */
@@ -126,7 +126,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.COMPLETE constant defines the value of the type property of a complete event object.
      *
-     * @event BaseEvent.complete
+     * @event BaseEvent.COMPLETE
      * @type {string}
      * @static
      */
@@ -135,7 +135,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.CONNECT constant defines the value of the type property of a connect event object.
      *
-     * @event BaseEvent.connect
+     * @event BaseEvent.CONNECT
      * @type {string}
      * @static
      */
@@ -144,7 +144,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * Defines the value of the type property of a copy event object.
      *
-     * @event BaseEvent.copy
+     * @event BaseEvent.COPY
      * @type {string}
      * @static
      */
@@ -153,7 +153,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * Defines the value of the type property of a cut event object.
      *
-     * @event BaseEvent.cut
+     * @event BaseEvent.CUT
      * @type {string}
      * @static
      */
@@ -162,7 +162,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.DEACTIVATE constant defines the value of the type property of a deactivate event object.
      *
-     * @event BaseEvent.deactivate
+     * @event BaseEvent.DEACTIVATE
      * @type {string}
      * @static
      */
@@ -171,7 +171,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.DISPLAYING constant defines the value of the type property of a displaying event object.
      *
-     * @event BaseEvent.displaying
+     * @event BaseEvent.DISPLAYING
      * @type {string}
      * @static
      */
@@ -180,7 +180,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.ENTER_FRAME constant defines the value of the type property of an enterFrame event object.
      *
-     * @event BaseEvent.enterFrame
+     * @event BaseEvent.ENTER_FRAME
      * @type {string}
      * @static
      */
@@ -189,7 +189,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.EXIT_FRAME constant defines the value of the type property of an exitFrame event object.
      *
-     * @event BaseEvent.exitFrame
+     * @event BaseEvent.EXIT_FRAME
      * @type {string}
      * @static
      */
@@ -198,7 +198,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.EXITING constant defines the value of the type property of an exiting event object.
      *
-     * @event BaseEvent.exiting
+     * @event BaseEvent.EXITING
      * @type {string}
      * @static
      */
@@ -207,7 +207,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.FULL_SCREEN constant defines the value of the type property of a fullScreen event object.
      *
-     * @event BaseEvent.fullScreen
+     * @event BaseEvent.FULLSCREEN
      * @type {string}
      * @static
      */
@@ -216,7 +216,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.INIT constant defines the value of the type property of an init event object.
      *
-     * @event BaseEvent.init
+     * @event BaseEvent.INIT
      * @type {string}
      * @static
      */
@@ -225,7 +225,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.NETWORK_CHANGE constant defines the value of the type property of a networkChange event object.
      *
-     * @event BaseEvent.networkChange
+     * @event BaseEvent.NETWORK_CHANGE
      * @type {string}
      * @static
      */
@@ -234,7 +234,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.OPEN constant defines the value of the type property of an open event object.
      *
-     * @event BaseEvent.open
+     * @event BaseEvent.OPEN
      * @type {string}
      * @static
      */
@@ -243,7 +243,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.PASTE constant defines the value of the type property of a paste event object.
      *
-     * @event BaseEvent.paste
+     * @event BaseEvent.PASTE
      * @type {string}
      * @static
      */
@@ -252,7 +252,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.PREPARING constant defines the value of the type property of a preparing event object.
      *
-     * @event BaseEvent.preparing
+     * @event BaseEvent.PREPARING
      * @type {string}
      * @static
      */
@@ -261,7 +261,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.REMOVED constant defines the value of the type property of a removed event object.
      *
-     * @event BaseEvent.removed
+     * @event BaseEvent.REMOVED
      * @type {string}
      * @static
      */
@@ -270,7 +270,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.RENDER constant defines the value of the type property of a render event object.
      *
-     * @event BaseEvent.render
+     * @event BaseEvent.RENDER
      * @type {string}
      * @static
      */
@@ -279,7 +279,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      * The BaseEvent.RESIZE constant defines the value of the type property of a resize event object.
      *
-     * @event BaseEvent.resize
+     * @event BaseEvent.RESIZE
      * @type {string}
      * @static
      */
@@ -299,7 +299,7 @@ class BaseEvent extends BaseObject implements ICore {
      * The event target.
      *
      * @property target
-     * @type {*}
+     * @type {any}
      * @default null
      * @readOnly
      */
@@ -308,7 +308,7 @@ class BaseEvent extends BaseObject implements ICore {
     /**
      *
      * @property data
-     * @type {*}
+     * @type {any}
      * @default null
      * @readOnly
      */
