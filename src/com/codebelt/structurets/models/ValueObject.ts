@@ -29,19 +29,36 @@
  * The ValueObject...
  *
  * @class ValueObject
+ * @param [data] {any} Provide a way to update the value object upon initialization.
  * @module StructureTS
  * @submodule model
  * @constructor
  **/
 class ValueObject extends BaseObject implements ICore {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
     public CLASS_NAME:string = 'ValueObject';
 
-    public id:string;
-
-    constructor()
+    constructor(data:any = null)
     {
         super();
+
+        if (data) {
+            this.update(data);
+        }
+    }
+
+    /**
+     * Provide a way to update the value object.
+     *
+     * @method update
+     * @param data {any}
+     */
+    public update(data:any):void
+    {
+
     }
 
     public toJsonString()

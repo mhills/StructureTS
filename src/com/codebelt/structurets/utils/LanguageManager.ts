@@ -66,14 +66,21 @@ class LanguageManager extends EventDispatcher {
 
     private onConfigLoaded(event:LoaderEvent):void
     {
-        var jsonData = JSON.parse( event.target.data );
+        var firstLanguageId:string;
+        var jsonData:any = JSON.parse( event.target.data );
+        var vo:LanguageConfigVO;
         var len:number = jsonData.data.length
         for(var i:number = 0; i < len; i++) {
-            var vo:LanguageConfigVO = new LanguageConfigVO( jsonData.data[i] );
+             vo = new LanguageConfigVO( jsonData.data[i] );
             this._availableLanguagesDictionary[vo.id] = vo;
+            if (!firstLanguageId) {
+                firstLanguageId = vo.id;
+            }
         }
 
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+
+        this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
 
         var currentLanguageVO:LanguageConfigVO = this.getLangConfigById( this.currentLanguage );
         this.loadLanguageData( currentLanguageVO.path );

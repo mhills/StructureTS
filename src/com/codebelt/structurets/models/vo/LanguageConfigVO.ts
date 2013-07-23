@@ -24,25 +24,40 @@
 
 ///<reference path='../ValueObject.ts'/>
 
+/**
+ * YUIDoc_comment
+ *
+ * @class LanguageConfigVO
+ * @param [data] {any} Provide a way to update the value object upon initialization.
+ * @constructor
+ **/
 class LanguageConfigVO extends ValueObject {
 
-    public id:string = null;
-    public type:string = null;
-    public path:string = null;
+    /**
+     * @copy ValueObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'LanguageConfigVO';
 
-    constructor(data:any)
+    public id:string;
+    public lang:string;
+    public text:string;
+    public path:string;
+
+    constructor(data:any = null)
     {
-        super();
-
-        if (data) {
-            this.update(data);
-        }
+        super(data);
     }
 
+    /**
+     * @copy ValueObject.update
+     * @overridden
+     */
     public update(data:any):void
     {
+
         this.id = data.id;
-        this.type = data.type;
+        this.lang = data.lang;
+        this.text = data.text;
         this.path = data.path;
     }
 }

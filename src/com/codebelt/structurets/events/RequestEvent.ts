@@ -34,14 +34,32 @@
  **/
 class RequestEvent extends BaseEvent {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
     public CLASS_NAME:string = 'RequestEvent';
 
+    /**
+     * YUIDoc_comment
+     *
+     * @event SUCCESS
+     * @type {string}
+     * @static
+     */
     static SUCCESS:string = "RequestEvent.success";
+
+    /**
+     * YUIDoc_comment
+     *
+     * @event ERROR
+     * @type {string}
+     * @static
+     */
     static ERROR:string = "RequestEvent.error";
 
-    constructor(type:string, data:any=null)
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
     {
-        super(type, data);
+        super(type, bubbles, cancelable, data);
     }
 
 }

@@ -34,14 +34,32 @@
  **/
 class LoaderEvent extends BaseEvent {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
     public CLASS_NAME:string = 'LoaderEvent';
 
+    /**
+     * YUIDoc_comment
+     *
+     * @event COMPLETE
+     * @type {string}
+     * @static
+     */
     static COMPLETE:string = "LoaderEvent.complete";
+
+    /**
+     * YUIDoc_comment
+     *
+     * @event LOAD_COMPLETE
+     * @type {string}
+     * @static
+     */
     static LOAD_COMPLETE:string = "LoaderEvent.loadComplete";
 
-    constructor(type:string, data:any=null)
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
     {
-        super(type, data);
+        super(type, bubbles, cancelable, data);
     }
 
 }

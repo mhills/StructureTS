@@ -24,6 +24,7 @@
 
 ///<reference path='../interfaces/IDataStore.ts'/>
 ///<reference path='../events/EventDispatcher.ts'/>
+///<reference path='../events/LoaderEvent.ts'/>
 
 /**
  * The ImageLoader...

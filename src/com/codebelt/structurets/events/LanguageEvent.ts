@@ -34,8 +34,18 @@
  **/
 class LanguageEvent extends BaseEvent {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
     public CLASS_NAME:string = 'LanguageEvent';
 
+    /**
+     * YUIDoc_comment
+     *
+     * @event LANGUAGE_CHANGE
+     * @type {string}
+     * @static
+     */
     static LANGUAGE_CHANGE:string = "LanguageEvent.languageChange";
 
     constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
