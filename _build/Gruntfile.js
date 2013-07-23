@@ -213,7 +213,9 @@ module.exports = function(grunt) {
                 options: {
                     extension: '.ts',
                     paths: '<%= SRC_PATH %>' + 'com/',
-                    outdir: '<%= BASE_PATH %>' + 'docs/'
+                    outdir: '<%= BASE_PATH %>' + 'docs/',
+                    themedir: '',
+                    exclude: ''
                 }
             }
         },

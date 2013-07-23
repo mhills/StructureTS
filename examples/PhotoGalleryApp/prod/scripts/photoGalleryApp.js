@@ -1,10 +1,36 @@
 var BaseObject = (function () {
     function BaseObject() {
         this.CLASS_NAME = 'BaseObject';
+        this.isEnabled = false;
         this.cid = _.uniqueId();
     }
     BaseObject.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
+    };
+
+    BaseObject.prototype.enable = function () {
+        if (this.isEnabled === true)
+            return;
+
+        this.isEnabled = true;
+    };
+
+    BaseObject.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        this.isEnabled = false;
+    };
+
+    BaseObject.prototype.destroy = function () {
+        var key;
+        for (key in this) {
+            if (typeof this[key]['destroy'] === 'function') {
+                this[key].destroy();
+            }
+
+            this[key] = null;
+        }
     };
     return BaseObject;
 })();
@@ -170,6 +196,13 @@ var EventDispatcher = (function (_super) {
 
         return this;
     };
+
+    EventDispatcher.prototype.destroy = function () {
+        this.parent = null;
+        this._listeners = [];
+
+        _super.prototype.destroy.call(this);
+    };
     return EventDispatcher;
 })(BaseObject);
 var DisplayObject = (function (_super) {
@@ -177,7 +210,6 @@ var DisplayObject = (function (_super) {
     function DisplayObject() {
         _super.call(this);
         this.CLASS_NAME = 'DisplayObject';
-        this.isEnabled = false;
         this.isCreated = false;
         this.numChildren = 0;
         this.children = [];
@@ -239,20 +271,6 @@ var DisplayObject = (function (_super) {
         return this.children[index];
     };
 
-    DisplayObject.prototype.enable = function () {
-        if (this.isEnabled === true)
-            return;
-
-        this.isEnabled = true;
-    };
-
-    DisplayObject.prototype.disable = function () {
-        if (this.isEnabled === false)
-            return;
-
-        this.isEnabled = false;
-    };
-
     DisplayObject.prototype.layoutChildren = function () {
     };
 
@@ -260,6 +278,8 @@ var DisplayObject = (function (_super) {
         this.disable();
         this.children = [];
         this.numChildren = 0;
+
+        _super.prototype.destroy.call(this);
     };
     return DisplayObject;
 })(EventDispatcher);
@@ -286,8 +306,13 @@ var TemplateFactory = (function () {
         var isClassOrIdName = regex.test(templatePath);
 
         if (isClassOrIdName) {
-            var templateMethod = _.template($(templatePath).html());
-            template = templateMethod(data);
+            if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
+                var templateMethod = _.template($(templatePath).html());
+                template = templateMethod(data);
+            } else {
+                var templateMethod = Handlebars.compile($(templatePath).html());
+                template = templateMethod(data);
+            }
         } else {
             var templateObj = window[TemplateFactory.templateNamespace];
             if (!templateObj) {
@@ -308,6 +333,10 @@ var TemplateFactory = (function () {
 
         return template;
     };
+    TemplateFactory.UNDERSCORE = 'underscore';
+    TemplateFactory.HANDLEBARS = 'handlebars';
+
+    TemplateFactory.templateEngine = TemplateFactory.HANDLEBARS;
     TemplateFactory.templateNamespace = 'JST';
     return TemplateFactory;
 })();

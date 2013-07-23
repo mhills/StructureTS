@@ -25,9 +25,16 @@
 ///<reference path='BaseEvent.ts'/>
 
 /**
+ * The ApplicationCacheEvent ....
  *
  * @class ApplicationCacheEvent
- * @extends BaseEvent
+ * @param type {string} The type of event. The type is case-sensitive.
+ * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
+ * Note: Bubbling will only work with DisplayObject classes throw the display list hierarchy. Any classes that do not have a parent cannot bubble.
+ * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
+ * @param [data=null] {any}
+ * @extends BaseObject
+ * @requires ICore
  * @module StructureTS
  * @submodule event
  * @constructor
@@ -44,7 +51,7 @@ class ApplicationCacheEvent extends BaseEvent {
      * the cache manifest for the first time. This is always the first event
      * in the sequence.
      *
-     * @events ApplicationCacheEvent.CHECKING
+     * @event CHECKING
      * @type {string}
      * @static
      */
@@ -53,7 +60,7 @@ class ApplicationCacheEvent extends BaseEvent {
     /**
      * The cache manifest hadn't changed.
      *
-     * @events NO_UPDATE
+     * @event NO_UPDATE
      * @type {string}
      * @static
      */
@@ -63,7 +70,7 @@ class ApplicationCacheEvent extends BaseEvent {
      * The browser has started to download the cache manifest, either for the
      * first time or because changes have been detected.
      *
-     * @events DOWNLOADING
+     * @event DOWNLOADING
      * @type {string}
      * @static
      */
@@ -73,7 +80,7 @@ class ApplicationCacheEvent extends BaseEvent {
      * The browser had downloaded and cached an asset. This is fired once for
      * every file that is downloaded (including the current page which is cached implicitly).
      *
-     * @events PROGRESS
+     * @event PROGRESS
      * @type {string}
      * @static
      */
@@ -83,7 +90,7 @@ class ApplicationCacheEvent extends BaseEvent {
      * The resources listed in the manifest have been fully downloaded, and the application is
      * now cached locally.
      *
-     * @events CACHED
+     * @event CACHED
      * @type {string}
      * @static
      */
@@ -93,7 +100,7 @@ class ApplicationCacheEvent extends BaseEvent {
      * The resources listed in the manifest have been newly re-downloaded, and the script can
      * use swapCache() to switch to the new cache.
      *
-     * @events UPDATE_READY
+     * @event UPDATE_READY
      * @type {string}
      * @static
      */
@@ -103,7 +110,7 @@ class ApplicationCacheEvent extends BaseEvent {
      * The cache manifest file could not be found, indicating that the cache is no longer needed.
      * The application cache is being deleted.
      *
-     * @events OBSOLETE
+     * @event OBSOLETE
      * @type {string}
      * @static
      */
@@ -113,7 +120,7 @@ class ApplicationCacheEvent extends BaseEvent {
      * An error occurred at some point - this could be caused by a number of things. This will
      * always be the last event in the sequence.
      *
-     * @events ERROR
+     * @event ERROR
      * @type {string}
      * @static
      */

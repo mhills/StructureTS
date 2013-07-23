@@ -1,10 +1,36 @@
 var BaseObject = (function () {
     function BaseObject() {
         this.CLASS_NAME = 'BaseObject';
+        this.isEnabled = false;
         this.cid = _.uniqueId();
     }
     BaseObject.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
+    };
+
+    BaseObject.prototype.enable = function () {
+        if (this.isEnabled === true)
+            return;
+
+        this.isEnabled = true;
+    };
+
+    BaseObject.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        this.isEnabled = false;
+    };
+
+    BaseObject.prototype.destroy = function () {
+        var key;
+        for (key in this) {
+            if (typeof this[key]['destroy'] === 'function') {
+                this[key].destroy();
+            }
+
+            this[key] = null;
+        }
     };
     return BaseObject;
 })();
@@ -174,6 +200,8 @@ var EventDispatcher = (function (_super) {
     EventDispatcher.prototype.destroy = function () {
         this.parent = null;
         this._listeners = [];
+
+        _super.prototype.destroy.call(this);
     };
     return EventDispatcher;
 })(BaseObject);
@@ -182,7 +210,6 @@ var DisplayObject = (function (_super) {
     function DisplayObject() {
         _super.call(this);
         this.CLASS_NAME = 'DisplayObject';
-        this.isEnabled = false;
         this.isCreated = false;
         this.numChildren = 0;
         this.children = [];
@@ -244,20 +271,6 @@ var DisplayObject = (function (_super) {
         return this.children[index];
     };
 
-    DisplayObject.prototype.enable = function () {
-        if (this.isEnabled === true)
-            return;
-
-        this.isEnabled = true;
-    };
-
-    DisplayObject.prototype.disable = function () {
-        if (this.isEnabled === false)
-            return;
-
-        this.isEnabled = false;
-    };
-
     DisplayObject.prototype.layoutChildren = function () {
     };
 
@@ -294,11 +307,9 @@ var TemplateFactory = (function () {
 
         if (isClassOrIdName) {
             if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
-                console.log(TemplateFactory.templateEngine);
                 var templateMethod = _.template($(templatePath).html());
                 template = templateMethod(data);
-            } else if (TemplateFactory.templateEngine == TemplateFactory.HANDLEBARS) {
-                console.log(TemplateFactory.templateEngine);
+            } else {
                 var templateMethod = Handlebars.compile($(templatePath).html());
                 template = templateMethod(data);
             }
