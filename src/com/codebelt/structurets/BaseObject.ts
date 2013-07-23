@@ -125,6 +125,8 @@ class BaseObject {
      */
     public destroy():void
     {
+        /*
+        // Removing this code for now because if any class has a reference any other non-children classes then those class destroy method will be called and that would be bad.
         var key:string;
         for (key in this) {
             // Loop through all Objects and call the destroy function if it has one.
@@ -134,6 +136,7 @@ class BaseObject {
 
             this[key] = null;
         }
+        */
     }
 
 }
