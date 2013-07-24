@@ -36,6 +36,11 @@
  **/
 class ImageLoader extends EventDispatcher implements IDataStore {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'ImageLoader';
+
     private _image:HTMLImageElement = null;
 
     public data:any;

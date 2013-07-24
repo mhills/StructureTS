@@ -34,6 +34,11 @@
  **/
 class TemplateFactory {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public static CLASS_NAME:string = 'TemplateFactory';
+
     public static UNDERSCORE:string = 'underscore';
     public static HANDLEBARS:string = 'handlebars';
 

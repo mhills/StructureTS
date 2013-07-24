@@ -22,6 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+///<reference path='../BaseObject.ts'/>
 ///<reference path='URLRequestMethod.ts'/>
 ///<reference path='URLContentType.ts'/>
 
@@ -33,7 +34,12 @@
  * @submodule net
  * @constructor
  **/
-class URLRequest {
+class URLRequest extends BaseObject {
+
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'URLRequest';
 
     public url:string = null;
     public method:string = URLRequestMethod.GET;
@@ -42,6 +48,7 @@ class URLRequest {
 
     constructor(url:string = null)
     {
+        super();
         this.url = url;
     }
 }

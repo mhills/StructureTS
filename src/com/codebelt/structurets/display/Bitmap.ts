@@ -36,6 +36,11 @@
  **/
 class Bitmap extends CanvasElement {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'Bitmap';
+
     private _image:HTMLImageElement = null;
 
     public ready:boolean = false;

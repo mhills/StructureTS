@@ -34,6 +34,11 @@
  **/
 class Util {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public static CLASS_NAME:string = 'Util';
+
     constructor() {}
 
     public static getRandomBoolean():boolean

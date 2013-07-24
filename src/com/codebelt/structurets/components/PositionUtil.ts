@@ -26,6 +26,11 @@
 
 class PositionUtil {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'PositionUtil';
+
     constructor() { }
 
     public static get(obj):any[]

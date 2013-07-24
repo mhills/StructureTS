@@ -26,6 +26,11 @@
 
 class JsonRequest extends BaseRequest {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'JsonRequest';
+
     constructor()
     {
         super("asdf", "sdfg");

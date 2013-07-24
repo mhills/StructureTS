@@ -35,35 +35,43 @@
 class URLContentType {
 //http://www.freeformatter.com/mime-types-list.html
 
-    /*
-     * Audio
+    /**
+     * @copy BaseObject.CLASS_NAME
      */
-    static DEFAULT:string = "application/x-www-form-urlencoded";
-    static ATOM:string = "application/atom+xml";
-    static JSON:string = "application/json";
-    static PDF:string = "application/pdf";
-    static RDF:string = "application/rdf+xml";
-    static RSS:string = "application/rss+xml";
-    static SOAP:string = "application/soap+xml";
-    static FONT_WOFF:string = "application/font-woff";
-    static XML:string = "application/xml";
-    static XHTML:string = "application/xhtml+xml";
-    static ZIP:string = "application/zip";
-    static GZIP:string = "application/gzip";
+    public static CLASS_NAME:string = 'URLContentType';
+
+    constructor(){}
+
+    public static DEFAULT:string = "application/x-www-form-urlencoded";
 
     /*
      * Audio
      */
-    static BASIC:string = "audio/basic";
-    static L24:string = "audio/L24";
-    static MP4:string = "audio/mp4";
-    static MP3:string = "audio/mpeg";
-    static MPEG:string = "audio/mpeg";
-    static OGG:string = "audio/ogg";
-    static VORBIS:string = "audio/vorbis";
-    static REAL_AUDIO:string = "audio/vnd.rn-realaudio";
-    static WAV:string = "audio/vnd.wave";
-    static WEBM:string = "audio/webm";
+    public static ATOM:string = "application/atom+xml";
+    public static JSON:string = "application/json";
+    public static PDF:string = "application/pdf";
+    public static RDF:string = "application/rdf+xml";
+    public static RSS:string = "application/rss+xml";
+    public static SOAP:string = "application/soap+xml";
+    public static FONT_WOFF:string = "application/font-woff";
+    public static XML:string = "application/xml";
+    public static XHTML:string = "application/xhtml+xml";
+    public static ZIP:string = "application/zip";
+    public static GZIP:string = "application/gzip";
+
+    /*
+     * Audio
+     */
+    public static BASIC:string = "audio/basic";
+    public static L24:string = "audio/L24";
+    public static MP4:string = "audio/mp4";
+    public static MP3:string = "audio/mpeg";
+    public static MPEG:string = "audio/mpeg";
+    public static OGG:string = "audio/ogg";
+    public static VORBIS:string = "audio/vorbis";
+    public static REAL_AUDIO:string = "audio/vnd.rn-realaudio";
+    public static WAV:string = "audio/vnd.wave";
+    public static WEBM:string = "audio/webm";
 }
 /*Type message [edit]
 message/http: Defined in RFC 2616

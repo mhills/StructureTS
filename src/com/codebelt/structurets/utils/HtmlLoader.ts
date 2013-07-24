@@ -39,6 +39,11 @@
  **/
 class HtmlLoader extends EventDispatcher implements IDataStore {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'HtmlLoader';
+
     private _urlLoader:URLLoader = null;
 
     public data:any;

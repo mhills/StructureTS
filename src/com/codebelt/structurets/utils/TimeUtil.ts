@@ -34,6 +34,11 @@
  **/
 class TimeUtil {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'TimeUtil';
+
     constructor() {}
 
 

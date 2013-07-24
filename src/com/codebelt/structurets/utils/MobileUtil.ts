@@ -33,6 +33,11 @@
  **/
 class MobileUtil {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public static CLASS_NAME:string = 'MobileUtil';
+
     constructor() {}
 
     public static isAndroid():boolean {

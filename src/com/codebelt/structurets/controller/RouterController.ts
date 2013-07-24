@@ -22,6 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+///<reference path='../BaseObject.ts'/>
 ///<reference path='../utils/BrowserUtils.ts'/>
 
 /**
@@ -31,10 +32,16 @@
  * @module StructureTS
  * @constructor
  **/
-class RouterController {
+class RouterController extends BaseObject {
+
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'RouterController';
 
     constructor()
     {
+        super();
         //only required if you want to set a default value
 //        if(! hasher.getHash()){
 //            hasher.setHash(DEFAULT_HASH);

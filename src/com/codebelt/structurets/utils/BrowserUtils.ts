@@ -32,6 +32,12 @@
  **/
 class BrowserUtils {
                      //http://css-tricks.com/snippets/javascript/
+
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public static CLASS_NAME:string = 'BrowserUtils';
+
     constructor() {}
 
     public static hasBrowserHistory():boolean

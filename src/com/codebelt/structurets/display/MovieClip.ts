@@ -25,7 +25,12 @@
 ///<reference path='CanvasElement.ts'/>
 ///<reference path='../utils/NumberUtil.ts'/>
 
-class MovieClicp extends CanvasElement {
+class MovieClip extends CanvasElement {
+
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'MovieClip';
 
     private _image:HTMLImageElement = null;
 

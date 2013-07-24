@@ -27,6 +27,11 @@
 
 class DragDealer {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'DragDealer';
+
     public wrapper = null;
     public handle = null;
     public options = null;

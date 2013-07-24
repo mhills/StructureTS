@@ -36,6 +36,11 @@
  **/
 class BulkLoader extends EventDispatcher {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'BulkLoader';
+
     private static _instance:BulkLoader;
     public _dataStores:IDataStore[] = [];
 

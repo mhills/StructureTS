@@ -37,9 +37,43 @@
  **/
 class URLLoader extends EventDispatcher{
 
-    public data:any = null;
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'URLLoader';
+
+    /**
+     *
+     * @property dataFormat
+     * @type {string}
+     * @default URLLoaderDataFormat.TEXT
+     */
     public dataFormat:string = URLLoaderDataFormat.TEXT;
+
+    /**
+     *
+     * @property data
+     * @type {any}
+     * @default null
+     */
+    public data:any = null;
+
+    /**
+     *
+     * @property ready
+     * @type {boolean}
+     * @default false
+     */
     public ready:boolean = false;
+
+    /**
+     *
+     * @property _defer
+     * @type {jQuery.Deferred}
+     * @default null
+     * @private
+     */
+    private _defer:Object = null;
 
     constructor(request:URLRequest=null)
     {
@@ -87,6 +121,11 @@ class URLLoader extends EventDispatcher{
 //        console.log("[URLLoader] - onComplete", data);
         this.data = data.responseText;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
+    }
+
+    public destroy():void {
+        this._defer = null;
+        this.data = null;
     }
 
 }

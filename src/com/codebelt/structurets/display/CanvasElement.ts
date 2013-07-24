@@ -36,6 +36,11 @@
  **/
 class CanvasElement extends DisplayObject {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'CanvasElement';
+
     public stage:Canvas = null;
     public context:CanvasRenderingContext2D = null;
     public x:number = 0;

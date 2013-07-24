@@ -26,6 +26,11 @@
 
 class Cursor {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'Cursor';
+
     public static x:number = 0;
     public static y:number = 0;
 

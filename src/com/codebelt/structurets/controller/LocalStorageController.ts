@@ -23,12 +23,14 @@
  */
 
 ///<reference path='../events/EventDispatcher.ts'/>
+///<reference path='../events/LocalStorageEvent.ts'/>
 
 /**
  * The LocalStorageController...
  *
  * @class LocalStorageController
  * @module StructureTS
+ * @submodule controller
  * @constructor
  **/
 class LocalStorageController extends EventDispatcher {
@@ -40,9 +42,22 @@ class LocalStorageController extends EventDispatcher {
 
     private static _instance:LocalStorageController = null;
 
+    /**
+     * Current user namespace. The namespace is optional.
+     *
+     * @property _namespace
+     * @type {string}
+     * @optional
+     * @private
+     */
+    private _namespace:string = '';
+
     constructor()
     {
         super();
+
+        window.addEventListener('storage', this.onLocalStorageEvent.bind(this));
+        console.log("asdfff")
     }
 
     public static getInstance():LocalStorageController
@@ -53,24 +68,113 @@ class LocalStorageController extends EventDispatcher {
         return this._instance;
     }
 
-    public setItem(key:string, data:string):void
-    {
-        localStorage.setItem(key, data);
+    /**
+     * Set storage namespace
+     *
+     * @method setNamespace
+     * @param namespace
+     * @returns {string}
+     */
+    public setNamespace(namespace:string):void {
+        this._namespace = namespace;
     }
 
-    public getItem(key:string):string
-    {
-        return localStorage.getItem(key);
+    /**
+     * Get storage namespace
+     *
+     * @method getNamespace
+     * @returns {string}
+     */
+    public getNamespace():string {
+        return this._namespace;
     }
 
-    public removeItem(key:string):void
+    /**
+     * Sets a key/value pair.
+     *
+     * @method setItem
+     * @param key {string}
+     * @param data {Object}
+     * @param useNamespace {boolean}
+     */
+    // TODO maybe make data a ValueObject instead of an Object.
+    public setItem(key:string, data:any, useNamespace:boolean = false):void
     {
+        if (useNamespace) {
+            key += this.getNamespace();
+        }
+
+        localStorage.setItem(key, JSON.stringify(data));
+    }
+
+    /**
+     * Retrieves the current value associated with the Local Storage key.
+     *
+     * @method getItem
+     * @param key {string}
+     * @param [useNamespace=false] {string}
+     * @returns {string}
+     */
+    public getItem(key:string, useNamespace:boolean = false):string
+    {
+        if (useNamespace) {
+            key += this.getNamespace();
+        }
+
+        var value = localStorage.getItem(key);
+        if (value) {
+            value = JSON.parse(value);
+        }
+
+        return value;
+    }
+
+    /**
+     * Deletes a key/value pair from the Local Storage collection.
+     *
+     * @method removeItem
+     * @param key {string}
+     * @param [useNamespace=false] {string}
+     */
+    public removeItem(key:string, useNamespace:boolean = false):void
+    {
+        if (useNamespace) {
+            key += this.getNamespace();
+        }
+
         localStorage.removeItem(key);
     }
 
+    /**
+     * Returns the size of the Local Storage.
+     *
+     * @method getSize
+     * @returns {number}
+     */
+    public getSize():number {
+        return encodeURIComponent(JSON.stringify(localStorage)).length;
+    }
+
+    /**
+     * Removes all key/value pairs from the Local Storage area.
+     *
+     * @method clear
+     */
     public clear():void
     {
         localStorage.clear();
+    }
+
+    /**
+     *
+     *
+     * @method onLocalStorageEvent
+     * @param event {StorageEvent} The native browser event for Web Storage.
+     * @private
+     */
+    private onLocalStorageEvent(event:StorageEvent) {
+        console.log(event)
+        this.dispatchEvent(new LocalStorageEvent(LocalStorageEvent.STORAGE, false, false, event));
     }
 
 }

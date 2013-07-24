@@ -33,7 +33,7 @@
  * Note: Bubbling will only work with DisplayObject classes throw the display list hierarchy. Any classes that do not have a parent cannot bubble.
  * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
  * @param [data=null] {any}
- * @extends BaseObject
+ * @extends BaseEvent
  * @requires ICore
  * @module StructureTS
  * @submodule event

@@ -26,6 +26,11 @@
 
 class HistoryAPIProxy {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'HistoryAPIProxy';
+
     constructor() {
 
     }

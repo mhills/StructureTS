@@ -34,11 +34,16 @@
  **/
 class URLLoaderDataFormat {
 
-    static XML:string = "xml";
-    static HTML:string = "html";
-    static SCRIPT:string = "script";
-    static JSON:string = "json";
-    static JSONP:string = "jsonp";
-    static TEXT:string = "text";
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public static CLASS_NAME:string = 'URLLoaderDataFormat';
+
+    public static XML:string = "xml";
+    public static HTML:string = "html";
+    public static SCRIPT:string = "script";
+    public static JSON:string = "json";
+    public static JSONP:string = "jsonp";
+    public static TEXT:string = "text";
 
 }

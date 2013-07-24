@@ -37,26 +37,29 @@
  **/
 class BaseRequest extends EventDispatcher {
 
-    private _baseUrl:string = "";
-    private _endpoint:string = "";
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'BaseRequest';
+
+    private _path:string = '';
     private _request:URLRequest;
     private _loader:URLLoader;
 
     public data:any = null;
     public complete:boolean = false;
 
-    constructor(baseUrl:string, endpoint:string)
+    constructor(url:string)
     {
         super();
 
-        this._baseUrl = baseUrl;
-        this._endpoint = endpoint;
+        this._path = url;
         this.configureRequest();
     }
 
     private configureRequest():void
     {
-        this._request = new URLRequest(this._baseUrl + this._endpoint);
+        this._request = new URLRequest(this._path);
         this._request.method = URLRequestMethod.GET;
 
         this._loader = new URLLoader();

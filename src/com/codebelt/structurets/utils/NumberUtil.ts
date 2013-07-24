@@ -34,6 +34,11 @@
  **/
 class NumberUtil {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public static CLASS_NAME:string = 'NumberUtil';
+
     constructor() {}
 
     public static degreesToRadians(degrees:number):number

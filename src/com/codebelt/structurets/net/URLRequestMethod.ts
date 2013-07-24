@@ -33,11 +33,16 @@
  **/
 class URLRequestMethod {
 
-    static DELETE:string = "DELETE";
-    static GET:string = "GET";
-    static POST:string = "POST";
-    static PUT:string = "PUT";
-    static HEAD:string = "HEAD";
-    static OPTIONS:string = "OPTIONS";
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public static CLASS_NAME:string = 'URLRequestMethod';
+
+    public static DELETE:string = "DELETE";
+    public static GET:string = "GET";
+    public static POST:string = "POST";
+    public static PUT:string = "PUT";
+    public static HEAD:string = "HEAD";
+    public static OPTIONS:string = "OPTIONS";
 
 }

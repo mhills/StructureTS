@@ -34,6 +34,11 @@
  **/
 class DataLoader {
 
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'DataLoader';
+
     constructor()
     {
 
