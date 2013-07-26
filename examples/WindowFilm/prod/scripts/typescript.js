@@ -1,8 +1,30 @@
+var Util = (function () {
+    function Util() {
+    }
+    Util.uniqueId = function (prefix) {
+        if (typeof prefix === "undefined") { prefix = null; }
+        var id = ++Util._idCounter;
+
+        if (prefix != null) {
+            return String(prefix + id);
+        } else {
+            return id;
+        }
+    };
+
+    Util.getRandomBoolean = function () {
+        return (Math.random() > .5) ? true : false;
+    };
+    Util.CLASS_NAME = 'Util';
+
+    Util._idCounter = 0;
+    return Util;
+})();
 var BaseObject = (function () {
     function BaseObject() {
         this.CLASS_NAME = 'BaseObject';
         this.isEnabled = false;
-        this.cid = _.uniqueId();
+        this.cid = Util.uniqueId();
     }
     BaseObject.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
@@ -23,14 +45,6 @@ var BaseObject = (function () {
     };
 
     BaseObject.prototype.destroy = function () {
-        var key;
-        for (key in this) {
-            if (typeof this[key]['destroy'] === 'function') {
-                this[key].destroy();
-            }
-
-            this[key] = null;
-        }
     };
     return BaseObject;
 })();
@@ -333,6 +347,8 @@ var TemplateFactory = (function () {
 
         return template;
     };
+    TemplateFactory.CLASS_NAME = 'TemplateFactory';
+
     TemplateFactory.UNDERSCORE = 'underscore';
     TemplateFactory.HANDLEBARS = 'handlebars';
 
@@ -544,6 +560,8 @@ var Stage = (function (_super) {
 var MouseEventType = (function () {
     function MouseEventType() {
     }
+    MouseEventType.CLASS_NAME = 'MouseEventType';
+
     MouseEventType.CLICK = "click";
 
     MouseEventType.DBL_CLICK = "dblclick";
@@ -561,12 +579,15 @@ var MouseEventType = (function () {
 })();
 var RequestEvent = (function (_super) {
     __extends(RequestEvent, _super);
-    function RequestEvent(type, data) {
+    function RequestEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
-        _super.call(this, type, data);
+        _super.call(this, type, bubbles, cancelable, data);
         this.CLASS_NAME = 'RequestEvent';
     }
     RequestEvent.SUCCESS = "RequestEvent.success";
+
     RequestEvent.ERROR = "RequestEvent.error";
     return RequestEvent;
 })(BaseEvent);

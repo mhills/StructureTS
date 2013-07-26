@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../interfaces/ICore.ts'/>
+///<reference path='../interfaces/IValueObject.ts'/>
 ///<reference path='../BaseObject.ts'/>
 
 /**
@@ -34,7 +34,7 @@
  * @submodule model
  * @constructor
  **/
-class ValueObject extends BaseObject implements ICore {
+class ValueObject extends BaseObject implements IValueObject {
 
     /**
      * @copy BaseObject.CLASS_NAME
@@ -61,30 +61,60 @@ class ValueObject extends BaseObject implements ICore {
 
     }
 
-    public toJsonString()
+    /**
+     * ...
+     *
+     * @method toJSON
+     * @returns {string}
+     */
+    public toJSON():string
     {
-        return JSON.stringify(this);
+        return JSON.stringify(this.copy());
     }
 
-    public toJSON()
+    /**
+     * Converts the string json data into an Object and calls the {{#crossLink "ValueObject/update:method"}}{{/crossLink}} method with the converted Object.
+     *
+     * @method fromJSON
+     * @param json {string}
+     */
+    public fromJSON(json:string):void
     {
-        return JSON.parse( JSON.stringify(this) );//TODO: don't stringify, make and deep clone.
+        var parsedData:any = JSON.parse(json);
+        this.update(parsedData);
     }
 
-    public clone()
+    /**
+     * ...
+     *
+     * @method clone
+     * @returns {Object}
+     */
+    public clone():Object
     {
-        //TODO: deep clone object.
+        return _.cloneDeep(this);
     }
 
-    public copy(data) {
+    /**
+     * ...
+     * TODO: make it return an IValueObject. Right now it only returns an Object.
+     *
+     * @method copy
+     * @returns {IValueObject}
+     */
+    public copy():IValueObject {
+        var copy:Object = new Object();
+
         for (var key in this) {
-            if (key !== 'id' && this.hasOwnProperty(key) && data.hasOwnProperty(key)) {
-                this[key] = data[key];
+            if (key !== 'isEnabled' && this.hasOwnProperty(key)) {
+                copy[key] = this[key];
             }
         }
+
+        return <IValueObject>copy;
     }
 
-    public set(prop:any, value?:any):any
+    /*public set(prop:any, value?:any):any
     {
         if (!prop) throw new Error('You must pass a argument into the set method.')
 
@@ -102,12 +132,12 @@ class ValueObject extends BaseObject implements ICore {
 
         console.log("Event.change, todo: make it dispatch event?");
         return this;
-    }
+    }*/
 
-    public get(prop:string):any
+    /*public get(prop:string):any
     {
         if (!prop) return this;
         return this[prop];
-    }
+    }*/
 
 }

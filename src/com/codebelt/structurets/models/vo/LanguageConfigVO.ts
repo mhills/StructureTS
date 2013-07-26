@@ -54,10 +54,18 @@ class LanguageConfigVO extends ValueObject {
      */
     public update(data:any):void
     {
-
         this.id = data.id;
         this.lang = data.lang;
         this.text = data.text;
         this.path = data.path;
+    }
+
+    /**
+     * @copy ValueObject.copy
+     * @overridden
+     */
+    public copy():IValueObject {
+        var data:IValueObject = super.copy();
+        return new LanguageConfigVO(data);
     }
 }

@@ -22,9 +22,31 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * YUIDoc_comment
+ *
+ * @class ICore
+ * @module StructureTS
+ * @submodule interface
+ * @interface
+ **/
 interface ICore
 {
+
+    /**
+     * @property CLASS_NAME
+     * @readonly
+     */
     CLASS_NAME:string;
+
+    /**
+     * @property cid
+     * @readonly
+     */
     cid:number;
+
+    /**
+     * @method getQualifiedClassName
+     */
     getQualifiedClassName():string;
 }

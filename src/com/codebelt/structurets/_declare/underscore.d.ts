@@ -180,6 +180,7 @@ export function omit(object: any, keys: string[]): any;
 export function omit(object: any, ...keys: string[]): any;
 export function defaults(object: any, ...defaults: any[]): any;
 export function clone<T>(object: T): T;
+export function cloneDeep<T>(object: T): T;
 export function tap(object: any, interceptor: (...as: any[]) => any): any;
 export function has(object: any, key: string): boolean;
 export function isEqual(object: any, other: any): boolean;

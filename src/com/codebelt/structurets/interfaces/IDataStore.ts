@@ -24,10 +24,36 @@
 
 ///<reference path='IEventDispatcher.ts'/>
 
+/**
+ * YUIDoc_comment
+ *
+ * @class IDataStore
+ * @extends IEventDispatcher
+ * @module StructureTS
+ * @submodule interface
+ * @interface
+ **/
 interface IDataStore extends IEventDispatcher
 {
+
+    /**
+     * @property data
+     */
     data:any;
+
+    /**
+     * @property src
+     */
     src:string;
+
+    /**
+     * @property complete
+     */
     complete:boolean;
+
+    /**
+     * @method load
+     */
     load():void;
+
 }

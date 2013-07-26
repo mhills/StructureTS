@@ -1,8 +1,30 @@
+var Util = (function () {
+    function Util() {
+    }
+    Util.uniqueId = function (prefix) {
+        if (typeof prefix === "undefined") { prefix = null; }
+        var id = ++Util._idCounter;
+
+        if (prefix != null) {
+            return String(prefix + id);
+        } else {
+            return id;
+        }
+    };
+
+    Util.getRandomBoolean = function () {
+        return (Math.random() > .5) ? true : false;
+    };
+    Util.CLASS_NAME = 'Util';
+
+    Util._idCounter = 0;
+    return Util;
+})();
 var BaseObject = (function () {
     function BaseObject() {
         this.CLASS_NAME = 'BaseObject';
         this.isEnabled = false;
-        this.cid = _.uniqueId();
+        this.cid = Util.uniqueId();
     }
     BaseObject.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
@@ -23,14 +45,6 @@ var BaseObject = (function () {
     };
 
     BaseObject.prototype.destroy = function () {
-        var key;
-        for (key in this) {
-            if (typeof this[key]['destroy'] === 'function') {
-                this[key].destroy();
-            }
-
-            this[key] = null;
-        }
     };
     return BaseObject;
 })();
@@ -333,6 +347,8 @@ var TemplateFactory = (function () {
 
         return template;
     };
+    TemplateFactory.CLASS_NAME = 'TemplateFactory';
+
     TemplateFactory.UNDERSCORE = 'underscore';
     TemplateFactory.HANDLEBARS = 'handlebars';
 
@@ -544,6 +560,8 @@ var Stage = (function (_super) {
 var MouseEventType = (function () {
     function MouseEventType() {
     }
+    MouseEventType.CLASS_NAME = 'MouseEventType';
+
     MouseEventType.CLICK = "click";
 
     MouseEventType.DBL_CLICK = "dblclick";
@@ -595,60 +613,55 @@ var ListItemEvent = (function (_super) {
 })(BaseEvent);
 var RequestEvent = (function (_super) {
     __extends(RequestEvent, _super);
-    function RequestEvent(type, data) {
+    function RequestEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
-        _super.call(this, type, data);
+        _super.call(this, type, bubbles, cancelable, data);
         this.CLASS_NAME = 'RequestEvent';
     }
     RequestEvent.SUCCESS = "RequestEvent.success";
+
     RequestEvent.ERROR = "RequestEvent.error";
     return RequestEvent;
 })(BaseEvent);
 var ValueObject = (function (_super) {
     __extends(ValueObject, _super);
-    function ValueObject() {
+    function ValueObject(data) {
+        if (typeof data === "undefined") { data = null; }
         _super.call(this);
         this.CLASS_NAME = 'ValueObject';
+
+        if (data) {
+            this.update(data);
+        }
     }
-    ValueObject.prototype.toJsonString = function () {
-        return JSON.stringify(this);
+    ValueObject.prototype.update = function (data) {
     };
 
     ValueObject.prototype.toJSON = function () {
-        return JSON.parse(JSON.stringify(this));
+        return JSON.stringify(this.copy());
+    };
+
+    ValueObject.prototype.fromJSON = function (json) {
+        var parsedData = JSON.parse(json);
+        this.update(parsedData);
     };
 
     ValueObject.prototype.clone = function () {
+        return _.cloneDeep(this);
     };
 
-    ValueObject.prototype.copy = function (data) {
+    ValueObject.prototype.copy = function () {
+        var copy = new Object();
+
         for (var key in this) {
-            if (key !== 'id' && this.hasOwnProperty(key) && data.hasOwnProperty(key)) {
-                this[key] = data[key];
+            if (key !== 'isEnabled' && this.hasOwnProperty(key)) {
+                copy[key] = this[key];
             }
         }
-    };
 
-    ValueObject.prototype.set = function (prop, value) {
-        if (!prop)
-            throw new Error('You must pass a argument into the set method.');
-
-        if (typeof (prop) === "object") {
-            for (var key in prop) {
-                this[key] = prop[key];
-            }
-        } else if (typeof (prop) === "string") {
-            this[prop] = value;
-        }
-
-        console.log("Event.change, todo: make it dispatch event?");
-        return this;
-    };
-
-    ValueObject.prototype.get = function (prop) {
-        if (!prop)
-            return this;
-        return this[prop];
+        return copy;
     };
     return ValueObject;
 })(BaseObject);
@@ -657,7 +670,6 @@ var ListItemVO = (function (_super) {
     function ListItemVO() {
         _super.call(this);
         this.CLASS_NAME = 'ListItemVO';
-        this.content = null;
         this.isComplete = false;
     }
     return ListItemVO;

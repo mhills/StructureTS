@@ -1,8 +1,30 @@
+var Util = (function () {
+    function Util() {
+    }
+    Util.uniqueId = function (prefix) {
+        if (typeof prefix === "undefined") { prefix = null; }
+        var id = ++Util._idCounter;
+
+        if (prefix != null) {
+            return String(prefix + id);
+        } else {
+            return id;
+        }
+    };
+
+    Util.getRandomBoolean = function () {
+        return (Math.random() > .5) ? true : false;
+    };
+    Util.CLASS_NAME = 'Util';
+
+    Util._idCounter = 0;
+    return Util;
+})();
 var BaseObject = (function () {
     function BaseObject() {
         this.CLASS_NAME = 'BaseObject';
         this.isEnabled = false;
-        this.cid = _.uniqueId();
+        this.cid = Util.uniqueId();
     }
     BaseObject.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
@@ -23,14 +45,6 @@ var BaseObject = (function () {
     };
 
     BaseObject.prototype.destroy = function () {
-        var key;
-        for (key in this) {
-            if (typeof this[key]['destroy'] === 'function') {
-                this[key].destroy();
-            }
-
-            this[key] = null;
-        }
     };
     return BaseObject;
 })();
@@ -333,6 +347,8 @@ var TemplateFactory = (function () {
 
         return template;
     };
+    TemplateFactory.CLASS_NAME = 'TemplateFactory';
+
     TemplateFactory.UNDERSCORE = 'underscore';
     TemplateFactory.HANDLEBARS = 'handlebars';
 
@@ -563,10 +579,14 @@ var BrowserUtils = (function () {
             return false;
         }
     };
+    BrowserUtils.CLASS_NAME = 'BrowserUtils';
     return BrowserUtils;
 })();
-var RouterController = (function () {
+var RouterController = (function (_super) {
+    __extends(RouterController, _super);
     function RouterController() {
+        _super.call(this);
+        this.CLASS_NAME = 'RouterController';
     }
     RouterController.prototype.addRoute = function (pattern, handler, scope, priority) {
         crossroads.addRoute(pattern, handler.bind(scope), priority);
@@ -582,15 +602,18 @@ var RouterController = (function () {
         crossroads.parse(newHash);
     };
     return RouterController;
-})();
+})(BaseObject);
 var LoaderEvent = (function (_super) {
     __extends(LoaderEvent, _super);
-    function LoaderEvent(type, data) {
+    function LoaderEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
-        _super.call(this, type, data);
+        _super.call(this, type, bubbles, cancelable, data);
         this.CLASS_NAME = 'LoaderEvent';
     }
     LoaderEvent.COMPLETE = "LoaderEvent.complete";
+
     LoaderEvent.LOAD_COMPLETE = "LoaderEvent.loadComplete";
     return LoaderEvent;
 })(BaseEvent);
@@ -598,6 +621,7 @@ var BulkLoader = (function (_super) {
     __extends(BulkLoader, _super);
     function BulkLoader() {
         _super.call(this);
+        this.CLASS_NAME = 'BulkLoader';
         this._dataStores = [];
 
         this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
@@ -651,6 +675,8 @@ var BulkLoader = (function (_super) {
 var URLRequestMethod = (function () {
     function URLRequestMethod() {
     }
+    URLRequestMethod.CLASS_NAME = 'URLRequestMethod';
+
     URLRequestMethod.DELETE = "DELETE";
     URLRequestMethod.GET = "GET";
     URLRequestMethod.POST = "POST";
@@ -662,7 +688,10 @@ var URLRequestMethod = (function () {
 var URLContentType = (function () {
     function URLContentType() {
     }
+    URLContentType.CLASS_NAME = 'URLContentType';
+
     URLContentType.DEFAULT = "application/x-www-form-urlencoded";
+
     URLContentType.ATOM = "application/atom+xml";
     URLContentType.JSON = "application/json";
     URLContentType.PDF = "application/pdf";
@@ -687,9 +716,12 @@ var URLContentType = (function () {
     URLContentType.WEBM = "audio/webm";
     return URLContentType;
 })();
-var URLRequest = (function () {
+var URLRequest = (function (_super) {
+    __extends(URLRequest, _super);
     function URLRequest(url) {
         if (typeof url === "undefined") { url = null; }
+        _super.call(this);
+        this.CLASS_NAME = 'URLRequest';
         this.url = null;
         this.method = URLRequestMethod.GET;
         this.contentType = URLContentType.DEFAULT;
@@ -697,10 +729,12 @@ var URLRequest = (function () {
         this.url = url;
     }
     return URLRequest;
-})();
+})(BaseObject);
 var URLLoaderDataFormat = (function () {
     function URLLoaderDataFormat() {
     }
+    URLLoaderDataFormat.CLASS_NAME = 'URLLoaderDataFormat';
+
     URLLoaderDataFormat.XML = "xml";
     URLLoaderDataFormat.HTML = "html";
     URLLoaderDataFormat.SCRIPT = "script";
@@ -714,9 +748,11 @@ var URLLoader = (function (_super) {
     function URLLoader(request) {
         if (typeof request === "undefined") { request = null; }
         _super.call(this);
-        this.data = null;
+        this.CLASS_NAME = 'URLLoader';
         this.dataFormat = URLLoaderDataFormat.TEXT;
+        this.data = null;
         this.ready = false;
+        this._defer = null;
 
         if (request) {
             this.load(request);
@@ -753,23 +789,27 @@ var URLLoader = (function (_super) {
         this.data = data.responseText;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
     };
+
+    URLLoader.prototype.destroy = function () {
+        this._defer = null;
+        this.data = null;
+    };
     return URLLoader;
 })(EventDispatcher);
 var BaseRequest = (function (_super) {
     __extends(BaseRequest, _super);
-    function BaseRequest(baseUrl, endpoint) {
+    function BaseRequest(url) {
         _super.call(this);
-        this._baseUrl = "";
-        this._endpoint = "";
+        this.CLASS_NAME = 'BaseRequest';
+        this._path = '';
         this.data = null;
         this.complete = false;
 
-        this._baseUrl = baseUrl;
-        this._endpoint = endpoint;
+        this._path = url;
         this.configureRequest();
     }
     BaseRequest.prototype.configureRequest = function () {
-        this._request = new URLRequest(this._baseUrl + this._endpoint);
+        this._request = new URLRequest(this._path);
         this._request.method = URLRequestMethod.GET;
 
         this._loader = new URLLoader();
@@ -797,141 +837,163 @@ var BaseRequest = (function (_super) {
 var JsonRequest = (function (_super) {
     __extends(JsonRequest, _super);
     function JsonRequest() {
-        _super.call(this, "asdf", "sdfg");
+        _super.call(this, 'sss');
+        this.CLASS_NAME = 'JsonRequest';
     }
     return JsonRequest;
 })(BaseRequest);
 var ValueObject = (function (_super) {
     __extends(ValueObject, _super);
-    function ValueObject() {
+    function ValueObject(data) {
+        if (typeof data === "undefined") { data = null; }
         _super.call(this);
         this.CLASS_NAME = 'ValueObject';
+
+        if (data) {
+            this.update(data);
+        }
     }
-    ValueObject.prototype.toJsonString = function () {
-        return JSON.stringify(this);
+    ValueObject.prototype.update = function (data) {
     };
 
     ValueObject.prototype.toJSON = function () {
-        return JSON.parse(JSON.stringify(this));
+        return JSON.stringify(this.copy());
+    };
+
+    ValueObject.prototype.fromJSON = function (json) {
+        var parsedData = JSON.parse(json);
+        this.update(parsedData);
     };
 
     ValueObject.prototype.clone = function () {
+        return _.cloneDeep(this);
     };
 
-    ValueObject.prototype.copy = function (data) {
+    ValueObject.prototype.copy = function () {
+        var copy = new Object();
+
         for (var key in this) {
-            if (key !== 'id' && this.hasOwnProperty(key) && data.hasOwnProperty(key)) {
-                this[key] = data[key];
+            if (key !== 'isEnabled' && this.hasOwnProperty(key)) {
+                copy[key] = this[key];
             }
         }
-    };
 
-    ValueObject.prototype.set = function (prop, value) {
-        if (!prop)
-            throw new Error('You must pass a argument into the set method.');
-
-        if (typeof (prop) === "object") {
-            for (var key in prop) {
-                this[key] = prop[key];
-            }
-        } else if (typeof (prop) === "string") {
-            this[prop] = value;
-        }
-
-        console.log("Event.change, todo: make it dispatch event?");
-        return this;
-    };
-
-    ValueObject.prototype.get = function (prop) {
-        if (!prop)
-            return this;
-        return this[prop];
+        return copy;
     };
     return ValueObject;
 })(BaseObject);
 var LanguageConfigVO = (function (_super) {
     __extends(LanguageConfigVO, _super);
     function LanguageConfigVO(data) {
-        _super.call(this);
-        this.id = null;
-        this.type = null;
-        this.path = null;
-
-        if (data) {
-            this.update(data);
-        }
+        if (typeof data === "undefined") { data = null; }
+        _super.call(this, data);
+        this.CLASS_NAME = 'LanguageConfigVO';
     }
     LanguageConfigVO.prototype.update = function (data) {
         this.id = data.id;
-        this.type = data.type;
+        this.lang = data.lang;
+        this.text = data.text;
         this.path = data.path;
+    };
+
+    LanguageConfigVO.prototype.copy = function () {
+        var data = _super.prototype.copy.call(this);
+        return new LanguageConfigVO(data);
     };
     return LanguageConfigVO;
 })(ValueObject);
-var LanguageManager = (function (_super) {
-    __extends(LanguageManager, _super);
-    function LanguageManager() {
+var LanguageModel = (function (_super) {
+    __extends(LanguageModel, _super);
+    function LanguageModel() {
         _super.call(this);
+        this.CLASS_NAME = 'LanguageModel';
         this._request = null;
         this._availableLanguagesDictionary = [];
         this.currentLanguage = null;
         this.data = null;
     }
-    LanguageManager.getInstance = function () {
+    LanguageModel.getInstance = function () {
         if (this._instance == null) {
-            this._instance = new LanguageManager();
+            this._instance = new LanguageModel();
         }
         return this._instance;
     };
 
-    LanguageManager.prototype.getLangConfigById = function (id) {
+    LanguageModel.prototype.getLangConfigById = function (id) {
         return this._availableLanguagesDictionary[id];
     };
 
-    LanguageManager.prototype.onConfigLoaded = function (event) {
+    LanguageModel.prototype.onConfigLoaded = function (event) {
+        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+
+        var firstLanguageId;
         var jsonData = JSON.parse(event.target.data);
+        var vo;
         var len = jsonData.data.length;
         for (var i = 0; i < len; i++) {
-            var vo = new LanguageConfigVO(jsonData.data[i]);
+            vo = new LanguageConfigVO(jsonData.data[i]);
             this._availableLanguagesDictionary[vo.id] = vo;
+
+            if (!firstLanguageId) {
+                firstLanguageId = vo.id;
+            }
         }
 
-        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+        this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
 
         var currentLanguageVO = this.getLangConfigById(this.currentLanguage);
         this.loadLanguageData(currentLanguageVO.path);
     };
 
-    LanguageManager.prototype.loadConfig = function (path) {
-        this._request = new BaseRequest(path, '');
+    LanguageModel.prototype.loadConfig = function (path) {
+        this._request = new BaseRequest(path);
         this._request.addEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
         this._request.load();
     };
 
-    LanguageManager.prototype.setLang = function (value) {
+    LanguageModel.prototype.setLang = function (value) {
         this.currentLanguage = value;
     };
 
-    LanguageManager.prototype.loadLanguageData = function (path) {
-        this._request = new BaseRequest(path, '');
+    LanguageModel.prototype.loadLanguageData = function (path) {
+        this._request = new BaseRequest(path);
         this._request.addEventListener(LoaderEvent.COMPLETE, this.onLanguageDataLoad, this);
         this._request.load();
     };
 
-    LanguageManager.prototype.onLanguageDataLoad = function (event) {
+    LanguageModel.prototype.onLanguageDataLoad = function (event) {
         this.data = JSON.parse(event.target.data);
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
         this._request = null;
 
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
+        this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE, false, false, this.data));
     };
-    return LanguageManager;
+    return LanguageModel;
 })(EventDispatcher);
+var LocalStorageEvent = (function (_super) {
+    __extends(LocalStorageEvent, _super);
+    function LocalStorageEvent(type, bubbles, cancelable, nativeEvent) {
+        _super.call(this, type, bubbles, cancelable, nativeEvent);
+        this.CLASS_NAME = 'LocalStorageEvent';
+
+        if (nativeEvent) {
+            this.key = nativeEvent.key;
+            this.oldValue = nativeEvent.oldValue;
+            this.newValue = nativeEvent.newValue;
+            this.url = nativeEvent.url;
+        }
+    }
+    LocalStorageEvent.STORAGE = 'storage';
+    return LocalStorageEvent;
+})(BaseEvent);
 var LocalStorageController = (function (_super) {
     __extends(LocalStorageController, _super);
     function LocalStorageController() {
         _super.call(this);
         this.CLASS_NAME = 'LocalStorageController';
+        this._namespace = '';
+
+        window.addEventListener('storage', this.onLocalStorageEvent.bind(this));
     }
     LocalStorageController.getInstance = function () {
         if (this._instance == null) {
@@ -940,20 +1002,64 @@ var LocalStorageController = (function (_super) {
         return this._instance;
     };
 
-    LocalStorageController.prototype.setItem = function (key, data) {
+    LocalStorageController.prototype.setNamespace = function (namespace) {
+        this._namespace = namespace;
+    };
+
+    LocalStorageController.prototype.getNamespace = function () {
+        return this._namespace;
+    };
+
+    LocalStorageController.prototype.setItem = function (key, data, useNamespace) {
+        if (typeof useNamespace === "undefined") { useNamespace = false; }
+        if (useNamespace) {
+            key += this.getNamespace();
+        }
+
+        if (data instanceof ValueObject) {
+            data = data.toJSON();
+            console.log("in");
+        } else {
+            data = JSON.stringify(data);
+            console.log("out");
+        }
+
         localStorage.setItem(key, data);
     };
 
-    LocalStorageController.prototype.getItem = function (key) {
-        return localStorage.getItem(key);
+    LocalStorageController.prototype.getItem = function (key, useNamespace) {
+        if (typeof useNamespace === "undefined") { useNamespace = false; }
+        if (useNamespace) {
+            key += this.getNamespace();
+        }
+
+        var value = localStorage.getItem(key);
+        if (value) {
+            value = JSON.parse(value);
+        }
+
+        return value;
     };
 
-    LocalStorageController.prototype.removeItem = function (key) {
+    LocalStorageController.prototype.removeItem = function (key, useNamespace) {
+        if (typeof useNamespace === "undefined") { useNamespace = false; }
+        if (useNamespace) {
+            key += this.getNamespace();
+        }
+
         localStorage.removeItem(key);
+    };
+
+    LocalStorageController.prototype.getSize = function () {
+        return encodeURIComponent(JSON.stringify(localStorage)).length;
     };
 
     LocalStorageController.prototype.clear = function () {
         localStorage.clear();
+    };
+
+    LocalStorageController.prototype.onLocalStorageEvent = function (event) {
+        this.dispatchEvent(new LocalStorageEvent(LocalStorageEvent.STORAGE, false, false, event));
     };
     LocalStorageController._instance = null;
     return LocalStorageController;
@@ -976,7 +1082,7 @@ var LanguageSelect = (function (_super) {
         _super.call(this);
         this.CLASS_NAME = 'LanguageSelect';
 
-        var languageManagerData = LanguageManager.getInstance().data;
+        var languageManagerData = LanguageModel.getInstance().data;
     }
     LanguageSelect.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, function (data) {
@@ -1018,7 +1124,7 @@ var NavigationView = (function (_super) {
         this.CLASS_NAME = 'NavigationView';
         this._languageSelect = null;
 
-        var languageManagerData = LanguageManager.getInstance().data;
+        var languageManagerData = LanguageModel.getInstance().data;
 
         this._options = {
             title: languageManagerData.mainTitle,
@@ -1090,6 +1196,7 @@ var HtmlLoader = (function (_super) {
     __extends(HtmlLoader, _super);
     function HtmlLoader(path) {
         _super.call(this);
+        this.CLASS_NAME = 'HtmlLoader';
         this._urlLoader = null;
         this.complete = false;
 
@@ -1445,7 +1552,7 @@ var WebsiteApp = (function (_super) {
         var ls = LocalStorageController.getInstance();
         var languageId = ls.getItem('language') || 'en';
 
-        this._languageManager = LanguageManager.getInstance();
+        this._languageManager = LanguageModel.getInstance();
         this._languageManager.addEventListener(LoaderEvent.COMPLETE, this.init, this);
         this._languageManager.setLang(languageId);
         this._languageManager.loadConfig(WebsiteApp.BASE_PATH + 'data/languages/languages.json');

@@ -39,10 +39,37 @@ class Util {
      */
     public static CLASS_NAME:string = 'Util';
 
+    /**
+     * YUIDoc_comment
+     *
+     * @property idCounter
+     * @type {init}
+     * @private
+     */
+    private static _idCounter:number = 0;
+
     constructor() {}
+
+    /**
+     * Generates a unique ID. If prefix is passed, the ID will be appended to it.
+     *
+     * @param [prefix]
+     * @returns {init|string}
+     */
+    public static uniqueId(prefix:string = null):any
+    {
+        var id:number = ++Util._idCounter;
+
+        if (prefix != null) {
+            return String(prefix + id);
+        } else {
+            return id;
+        }
+    }
 
     public static getRandomBoolean():boolean
     {
         return (Math.random() > .5) ? true : false;
     }
+
 }

@@ -1,8 +1,30 @@
+var Util = (function () {
+    function Util() {
+    }
+    Util.uniqueId = function (prefix) {
+        if (typeof prefix === "undefined") { prefix = null; }
+        var id = ++Util._idCounter;
+
+        if (prefix != null) {
+            return String(prefix + id);
+        } else {
+            return id;
+        }
+    };
+
+    Util.getRandomBoolean = function () {
+        return (Math.random() > .5) ? true : false;
+    };
+    Util.CLASS_NAME = 'Util';
+
+    Util._idCounter = 0;
+    return Util;
+})();
 var BaseObject = (function () {
     function BaseObject() {
         this.CLASS_NAME = 'BaseObject';
         this.isEnabled = false;
-        this.cid = _.uniqueId();
+        this.cid = Util.uniqueId();
     }
     BaseObject.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
@@ -23,14 +45,6 @@ var BaseObject = (function () {
     };
 
     BaseObject.prototype.destroy = function () {
-        var key;
-        for (key in this) {
-            if (typeof this[key]['destroy'] === 'function') {
-                this[key].destroy();
-            }
-
-            this[key] = null;
-        }
     };
     return BaseObject;
 })();
@@ -287,6 +301,7 @@ var CanvasElement = (function (_super) {
     __extends(CanvasElement, _super);
     function CanvasElement() {
         _super.call(this);
+        this.CLASS_NAME = 'CanvasElement';
         this.stage = null;
         this.context = null;
         this.x = 0;
@@ -391,6 +406,8 @@ var TemplateFactory = (function () {
 
         return template;
     };
+    TemplateFactory.CLASS_NAME = 'TemplateFactory';
+
     TemplateFactory.UNDERSCORE = 'underscore';
     TemplateFactory.HANDLEBARS = 'handlebars';
 
@@ -681,12 +698,14 @@ var NumberUtil = (function () {
     NumberUtil.feetToMeter = function (feet) {
         return feet / 3.2808;
     };
+    NumberUtil.CLASS_NAME = 'NumberUtil';
     return NumberUtil;
 })();
 var Bitmap = (function (_super) {
     __extends(Bitmap, _super);
     function Bitmap(image) {
         _super.call(this);
+        this.CLASS_NAME = 'Bitmap';
         this._image = null;
         this.ready = false;
 
@@ -710,12 +729,15 @@ var Bitmap = (function (_super) {
 })(CanvasElement);
 var LoaderEvent = (function (_super) {
     __extends(LoaderEvent, _super);
-    function LoaderEvent(type, data) {
+    function LoaderEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
-        _super.call(this, type, data);
+        _super.call(this, type, bubbles, cancelable, data);
         this.CLASS_NAME = 'LoaderEvent';
     }
     LoaderEvent.COMPLETE = "LoaderEvent.complete";
+
     LoaderEvent.LOAD_COMPLETE = "LoaderEvent.loadComplete";
     return LoaderEvent;
 })(BaseEvent);
@@ -723,6 +745,7 @@ var BulkLoader = (function (_super) {
     __extends(BulkLoader, _super);
     function BulkLoader() {
         _super.call(this);
+        this.CLASS_NAME = 'BulkLoader';
         this._dataStores = [];
 
         this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
@@ -777,6 +800,7 @@ var ImageLoader = (function (_super) {
     __extends(ImageLoader, _super);
     function ImageLoader(path) {
         _super.call(this);
+        this.CLASS_NAME = 'ImageLoader';
         this._image = null;
         this.complete = false;
 

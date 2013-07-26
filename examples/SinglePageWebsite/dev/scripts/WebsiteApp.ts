@@ -6,7 +6,7 @@
 ///<reference path='../../../../src/com/codebelt/structurets/controller/RouterController.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/utils/BulkLoader.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/requests/JsonRequest.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/utils/LanguageManager.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/models/LanguageModel.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/controller/LocalStorageController.ts'/>
 
 ///<reference path='views/layout/NavigationView.ts'/>
@@ -17,7 +17,6 @@ class WebsiteApp extends Stage
 {
     static BASE_PATH:string = "prod/";
 
-
     private _router:RouterController = null;
 
     private _pageContainer:DOMElement = null;
@@ -25,7 +24,7 @@ class WebsiteApp extends Stage
     private _footerView:FooterView = null;
     private _mainView:MainView = null;
 
-    private _languageManager:LanguageManager;
+    private _languageManager:LanguageModel;
     private _request:JsonRequest;
 //    private _bulkLoader:BulkLoader;
 
@@ -35,7 +34,7 @@ class WebsiteApp extends Stage
         var ls = LocalStorageController.getInstance();
         var languageId = ls.getItem('language') || 'en';
 
-        this._languageManager = LanguageManager.getInstance();
+        this._languageManager = LanguageModel.getInstance();
         this._languageManager.addEventListener(LoaderEvent.COMPLETE, this.init, this);
         this._languageManager.setLang( languageId );
         this._languageManager.loadConfig(WebsiteApp.BASE_PATH + 'data/languages/languages.json');

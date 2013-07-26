@@ -57,7 +57,6 @@ class LocalStorageController extends EventDispatcher {
         super();
 
         window.addEventListener('storage', this.onLocalStorageEvent.bind(this));
-        console.log("asdfff")
     }
 
     public static getInstance():LocalStorageController
@@ -104,7 +103,15 @@ class LocalStorageController extends EventDispatcher {
             key += this.getNamespace();
         }
 
-        localStorage.setItem(key, JSON.stringify(data));
+        if (data instanceof ValueObject) {
+            data = <ValueObject>data.toJSON();
+            console.log("in")
+        } else {
+            data = JSON.stringify(data);
+            console.log("out")
+        }
+
+        localStorage.setItem(key, data);
     }
 
     /**
@@ -173,7 +180,6 @@ class LocalStorageController extends EventDispatcher {
      * @private
      */
     private onLocalStorageEvent(event:StorageEvent) {
-        console.log(event)
         this.dispatchEvent(new LocalStorageEvent(LocalStorageEvent.STORAGE, false, false, event));
     }
 

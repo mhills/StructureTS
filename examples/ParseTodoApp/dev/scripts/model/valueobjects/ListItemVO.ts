@@ -14,7 +14,12 @@ class ListItemVO extends ValueObject {
     /**
      * @type {string}
      */
-    public content:string = null;
+    public content:string;
+
+    /**
+     * @type {string}
+     */
+    public id:string;
 
     /**
      * @type {boolean}

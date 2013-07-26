@@ -31,6 +31,8 @@
 ///<reference path='_declare/route.d.ts'/>
 ///<reference path='_declare/hasher.d.ts'/>
 
+///<reference path='utils/Util.ts'/>
+
 /**
  * The {{#crossLink "BaseObject"}}{{/crossLink}} class is an abstract class that provides common properties and functionality for all StructureTS classes.
  *
@@ -57,6 +59,7 @@ class BaseObject {
      *
      * @property cid
      * @type {int}
+     * @readonly
      */
     public cid:number;
 
@@ -71,8 +74,7 @@ class BaseObject {
     public isEnabled:boolean = false;
 
     constructor() {
-        //TODO: why is it converting to a string and not a number?
-        this.cid = _.uniqueId();
+        this.cid = Util.uniqueId();
     }
 
     /**

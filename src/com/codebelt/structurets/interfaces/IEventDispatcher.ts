@@ -25,9 +25,31 @@
 ///<reference path='ICore.ts'/>
 ///<reference path='../events/BaseEvent.ts'/>
 
+/**
+ * YUIDoc_comment
+ *
+ * @class IValueObject
+ * @extends ICore
+ * @module StructureTS
+ * @submodule interface
+ * @interface
+ **/
 interface IEventDispatcher extends ICore
 {
+
+    /**
+     * @method addEventListener
+     */
     addEventListener(type:string, func:Function, scope:any, priority?:number);
+
+    /**
+     * @method removeEventListener
+     */
     removeEventListener(type:string, func:Function, scope:any);
+
+    /**
+     * @method dispatchEvent
+     */
     dispatchEvent(event:BaseEvent);
+
 }

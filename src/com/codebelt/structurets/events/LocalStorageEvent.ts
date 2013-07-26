@@ -26,6 +26,7 @@
 
 /**
  * The LocalStorageEvent ....
+ * Note: the event only dispatches in other browser windows and does not show up in the window where you made a change to the local storage.
  *
  * @class LocalStorageEvent
  * @param type {string} The type of event. The type is case-sensitive.

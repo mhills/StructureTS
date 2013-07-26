@@ -1,6 +1,6 @@
 ///<reference path='../../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../../../../src/com/codebelt/structurets/utils/BulkLoader.ts'/>
-///<reference path='../../../../../../src/com/codebelt/structurets/utils/LanguageManager.ts'/>
+///<reference path='../../../../../../src/com/codebelt/structurets/models/LanguageModel.ts'/>
 ///<reference path='../../../../../../src/com/codebelt/structurets/controller/LocalStorageController.ts'/>
 
 ///<reference path='LanguageSelect.ts'/>
@@ -15,7 +15,7 @@ class NavigationView extends DOMElement
     {
         super();
 
-        var languageManagerData = LanguageManager.getInstance().data;
+        var languageManagerData = LanguageModel.getInstance().data;
 
         this._options = {
             title: languageManagerData.mainTitle,
