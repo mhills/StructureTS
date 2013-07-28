@@ -1,4 +1,4 @@
 TypeScript compiler commands:
 
-tsc -watch -out ../scripts/app.js WebsiteApp.ts
-tsc -out ../scripts/app.js WebsiteApp.ts
+tsc -watch -out ../scripts/websiteApp.js WebsiteApp.ts
+tsc -out ../scripts/websiteApp.js WebsiteApp.ts

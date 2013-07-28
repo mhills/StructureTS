@@ -84,7 +84,7 @@ module.exports = function(grunt) {
         typescript: {
             website: {
                 src: ['<%= EXAMPLE_PATH %>SinglePageWebsite/dev/scripts/WebsiteApp.ts'],
-                dest: '<%= EXAMPLE_PATH %>SinglePageWebsite/prod/scripts/app.js',
+                dest: '<%= EXAMPLE_PATH %>SinglePageWebsite/prod/scripts/websiteApp.js',
                 options: {
                     target: 'es3', //or es5
                     base_path: '',
