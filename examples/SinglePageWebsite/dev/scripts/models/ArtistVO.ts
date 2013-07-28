@@ -20,7 +20,7 @@ class ArtistVO extends ValueObject {
         }
     }
 
-    public update(data:any):void
+    public update(data:any):ValueObject
     {
         this.pid = data.pid;
         this.artist = data.artist;
@@ -33,6 +33,8 @@ class ArtistVO extends ValueObject {
         for (var i:number = 0; i < len; i++) {
             this.albumList.push( new AlbumVO(data.albums[i]) );
         }
+
+        return this;
     }
 
 }

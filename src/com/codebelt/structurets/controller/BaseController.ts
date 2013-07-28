@@ -28,7 +28,9 @@
  * The BaseController...
  *
  * @class BaseController
+ * @extends EventDispatcher
  * @module StructureTS
+ * @submodule controller
  * @constructor
  **/
 class BaseController extends EventDispatcher {

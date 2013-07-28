@@ -20,7 +20,7 @@ class WindowFilmApp extends Stage {
         super();
     }
 
-    public createChildren():void {
+    public createChildren():DOMElement {
         super.createChildren();
 
         this._topBar = new TopNavigationView();//({controller: this.appController});
@@ -34,28 +34,32 @@ class WindowFilmApp extends Stage {
 
         var loginView = new LoginView();//({controller: this.appController});
         this.changeView(loginView);
+
+        return this;
     }
 
     /**
      * @copy DisplayObject.enable
      */
-    public enable():void {
-        if (this.isEnabled === true) return;
+    public enable():DOMElement {
+        if (this.isEnabled === true) return this;
 
         this._topBar.enable();
 
         super.enable();
+        return this;
     }
 
     /**
      * @copy DisplayObject.disable
      */
-    public disable():void {
-        if (this.isEnabled === false) return;
+    public disable():DOMElement {
+        if (this.isEnabled === false) return this;
 
         this._topBar.disable();
 
         super.disable();
+        return this;
     }
 
     private changeView(view):void {

@@ -36,6 +36,10 @@
  **/
 interface IEventDispatcher extends ICore
 {
+    /**
+     * @property parent
+     */
+    parent:any;
 
     /**
      * @method addEventListener

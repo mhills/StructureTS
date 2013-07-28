@@ -32,19 +32,22 @@ var BaseObject = (function () {
 
     BaseObject.prototype.enable = function () {
         if (this.isEnabled === true)
-            return;
+            return this;
 
         this.isEnabled = true;
+        return this;
     };
 
     BaseObject.prototype.disable = function () {
         if (this.isEnabled === false)
-            return;
+            return this;
 
         this.isEnabled = false;
+        return this;
     };
 
     BaseObject.prototype.destroy = function () {
+        this.isEnabled = false;
     };
     return BaseObject;
 })();
@@ -213,7 +216,7 @@ var EventDispatcher = (function (_super) {
 
     EventDispatcher.prototype.destroy = function () {
         this.parent = null;
-        this._listeners = [];
+        this._listeners = null;
 
         _super.prototype.destroy.call(this);
     };
@@ -229,6 +232,7 @@ var DisplayObject = (function (_super) {
         this.children = [];
     }
     DisplayObject.prototype.createChildren = function () {
+        return this;
     };
 
     DisplayObject.prototype.addChild = function (child) {
@@ -241,7 +245,7 @@ var DisplayObject = (function (_super) {
 
         child.parent = this;
 
-        return child;
+        return this;
     };
 
     DisplayObject.prototype.removeChild = function (child) {
@@ -272,7 +276,7 @@ var DisplayObject = (function (_super) {
 
         this.numChildren = this.children.length;
 
-        return child;
+        return this;
     };
 
     DisplayObject.prototype.getChild = function (child) {
@@ -286,6 +290,7 @@ var DisplayObject = (function (_super) {
     };
 
     DisplayObject.prototype.layoutChildren = function () {
+        return this;
     };
 
     DisplayObject.prototype.destroy = function () {
@@ -383,6 +388,8 @@ var DOMElement = (function (_super) {
         }
 
         this.el = this.$el[0];
+
+        return this;
     };
 
     DOMElement.prototype.addChild = function (child) {
@@ -400,7 +407,7 @@ var DOMElement = (function (_super) {
 
         this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
-        return child;
+        return this;
     };
 
     DOMElement.prototype.addChildAt = function (child, index) {
@@ -487,7 +494,7 @@ var DOMElement = (function (_super) {
 
         _super.prototype.removeChild.call(this, child);
 
-        return child;
+        return this;
     };
 
     DOMElement.prototype.removeChildren = function () {
@@ -500,19 +507,22 @@ var DOMElement = (function (_super) {
 
     DOMElement.prototype.enable = function () {
         if (this.isEnabled === true)
-            return;
+            return this;
 
         _super.prototype.enable.call(this);
+        return this;
     };
 
     DOMElement.prototype.disable = function () {
         if (this.isEnabled === false)
-            return;
+            return this;
 
         _super.prototype.disable.call(this);
+        return this;
     };
 
     DOMElement.prototype.layoutChildren = function () {
+        return this;
     };
 
     DOMElement.prototype.alpha = function (number) {
@@ -531,6 +541,14 @@ var DOMElement = (function (_super) {
             return this._isVisible;
         }
         return this;
+    };
+
+    DOMElement.prototype.destroy = function () {
+        this.el = null;
+        this.$el = null;
+        this._options = null;
+
+        _super.prototype.destroy.call(this);
     };
     return DOMElement;
 })(DisplayObject);
@@ -569,20 +587,23 @@ var PhotoGalleryApp = (function (_super) {
         var images = thumbnails.getChildren();
         console.log(thumbnails.numChildren);
         console.log(images);
+        return this;
     };
 
     PhotoGalleryApp.prototype.enable = function () {
         if (this.isEnabled === true)
-            return;
+            return this;
 
         _super.prototype.enable.call(this);
+        return this;
     };
 
     PhotoGalleryApp.prototype.disable = function () {
         if (this.isEnabled === false)
-            return;
+            return this;
 
         _super.prototype.disable.call(this);
+        return this;
     };
     return PhotoGalleryApp;
 })(Stage);

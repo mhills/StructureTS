@@ -11,26 +11,11 @@ class FooterView extends DOMElement
         super();
     }
 
-    public createChildren()
+    public createChildren():DOMElement
     {
-        this.$el = TemplateFactory.createTemplate('templates/Footer.tpl');
+        super.createChildren('templates/Footer.tpl');
 
-        super.createChildren();
-    }
-
-    public layoutChildren():void
-    {
-    }
-
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     }
 
 }

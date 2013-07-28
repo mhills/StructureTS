@@ -49,4 +49,15 @@ interface ICore
      * @method getQualifiedClassName
      */
     getQualifiedClassName():string;
+
+    /**
+     * @method enable
+     */
+    enable():void;
+
+    /**
+     * @method disable
+     */
+    disable():void;
+
 }

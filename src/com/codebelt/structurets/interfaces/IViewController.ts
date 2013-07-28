@@ -22,52 +22,23 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../ValueObject.ts'/>
+///<reference path='IDOMElement.ts'/>
 
 /**
  * YUIDoc_comment
  *
- * @class LanguageConfigVO
- * @param [data] {any} Provide a way to update the value object upon initialization.
- * @constructor
+ * @class IViewController
+ * @module StructureTS
+ * @submodule interface
+ * @interface
  **/
-class LanguageConfigVO extends ValueObject {
+interface IViewController extends IDOMElement
+{
 
     /**
-     * @copy ValueObject.CLASS_NAME
+     * @method update
+     * @param ...rest {rest} The …rest parameter is an identifier that represents the name of the array of arguments passed in to the function. You can specify the data type of the … (rest) parameter as any[] (Array), but this could cause confusion because the parameter accepts a comma-delimited list of values, which is not identical to an instance of the array.
      */
-    public CLASS_NAME:string = 'LanguageConfigVO';
+    update(...rest):IViewController;
 
-    public id:string;
-    public lang:string;
-    public text:string;
-    public path:string;
-
-    constructor(data:any = null)
-    {
-        super(data);
-    }
-
-    /**
-     * @copy ValueObject.update
-     * @overridden
-     */
-    public update(data:any):ValueObject
-    {
-        this.id = data.id;
-        this.lang = data.lang;
-        this.text = data.text;
-        this.path = data.path;
-
-        return this;
-    }
-
-    /**
-     * @copy ValueObject.copy
-     * @overridden
-     */
-    public copy():ValueObject {
-        var data:IValueObject = super.copy();
-        return new LanguageConfigVO(data);
-    }
 }

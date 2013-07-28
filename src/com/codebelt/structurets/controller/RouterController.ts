@@ -30,6 +30,7 @@
  *
  * @class RouterController
  * @module StructureTS
+ * @submodule controller
  * @constructor
  **/
 class RouterController extends BaseObject {
@@ -47,6 +48,10 @@ class RouterController extends BaseObject {
 //            hasher.setHash(DEFAULT_HASH);
 //        }
 //        console.log("hasher.getHash()", hasher.getHash())
+
+
+//        RouterController.navigate('login/', true);
+
     }
 
     public addRoute(pattern:string, handler:Function, scope:any, priority?:number):void
@@ -57,7 +62,7 @@ class RouterController extends BaseObject {
     public start():void
     {
 //        crossroads.routed.add(console.log, console); //log all routes
-
+//        hasher.prependHash = '!'; //default value is "/"
         hasher.initialized.add(this.parseHash); //parse initial hash
         hasher.changed.add(this.parseHash); //parse hash changes
         hasher.init(); //start listening for hash changes
@@ -68,6 +73,10 @@ class RouterController extends BaseObject {
         // second parameter of crossroads.parse() is the "defaultArguments" and should be an array
         // so we ignore the "oldHash" argument to avoid issues.
         crossroads.parse(newHash);
+    }
+
+    public navigate(hash:string):void {
+
     }
 
 }

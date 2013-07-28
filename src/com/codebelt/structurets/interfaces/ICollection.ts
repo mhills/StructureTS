@@ -22,52 +22,81 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../ValueObject.ts'/>
+///<reference path='IValueObject.ts'/>
 
 /**
  * YUIDoc_comment
  *
- * @class LanguageConfigVO
- * @param [data] {any} Provide a way to update the value object upon initialization.
- * @constructor
+ * @class ICollection
+ * @module StructureTS
+ * @submodule interface
+ * @interface
  **/
-class LanguageConfigVO extends ValueObject {
+interface ICollection
+{
 
     /**
-     * @copy ValueObject.CLASS_NAME
+     * @method destroy
      */
-    public CLASS_NAME:string = 'LanguageConfigVO';
+    destroy():void;
 
-    public id:string;
-    public lang:string;
-    public text:string;
-    public path:string;
-
-    constructor(data:any = null)
-    {
-        super(data);
-    }
+//    /**
+//     * @method clone
+//     */
+//    clone():void;
 
     /**
-     * @copy ValueObject.update
-     * @overridden
+     * @method copy
      */
-    public update(data:any):ValueObject
-    {
-        this.id = data.id;
-        this.lang = data.lang;
-        this.text = data.text;
-        this.path = data.path;
-
-        return this;
-    }
+    copy():void;
 
     /**
-     * @copy ValueObject.copy
-     * @overridden
+     * @method addItem
      */
-    public copy():ValueObject {
-        var data:IValueObject = super.copy();
-        return new LanguageConfigVO(data);
-    }
+    addItem(item:IValueObject):void;
+
+    /**
+     * @method addItems
+     */
+    addItems(items:IValueObject[]):void
+
+    /**
+     * @method removeItem
+     */
+    removeItem(item:IValueObject):void
+
+    /**
+     * @method removeItems
+     */
+    removeItems(items:IValueObject[]):void
+
+    /**
+     * @method hasItem
+     */
+    hasItem(items:IValueObject):boolean
+
+    /**
+     * @method getItemByIndex
+     */
+    getItemByIndex(index:number):IValueObject;
+
+    /**
+     * @method forEach
+     */
+    forEach(operation:Function):void
+
+    /**
+     * @method find
+     */
+    find(properties:any):IValueObject[]
+
+    /**
+     * @method sort
+     */
+    sort(sort:Function):void
+
+    /**
+     * @method filter
+     */
+    filter(filter:Function):void
 }

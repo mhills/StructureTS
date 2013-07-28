@@ -15,8 +15,10 @@ class TopNavigationView extends DOMElement {
         super();
     }
 
-    public createChildren():void {
+    public createChildren():DOMElement {
         super.createChildren('templates/topbar/TopNavigationTemplate.tpl');
+
+        return this;
     }
 
 }

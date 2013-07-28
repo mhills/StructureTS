@@ -21,11 +21,9 @@ class ArtistsView extends DOMElement
     constructor()
     {
         super();
-
-        this._options = {}
     }
 
-    public createChildren():void
+    public createChildren():DOMElement
     {
         super.createChildren(function(data)
         {
@@ -36,22 +34,13 @@ class ArtistsView extends DOMElement
         });
 
         this._container = this.getChild("#dynamic-container");
+        return this;
     }
 
-    public layoutChildren():void
+    public layoutChildren():DOMElement
     {
         document.title = this.TITLE;
-    }
-
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     }
 
     public requestData():void

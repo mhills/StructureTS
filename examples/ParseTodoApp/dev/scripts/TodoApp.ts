@@ -33,7 +33,7 @@ class TodoApp extends Stage
      * @copy DOMElement.createChildren
      * @overridden
      */
-    public createChildren():void
+    public createChildren():DOMElement
     {
         super.createChildren();
 
@@ -49,14 +49,16 @@ class TodoApp extends Stage
         this._incompleteItemList.addChild(this._noTasksMessage);
 
         this.updateItemList();
+
+        return this;
     }
 
     /**
      * @copy DisplayObject.enable
      * @overridden
      */
-    public enable():void {
-        if (this.isEnabled === true) return;
+    public enable():DOMElement {
+        if (this.isEnabled === true) return this;
 
         this._submitBtn.el.addEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
 //            this._submitBtn.$el.on(MouseEventType.CLICK, this.onSubmitButton.bind(this));
@@ -67,14 +69,15 @@ class TodoApp extends Stage
         this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
         super.enable();
+        return this;
     }
 
     /**
      * @copy DisplayObject.disable
      * @overridden
      */
-    public disable():void {
-        if (this.isEnabled === false) return;
+    public disable():DOMElement {
+        if (this.isEnabled === false) return this;
 
         this._submitBtn.el.removeEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
 //            this._submitBtn.$el.off(MouseEventType.CLICK, this.onSubmitButton.bind(this));
@@ -84,6 +87,7 @@ class TodoApp extends Stage
         this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
         super.disable();
+        return this;
     }
 
     private onSubmitButton(event:MouseEvent):void

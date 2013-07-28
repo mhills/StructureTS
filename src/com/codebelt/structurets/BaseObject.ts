@@ -95,11 +95,12 @@ class BaseObject {
      * @method enable
      * @public
      */
-    public enable():void
+    public enable():any
     {
-        if (this.isEnabled === true) return;
+        if (this.isEnabled === true) return this;
 
         this.isEnabled = true;
+        return this;
     }
 
     /**
@@ -108,11 +109,12 @@ class BaseObject {
      * @method disable
      * @public
      */
-    public disable():void
+    public disable():any
     {
-        if (this.isEnabled === false) return;
+        if (this.isEnabled === false) return this;
 
         this.isEnabled = false;
+        return this;
     }
 
     /**
@@ -127,6 +129,7 @@ class BaseObject {
      */
     public destroy():void
     {
+        this.isEnabled = false;
         /*
         // Removing this code for now because if any class has a reference any other non-children classes then those class destroy method will be called and that would be bad.
         var key:string;

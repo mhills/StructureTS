@@ -14,8 +14,10 @@ class LoginView extends DOMElement {
         super();
     }
 
-    public createChildren():void {
+    public createChildren():DOMElement {
         super.createChildren('templates/login/LoginTemplate.tpl', {title: 'Sign In'});
+
+        return this;
     }
 
 }

@@ -1,4 +1,5 @@
 interface Hasher {
+    prependHash;
     initialized;
     changed;
     init;

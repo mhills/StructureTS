@@ -27,7 +27,7 @@ class NavigationView extends DOMElement
         }
     }
 
-    public createChildren():void
+    public createChildren():DOMElement
     {
         super.createChildren(function(data)
         {
@@ -49,33 +49,37 @@ class NavigationView extends DOMElement
 
 //        this._languageSelect = new LanguageSelect();
 //        this.addChildAt(this._languageSelect, 0);
+        return this;
     }
 
-    public layoutChildren():void
+    public layoutChildren():DOMElement
     {
 //        this._languageSelect.value( LocalStorageController.getInstance().getItem('language') );
+        return this;
     }
 
     /**
      * @copy DisplayObject.enable
      */
-    public enable():void {
-        if (this.isEnabled === true) return;
+    public enable():DOMElement {
+        if (this.isEnabled === true) return this;
 
 //            this._languageSelect.addEventListener(LanguageEvent.LANGUAGE_CHANGE, this.onLanguageChange, this);
 
         super.enable();
+        return this;
     }
 
     /**
      * @copy DisplayObject.disable
      */
-    public disable():void {
-        if (this.isEnabled === false) return;
+    public disable():DOMElement {
+        if (this.isEnabled === false) return this;
 
 //            this._languageSelect.removeEventListener(LanguageEvent.LANGUAGE_CHANGE, this.onLanguageChange);
 
         super.disable();
+        return this;
     }
 
     public onLanguageChange(event):void

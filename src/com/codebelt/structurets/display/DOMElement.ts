@@ -25,6 +25,8 @@
 ///<reference path='DisplayObject.ts'/>
 ///<reference path='../events/BaseEvent.ts'/>
 ///<reference path='../utils/TemplateFactory.ts'/>
+///<reference path='../interfaces/IDOMElement.ts'/>
+///<reference path='../interfaces/IDOMElement.ts'/>
 
 /**
  * The {{#crossLink "DOMElement"}}{{/crossLink}} class is the base class for all objects that can be placed into the HTML DOM.
@@ -35,7 +37,7 @@
  * @submodule view
  * @constructor
  **/
-class DOMElement extends DisplayObject {
+class DOMElement extends DisplayObject implements IDOMElement {
 
     /**
      * @copy BaseObject.CLASS_NAME
@@ -85,7 +87,7 @@ class DOMElement extends DisplayObject {
      * @copy DisplayObject.createChildren
      * @overridden
      */
-    public createChildren(template?:any, data?:any) {
+    public createChildren(template?:any, data?:any):IDOMElement {
         if (typeof template === 'function') {
             Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
@@ -98,6 +100,8 @@ class DOMElement extends DisplayObject {
         }
 
         this.el = this.$el[0];
+
+        return this;
     }
 
     /**
@@ -106,10 +110,10 @@ class DOMElement extends DisplayObject {
      *      container.addChild(domElementInstance);
      * @method addChild
      * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
-     * @returns {DOMElement} The DOMElement instance that you pass in the child parameter.
+     * @returns {IDisplayObject} Returns an instance of itself.
      * @overridden
      */
-    public addChild(child:DOMElement):DOMElement {
+    public addChild(child:IDOMElement):IDOMElement {
         super.addChild(child);
 
         if (!child.isCreated) {
@@ -125,14 +129,14 @@ class DOMElement extends DisplayObject {
 
         this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
-        return child;
+        return this;
     }
 
     /**
      * @copy DisplayObject.addChildAt
      * @overridden
      */
-    public addChildAt(child:DOMElement, index:number):DOMElement {
+    public addChildAt(child:IDOMElement, index:number):IDOMElement {
         //TODO:test this out.
         var children = this.$el.children();
         var length = children.length;
@@ -252,17 +256,17 @@ class DOMElement extends DisplayObject {
      *
      * @method removeChild
      * @param child {DOMElement} The DisplayObject instance to remove.
-     * @returns {DOMElement} The DisplayObject instance that you pass in the child parameter.
+     * @returns {IDisplayObject} Returns an instance of itself.
      * @override
      * @public
      */
-    public removeChild(child:DOMElement):DOMElement {
+    public removeChild(child:IDOMElement):IDOMElement {
         child.$el.unbind();
         child.$el.remove();
 
         super.removeChild(child);
 
-        return child;
+        return this;
     }
 
     /**
@@ -271,11 +275,11 @@ class DOMElement extends DisplayObject {
      * references to the children exist.
      *
      * @method removeChildren
-     * @returns {DOMElement}
+     * @returns {IDisplayObject} Returns an instance of itself.
      * @override
      * @public
      */
-    public removeChildren():DOMElement {
+    public removeChildren():IDOMElement {
         super.removeChildren();
 
         this.$el.empty();
@@ -286,25 +290,29 @@ class DOMElement extends DisplayObject {
     /**
      * @copy BaseObject.enable
      */
-    public enable():void {
-        if (this.isEnabled === true) return;
+    public enable():IDOMElement {
+        if (this.isEnabled === true) return this;
 
         super.enable();
+        return this;
     }
 
     /**
      * @copy BaseObject.disable
      */
-    public disable():void {
-        if (this.isEnabled === false) return;
+    public disable():IDOMElement {
+        if (this.isEnabled === false) return this;
 
         super.disable();
+        return this;
     }
 
     /**
      * @copy DisplayObject.layoutChildren
      */
-    public layoutChildren():void {
+    public layoutChildren():IDOMElement {
+
+        return this;
     }
 
     /**
@@ -314,9 +322,9 @@ class DOMElement extends DisplayObject {
      *
      * @method alpha
      * @param number
-     * @returns {DOMElement}
+     * @returns {IDisplayObject} Returns an instance of itself.
      */
-    public alpha(number):DOMElement {
+    public alpha(number):IDOMElement {
         this.$el.css('opacity', number);
         return this;
     }
@@ -340,5 +348,18 @@ class DOMElement extends DisplayObject {
             return this._isVisible;
         }
         return this;
+    }
+
+    /**
+     * @copy DisplayObject.destroy
+     * @overridden
+     */
+    public destroy():void
+    {
+        this.el = null;
+        this.$el = null;
+        this._options = null;
+
+        super.destroy();
     }
 }

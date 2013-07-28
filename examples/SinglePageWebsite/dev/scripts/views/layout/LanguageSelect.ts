@@ -13,7 +13,7 @@ class LanguageSelect extends DOMElement {
         var languageManagerData = LanguageModel.getInstance().data;
     }
 
-    public createChildren():void
+    public createChildren():DOMElement
     {
         super.createChildren(function(data)
         {
@@ -24,23 +24,31 @@ class LanguageSelect extends DOMElement {
             )
         });
 
-        this.enabled(true);
+       return this;
     }
 
-    public layoutChildren():void
-    {
+    /**
+     * @copy DOMElement.enable
+     */
+    public enable():DOMElement {
+        if (this.isEnabled === true) return this;
+
+        this.$el.on('change', this.onLanguageChange.bind(this));
+
+        super.enable();
+        return this;
     }
 
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
+    /**
+     * @copy DOMElement.disable
+     */
+    public disable():DOMElement {
+        if (this.isEnabled === false) return this;
 
-        if (value) {
-            this.$el.on('change', this.onLanguageChange.bind(this));
-        } else {
-        }
+        this.$el.off('change', this.onLanguageChange.bind(this));
 
-        this.isEnabled = value;
+        super.disable();
+        return this;
     }
 
     public onLanguageChange(event):void

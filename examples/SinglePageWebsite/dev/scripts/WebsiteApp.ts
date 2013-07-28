@@ -54,26 +54,30 @@ class WebsiteApp extends Stage
      }*/
 
 
-    public createChildren():void {
+    public createChildren():DOMElement {
         super.createChildren();
+
+        return this;
     }
 
     /**
      * @copy DisplayObject.enable
      */
-    public enable():void {
-        if (this.isEnabled === true) return;
+    public enable():DOMElement {
+        if (this.isEnabled === true) return this;
 
         super.enable();
+        return this;
     }
 
     /**
      * @copy DisplayObject.disable
      */
-    public disable():void {
-        if (this.isEnabled === false) return;
+    public disable():DOMElement {
+        if (this.isEnabled === false) return this;
 
         super.disable();
+        return this;
     }
 
     private init(event):void

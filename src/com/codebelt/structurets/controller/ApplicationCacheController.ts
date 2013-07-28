@@ -30,6 +30,7 @@
  *
  * @class ApplicationCacheController
  * @module StructureTS
+ * @submodule controller
  * @constructor
  **/
 class ApplicationCacheController {

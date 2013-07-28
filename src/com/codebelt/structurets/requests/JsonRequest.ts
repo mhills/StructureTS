@@ -33,7 +33,7 @@ class JsonRequest extends BaseRequest {
 
     constructor()
     {
-        super('sss');
+        super("asdf");
     }
 }
 

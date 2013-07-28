@@ -41,29 +41,33 @@ class BannerAd extends Canvas
      * @copy CanvasElement.createChildren
      * @overridden
      */
-    public createChildren():void
+    public createChildren():Canvas
     {
         super.createChildren();
+
+        return this;
     }
 
     /**
      * @copy DisplayObject.enable
      * @overridden
      */
-    public enable():void {
-        if (this.isEnabled === true) return;
+    public enable():Canvas {
+        if (this.isEnabled === true) return this;
 
         super.enable();
+        return this;
     }
 
     /**
      * @copy DisplayObject.disable
      * @overridden
      */
-    public disable():void {
-        if (this.isEnabled === false) return;
+    public disable():Canvas {
+        if (this.isEnabled === false) return this;
 
         super.disable();
+        return this;
     }
 
     private init(event:LoaderEvent):void

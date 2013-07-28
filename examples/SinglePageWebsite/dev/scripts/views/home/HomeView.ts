@@ -10,11 +10,9 @@ class HomeView extends DOMElement
         super();
     }
 
-    public createChildren()
+    public createChildren():DOMElement
     {
-        this.$el = TemplateFactory.createTemplate('templates/HomeBody.tpl', {name: "Robert"});
-
-        super.createChildren();
+        super.createChildren('templates/HomeBody.tpl', {name: "Robert"});
 //        this.addEventListener('test',function(event){console.log("god", event.isPropagationStopped)}, this);
 //
 //        var grampa = new DOMElement('div');
@@ -34,22 +32,13 @@ class HomeView extends DOMElement
 //
 //        child.dispatchEvent('test');
 
+        return this;
     }
 
-    public layoutChildren():void
+    public layoutChildren():DOMElement
     {
         document.title = this.TITLE;
-    }
-
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     }
 
 }

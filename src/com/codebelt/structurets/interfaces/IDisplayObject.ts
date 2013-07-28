@@ -22,52 +22,72 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../ValueObject.ts'/>
+///<reference path='IEventDispatcher.ts'/>
 
 /**
  * YUIDoc_comment
  *
- * @class LanguageConfigVO
- * @param [data] {any} Provide a way to update the value object upon initialization.
- * @constructor
+ * @class IDisplayObject
+ * @module StructureTS
+ * @submodule interface
+ * @interface
  **/
-class LanguageConfigVO extends ValueObject {
+interface IDisplayObject extends IEventDispatcher
+{
 
     /**
-     * @copy ValueObject.CLASS_NAME
+     * @property isCreated
      */
-    public CLASS_NAME:string = 'LanguageConfigVO';
-
-    public id:string;
-    public lang:string;
-    public text:string;
-    public path:string;
-
-    constructor(data:any = null)
-    {
-        super(data);
-    }
+        isCreated:boolean;
 
     /**
-     * @copy ValueObject.update
-     * @overridden
+     * @property numChildren
      */
-    public update(data:any):ValueObject
-    {
-        this.id = data.id;
-        this.lang = data.lang;
-        this.text = data.text;
-        this.path = data.path;
-
-        return this;
-    }
+        numChildren:number;
 
     /**
-     * @copy ValueObject.copy
-     * @overridden
+     * @property children
      */
-    public copy():ValueObject {
-        var data:IValueObject = super.copy();
-        return new LanguageConfigVO(data);
-    }
+        children:IDisplayObject[];
+
+    /**
+     * @method createChildren
+     */
+    createChildren():IDisplayObject;
+
+    /**
+     * @method addChild
+     */
+    addChild(child:IDisplayObject):IDisplayObject;
+
+    /**
+     * @method removeChild
+     */
+    removeChild(child:IDisplayObject):IDisplayObject;
+
+    /**
+     * @method removeChildren
+     */
+    removeChildren():IDisplayObject;
+
+    /**
+     * @method layoutChildren
+     */
+    layoutChildren():IDisplayObject;
+
+    /**
+     * @method addChildAt
+     */
+    addChildAt(child:IDisplayObject, index:number):IDisplayObject;
+
+    /**
+     * @method getChild
+     */
+    getChild(child:any):IDisplayObject;
+
+    /**
+     * @method getChildAt
+     */
+    getChildAt(index:number):IDisplayObject;
+
 }

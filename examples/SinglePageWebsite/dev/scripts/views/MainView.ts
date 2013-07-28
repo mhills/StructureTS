@@ -23,7 +23,7 @@ class MainView extends DOMElement {
         this._router = router;
     }
 
-    public createChildren():void
+    public createChildren():DOMElement
     {
         super.createChildren();
 
@@ -33,10 +33,8 @@ class MainView extends DOMElement {
         this._aboutView = new AboutView();
 
         this.setupRoutes();
-    }
 
-    public layoutChildren():void
-    {
+        return this;
     }
 
     public setupRoutes():void
@@ -47,24 +45,6 @@ class MainView extends DOMElement {
         this._router.addRoute('artists/:name:/:album:', this.artistsRouterHandler, this);
         this._router.addRoute('contact{?query}', this.contactRouterHandler, this);
         this._router.start();
-    }
-
-    /**
-     * @copy DisplayObject.enable
-     */
-    public enable():void {
-        if (this.isEnabled === true) return;
-
-        super.enable();
-    }
-
-    /**
-     * @copy DisplayObject.disable
-     */
-    public disable():void {
-        if (this.isEnabled === false) return;
-
-        super.disable();
     }
 
     private homeRouterHandler():void

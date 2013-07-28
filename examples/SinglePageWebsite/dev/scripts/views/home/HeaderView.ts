@@ -9,11 +9,9 @@ class HeaderView extends DOMElement
         super();
     }
 
-    createChildren()
+    createChildren():DOMElement
     {
-        this.$el = TemplateFactory.createTemplate('templates/Header.tpl');
-
-        super.createChildren();
+        super.createChildren('templates/Header.tpl');
 //        var domElement = this.getChild('#my-slider').$el[0];
 //        this._dragDealer = new DragDealer(domElement, {
 //            slide: true,
@@ -21,21 +19,7 @@ class HeaderView extends DOMElement
 //                console.log('HeaderView',x,y);
 //            }
 //        });
-    }
-
-    public layoutChildren():void
-    {
-    }
-
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     }
 
 }

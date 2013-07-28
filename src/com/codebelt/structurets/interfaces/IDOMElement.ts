@@ -22,52 +22,27 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../ValueObject.ts'/>
+///<reference path='IDisplayObject.ts'/>
 
 /**
  * YUIDoc_comment
  *
- * @class LanguageConfigVO
- * @param [data] {any} Provide a way to update the value object upon initialization.
- * @constructor
+ * @class IDOMElement
+ * @module StructureTS
+ * @submodule interface
+ * @interface
  **/
-class LanguageConfigVO extends ValueObject {
+interface IDOMElement extends IDisplayObject
+{
 
     /**
-     * @copy ValueObject.CLASS_NAME
+     * @property el
      */
-    public CLASS_NAME:string = 'LanguageConfigVO';
-
-    public id:string;
-    public lang:string;
-    public text:string;
-    public path:string;
-
-    constructor(data:any = null)
-    {
-        super(data);
-    }
+    el:Element;
 
     /**
-     * @copy ValueObject.update
-     * @overridden
+     * @property $el
      */
-    public update(data:any):ValueObject
-    {
-        this.id = data.id;
-        this.lang = data.lang;
-        this.text = data.text;
-        this.path = data.path;
+    $el:JQuery;
 
-        return this;
-    }
-
-    /**
-     * @copy ValueObject.copy
-     * @overridden
-     */
-    public copy():ValueObject {
-        var data:IValueObject = super.copy();
-        return new LanguageConfigVO(data);
-    }
 }

@@ -56,9 +56,10 @@ class ValueObject extends BaseObject implements IValueObject {
      * @method update
      * @param data {any}
      */
-    public update(data:any):void
+    public update(data:any):IValueObject
     {
 
+        return this;
     }
 
     /**
@@ -78,10 +79,12 @@ class ValueObject extends BaseObject implements IValueObject {
      * @method fromJSON
      * @param json {string}
      */
-    public fromJSON(json:string):void
+    public fromJSON(json:string):IValueObject
     {
         var parsedData:any = JSON.parse(json);
         this.update(parsedData);
+
+        return this;
     }
 
     /**

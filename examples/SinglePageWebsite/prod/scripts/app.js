@@ -32,19 +32,22 @@ var BaseObject = (function () {
 
     BaseObject.prototype.enable = function () {
         if (this.isEnabled === true)
-            return;
+            return this;
 
         this.isEnabled = true;
+        return this;
     };
 
     BaseObject.prototype.disable = function () {
         if (this.isEnabled === false)
-            return;
+            return this;
 
         this.isEnabled = false;
+        return this;
     };
 
     BaseObject.prototype.destroy = function () {
+        this.isEnabled = false;
     };
     return BaseObject;
 })();
@@ -213,7 +216,7 @@ var EventDispatcher = (function (_super) {
 
     EventDispatcher.prototype.destroy = function () {
         this.parent = null;
-        this._listeners = [];
+        this._listeners = null;
 
         _super.prototype.destroy.call(this);
     };
@@ -229,6 +232,7 @@ var DisplayObject = (function (_super) {
         this.children = [];
     }
     DisplayObject.prototype.createChildren = function () {
+        return this;
     };
 
     DisplayObject.prototype.addChild = function (child) {
@@ -241,7 +245,7 @@ var DisplayObject = (function (_super) {
 
         child.parent = this;
 
-        return child;
+        return this;
     };
 
     DisplayObject.prototype.removeChild = function (child) {
@@ -272,7 +276,7 @@ var DisplayObject = (function (_super) {
 
         this.numChildren = this.children.length;
 
-        return child;
+        return this;
     };
 
     DisplayObject.prototype.getChild = function (child) {
@@ -286,6 +290,7 @@ var DisplayObject = (function (_super) {
     };
 
     DisplayObject.prototype.layoutChildren = function () {
+        return this;
     };
 
     DisplayObject.prototype.destroy = function () {
@@ -383,6 +388,8 @@ var DOMElement = (function (_super) {
         }
 
         this.el = this.$el[0];
+
+        return this;
     };
 
     DOMElement.prototype.addChild = function (child) {
@@ -400,7 +407,7 @@ var DOMElement = (function (_super) {
 
         this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
-        return child;
+        return this;
     };
 
     DOMElement.prototype.addChildAt = function (child, index) {
@@ -487,7 +494,7 @@ var DOMElement = (function (_super) {
 
         _super.prototype.removeChild.call(this, child);
 
-        return child;
+        return this;
     };
 
     DOMElement.prototype.removeChildren = function () {
@@ -500,19 +507,22 @@ var DOMElement = (function (_super) {
 
     DOMElement.prototype.enable = function () {
         if (this.isEnabled === true)
-            return;
+            return this;
 
         _super.prototype.enable.call(this);
+        return this;
     };
 
     DOMElement.prototype.disable = function () {
         if (this.isEnabled === false)
-            return;
+            return this;
 
         _super.prototype.disable.call(this);
+        return this;
     };
 
     DOMElement.prototype.layoutChildren = function () {
+        return this;
     };
 
     DOMElement.prototype.alpha = function (number) {
@@ -531,6 +541,14 @@ var DOMElement = (function (_super) {
             return this._isVisible;
         }
         return this;
+    };
+
+    DOMElement.prototype.destroy = function () {
+        this.el = null;
+        this.$el = null;
+        this._options = null;
+
+        _super.prototype.destroy.call(this);
     };
     return DOMElement;
 })(DisplayObject);
@@ -600,6 +618,9 @@ var RouterController = (function (_super) {
 
     RouterController.prototype.parseHash = function (newHash, oldHash) {
         crossroads.parse(newHash);
+    };
+
+    RouterController.prototype.navigate = function (hash) {
     };
     return RouterController;
 })(BaseObject);
@@ -837,7 +858,7 @@ var BaseRequest = (function (_super) {
 var JsonRequest = (function (_super) {
     __extends(JsonRequest, _super);
     function JsonRequest() {
-        _super.call(this, 'sss');
+        _super.call(this, "asdf");
         this.CLASS_NAME = 'JsonRequest';
     }
     return JsonRequest;
@@ -854,6 +875,7 @@ var ValueObject = (function (_super) {
         }
     }
     ValueObject.prototype.update = function (data) {
+        return this;
     };
 
     ValueObject.prototype.toJSON = function () {
@@ -863,6 +885,8 @@ var ValueObject = (function (_super) {
     ValueObject.prototype.fromJSON = function (json) {
         var parsedData = JSON.parse(json);
         this.update(parsedData);
+
+        return this;
     };
 
     ValueObject.prototype.clone = function () {
@@ -894,6 +918,8 @@ var LanguageConfigVO = (function (_super) {
         this.lang = data.lang;
         this.text = data.text;
         this.path = data.path;
+
+        return this;
     };
 
     LanguageConfigVO.prototype.copy = function () {
@@ -1089,22 +1115,27 @@ var LanguageSelect = (function (_super) {
             select(option({ value: 'en' }, 'English'), option({ value: 'fr' }, 'French'), option({ value: 'sp' }, 'Spanish'));
         });
 
-        this.enabled(true);
+        return this;
     };
 
-    LanguageSelect.prototype.layoutChildren = function () {
+    LanguageSelect.prototype.enable = function () {
+        if (this.isEnabled === true)
+            return this;
+
+        this.$el.on('change', this.onLanguageChange.bind(this));
+
+        _super.prototype.enable.call(this);
+        return this;
     };
 
-    LanguageSelect.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
-            return;
+    LanguageSelect.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return this;
 
-        if (value) {
-            this.$el.on('change', this.onLanguageChange.bind(this));
-        } else {
-        }
+        this.$el.off('change', this.onLanguageChange.bind(this));
 
-        this.isEnabled = value;
+        _super.prototype.disable.call(this);
+        return this;
     };
 
     LanguageSelect.prototype.onLanguageChange = function (event) {
@@ -1139,23 +1170,28 @@ var NavigationView = (function (_super) {
         _super.prototype.createChildren.call(this, function (data) {
             div({ id: 'header' }, div({ cls: 'background' }, h1(a({ href: '#home', html: 'DelliStore' })), ul(li(a({ cls: 'active', href: '#home' }, data.link1)), li(a({ href: '#about/robert' }, data.link2)), li(a({ href: '#artists/' }, data.link3)), li(a({ href: '#reservations/' }, data.link4)), li(a({ href: '#contact?name=robert&age=34' }, data.link5)))));
         });
+
+        return this;
     };
 
     NavigationView.prototype.layoutChildren = function () {
+        return this;
     };
 
     NavigationView.prototype.enable = function () {
         if (this.isEnabled === true)
-            return;
+            return this;
 
         _super.prototype.enable.call(this);
+        return this;
     };
 
     NavigationView.prototype.disable = function () {
         if (this.isEnabled === false)
-            return;
+            return this;
 
         _super.prototype.disable.call(this);
+        return this;
     };
 
     NavigationView.prototype.onLanguageChange = function (event) {
@@ -1172,23 +1208,9 @@ var FooterView = (function (_super) {
         _super.call(this);
     }
     FooterView.prototype.createChildren = function () {
-        this.$el = TemplateFactory.createTemplate('templates/Footer.tpl');
+        _super.prototype.createChildren.call(this, 'templates/Footer.tpl');
 
-        _super.prototype.createChildren.call(this);
-    };
-
-    FooterView.prototype.layoutChildren = function () {
-    };
-
-    FooterView.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
-            return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     };
     return FooterView;
 })(DOMElement);
@@ -1233,24 +1255,14 @@ var HomeView = (function (_super) {
         this.TITLE = "Home View";
     }
     HomeView.prototype.createChildren = function () {
-        this.$el = TemplateFactory.createTemplate('templates/HomeBody.tpl', { name: "Robert" });
+        _super.prototype.createChildren.call(this, 'templates/HomeBody.tpl', { name: "Robert" });
 
-        _super.prototype.createChildren.call(this);
+        return this;
     };
 
     HomeView.prototype.layoutChildren = function () {
         document.title = this.TITLE;
-    };
-
-    HomeView.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
-            return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     };
     return HomeView;
 })(DOMElement);
@@ -1278,6 +1290,8 @@ var AlbumVO = (function (_super) {
         this.price = data.price;
         this.title = data.title;
         this.url = data.url;
+
+        return this;
     };
     return AlbumVO;
 })(ValueObject);
@@ -1309,6 +1323,8 @@ var ArtistVO = (function (_super) {
         for (var i = 0; i < len; i++) {
             this.albumList.push(new AlbumVO(data.albums[i]));
         }
+
+        return this;
     };
     return ArtistVO;
 })(ValueObject);
@@ -1321,8 +1337,6 @@ var ArtistsView = (function (_super) {
         this._artistVOList = [];
         this._container = null;
         this.urlLoader = null;
-
-        this._options = {};
     }
     ArtistsView.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, function (data) {
@@ -1330,21 +1344,12 @@ var ArtistsView = (function (_super) {
         });
 
         this._container = this.getChild("#dynamic-container");
+        return this;
     };
 
     ArtistsView.prototype.layoutChildren = function () {
         document.title = this.TITLE;
-    };
-
-    ArtistsView.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
-            return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     };
 
     ArtistsView.prototype.requestData = function () {
@@ -1406,24 +1411,13 @@ var ContactView = (function (_super) {
         this.TITLE = "Contact View";
     }
     ContactView.prototype.createChildren = function () {
-        this.$el = TemplateFactory.createTemplate('templates/ContactTemplate.tpl', { name: "Robert" });
-
-        _super.prototype.createChildren.call(this);
+        _super.prototype.createChildren.call(this, 'templates/ContactTemplate.tpl', { name: "Robert" });
+        return this;
     };
 
     ContactView.prototype.layoutChildren = function () {
         document.title = this.TITLE;
-    };
-
-    ContactView.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
-            return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     };
     return ContactView;
 })(DOMElement);
@@ -1434,24 +1428,14 @@ var AboutView = (function (_super) {
         this.TITLE = "About View";
     }
     AboutView.prototype.createChildren = function () {
-        this.$el = TemplateFactory.createTemplate('templates/AboutTemplate.tpl', { name: "Robert" });
+        _super.prototype.createChildren.call(this, 'templates/AboutTemplate.tpl', { name: "Robert" });
 
-        _super.prototype.createChildren.call(this);
+        return this;
     };
 
     AboutView.prototype.layoutChildren = function () {
         document.title = this.TITLE;
-    };
-
-    AboutView.prototype.enabled = function (value) {
-        if (value == this.isEnabled)
-            return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     };
     return AboutView;
 })(DOMElement);
@@ -1477,9 +1461,8 @@ var MainView = (function (_super) {
         this._aboutView = new AboutView();
 
         this.setupRoutes();
-    };
 
-    MainView.prototype.layoutChildren = function () {
+        return this;
     };
 
     MainView.prototype.setupRoutes = function () {
@@ -1489,20 +1472,6 @@ var MainView = (function (_super) {
         this._router.addRoute('artists/:name:/:album:', this.artistsRouterHandler, this);
         this._router.addRoute('contact{?query}', this.contactRouterHandler, this);
         this._router.start();
-    };
-
-    MainView.prototype.enable = function () {
-        if (this.isEnabled === true)
-            return;
-
-        _super.prototype.enable.call(this);
-    };
-
-    MainView.prototype.disable = function () {
-        if (this.isEnabled === false)
-            return;
-
-        _super.prototype.disable.call(this);
     };
 
     MainView.prototype.homeRouterHandler = function () {
@@ -1563,20 +1532,24 @@ var WebsiteApp = (function (_super) {
     }
     WebsiteApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
+
+        return this;
     };
 
     WebsiteApp.prototype.enable = function () {
         if (this.isEnabled === true)
-            return;
+            return this;
 
         _super.prototype.enable.call(this);
+        return this;
     };
 
     WebsiteApp.prototype.disable = function () {
         if (this.isEnabled === false)
-            return;
+            return this;
 
         _super.prototype.disable.call(this);
+        return this;
     };
 
     WebsiteApp.prototype.init = function (event) {

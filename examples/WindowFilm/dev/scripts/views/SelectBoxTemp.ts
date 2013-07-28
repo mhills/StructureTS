@@ -19,7 +19,7 @@ class SelectBoxTemp extends DOMElement {
         }
     }
 
-    public createChildren():void {
+    public createChildren():DOMElement {
         super.createChildren(function(data) {
             select(
                 option({value: 'en'}, 'English'),
@@ -27,6 +27,8 @@ class SelectBoxTemp extends DOMElement {
                 option({value: 'sp'}, 'Spanish')
             )
         });
+
+        return this;
     }
 
 }

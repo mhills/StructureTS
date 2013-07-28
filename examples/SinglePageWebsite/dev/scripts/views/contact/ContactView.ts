@@ -10,27 +10,16 @@ class ContactView extends DOMElement
         super();
     }
 
-    public createChildren():void
+    public createChildren():DOMElement
     {
-        this.$el = TemplateFactory.createTemplate('templates/ContactTemplate.tpl', {name: "Robert"});
-
-        super.createChildren();
+        super.createChildren('templates/ContactTemplate.tpl', {name: "Robert"});
+        return this;
     }
 
-    public layoutChildren():void
+    public layoutChildren():DOMElement
     {
         document.title = this.TITLE;
-    }
-
-    public enabled(value:boolean):void
-    {
-        if (value == this.isEnabled) return;
-
-        if (value) {
-        } else {
-        }
-
-        this.isEnabled = value;
+        return this;
     }
 
 }

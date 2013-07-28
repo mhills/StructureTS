@@ -24,6 +24,7 @@
 
 ///<reference path='../BaseObject.ts'/>
 ///<reference path='BaseEvent.ts'/>
+///<reference path='../interfaces/IEventDispatcher.ts'/>
 
 /**
  * The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the DisplayObject class.
@@ -37,7 +38,7 @@
  * @submodule event
  * @constructor
  **/
-class EventDispatcher extends BaseObject
+class EventDispatcher extends BaseObject implements IEventDispatcher
 {
     /**
      * @copy BaseObject.CLASS_NAME
@@ -83,7 +84,7 @@ class EventDispatcher extends BaseObject
      * @param scope {any} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
      * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
      */
-    public addEventListener(type:string, callback:Function, scope:any, priority:number=0):any
+    public addEventListener(type:string, callback:Function, scope:any, priority:number=0):IEventDispatcher
     {
         var list = this._listeners[type];
         if (list == null) {
@@ -118,7 +119,7 @@ class EventDispatcher extends BaseObject
      * @param scope {any} The scope of the listener object to be removed.
      * @hide This was added because it was need for the {{#crossLink "EventBroker"}}{{/crossLink}} class. To keep things consistent this parameter is required.
      */
-    public removeEventListener(type:string, callback:Function, scope:any):any
+    public removeEventListener(type:string, callback:Function, scope:any):IEventDispatcher
     {
         var list = this._listeners[type];
         if (list) {
@@ -147,7 +148,7 @@ class EventDispatcher extends BaseObject
      * @param event {BaseEvent} The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
      * extend the {{#crossLink "BaseEvent"}}{{/crossLink}}.
      */
-    public dispatchEvent(event:BaseEvent):any
+    public dispatchEvent(event:BaseEvent):IEventDispatcher
     {
         if (event.target == null) {
             event.target = this;
@@ -184,7 +185,7 @@ class EventDispatcher extends BaseObject
     public destroy():void
     {
         this.parent = null;
-        this._listeners = [];
+        this._listeners = null;
 
         super.destroy();
     }

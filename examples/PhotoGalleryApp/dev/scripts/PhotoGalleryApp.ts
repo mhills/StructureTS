@@ -7,31 +7,34 @@ class PhotoGalleryApp extends Stage
         super();
     }
 
-    public createChildren():void {
+    public createChildren():DOMElement {
         super.createChildren();
 
         var thumbnails:DOMElement = this.getChild('.gallery-thumbnails');
         var images:DOMElement[] = thumbnails.getChildren();
         console.log(thumbnails.numChildren)
         console.log(images)
+        return this;
     }
 
     /**
      * @copy DisplayObject.enable
      */
-    public enable():void {
-        if (this.isEnabled === true) return;
+    public enable():DOMElement {
+        if (this.isEnabled === true) return this;
 
         super.enable();
+        return this;
     }
 
     /**
      * @copy DisplayObject.disable
      */
-    public disable():void {
-        if (this.isEnabled === false) return;
+    public disable():DOMElement {
+        if (this.isEnabled === false) return this;
 
         super.disable();
+        return this;
     }
 
 }

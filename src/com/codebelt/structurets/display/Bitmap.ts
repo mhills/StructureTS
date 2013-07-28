@@ -54,12 +54,14 @@ class Bitmap extends CanvasElement {
         this.height = this._image.height;
     }
 
-    public createChildren():void
+    public createChildren():Bitmap
     {
         super.createChildren();
+
+        return this;
     }
 
-    public render():void
+    public render():Bitmap
     {
         this.context.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
         this.context.scale(this.scaleX, this.scaleY);
@@ -67,6 +69,8 @@ class Bitmap extends CanvasElement {
         this.context.translate(-this.width * 0.5, -this.height * 0.5);
 
         this.context.drawImage(this._image, 0, 0);
+
+        return this;
     }
 
 }
