@@ -54,6 +54,6 @@ interface IDataStore extends IEventDispatcher
     /**
      * @method load
      */
-    load():void;
+    load():any;
 
 }

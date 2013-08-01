@@ -25,8 +25,8 @@
 ///<reference path='Cursor'/>
 ///<reference path='PositionUtil'/>
 
-class DragDealer {
-
+class DragDealer
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -63,23 +63,24 @@ class DragDealer {
 
     constructor(wrapper:any, options?:any)
     {
-        if(typeof(wrapper) == 'string')
+        if (typeof(wrapper) == 'string')
         {
             wrapper = document.getElementById(wrapper);
         }
-        if(!wrapper)
+        if (!wrapper)
         {
             return;
         }
         var handle = wrapper.getElementsByTagName('div')[0];
-        if(!handle || handle.className.search(/(^|\s)handle(\s|$)/) == -1)
+        if (!handle || handle.className.search(/(^|\s)handle(\s|$)/) == -1)
         {
             return;
         }
         this.init(wrapper, handle, options || {});
         this.setup();
-    };
+    }
 
+;
 
 
     public init(wrapper, handle, options)
@@ -126,7 +127,8 @@ class DragDealer {
         this.dragging = false;
         this.tapping = false;
     }
-   getOption(name, defaultValue)
+
+    getOption(name, defaultValue)
     {
         return this.options[name] !== undefined ? this.options[name] : defaultValue;
     }
@@ -148,12 +150,12 @@ class DragDealer {
 
     setBoundsPadding()
     {
-        if(!this.bounds.left && !this.bounds.right)
+        if (!this.bounds.left && !this.bounds.right)
         {
             this.bounds.left = PositionUtil.get(this.handle)[0] - this.offset.wrapper[0];
             this.bounds.right = -this.bounds.left;
         }
-        if(!this.bounds.top && !this.bounds.bottom)
+        if (!this.bounds.top && !this.bounds.bottom)
         {
             this.bounds.top = PositionUtil.get(this.handle)[1] - this.offset.wrapper[1];
             this.bounds.bottom = -this.bounds.top;
@@ -176,10 +178,10 @@ class DragDealer {
 
     setSteps()
     {
-        if(this.steps > 1)
+        if (this.steps > 1)
         {
             this.stepRatios = [];
-            for(var i = 0; i <= this.steps - 1; i++)
+            for (var i = 0; i <= this.steps - 1; i++)
             {
                 this.stepRatios[i] = i / (this.steps - 1);
             }
@@ -190,22 +192,24 @@ class DragDealer {
     {
         var self = this;
 
-        this.wrapper.onselectstart = function()
+        this.wrapper.onselectstart = function ()
         {
             return false;
         }
-        this.handle.onmousedown = this.handle.ontouchstart = function(e)
+        this.handle.onmousedown = this.handle.ontouchstart = function (e)
         {
             console.log("handle.onmousedown")
             self.handleDownHandler(e);
         };
-        this.wrapper.onmousedown = this.wrapper.ontouchstart = function(e)
+        this.wrapper.onmousedown = this.wrapper.ontouchstart = function (e)
         {
             console.log("wrapper.onmousedown")
             self.wrapperDownHandler(e);
         };
-        var mouseUpHandler = document.onmouseup || function(){};
-        document.onmouseup = function(e)
+        var mouseUpHandler = document.onmouseup || function ()
+        {
+        };
+        document.onmouseup = function (e)
         {
             console.log("document.onmouseup")
             mouseUpHandler(e);
@@ -217,25 +221,30 @@ class DragDealer {
 //            touchEndHandler(e);
 //            self.documentUpHandler(e);
 //        };
-        var resizeHandler = window.onresize || function(){};
-        window.onresize = function(e)
+        var resizeHandler = window.onresize || function ()
+        {
+        };
+        window.onresize = function (e)
         {
             console.log("window.onresize")
             resizeHandler(e);
             self.documentResizeHandler(e);
         };
-        this.wrapper.onmousemove = function(e)
+        this.wrapper.onmousemove = function (e)
         {
             console.log("wrapper.onmousemove")
             self.activity = true;
         }
-        this.wrapper.onclick = function(e)
+        this.wrapper.onclick = function (e)
         {
             console.log("wrapper.onclick")
             return !self.activity;
         }
 
-        this.interval = setInterval(function(){ self.animate() }, 25);
+        this.interval = setInterval(function ()
+        {
+            self.animate()
+        }, 25);
         self.animate(false, true);
     }
 
@@ -296,7 +305,7 @@ class DragDealer {
     setValue(x, y, snap)
     {
         this.setTargetValue([x, y || 0]);
-        if(snap)
+        if (snap)
         {
             this.groupCopy(this.value.current, this.value.target);
         }
@@ -304,13 +313,13 @@ class DragDealer {
 
     startTap(target?)
     {
-        if(this.disabled)
+        if (this.disabled)
         {
             return;
         }
         this.tapping = true;
 
-        if(target === undefined)
+        if (target === undefined)
         {
             target = [
                 Cursor.x - this.offset.wrapper[0] - (this.handle.offsetWidth / 2),
@@ -322,7 +331,7 @@ class DragDealer {
 
     stopTap()
     {
-        if(this.disabled || !this.tapping)
+        if (this.disabled || !this.tapping)
         {
             return;
         }
@@ -334,7 +343,7 @@ class DragDealer {
 
     startDrag()
     {
-        if(this.disabled)
+        if (this.disabled)
         {
             return;
         }
@@ -351,14 +360,14 @@ class DragDealer {
 
     stopDrag()
     {
-        if(this.disabled || !this.dragging)
+        if (this.disabled || !this.dragging)
         {
             return;
         }
         this.dragging = false;
 
         var target = this.groupClone(this.value.current);
-        if(this.slide)
+        if (this.slide)
         {
             var ratioChange = this.change;
             target[0] += ratioChange[0] * 4;
@@ -371,13 +380,13 @@ class DragDealer {
     feedback()
     {
         var value = this.value.current;
-        if(this.snap && this.steps > 1)
+        if (this.snap && this.steps > 1)
         {
             value = this.getClosestSteps(value);
         }
-        if(!this.groupCompare(value, this.value.prev))
+        if (!this.groupCompare(value, this.value.prev))
         {
-            if(typeof(this.animationCallback) == 'function')
+            if (typeof(this.animationCallback) == 'function')
             {
                 this.animationCallback(value[0], value[1]);
             }
@@ -387,7 +396,7 @@ class DragDealer {
 
     result()
     {
-        if(typeof(this.callback) == 'function')
+        if (typeof(this.callback) == 'function')
         {
             this.callback(this.value.target[0], this.value.target[1]);
         }
@@ -395,11 +404,11 @@ class DragDealer {
 
     animate(direct?, first?)
     {
-        if(direct && !this.dragging)
+        if (direct && !this.dragging)
         {
             return;
         }
-        if(this.dragging)
+        if (this.dragging)
         {
             var prevTarget = this.groupClone(this.value.target);
 
@@ -414,11 +423,11 @@ class DragDealer {
                 this.value.target[1] - prevTarget[1]
             ];
         }
-        if(this.dragging || first)
+        if (this.dragging || first)
         {
             this.groupCopy(this.value.current, this.value.target);
         }
-        if(this.dragging || this.glide() || first)
+        if (this.dragging || this.glide() || first)
         {
             this.update();
             this.feedback();
@@ -431,11 +440,11 @@ class DragDealer {
             this.value.target[0] - this.value.current[0],
             this.value.target[1] - this.value.current[1]
         ];
-        if(!diff[0] && !diff[1])
+        if (!diff[0] && !diff[1])
         {
             return false;
         }
-        if(Math.abs(diff[0]) > this.bounds.xStep || Math.abs(diff[1]) > this.bounds.yStep)
+        if (Math.abs(diff[0]) > this.bounds.xStep || Math.abs(diff[1]) > this.bounds.yStep)
         {
             this.value.current[0] += diff[0] * this.speed;
             this.value.current[1] += diff[1] * this.speed;
@@ -449,7 +458,7 @@ class DragDealer {
 
     update()
     {
-        if(!this.snap)
+        if (!this.snap)
         {
             this.offset.current = this.getOffsetsByRatios(this.value.current);
         }
@@ -464,13 +473,13 @@ class DragDealer {
 
     show()
     {
-        if(!this.groupCompare(this.offset.current, this.offset.prev))
+        if (!this.groupCompare(this.offset.current, this.offset.prev))
         {
-            if(this.horizontal)
+            if (this.horizontal)
             {
                 this.handle.style.left = String(this.offset.current[0]) + 'px';
             }
-            if(this.vertical)
+            if (this.vertical)
             {
                 this.handle.style.top = String(this.offset.current[1]) + 'px';
             }
@@ -513,9 +522,9 @@ class DragDealer {
         proper[0] = Math.min(proper[0], 1);
         proper[1] = Math.min(proper[1], 1);
 
-        if((!this.dragging && !this.tapping) || this.snap)
+        if ((!this.dragging && !this.tapping) || this.snap)
         {
-            if(this.steps > 1)
+            if (this.steps > 1)
             {
                 proper = this.getClosestSteps(proper);
             }
@@ -561,9 +570,9 @@ class DragDealer {
     {
         var k = 0;
         var min = 1;
-        for(var i = 0; i <= this.steps - 1; i++)
+        for (var i = 0; i <= this.steps - 1; i++)
         {
-            if(Math.abs(this.stepRatios[i] - value) < min)
+            if (Math.abs(this.stepRatios[i] - value) < min)
             {
                 min = Math.abs(this.stepRatios[i] - value);
                 k = i;
@@ -590,17 +599,17 @@ class DragDealer {
 
     preventDefaults(e, selection)
     {
-        if(!e)
+        if (!e)
         {
             e = window.event;
         }
-        if(e.preventDefault)
+        if (e.preventDefault)
         {
             e.preventDefault();
         }
         e.returnValue = false;
 
-        if(selection && document.selection)
+        if (selection && document.selection)
         {
             document.selection.empty();
         }
@@ -608,11 +617,11 @@ class DragDealer {
 
     cancelEvent(e)
     {
-        if(!e)
+        if (!e)
         {
             e = window.event;
         }
-        if(e.stopPropagation)
+        if (e.stopPropagation)
         {
             e.stopPropagation();
         }

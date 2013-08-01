@@ -53,11 +53,16 @@ interface ICore
     /**
      * @method enable
      */
-    enable():void;
+    enable():any;
 
     /**
      * @method disable
      */
-    disable():void;
+    disable():any;
+
+    /**
+     * @method destroy
+     */
+    destroy():void
 
 }

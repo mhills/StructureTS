@@ -24,8 +24,8 @@
 
 ///<reference path='BaseRequest'/>
 
-class JsonRequest extends BaseRequest {
-
+class JsonRequest extends BaseRequest
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -33,7 +33,7 @@ class JsonRequest extends BaseRequest {
 
     constructor()
     {
-        super("asdf");
+        super("");
     }
 }
 

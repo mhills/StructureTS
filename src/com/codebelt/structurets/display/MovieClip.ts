@@ -25,8 +25,8 @@
 ///<reference path='CanvasElement.ts'/>
 ///<reference path='../utils/NumberUtil.ts'/>
 
-class MovieClip extends CanvasElement {
-
+class MovieClip extends CanvasElement
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -46,16 +46,14 @@ class MovieClip extends CanvasElement {
         this.height = this._image.height;
     }
 
-    public createChildren():void
-    {
-        super.createChildren();
-    }
-
     public render():void
     {
-        if (this.currentFrame >= this.totalFrames) {
+        if (this.currentFrame >= this.totalFrames)
+        {
             this.currentFrame = 0;
-        } else {
+        }
+        else
+        {
             this.currentFrame++;
         }
     }

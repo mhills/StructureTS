@@ -35,13 +35,12 @@
  * @param cancelable {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
  * @param nativeEvent {any} The native browser event for localStorage.
  * @extends BaseEvent
- * @requires ICore
  * @module StructureTS
  * @submodule event
  * @constructor
  **/
-class LocalStorageEvent extends BaseEvent {
-
+class LocalStorageEvent extends BaseEvent
+{
     /**
      * @copy ValueObject.CLASS_NAME
      */
@@ -89,10 +88,12 @@ class LocalStorageEvent extends BaseEvent {
     public url:string;
 
 
-    constructor(type:string, bubbles:boolean, cancelable:boolean, nativeEvent:StorageEvent) {
+    constructor(type:string, bubbles:boolean, cancelable:boolean, nativeEvent:StorageEvent)
+    {
         super(type, bubbles, cancelable, nativeEvent);
 
-        if (nativeEvent) {
+        if (nativeEvent)
+        {
             this.key = nativeEvent.key;
             this.oldValue = nativeEvent.oldValue;
             this.newValue = nativeEvent.newValue;

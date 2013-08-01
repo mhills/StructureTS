@@ -24,8 +24,8 @@
 
 ///<reference path=''/>
 
-class Cursor {
-
+class Cursor
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -43,8 +43,10 @@ class Cursor {
     public setEvent(type):void
     {
         var self = this;
-        var moveHandler = document['on' + type + 'move'] || function(){};
-        document['on' + type + 'move'] = function(event)
+        var moveHandler = document['on' + type + 'move'] || function ()
+        {
+        };
+        document['on' + type + 'move'] = function (event)
         {
             moveHandler(event);
             Cursor.refresh(event);
@@ -53,15 +55,15 @@ class Cursor {
 
     public static refresh(event):void
     {
-        if(!event)
+        if (!event)
         {
             event = window.event;
         }
-        if(event.type == 'mousemove')
+        if (event.type == 'mousemove')
         {
             this.set(event);
         }
-        else if(event.touches)
+        else if (event.touches)
         {
             this.set(event.touches[0]);
         }
@@ -69,12 +71,12 @@ class Cursor {
 
     public static set(event):void
     {
-        if(event.pageX || event.pageY)
+        if (event.pageX || event.pageY)
         {
             this.x = event.pageX;
             this.y = event.pageY;
         }
-        else if(event.clientX || event.clientY)
+        else if (event.clientX || event.clientY)
         {
             this.x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
             this.y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop;

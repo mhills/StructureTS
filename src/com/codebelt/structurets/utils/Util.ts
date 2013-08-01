@@ -32,8 +32,8 @@
  * @submodule util
  * @constructor
  **/
-class Util {
-
+class Util
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -48,7 +48,9 @@ class Util {
      */
     private static _idCounter:number = 0;
 
-    constructor() {}
+    constructor()
+    {
+    }
 
     /**
      * Generates a unique ID. If prefix is passed, the ID will be appended to it.
@@ -60,9 +62,12 @@ class Util {
     {
         var id:number = ++Util._idCounter;
 
-        if (prefix != null) {
+        if (prefix != null)
+        {
             return String(prefix + id);
-        } else {
+        }
+        else
+        {
             return id;
         }
     }

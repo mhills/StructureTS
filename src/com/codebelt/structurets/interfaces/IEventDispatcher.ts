@@ -44,16 +44,16 @@ interface IEventDispatcher extends ICore
     /**
      * @method addEventListener
      */
-    addEventListener(type:string, func:Function, scope:any, priority?:number);
+    addEventListener(type:string, func:Function, scope:any, priority?:number):any;
 
     /**
      * @method removeEventListener
      */
-    removeEventListener(type:string, func:Function, scope:any);
+    removeEventListener(type:string, func:Function, scope:any):any;
 
     /**
      * @method dispatchEvent
      */
-    dispatchEvent(event:BaseEvent);
+    dispatchEvent(event:BaseEvent):any;
 
 }

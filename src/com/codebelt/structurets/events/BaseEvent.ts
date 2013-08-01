@@ -22,8 +22,6 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../BaseObject.ts'/>
-///<reference path='../interfaces/ICore.ts'/>
 
 /**
  * <p>The {{#crossLink "BaseEvent"}}{{/crossLink}} class is used as the base class for the creation of Event objects, which are passed as parameters to event listeners when an event occurs.</p>
@@ -38,14 +36,12 @@
  * Note: Bubbling will only work with DisplayObject classes throw the display list hierarchy. Any classes that do not have a parent cannot bubble.
  * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
  * @param [data=null] {any}
- * @extends BaseObject
- * @requires ICore
  * @module StructureTS
  * @submodule event
  * @constructor
  **/
-class BaseEvent extends BaseObject implements ICore {
-
+class BaseEvent
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -352,8 +348,8 @@ class BaseEvent extends BaseObject implements ICore {
      */
     public isImmediatePropagationStopped:boolean = false;
 
-    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null) {
-        super();
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
+    {
 
         this.type = type;
         this.bubble = bubbles;
@@ -369,7 +365,8 @@ class BaseEvent extends BaseObject implements ICore {
      *
      * @method stopPropagation
      */
-    stopPropagation():void {
+        stopPropagation():void
+    {
         this.isPropagationStopped = true;
     }
 
@@ -380,7 +377,8 @@ class BaseEvent extends BaseObject implements ICore {
      *
      * @method stopImmediatePropagation
      */
-    stopImmediatePropagation():void {
+        stopImmediatePropagation():void
+    {
         this.stopPropagation();
         this.isImmediatePropagationStopped = true;
     }

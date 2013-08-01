@@ -24,7 +24,6 @@
 
 ///<reference path='../BaseObject.ts'/>
 ///<reference path='BaseEvent.ts'/>
-///<reference path='../interfaces/IEventDispatcher.ts'/>
 
 /**
  * The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the DisplayObject class.
@@ -38,7 +37,7 @@
  * @submodule event
  * @constructor
  **/
-class EventDispatcher extends BaseObject implements IEventDispatcher
+class EventDispatcher extends BaseObject
 {
     /**
      * @copy BaseObject.CLASS_NAME
@@ -52,7 +51,7 @@ class EventDispatcher extends BaseObject implements IEventDispatcher
      * @type {array}
      * @private
      */
-     private _listeners:any[] = null;
+    private _listeners:any[] = null;
 
     /**
      * Indicates the object that contains child object. Use the parent property
@@ -84,20 +83,25 @@ class EventDispatcher extends BaseObject implements IEventDispatcher
      * @param scope {any} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
      * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
      */
-    public addEventListener(type:string, callback:Function, scope:any, priority:number=0):IEventDispatcher
+    public addEventListener(type:string, callback:Function, scope:any, priority:number = 0):EventDispatcher
     {
         var list = this._listeners[type];
-        if (list == null) {
+        if (list == null)
+        {
             this._listeners[type] = list = [];
         }
         var index:number = 0;
         var listener;
         var i:number = list.length;
-        while (--i > -1) {
+        while (--i > -1)
+        {
             listener = list[i];
-            if (listener.c === callback && listener.s === scope) {
+            if (listener.c === callback && listener.s === scope)
+            {
                 list.splice(i, 1);//If same callback and scope is found remove it. Then add the current one below.
-            } else if (index === 0 && listener.pr < priority) {
+            }
+            else if (index === 0 && listener.pr < priority)
+            {
                 index = i + 1;
             }
         }
@@ -119,13 +123,16 @@ class EventDispatcher extends BaseObject implements IEventDispatcher
      * @param scope {any} The scope of the listener object to be removed.
      * @hide This was added because it was need for the {{#crossLink "EventBroker"}}{{/crossLink}} class. To keep things consistent this parameter is required.
      */
-    public removeEventListener(type:string, callback:Function, scope:any):IEventDispatcher
+    public removeEventListener(type:string, callback:Function, scope:any):EventDispatcher
     {
         var list = this._listeners[type];
-        if (list) {
+        if (list)
+        {
             var i = list.length;
-            while (--i > -1) {
-                if (list[i].c === callback && list[i].s === scope) {
+            while (--i > -1)
+            {
+                if (list[i].c === callback && list[i].s === scope)
+                {
                     list.splice(i, 1);
                     break;
                 }
@@ -148,17 +155,20 @@ class EventDispatcher extends BaseObject implements IEventDispatcher
      * @param event {BaseEvent} The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
      * extend the {{#crossLink "BaseEvent"}}{{/crossLink}}.
      */
-    public dispatchEvent(event:BaseEvent):IEventDispatcher
+    public dispatchEvent(event:BaseEvent):EventDispatcher
     {
-        if (event.target == null) {
+        if (event.target == null)
+        {
             event.target = this;
         }
 
         var list = this._listeners[event.type];
-        if (list) {
+        if (list)
+        {
             var i:number = list.length;
             var listener:any;
-            while (--i > -1) {
+            while (--i > -1)
+            {
                 // If cancelable and isImmediatePropagationStopped are true then break out of the while loop.
                 if (event.cancelable && event.isImmediatePropagationStopped) break;
 
@@ -168,7 +178,8 @@ class EventDispatcher extends BaseObject implements IEventDispatcher
         }
 
         //Dispatches up the chain of classes that have a parent.
-        if (this.parent && event.bubble) {
+        if (this.parent && event.bubble)
+        {
             // If cancelable and isPropagationStopped are true then don't dispatch the event on the parent object.
             if (event.cancelable && event.isPropagationStopped) return this;
 

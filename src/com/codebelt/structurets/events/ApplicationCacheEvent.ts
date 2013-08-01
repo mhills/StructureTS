@@ -34,13 +34,12 @@
  * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
  * @param [data=null] {any}
  * @extends BaseEvent
- * @requires ICore
  * @module StructureTS
  * @submodule event
  * @constructor
  **/
-class ApplicationCacheEvent extends BaseEvent {
-
+class ApplicationCacheEvent extends BaseEvent
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -126,7 +125,8 @@ class ApplicationCacheEvent extends BaseEvent {
      */
     public static ERROR:string = 'error';
 
-    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null) {
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
+    {
         super(type, bubbles, cancelable, data);
     }
 

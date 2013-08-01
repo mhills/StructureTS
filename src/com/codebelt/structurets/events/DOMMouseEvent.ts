@@ -26,8 +26,8 @@
 //
 //    export
 
-class DOMMouseEvent {
-
+class DOMMouseEvent
+{
     static CLICK:string = "click";
 
     public pageX:number;
@@ -53,17 +53,56 @@ class DOMMouseEvent {
     }
 
 
-    public initMouseEvent(typeArg:string, canBubbleArg:boolean, cancelableArg:boolean, viewArg:AbstractView, detailArg:number, screenXArg:number, screenYArg:number, clientXArg:number, clientYArg:number, ctrlKeyArg:boolean, altKeyArg:boolean, shiftKeyArg:boolean, metaKeyArg:boolean, buttonArg:number, relatedTargetArg:EventTarget):void {
-
     public initMouseEvent(typeArg:string, canBubbleArg:boolean, cancelableArg:boolean, viewArg:AbstractView, detailArg:number, screenXArg:number, screenYArg:number, clientXArg:number, clientYArg:number, ctrlKeyArg:boolean, altKeyArg:boolean, shiftKeyArg:boolean, metaKeyArg:boolean, buttonArg:number, relatedTargetArg:EventTarget):void
     {
 
-    }
+    public
+        initMouseEvent(typeArg
+    :
+        string, canBubbleArg
+    :
+        boolean, cancelableArg
+    :
+        boolean, viewArg
+    :
+        AbstractView, detailArg
+    :
+        number, screenXArg
+    :
+        number, screenYArg
+    :
+        number, clientXArg
+    :
+        number, clientYArg
+    :
+        number, ctrlKeyArg
+    :
+        boolean, altKeyArg
+    :
+        boolean, shiftKeyArg
+    :
+        boolean, metaKeyArg
+    :
+        boolean, buttonArg
+    :
+        number, relatedTargetArg
+    :
+        EventTarget
+    ):
+        void
+        {
 
-    public getModifierState(keyArg:string):boolean
-    {
-        return false;
+        }
+
+    public
+        getModifierState(keyArg
+    :
+        string
+    ):
+        boolean
+        {
+            return false;
+        }
     }
-}
 
 //}

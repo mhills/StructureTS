@@ -35,8 +35,8 @@
  * @submodule net
  * @constructor
  **/
-class URLLoader extends EventDispatcher{
-
+class URLLoader extends EventDispatcher
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -75,11 +75,12 @@ class URLLoader extends EventDispatcher{
      */
     private _defer:Object = null;
 
-    constructor(request:URLRequest=null)
+    constructor(request:URLRequest = null)
     {
         super();
 
-        if (request) {
+        if (request)
+        {
             this.load(request);
         }
     }
@@ -90,16 +91,16 @@ class URLLoader extends EventDispatcher{
         var self:URLLoader = this;
 
         jQuery.ajax({
-           type: request.method,
-           url: request.url,
-           data: request.data,
-           contentType: request.contentType,
-           dataType: self.dataFormat,
-           beforeSend: self.onBeforeSend.bind(this),
-           success: self.onLoadSuccess.bind(this),
-           error: self.onLoadError.bind(this),
-           complete: self.onComplete.bind(this)
-         });
+            type: request.method,
+            url: request.url,
+            data: request.data,
+            contentType: request.contentType,
+            dataType: self.dataFormat,
+            beforeSend: self.onBeforeSend.bind(this),
+            success: self.onLoadSuccess.bind(this),
+            error: self.onLoadError.bind(this),
+            complete: self.onComplete.bind(this)
+        });
     }
 
     public onLoadSuccess():void
@@ -111,10 +112,12 @@ class URLLoader extends EventDispatcher{
     {
         //console.log("onBeforeSend", arguments);
     }
+
     public onLoadError():void
     {
         console.log("[URLLoader] - onLoadError", arguments);
     }
+
     public onComplete(data):void
     {
         this.ready = true;
@@ -123,7 +126,8 @@ class URLLoader extends EventDispatcher{
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
     }
 
-    public destroy():void {
+    public destroy():void
+    {
         this._defer = null;
         this.data = null;
     }

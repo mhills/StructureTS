@@ -31,8 +31,8 @@
  * @submodule net
  * @constructor
  **/
-class URLRequestMethod {
-
+class URLRequestMethod
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */

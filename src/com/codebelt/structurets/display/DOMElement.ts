@@ -25,8 +25,6 @@
 ///<reference path='DisplayObject.ts'/>
 ///<reference path='../events/BaseEvent.ts'/>
 ///<reference path='../utils/TemplateFactory.ts'/>
-///<reference path='../interfaces/IDOMElement.ts'/>
-///<reference path='../interfaces/IDOMElement.ts'/>
 
 /**
  * The {{#crossLink "DOMElement"}}{{/crossLink}} class is the base class for all objects that can be placed into the HTML DOM.
@@ -37,8 +35,8 @@
  * @submodule view
  * @constructor
  **/
-class DOMElement extends DisplayObject implements IDOMElement {
-
+class DOMElement extends DisplayObject
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -76,7 +74,8 @@ class DOMElement extends DisplayObject implements IDOMElement {
      */
     public $el:JQuery = null;
 
-    constructor(type:string = 'div', params:any = {}) {
+    constructor(type:string = 'div', params:any = {})
+    {
         super();
 
         this._node = type;
@@ -87,15 +86,19 @@ class DOMElement extends DisplayObject implements IDOMElement {
      * @copy DisplayObject.createChildren
      * @overridden
      */
-    public createChildren(template?:any, data?:any):IDOMElement {
-        if (typeof template === 'function') {
+    public createChildren(template?:any, data?:any):any
+    {
+        if (typeof template === 'function')
+        {
             Jaml.register(this.CLASS_NAME, template);
             this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
         }
-        else if (typeof template === 'string') {
+        else if (typeof template === 'string')
+        {
             this.$el = TemplateFactory.createTemplate(template, data);
         }
-        else if (this._node && !this.$el) {
+        else if (this._node && !this.$el)
+        {
             this.$el = jQuery("<" + this._node + "/>", this._options);
         }
 
@@ -110,13 +113,15 @@ class DOMElement extends DisplayObject implements IDOMElement {
      *      container.addChild(domElementInstance);
      * @method addChild
      * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
-     * @returns {IDisplayObject} Returns an instance of itself.
+     * @returns {DOMElement} Returns an instance of itself.
      * @overridden
      */
-    public addChild(child:IDOMElement):IDOMElement {
+    public addChild(child:DOMElement):any
+    {
         super.addChild(child);
 
-        if (!child.isCreated) {
+        if (!child.isCreated)
+        {
             child.createChildren();// Render the item before adding to the DOM
             child.isCreated = true;
         }
@@ -136,29 +141,33 @@ class DOMElement extends DisplayObject implements IDOMElement {
      * @copy DisplayObject.addChildAt
      * @overridden
      */
-    public addChildAt(child:IDOMElement, index:number):IDOMElement {
-        //TODO:test this out.
+    public addChildAt(child:DOMElement, index:number):any
+    {
         var children = this.$el.children();
         var length = children.length;
 
         // If the index passed in is less than 0 and greater than
         // the total number of children then place the item at the end.
-        if (index < 0 || index >= length) {
+        if (index < 0 || index >= length)
+        {
             this.addChild(child);
         }
         // Else get the child in the children array by the
         // index passed in and place the item before that child.
-        else {
-            child.parent = this;
-            if (!child.isCreated) {
+        else
+        {
+            if (!child.isCreated)
+            {
                 child.createChildren();// Render the item before adding to the DOM
                 child.isCreated = true;
             }
             child.layoutChildren();
-            jQuery(children.get(index)).before(child.$el);
 
-            // TODO: super addChildAt is not working how it should.
+            // Adds the child at a specific index but also will remove the child from another parent object if one exists.
             super.addChildAt(child, index);
+
+            // Adds the child before the a child already in the DOM.
+            jQuery(children.get(index)).before(child.$el);
         }
 
         return this;
@@ -175,30 +184,38 @@ class DOMElement extends DisplayObject implements IDOMElement {
      * @override
      * @public
      */
-    public getChild(selector:any):DOMElement {
-        var domElement:DOMElement;
+    public getChild(selector:any):DOMElement
+    {
+        var domElement:DOMElement = null;
 
         // If a selector is a number which should be the cid of the object then this will find the object with the same cid value in the children array.
-        if (typeof selector === 'number') {
-            domElement = <DOMElement>_.find(this.children, function (domElement) {
+        if (typeof selector === 'number')
+        {
+            domElement = <DOMElement>_.find(this.children, function (domElement)
+            {
                 return domElement.cid == selector;
             });
         }
         // Create and new DOMElement object from the found jQuery element.
-        else {
-            var jQueryElement:JQuery = this.$el.find(selector + ':first');// Gets the first match.
-            if (jQueryElement.length == 0) {
+        else
+        {
+            var jQueryElement:JQuery = this.$el.find(selector)
+                .first();// Gets the first match.
+            if (jQueryElement.length == 0)
+            {
                 throw new TypeError('[DOMElement] getChild(' + selector + ') Cannot find DOM $el');
             }
 
             // Loop through the children array to see if the cid found on the jQueryElement matches any in the children array.
             var cid:number = jQueryElement.data('cid');
-            domElement = <DOMElement>_.find(this.children, function (domElement) {
+            domElement = <DOMElement>_.find(this.children, function (domElement)
+            {
                 return domElement.cid == cid;
             });
 
             // Create a DOMElement from the jQueryElement.
-            if (!domElement) {
+            if (!domElement)
+            {
                 domElement = new DOMElement();
                 domElement.$el = jQueryElement;
                 domElement.$el.attr('data-cid', domElement.cid);
@@ -215,6 +232,11 @@ class DOMElement extends DisplayObject implements IDOMElement {
         return domElement;
     }
 
+    public getChildAt(index:number):DOMElement
+    {
+        return <DOMElement>super.getChildAt(index);
+    }
+
     /**
      * Gets all the HTML elements children of this object.
      *
@@ -223,17 +245,19 @@ class DOMElement extends DisplayObject implements IDOMElement {
      * @returns {Array} Returns a list of DOMElement's. It will grab all children HTML DOM elements of this object and will create a DOMElement for each DOM child.
      * If the 'data-cid' property exists is on an HTML element a DOMElement will not be create for that element because it will be assumed it already exists as a DOMElement.
      */
-    public getChildren(selector:string = ''):DOMElement[] {
+    public getChildren(selector:string = ''):DOMElement[]
+    {
         //TODO: Make sure the index of the children added is the same as the what is in the actual DOM.
         var $child:JQuery;
         var domElement:DOMElement;
-        var $list:JQuery = this.$el.children(selector || '');
+        var $list:JQuery = this.$el.children(selector);
 
-        //TODO: Make sure elements that are in this.children are not duplicated.
-        _.each($list, (item, index) => {
+        _.each($list, (item, index) =>
+        {
             $child = jQuery(item);
             // If the jQuery element already has cid data property then must be an existing DisplayObject (DOMElement).
-            if (!$child.data('cid')) {
+            if (!$child.data('cid'))
+            {
                 domElement = new DOMElement();
                 domElement.$el = $child;
                 domElement.$el.attr('data-cid', domElement.cid);
@@ -256,11 +280,12 @@ class DOMElement extends DisplayObject implements IDOMElement {
      *
      * @method removeChild
      * @param child {DOMElement} The DisplayObject instance to remove.
-     * @returns {IDisplayObject} Returns an instance of itself.
+     * @returns {DOMElement} Returns an instance of itself.
      * @override
      * @public
      */
-    public removeChild(child:IDOMElement):IDOMElement {
+    public removeChild(child:DOMElement):any
+    {
         child.$el.unbind();
         child.$el.remove();
 
@@ -275,11 +300,12 @@ class DOMElement extends DisplayObject implements IDOMElement {
      * references to the children exist.
      *
      * @method removeChildren
-     * @returns {IDisplayObject} Returns an instance of itself.
+     * @returns {DOMElement} Returns an instance of itself.
      * @override
      * @public
      */
-    public removeChildren():IDOMElement {
+    public removeChildren():any
+    {
         super.removeChildren();
 
         this.$el.empty();
@@ -290,7 +316,8 @@ class DOMElement extends DisplayObject implements IDOMElement {
     /**
      * @copy BaseObject.enable
      */
-    public enable():IDOMElement {
+    public enable():any
+    {
         if (this.isEnabled === true) return this;
 
         super.enable();
@@ -300,7 +327,8 @@ class DOMElement extends DisplayObject implements IDOMElement {
     /**
      * @copy BaseObject.disable
      */
-    public disable():IDOMElement {
+    public disable():any
+    {
         if (this.isEnabled === false) return this;
 
         super.disable();
@@ -310,7 +338,8 @@ class DOMElement extends DisplayObject implements IDOMElement {
     /**
      * @copy DisplayObject.layoutChildren
      */
-    public layoutChildren():IDOMElement {
+    public layoutChildren():any
+    {
 
         return this;
     }
@@ -322,9 +351,10 @@ class DOMElement extends DisplayObject implements IDOMElement {
      *
      * @method alpha
      * @param number
-     * @returns {IDisplayObject} Returns an instance of itself.
+     * @returns {DOMElement} Returns an instance of itself.
      */
-    public alpha(number):IDOMElement {
+    public alpha(number):any
+    {
         this.$el.css('opacity', number);
         return this;
     }
@@ -335,16 +365,20 @@ class DOMElement extends DisplayObject implements IDOMElement {
      * @param value
      * @returns {any}
      */
-    public visible(value:boolean):any {
-        if (value == false) {
+    public visible(value:boolean):any
+    {
+        if (value == false)
+        {
             this._isVisible = false;
             this.$el.hide();
         }
-        else if (value == true) {
+        else if (value == true)
+        {
             this._isVisible = true;
             this.$el.show();
         }
-        else if (value == undefined) {
+        else if (value == undefined)
+        {
             return this._isVisible;
         }
         return this;

@@ -31,8 +31,8 @@
  * @param [data] {any} Provide a way to update the value object upon initialization.
  * @constructor
  **/
-class LanguageConfigVO extends ValueObject {
-
+class LanguageConfigVO extends ValueObject
+{
     /**
      * @copy ValueObject.CLASS_NAME
      */
@@ -52,7 +52,7 @@ class LanguageConfigVO extends ValueObject {
      * @copy ValueObject.update
      * @overridden
      */
-    public update(data:any):ValueObject
+    public update(data:any):any
     {
         this.id = data.id;
         this.lang = data.lang;
@@ -66,8 +66,10 @@ class LanguageConfigVO extends ValueObject {
      * @copy ValueObject.copy
      * @overridden
      */
-    public copy():ValueObject {
+    public copy():LanguageConfigVO
+    {
         var data:IValueObject = super.copy();
         return new LanguageConfigVO(data);
     }
+
 }

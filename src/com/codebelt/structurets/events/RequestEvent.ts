@@ -28,12 +28,13 @@
  * The RequestEvent...
  *
  * @class RequestEvent
+ * @extends BaseEvent
  * @module StructureTS
  * @submodule event
  * @constructor
  **/
-class RequestEvent extends BaseEvent {
-
+class RequestEvent extends BaseEvent
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -46,7 +47,7 @@ class RequestEvent extends BaseEvent {
      * @type {string}
      * @static
      */
-    static SUCCESS:string = "RequestEvent.success";
+    public static SUCCESS:string = "RequestEvent.success";
 
     /**
      * YUIDoc_comment
@@ -55,7 +56,7 @@ class RequestEvent extends BaseEvent {
      * @type {string}
      * @static
      */
-    static ERROR:string = "RequestEvent.error";
+    public static ERROR:string = "RequestEvent.error";
 
     constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
     {

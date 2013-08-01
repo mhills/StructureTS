@@ -32,8 +32,8 @@
  * @submodule net
  * @constructor
  **/
-class URLLoaderDataFormat {
-
+class URLLoaderDataFormat
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */

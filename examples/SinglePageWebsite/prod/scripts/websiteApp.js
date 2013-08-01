@@ -51,19 +51,11 @@ var BaseObject = (function () {
     };
     return BaseObject;
 })();
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
-var BaseEvent = (function (_super) {
-    __extends(BaseEvent, _super);
+var BaseEvent = (function () {
     function BaseEvent(type, bubbles, cancelable, data) {
         if (typeof bubbles === "undefined") { bubbles = false; }
         if (typeof cancelable === "undefined") { cancelable = false; }
         if (typeof data === "undefined") { data = null; }
-        _super.call(this);
         this.CLASS_NAME = 'BaseEvent';
         this.type = null;
         this.target = null;
@@ -72,7 +64,6 @@ var BaseEvent = (function (_super) {
         this.cancelable = false;
         this.isPropagationStopped = false;
         this.isImmediatePropagationStopped = false;
-
         this.type = type;
         this.bubble = bubbles;
         this.cancelable = cancelable;
@@ -138,7 +129,13 @@ var BaseEvent = (function (_super) {
 
     BaseEvent.RESIZE = 'BaseEvent.resize';
     return BaseEvent;
-})(BaseObject);
+})();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 var EventDispatcher = (function (_super) {
     __extends(EventDispatcher, _super);
     function EventDispatcher() {
@@ -230,6 +227,8 @@ var DisplayObject = (function (_super) {
         this.isCreated = false;
         this.numChildren = 0;
         this.children = [];
+        this.unscaledWidth = 100;
+        this.unscaledHeight = 100;
     }
     DisplayObject.prototype.createChildren = function () {
         return this;
@@ -240,7 +239,20 @@ var DisplayObject = (function (_super) {
             child.parent.removeChild(child);
         }
 
-        this.children.unshift(child);
+        this.children.push(child);
+        this.numChildren = this.children.length;
+
+        child.parent = this;
+
+        return this;
+    };
+
+    DisplayObject.prototype.addChildAt = function (child, index) {
+        if (child.parent) {
+            child.parent.removeChild(child);
+        }
+
+        this.children.splice(index, 0, child);
         this.numChildren = this.children.length;
 
         child.parent = this;
@@ -271,14 +283,6 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.addChildAt = function (child, index) {
-        this.children.unshift(child);
-
-        this.numChildren = this.children.length;
-
-        return this;
-    };
-
     DisplayObject.prototype.getChild = function (child) {
         var index = this.children.indexOf(child);
 
@@ -287,6 +291,14 @@ var DisplayObject = (function (_super) {
 
     DisplayObject.prototype.getChildAt = function (index) {
         return this.children[index];
+    };
+
+    DisplayObject.prototype.setSize = function (unscaledWidth, unscaledHeight) {
+        this.unscaledWidth = unscaledWidth;
+        this.unscaledHeight = unscaledHeight;
+        this.layoutChildren();
+
+        return this;
     };
 
     DisplayObject.prototype.layoutChildren = function () {
@@ -417,29 +429,29 @@ var DOMElement = (function (_super) {
         if (index < 0 || index >= length) {
             this.addChild(child);
         } else {
-            child.parent = this;
             if (!child.isCreated) {
                 child.createChildren();
                 child.isCreated = true;
             }
             child.layoutChildren();
-            jQuery(children.get(index)).before(child.$el);
 
             _super.prototype.addChildAt.call(this, child, index);
+
+            jQuery(children.get(index)).before(child.$el);
         }
 
         return this;
     };
 
     DOMElement.prototype.getChild = function (selector) {
-        var domElement;
+        var domElement = null;
 
         if (typeof selector === 'number') {
             domElement = _.find(this.children, function (domElement) {
                 return domElement.cid == selector;
             });
         } else {
-            var jQueryElement = this.$el.find(selector + ':first');
+            var jQueryElement = this.$el.find(selector).first();
             if (jQueryElement.length == 0) {
                 throw new TypeError('[DOMElement] getChild(' + selector + ') Cannot find DOM $el');
             }
@@ -464,12 +476,16 @@ var DOMElement = (function (_super) {
         return domElement;
     };
 
+    DOMElement.prototype.getChildAt = function (index) {
+        return _super.prototype.getChildAt.call(this, index);
+    };
+
     DOMElement.prototype.getChildren = function (selector) {
         if (typeof selector === "undefined") { selector = ''; }
         var _this = this;
         var $child;
         var domElement;
-        var $list = this.$el.children(selector || '');
+        var $list = this.$el.children(selector);
 
         _.each($list, function (item, index) {
             $child = jQuery(item);
@@ -572,9 +588,19 @@ var Stage = (function (_super) {
         } else {
             this.disable();
         }
+
+        return this;
     };
     return Stage;
 })(DOMElement);
+var BaseController = (function (_super) {
+    __extends(BaseController, _super);
+    function BaseController() {
+        _super.call(this);
+        this.CLASS_NAME = 'BaseController';
+    }
+    return BaseController;
+})(EventDispatcher);
 var BrowserUtils = (function () {
     function BrowserUtils() {
     }
@@ -623,7 +649,7 @@ var RouterController = (function (_super) {
     RouterController.prototype.navigate = function (hash) {
     };
     return RouterController;
-})(BaseObject);
+})(BaseController);
 var LoaderEvent = (function (_super) {
     __extends(LoaderEvent, _super);
     function LoaderEvent(type, bubbles, cancelable, data) {
@@ -801,9 +827,11 @@ var URLLoader = (function (_super) {
 
     URLLoader.prototype.onBeforeSend = function () {
     };
+
     URLLoader.prototype.onLoadError = function () {
         console.log("[URLLoader] - onLoadError", arguments);
     };
+
     URLLoader.prototype.onComplete = function (data) {
         this.ready = true;
 
@@ -858,7 +886,7 @@ var BaseRequest = (function (_super) {
 var JsonRequest = (function (_super) {
     __extends(JsonRequest, _super);
     function JsonRequest() {
-        _super.call(this, "asdf");
+        _super.call(this, "");
         this.CLASS_NAME = 'JsonRequest';
     }
     return JsonRequest;
@@ -1089,7 +1117,7 @@ var LocalStorageController = (function (_super) {
     };
     LocalStorageController._instance = null;
     return LocalStorageController;
-})(EventDispatcher);
+})(BaseController);
 var LanguageEvent = (function (_super) {
     __extends(LanguageEvent, _super);
     function LanguageEvent(type, bubbles, cancelable, data) {

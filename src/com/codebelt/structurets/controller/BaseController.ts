@@ -33,14 +33,15 @@
  * @submodule controller
  * @constructor
  **/
-class BaseController extends EventDispatcher {
-
+class BaseController extends EventDispatcher
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'BaseController';
 
-    constructor() {
+    constructor()
+    {
         super();
     }
 

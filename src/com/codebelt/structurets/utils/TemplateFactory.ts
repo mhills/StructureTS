@@ -32,8 +32,8 @@
  * @submodule util
  * @constructor
  **/
-class TemplateFactory {
-
+class TemplateFactory
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -45,13 +45,15 @@ class TemplateFactory {
     public static templateEngine:string = TemplateFactory.HANDLEBARS;
     public static templateNamespace:string = 'JST';
 
-    constructor() {}
+    constructor()
+    {
+    }
 
     public static createTemplate(templatePath:string, data?:Object)
     {
         var template:string = TemplateFactory.create(templatePath, data);
 
-        return jQuery( template );
+        return jQuery(template);
     }
 
     public static createView(templatePath:string, data?:Object):DOMElement
@@ -59,7 +61,7 @@ class TemplateFactory {
         var template:string = TemplateFactory.create(templatePath, data);
 
         var view:DOMElement = new DOMElement();
-        view.$el = jQuery( template );
+        view.$el = jQuery(template);
         return view;
     }
 
@@ -71,24 +73,32 @@ class TemplateFactory {
         var isClassOrIdName:boolean = regex.test(templatePath);
 
 
-        if (isClassOrIdName) {
-            if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
+        if (isClassOrIdName)
+        {
+            if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE)
+            {
                 // Underscore Template:
-                var templateMethod:Function = _.template( $(templatePath).html() );
-                template = templateMethod(data);
-            } else {
-                // Handlebars Template
-                var templateMethod:Function = Handlebars.compile( $(templatePath).html() );
+                var templateMethod:Function = _.template($(templatePath).html());
                 template = templateMethod(data);
             }
-        } else {
+            else
+            {
+                // Handlebars Template
+                var templateMethod:Function = Handlebars.compile($(templatePath).html());
+                template = templateMethod(data);
+            }
+        }
+        else
+        {
             var templateObj:Object = window[TemplateFactory.templateNamespace];
-            if (!templateObj) {
+            if (!templateObj)
+            {
                 throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
             }
 
             var templateFunction:Function = templateObj[templatePath];
-            if (!templateFunction) {
+            if (!templateFunction)
+            {
                 throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
             }
 
@@ -97,7 +107,8 @@ class TemplateFactory {
             template = templateFunction(data);
         }
 
-        if (!template) {
+        if (!template)
+        {
             throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
         }
 

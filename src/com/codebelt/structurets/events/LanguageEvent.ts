@@ -28,12 +28,13 @@
  * The LanguageEvent...
  *
  * @class LanguageEvent
+ * @extends BaseEvent
  * @module StructureTS
  * @submodule event
  * @constructor
  **/
-class LanguageEvent extends BaseEvent {
-
+class LanguageEvent extends BaseEvent
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -46,7 +47,7 @@ class LanguageEvent extends BaseEvent {
      * @type {string}
      * @static
      */
-    static LANGUAGE_CHANGE:string = "LanguageEvent.languageChange";
+    public static LANGUAGE_CHANGE:string = "LanguageEvent.languageChange";
 
     constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
     {

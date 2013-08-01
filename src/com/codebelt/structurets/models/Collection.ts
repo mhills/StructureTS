@@ -36,8 +36,8 @@
  * @submodule model
  * @constructor
  **/
-class Collection extends EventDispatcher implements ICollection {
-
+class Collection extends EventDispatcher implements ICollection
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -63,7 +63,8 @@ class Collection extends EventDispatcher implements ICollection {
      */
     public length:number = 0;
 
-    constructor() {
+    constructor()
+    {
         super();
 
         this._items = [];
@@ -78,17 +79,21 @@ class Collection extends EventDispatcher implements ICollection {
      * @param [silent=false] {boolean} If you'd like to prevent the event from being dispatched.
      * @public
      */
-    public addItem(item:IValueObject, silent:boolean = false):void {
-        if (!(item instanceof ValueObject)) {
+    public addItem(item:IValueObject, silent:boolean = false):void
+    {
+        if (!(item instanceof ValueObject))
+        {
             throw new TypeError('Item must be of the IValueObject type');
         }
 
-        if (!this.hasItem(item)) {
+        if (!this.hasItem(item))
+        {
             this._items.push(item);
             this.length = this._items.length;
         }
 
-        if (!silent) {
+        if (!silent)
+        {
             this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
         }
     }
@@ -103,19 +108,23 @@ class Collection extends EventDispatcher implements ICollection {
      * @public
      */
 
-    public removeItem(item:IValueObject, silent:boolean = false):void {
-        if (!(item instanceof ValueObject)) {
+    public removeItem(item:IValueObject, silent:boolean = false):void
+    {
+        if (!(item instanceof ValueObject))
+        {
             throw new TypeError('Item must be of the IValueObject type');
         }
 
-        if (!this.hasItem(item)) {
+        if (!this.hasItem(item))
+        {
             throw new Error('Collection does not have item ' + item);
         }
 
         this._items.splice(this._items.indexOf(item), 1);
         this.length = this._items.length;
 
-        if (!silent) {
+        if (!silent)
+        {
             this.dispatchEvent(new BaseEvent(BaseEvent.REMOVED));
         }
     }
@@ -128,13 +137,16 @@ class Collection extends EventDispatcher implements ICollection {
      * @param [silent=false] {boolean} If you'd like to prevent the event from being dispatched.
      * @public
      */
-    public removeItems(items:IValueObject[], silent:boolean = false):void {
+    public removeItems(items:IValueObject[], silent:boolean = false):void
+    {
         var len:number = items.length;
-        for (var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++)
+        {
             this.removeItem(items[i]);
         }
 
-        if (!silent) {
+        if (!silent)
+        {
             this.dispatchEvent(new BaseEvent(BaseEvent.REMOVED));
         }
     }
@@ -147,7 +159,8 @@ class Collection extends EventDispatcher implements ICollection {
      * @return {boolean}
      * @public
      */
-    public hasItem(items:IValueObject):boolean {
+    public hasItem(items:IValueObject):boolean
+    {
         return !this._items.indexOf(items);
     }
 
@@ -158,13 +171,16 @@ class Collection extends EventDispatcher implements ICollection {
      * @param items {IValueObject[]} List of items to add to the current collection.
      * @param [silent=false] {boolean} If you'd like to prevent the event from being dispatched.
      */
-    public addItems(items:IValueObject[], silent:boolean = false):void {
+    public addItems(items:IValueObject[], silent:boolean = false):void
+    {
         var len:number = items.length;
-        for (var i = 0; i < len; i++) {
+        for (var i = 0; i < len; i++)
+        {
             this.addItem(items[i]);
         }
 
-        if (!silent) {
+        if (!silent)
+        {
             this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
         }
     }
@@ -179,12 +195,15 @@ class Collection extends EventDispatcher implements ICollection {
      * @public
      *
      */
-    public getItemByIndex(index:number):IValueObject {
-        if (index < 0) {
+    public getItemByIndex(index:number):IValueObject
+    {
+        if (index < 0)
+        {
             index = 0;
         }
 
-        if (index >= this._items.length) {
+        if (index >= this._items.length)
+        {
             index = this._items.length - 1;
         }
 
@@ -199,7 +218,8 @@ class Collection extends EventDispatcher implements ICollection {
      * @param operation {Function} Operation to perform, provides 2 parameters element, and index
      * @public
      */
-    public forEach(operation:any):void {
+    public forEach(operation:any):void
+    {
 //        _.each(this._items, operation);
     }
 
@@ -210,7 +230,8 @@ class Collection extends EventDispatcher implements ICollection {
      * @method find
      * @public
      */
-    public find(properties:any):IValueObject[] {
+    public find(properties:any):IValueObject[]
+    {
         return _.where(this._items, properties);
     }
 
@@ -221,8 +242,9 @@ class Collection extends EventDispatcher implements ICollection {
      * @param sort {Function} Sort to use, provides 2 users
      * @public
      */
-    //TODO: figure out to set the type to Function with out getting error: Type '(x: IValueObject) => boolean' requires a call signature, but type 'Function' lacks one.
-    public sort(sort:any):void {
+        //TODO: figure out to set the type to Function with out getting error: Type '(x: IValueObject) => boolean' requires a call signature, but type 'Function' lacks one.
+    public sort(sort:any):void
+    {
 //        this._items.sort(sort);
     }
 
@@ -234,13 +256,17 @@ class Collection extends EventDispatcher implements ICollection {
 
      * @public
      */
-    //TODO: figure out to set the type to Function with out getting error: Type '(x: IValueObject) => boolean' requires a call signature, but type 'Function' lacks one.
-    public filter(filter:any, removeItems:boolean = false):IValueObject[] {
-        if (removeItems) {
+        //TODO: figure out to set the type to Function with out getting error: Type '(x: IValueObject) => boolean' requires a call signature, but type 'Function' lacks one.
+    public filter(filter:any, removeItems:boolean = false):IValueObject[]
+    {
+        if (removeItems)
+        {
 //            _.filter(this._items, filter);
 //            this.length = this._items.length;
 //            return this._items;
-        } else {
+        }
+        else
+        {
 //            var collection:ICollection = this.copy();
 //            collection.filter(filter, true);
 //            _.filter(collection._items, filter);
@@ -255,7 +281,8 @@ class Collection extends EventDispatcher implements ICollection {
      * @method map
      * @param {Function} map Operation to perform, provides 2 parameters element, and index
      */
-    public map(map:any) {
+    public map(map:any)
+    {
 //        this._items = _.map(this._items, map);
     }
 
@@ -275,7 +302,8 @@ class Collection extends EventDispatcher implements ICollection {
      * @method copy
      * @public
      */
-    public copy():ICollection {
+    public copy():ICollection
+    {
         var collection:ICollection = new Collection();
         collection.addItems(this._items.slice(0));
         return collection;
@@ -288,11 +316,13 @@ class Collection extends EventDispatcher implements ICollection {
      * @param [silent=false] {boolean} If you'd like to prevent the event from being dispatched.
      * @public
      */
-    public clear(silent:boolean = false):void {
+    public clear(silent:boolean = false):void
+    {
         this._items = [];
         this.length = 0;
 
-        if (!silent) {
+        if (!silent)
+        {
             this.dispatchEvent(new BaseEvent(BaseEvent.CLEAR));
         }
     }
@@ -301,7 +331,8 @@ class Collection extends EventDispatcher implements ICollection {
      * @copy BaseObject.destroy
      * @overridden
      */
-    public destroy():void {
+    public destroy():void
+    {
         this._items = null;
         this.length = null;
 

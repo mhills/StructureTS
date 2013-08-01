@@ -34,8 +34,8 @@
  * @submodule util
  * @constructor
  **/
-class ImageLoader extends EventDispatcher implements IDataStore {
-
+class ImageLoader extends EventDispatcher implements IDataStore
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -55,7 +55,8 @@ class ImageLoader extends EventDispatcher implements IDataStore {
 
         var self = this;
         this._image = new Image();
-        this._image.onload = function() {
+        this._image.onload = function ()
+        {
             self.onImageLoad();
         }
     }

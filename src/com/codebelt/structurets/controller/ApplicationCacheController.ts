@@ -33,8 +33,8 @@
  * @submodule controller
  * @constructor
  **/
-class ApplicationCacheController {
-
+class ApplicationCacheController
+{
     /**
      * @copy EventDispatcher.CLASS_NAME
      */
@@ -69,13 +69,16 @@ class ApplicationCacheController {
      */
     public static isEnabled:boolean = false;
 
-    constructor(){}
+    constructor()
+    {
+    }
 
     /**
      * @copy BaseObject.enable
      * @overridden
      */
-    public static enable():void {
+    public static enable():void
+    {
         if (ApplicationCacheController._appCache && ApplicationCacheController.isEnabled === true) return;
 
         // Native Browser Event Listener
@@ -95,7 +98,8 @@ class ApplicationCacheController {
      * @copy BaseObject.disable
      * @overridden
      */
-    public static disable():void {
+    public static disable():void
+    {
         if (ApplicationCacheController._appCache && ApplicationCacheController.isEnabled === false) return;
 
         ApplicationCacheController._appCache.removeEventListener(ApplicationCacheEvent.CACHED, ApplicationCacheController.onCached.bind(this), false);
@@ -110,12 +114,15 @@ class ApplicationCacheController {
         ApplicationCacheController.isEnabled = true;
     }
 
-    public static update() {
+    public static update()
+    {
         ApplicationCacheController._appCache.update();
     }
 
-    public static getStatus():string {
-        switch (ApplicationCacheController._appCache.status) {
+    public static getStatus():string
+    {
+        switch (ApplicationCacheController._appCache.status)
+        {
             case ApplicationCacheController._appCache.UNCACHED:    // UNCACHED == 0
                 return 'UNCACHED';
                 break;
@@ -149,7 +156,8 @@ class ApplicationCacheController {
      * @private
      * @static
      */
-    private static onCached(event) {
+    private static onCached(event)
+    {
         //console.log('[ApplicationCacheController]', 'ApplicationCacheEvent:',ApplicationCacheEvent.CACHED, event);
         ApplicationCacheController.dispatchEvent(new ApplicationCacheEvent(ApplicationCacheEvent.CACHED, false, false, event));
     }
@@ -164,7 +172,8 @@ class ApplicationCacheController {
      * @private
      * @static
      */
-    private static onChecking(event) {
+    private static onChecking(event)
+    {
         //console.log('[ApplicationCacheController]', 'ApplicationCacheEvent:',ApplicationCacheEvent.CHECKING, event);
         ApplicationCacheController.dispatchEvent(new ApplicationCacheEvent(ApplicationCacheEvent.CHECKING, false, false, event));
     }
@@ -178,7 +187,8 @@ class ApplicationCacheController {
      * @private
      * @static
      */
-    private static onDownloading(event) {
+    private static onDownloading(event)
+    {
         //console.log('[ApplicationCacheController]', 'ApplicationCacheEvent:',ApplicationCacheEvent.DOWNLOADING, event);
         ApplicationCacheController.dispatchEvent(new ApplicationCacheEvent(ApplicationCacheEvent.DOWNLOADING, false, false, event));
     }
@@ -192,7 +202,8 @@ class ApplicationCacheController {
      * @private
      * @static
      */
-    private static onError(event) {
+    private static onError(event)
+    {
         //console.log('[ApplicationCacheController]', 'ApplicationCacheEvent:',ApplicationCacheEvent.ERROR, event);
         ApplicationCacheController.dispatchEvent(new ApplicationCacheEvent(ApplicationCacheEvent.ERROR, false, false, event));
     }
@@ -205,7 +216,8 @@ class ApplicationCacheController {
      * @private
      * @static
      */
-    private static onNoUpdate(event) {
+    private static onNoUpdate(event)
+    {
         //console.log('[ApplicationCacheController]', 'ApplicationCacheEvent:',ApplicationCacheEvent.NO_UPDATE, event);
         ApplicationCacheController.dispatchEvent(new ApplicationCacheEvent(ApplicationCacheEvent.NO_UPDATE, false, false, event));
     }
@@ -219,7 +231,8 @@ class ApplicationCacheController {
      * @private
      * @static
      */
-    private static onObsolete(event) {
+    private static onObsolete(event)
+    {
         //console.log('[ApplicationCacheController]', 'ApplicationCacheEvent:',ApplicationCacheEvent.OBSOLETE, event);
         ApplicationCacheController.dispatchEvent(new ApplicationCacheEvent(ApplicationCacheEvent.OBSOLETE, false, false, event));
     }
@@ -233,7 +246,8 @@ class ApplicationCacheController {
      * @private
      * @static
      */
-    private static onProgress(event) {
+    private static onProgress(event)
+    {
         //console.log('[ApplicationCacheController]', 'ApplicationCacheEvent:',ApplicationCacheEvent.PROGRESS, event);
         ApplicationCacheController.dispatchEvent(new ApplicationCacheEvent(ApplicationCacheEvent.PROGRESS, false, false, event));
     }
@@ -247,7 +261,8 @@ class ApplicationCacheController {
      * @private
      * @static
      */
-    private static onUpdateReady(event) {
+    private static onUpdateReady(event)
+    {
         //console.log('[ApplicationCacheController]', 'ApplicationCacheEvent:',ApplicationCacheEvent.UPDATE_READY, event);
         ApplicationCacheController.dispatchEvent(new ApplicationCacheEvent(ApplicationCacheEvent.UPDATE_READY, false, false, event));
     }
@@ -266,7 +281,7 @@ class ApplicationCacheController {
      * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
      * @static
      */
-    public static addEventListener(type:string, callback:Function, scope:any, priority:number=0):any
+    public static addEventListener(type:string, callback:Function, scope:any, priority:number = 0):any
     {
         ApplicationCacheController._eventDispatcher.addEventListener(type, callback, scope, priority);
     }

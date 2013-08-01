@@ -1,5 +1,3 @@
-///<reference path='_declare/greensock.d.ts'/>
-
 ///<reference path='../../../../src/com/codebelt/structurets/display/Canvas.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Bitmap.ts'/>

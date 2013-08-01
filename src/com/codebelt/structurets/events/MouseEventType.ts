@@ -30,8 +30,8 @@
  * @submodule event
  * @static
  **/
-class MouseEventType {
-
+class MouseEventType
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */

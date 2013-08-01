@@ -53,22 +53,22 @@ interface ICollection
     /**
      * @method addItem
      */
-    addItem(item:IValueObject):void;
+    addItem(item:IValueObject):any;
 
     /**
      * @method addItems
      */
-    addItems(items:IValueObject[]):void
+    addItems(items:IValueObject[]):any
 
     /**
      * @method removeItem
      */
-    removeItem(item:IValueObject):void
+    removeItem(item:IValueObject):any
 
     /**
      * @method removeItems
      */
-    removeItems(items:IValueObject[]):void
+    removeItems(items:IValueObject[]):any
 
     /**
      * @method hasItem
@@ -83,7 +83,7 @@ interface ICollection
     /**
      * @method forEach
      */
-    forEach(operation:Function):void
+    forEach(operation:Function):any
 
     /**
      * @method find
@@ -93,10 +93,10 @@ interface ICollection
     /**
      * @method sort
      */
-    sort(sort:Function):void
+    sort(sort:Function):any
 
     /**
      * @method filter
      */
-    filter(filter:Function):void
+    filter(filter:Function):any
 }

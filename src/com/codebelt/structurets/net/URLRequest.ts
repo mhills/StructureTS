@@ -34,8 +34,8 @@
  * @submodule net
  * @constructor
  **/
-class URLRequest extends BaseObject {
-
+class URLRequest extends BaseObject
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */

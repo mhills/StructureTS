@@ -31,36 +31,44 @@
  * @submodule util
  * @constructor
  **/
-class MobileUtil {
-
+class MobileUtil
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
     public static CLASS_NAME:string = 'MobileUtil';
 
-    constructor() {}
+    constructor()
+    {
+    }
 
-    public static isAndroid():boolean {
+    public static isAndroid():boolean
+    {
         return !!navigator.userAgent.match(/Android/i);
     }
 
-    public static isBlackBerry():boolean {
-        return !!navigator.userAgent.match(/BlackBerry/i)|| navigator.userAgent.match(/BB10; Touch/);
+    public static isBlackBerry():boolean
+    {
+        return !!navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/BB10; Touch/);
     }
 
-    public static isiOS():boolean {
+    public static isiOS():boolean
+    {
         return !!navigator.userAgent.match(/iPhone|iPad|iPod/i);
     }
 
-    public static isOpera():boolean {
+    public static isOpera():boolean
+    {
         return !!navigator.userAgent.match(/Opera Mini/i);
     }
 
-    public static isWindows():boolean {
+    public static isWindows():boolean
+    {
         return !!navigator.userAgent.match(/IEMobile/i);
     }
 
-    public static isMobile():boolean {
+    public static isMobile():boolean
+    {
         return (MobileUtil.isAndroid() || MobileUtil.isBlackBerry() || MobileUtil.isiOS() || MobileUtil.isOpera() || MobileUtil.isWindows());
     }
 

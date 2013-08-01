@@ -37,8 +37,8 @@
  * @submodule util
  * @constructor
  **/
-class HtmlLoader extends EventDispatcher implements IDataStore {
-
+class HtmlLoader extends EventDispatcher implements IDataStore
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */

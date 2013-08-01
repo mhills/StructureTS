@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../events/EventDispatcher.ts'/>
+///<reference path='BaseController'/>
 ///<reference path='../events/LocalStorageEvent.ts'/>
 
 /**
@@ -33,8 +33,8 @@
  * @submodule controller
  * @constructor
  **/
-class LocalStorageController extends EventDispatcher {
-
+class LocalStorageController extends BaseController
+{
     /**
      * @copy EventDispatcher.CLASS_NAME
      */
@@ -61,7 +61,8 @@ class LocalStorageController extends EventDispatcher {
 
     public static getInstance():LocalStorageController
     {
-        if(this._instance == null) {
+        if (this._instance == null)
+        {
             this._instance = new LocalStorageController();
         }
         return this._instance;
@@ -74,7 +75,8 @@ class LocalStorageController extends EventDispatcher {
      * @param namespace
      * @returns {string}
      */
-    public setNamespace(namespace:string):void {
+    public setNamespace(namespace:string):void
+    {
         this._namespace = namespace;
     }
 
@@ -84,7 +86,8 @@ class LocalStorageController extends EventDispatcher {
      * @method getNamespace
      * @returns {string}
      */
-    public getNamespace():string {
+    public getNamespace():string
+    {
         return this._namespace;
     }
 
@@ -96,17 +99,21 @@ class LocalStorageController extends EventDispatcher {
      * @param data {Object}
      * @param useNamespace {boolean}
      */
-    // TODO maybe make data a ValueObject instead of an Object.
+        // TODO maybe make data a ValueObject instead of an Object.
     public setItem(key:string, data:any, useNamespace:boolean = false):void
     {
-        if (useNamespace) {
+        if (useNamespace)
+        {
             key += this.getNamespace();
         }
 
-        if (data instanceof ValueObject) {
+        if (data instanceof ValueObject)
+        {
             data = <ValueObject>data.toJSON();
             console.log("in")
-        } else {
+        }
+        else
+        {
             data = JSON.stringify(data);
             console.log("out")
         }
@@ -124,12 +131,14 @@ class LocalStorageController extends EventDispatcher {
      */
     public getItem(key:string, useNamespace:boolean = false):string
     {
-        if (useNamespace) {
+        if (useNamespace)
+        {
             key += this.getNamespace();
         }
 
         var value = localStorage.getItem(key);
-        if (value) {
+        if (value)
+        {
             value = JSON.parse(value);
         }
 
@@ -145,7 +154,8 @@ class LocalStorageController extends EventDispatcher {
      */
     public removeItem(key:string, useNamespace:boolean = false):void
     {
-        if (useNamespace) {
+        if (useNamespace)
+        {
             key += this.getNamespace();
         }
 
@@ -158,7 +168,8 @@ class LocalStorageController extends EventDispatcher {
      * @method getSize
      * @returns {number}
      */
-    public getSize():number {
+    public getSize():number
+    {
         return encodeURIComponent(JSON.stringify(localStorage)).length;
     }
 
@@ -179,7 +190,8 @@ class LocalStorageController extends EventDispatcher {
      * @param event {StorageEvent} The native browser event for Web Storage.
      * @private
      */
-    private onLocalStorageEvent(event:StorageEvent) {
+    private onLocalStorageEvent(event:StorageEvent)
+    {
         this.dispatchEvent(new LocalStorageEvent(LocalStorageEvent.STORAGE, false, false, event));
     }
 

@@ -32,8 +32,8 @@
  * @submodule util
  * @constructor
  **/
-class DataLoader {
-
+class DataLoader
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */

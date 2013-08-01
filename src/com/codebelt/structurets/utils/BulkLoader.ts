@@ -34,8 +34,8 @@
  * @submodule util
  * @constructor
  **/
-class BulkLoader extends EventDispatcher {
-
+class BulkLoader extends EventDispatcher
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -53,7 +53,8 @@ class BulkLoader extends EventDispatcher {
 
     public static getInstance():BulkLoader
     {
-        if(this._instance == null) {
+        if (this._instance == null)
+        {
             this._instance = new BulkLoader();
         }
         return this._instance;
@@ -77,7 +78,7 @@ class BulkLoader extends EventDispatcher {
     public getHtmlTemplate(key:string, templateId:string):string
     {
         //TODO: check if you need to change this to user the TemplateFactory
-        var rawHtml:string = jQuery( this._dataStores[key].data ).filter("#" + templateId).html();
+        var rawHtml:string = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
         return rawHtml;
     }
 
@@ -98,7 +99,8 @@ class BulkLoader extends EventDispatcher {
         for (var key in this._dataStores)
         {
             var dataStore:IDataStore = this._dataStores[key];
-            if(!dataStore.complete) {
+            if (!dataStore.complete)
+            {
                 return;
             }
         }

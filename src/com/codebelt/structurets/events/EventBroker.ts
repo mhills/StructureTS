@@ -33,8 +33,8 @@
  * @submodule event
  * @static
  **/
-class EventBroker {
-
+class EventBroker
+{
     /**
      * @copy EventDispatcher.CLASS_NAME
      */
@@ -49,7 +49,10 @@ class EventBroker {
      */
     private static _eventDispatcher:EventDispatcher = new EventDispatcher();
 
-    constructor() {}
+    constructor()
+    {
+        throw new Error('[EventBroker] Do instantiation the EventBroker class because it is a static class.');
+    }
 
     /**
      * Registers an event listener object with an EventBroker object so that the listener receives notification of an event.
@@ -65,7 +68,7 @@ class EventBroker {
      * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
      * @static
      */
-    public static addEventListener(type:string, callback:Function, scope:any, priority:number=0):any
+    public static addEventListener(type:string, callback:Function, scope:any, priority:number = 0):any
     {
         EventBroker._eventDispatcher.addEventListener(type, callback, scope, priority);
     }

@@ -32,14 +32,16 @@
  * @submodule util
  * @constructor
  **/
-class NumberUtil {
-
+class NumberUtil
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
     public static CLASS_NAME:string = 'NumberUtil';
 
-    constructor() {}
+    constructor()
+    {
+    }
 
     public static degreesToRadians(degrees:number):number
     {
@@ -70,6 +72,7 @@ class NumberUtil {
     {
         return feet / 3.2808;
     }
+
     //http://www.metric-conversions.org/length/inches-conversion.htm
 
 //    public static formatUnit(number:number, decimalPlacement:number = 2, decimalSeparator:string = '.', thousandsSeparator:string = ''):number

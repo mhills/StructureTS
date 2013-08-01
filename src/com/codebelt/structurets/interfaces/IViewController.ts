@@ -39,6 +39,6 @@ interface IViewController extends IDOMElement
      * @method update
      * @param ...rest {rest} The …rest parameter is an identifier that represents the name of the array of arguments passed in to the function. You can specify the data type of the … (rest) parameter as any[] (Array), but this could cause confusion because the parameter accepts a comma-delimited list of values, which is not identical to an instance of the array.
      */
-    update(...rest):IViewController;
+    update(...rest):any;
 
 }

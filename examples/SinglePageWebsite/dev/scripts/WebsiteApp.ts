@@ -1,4 +1,3 @@
-///<reference path='_declare/greensock.d.ts'/>
 ///<reference path='_declare/parse.d.ts'/>
 
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>

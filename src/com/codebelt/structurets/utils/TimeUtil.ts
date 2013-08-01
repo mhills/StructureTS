@@ -32,15 +32,16 @@
  * @submodule util
  * @constructor
  **/
-class TimeUtil {
-
+class TimeUtil
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'TimeUtil';
 
-    constructor() {}
-
+    constructor()
+    {
+    }
 
 
 //    public static STANDARD:number = 12;

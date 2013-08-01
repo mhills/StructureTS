@@ -34,8 +34,8 @@
  * @submodule model
  * @constructor
  **/
-class ValueObject extends BaseObject implements IValueObject {
-
+class ValueObject extends BaseObject implements IValueObject
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -45,7 +45,8 @@ class ValueObject extends BaseObject implements IValueObject {
     {
         super();
 
-        if (data) {
+        if (data)
+        {
             this.update(data);
         }
     }
@@ -56,7 +57,7 @@ class ValueObject extends BaseObject implements IValueObject {
      * @method update
      * @param data {any}
      */
-    public update(data:any):IValueObject
+    public update(data:any):any
     {
 
         return this;
@@ -79,7 +80,7 @@ class ValueObject extends BaseObject implements IValueObject {
      * @method fromJSON
      * @param json {string}
      */
-    public fromJSON(json:string):IValueObject
+    public fromJSON(json:string):any
     {
         var parsedData:any = JSON.parse(json);
         this.update(parsedData);
@@ -105,11 +106,14 @@ class ValueObject extends BaseObject implements IValueObject {
      * @method copy
      * @returns {IValueObject}
      */
-    public copy():IValueObject {
+    public copy():IValueObject
+    {
         var copy:Object = new Object();
 
-        for (var key in this) {
-            if (key !== 'isEnabled' && this.hasOwnProperty(key)) {
+        for (var key in this)
+        {
+            if (key !== 'isEnabled' && this.hasOwnProperty(key))
+            {
                 copy[key] = this[key];
             }
         }
@@ -118,29 +122,29 @@ class ValueObject extends BaseObject implements IValueObject {
     }
 
     /*public set(prop:any, value?:any):any
-    {
-        if (!prop) throw new Error('You must pass a argument into the set method.')
+     {
+     if (!prop) throw new Error('You must pass a argument into the set method.')
 
-        if (typeof(prop) === "object")
-        {
-            for(var key in prop)
-            {
-                this[key] = prop[key];
-            }
-        }
-        else if (typeof(prop) === "string")
-        {
-            this[prop] = value;
-        }
+     if (typeof(prop) === "object")
+     {
+     for(var key in prop)
+     {
+     this[key] = prop[key];
+     }
+     }
+     else if (typeof(prop) === "string")
+     {
+     this[prop] = value;
+     }
 
-        console.log("Event.change, todo: make it dispatch event?");
-        return this;
-    }*/
+     console.log("Event.change, todo: make it dispatch event?");
+     return this;
+     }*/
 
     /*public get(prop:string):any
-    {
-        if (!prop) return this;
-        return this[prop];
-    }*/
+     {
+     if (!prop) return this;
+     return this[prop];
+     }*/
 
 }

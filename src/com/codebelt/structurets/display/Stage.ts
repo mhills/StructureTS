@@ -85,21 +85,26 @@ class Stage extends DOMElement
      * @param type {string} A string value that you want the your code appended too. This can be an element id (#some-id), element class (.some-class) or a element tag (body).
      * @param [enabled=true] {boolean} Sets the enabled state of the object.
      */
-    public appendTo(type:string, enabled:boolean = true):void
+    public appendTo(type:string, enabled:boolean = true):any
     {
         this.$el = jQuery(type);
 
-        if (!this.isCreated) {
+        if (!this.isCreated)
+        {
             this.createChildren();
             this.isCreated = true;
         }
 
-        if (enabled) {
+        if (enabled)
+        {
             this.enable();
-        } else {
+        }
+        else
+        {
             this.disable();
         }
 
+        return this;
     }
 
 }

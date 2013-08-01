@@ -51,7 +51,7 @@ interface IValueObject
     /**
      * @method fromJSON
      */
-    fromJSON(json:Object):void;
+    fromJSON(json:Object):any;
 
     /**
      * @method destroy

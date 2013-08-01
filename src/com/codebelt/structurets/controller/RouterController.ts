@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../BaseObject.ts'/>
+///<reference path='BaseController.ts'/>
 ///<reference path='../utils/BrowserUtils.ts'/>
 
 /**
@@ -33,8 +33,8 @@
  * @submodule controller
  * @constructor
  **/
-class RouterController extends BaseObject {
-
+class RouterController extends BaseController
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -75,7 +75,8 @@ class RouterController extends BaseObject {
         crossroads.parse(newHash);
     }
 
-    public navigate(hash:string):void {
+    public navigate(hash:string):void
+    {
 
     }
 

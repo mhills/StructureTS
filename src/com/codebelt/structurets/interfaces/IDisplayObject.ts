@@ -53,32 +53,32 @@ interface IDisplayObject extends IEventDispatcher
     /**
      * @method createChildren
      */
-    createChildren():IDisplayObject;
+    createChildren():any;
 
     /**
      * @method addChild
      */
-    addChild(child:IDisplayObject):IDisplayObject;
+    addChild(child:IDisplayObject):any;
 
     /**
      * @method removeChild
      */
-    removeChild(child:IDisplayObject):IDisplayObject;
+    removeChild(child:IDisplayObject):any;
 
     /**
      * @method removeChildren
      */
-    removeChildren():IDisplayObject;
+    removeChildren():any;
 
     /**
      * @method layoutChildren
      */
-    layoutChildren():IDisplayObject;
+    layoutChildren():any;
 
     /**
      * @method addChildAt
      */
-    addChildAt(child:IDisplayObject, index:number):IDisplayObject;
+    addChildAt(child:IDisplayObject, index:number):any;
 
     /**
      * @method getChild

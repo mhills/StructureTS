@@ -28,12 +28,13 @@
  * The LoaderEvent...
  *
  * @class LoaderEvent
+ * @extends BaseEvent
  * @module StructureTS
  * @submodule event
  * @constructor
  **/
-class LoaderEvent extends BaseEvent {
-
+class LoaderEvent extends BaseEvent
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -46,7 +47,7 @@ class LoaderEvent extends BaseEvent {
      * @type {string}
      * @static
      */
-    static COMPLETE:string = "LoaderEvent.complete";
+    public static COMPLETE:string = "LoaderEvent.complete";
 
     /**
      * YUIDoc_comment
@@ -55,7 +56,7 @@ class LoaderEvent extends BaseEvent {
      * @type {string}
      * @static
      */
-    static LOAD_COMPLETE:string = "LoaderEvent.loadComplete";
+    public static LOAD_COMPLETE:string = "LoaderEvent.loadComplete";
 
     constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
     {

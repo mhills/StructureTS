@@ -23,7 +23,6 @@
  */
 
 ///<reference path='../events/EventDispatcher.ts'/>
-///<reference path='../interfaces/IDisplayObject.ts'/>
 
 /**
  * The {{#crossLink "DisplayObject"}}{{/crossLink}} class is the base class for all objects that can be placed on the display list.
@@ -34,7 +33,7 @@
  * @submodule view
  * @constructor
  **/
-class DisplayObject extends EventDispatcher implements IDisplayObject
+class DisplayObject extends EventDispatcher
 {
     /**
      * @copy EventDispatcher.CLASS_NAME
@@ -42,7 +41,7 @@ class DisplayObject extends EventDispatcher implements IDisplayObject
     public CLASS_NAME:string = 'DisplayObject';
 
     /**
-     * The isCreated property is used to keep track if it is the first time this IDisplayObject is created.
+     * The isCreated property is used to keep track if it is the first time this DisplayObject is created.
      *
      * @property isCreated
      * @type {boolean}
@@ -62,13 +61,32 @@ class DisplayObject extends EventDispatcher implements IDisplayObject
     public numChildren:number = 0;
 
     /**
-     * A reference to the child IDisplayObject instances to this parent object instance.
+     * A reference to the child DisplayObject instances to this parent object instance.
      *
      * @property children
      * @type {array}
      * @readonly
      */
-    public children:IDisplayObject[] = [];
+    public children:DisplayObject[] = [];
+
+
+    /**
+     * A property providing access to the unscaledWidth.
+     *
+     * @property unscaledWidth
+     * @type {number}
+     * @default 100
+     */
+    public unscaledWidth:number = 100;
+
+    /**
+     * A property providing access to the unscaledHeight.
+     *
+     * @property unscaledHeight
+     * @type {number}
+     * @default 100
+     */
+    public unscaledHeight:number = 100;
 
     constructor()
     {
@@ -78,37 +96,64 @@ class DisplayObject extends EventDispatcher implements IDisplayObject
     /**
      * The createChildren function is intended to provide a consistent place for the creation and adding
      * of children to the view. It will automatically be called the first time that the view is added
-     * to another IDisplayObject. It is critical that all subclasses call the super for this function in
+     * to another DisplayObject. It is critical that all subclasses call the super for this function in
      * their overridden methods.
      *
      * @method createChildren
-     * @returns {IDisplayObject} Returns an instance of itself.
+     * @returns {DisplayObject} Returns an instance of itself.
      * @public
      */
-    public createChildren():IDisplayObject
+    public createChildren():any
     {
         return this;
     }
 
     /**
-     * Adds a child IDisplayObject instance to this parent object instance. The child is added to the front (top) of all other
+     * Adds a child DisplayObject instance to this parent object instance. The child is added to the front (top) of all other
      * children in this parent object instance. (To add a child to a specific index position, use the addChildAt() method.)
      *
      * If you add a child object that already has a different parent, the object is removed from the child
      * list of the other parent object.
      *
      * @method addChild
-     * @param child {IDisplayObject} The IDisplayObject instance to add as a child of this DisplayObjectContainer instance.
-     * @returns {IDisplayObject} Returns an instance of itself.
+     * @param child {DisplayObject} The DisplayObject instance to add as a child of this DisplayObjectContainer instance.
+     * @returns {DisplayObject} Returns an instance of itself.
      */
-    public addChild(child:IDisplayObject):IDisplayObject
+    public addChild(child:DisplayObject):any
     {
-        //If the child being passed in already has a parent the remove the reference from there.
-        if (child.parent) {
+        //If the child being passed in already has a parent then remove the reference from there.
+        if (child.parent)
+        {
             child.parent.removeChild(child);
         }
 
-        this.children.unshift(child);
+        this.children.push(child);
+        this.numChildren = this.children.length;
+
+        child.parent = this;
+
+        return this;
+    }
+
+    /**
+     * Adds a child DisplayObject instance to this DisplayObjectContainer instance.
+     * The child is added at the index position specified. An index of 0 represents the back
+     * (bottom) of the display list for this DisplayObjectContainer object.
+     *
+     * @method addChildAt
+     * @param child {DisplayObject} The DisplayObject instance to add as a child of this object instance.
+     * @param index {int} The index position to which the child is added. If you specify a currently occupied index position, the child object that exists at that position and all higher positions are moved up one position in the child list.
+     * @returns {DisplayObject} Returns an instance of itself.
+     */
+    public addChildAt(child:DisplayObject, index:number):any
+    {
+        //If the child being passed in already has a parent then remove the reference from there.
+        if (child.parent)
+        {
+            child.parent.removeChild(child);
+        }
+
+        this.children.splice(index, 0, child);
         this.numChildren = this.children.length;
 
         child.parent = this;
@@ -122,14 +167,15 @@ class DisplayObject extends EventDispatcher implements IDisplayObject
      * to the child exist. The index positions of any objects above the child in the parent object are decreased by 1.
      *
      * @method removeChild
-     * @param child {IDisplayObject} The IDisplayObject instance to remove.
-     * @returns {IDisplayObject} Returns an instance of itself.
+     * @param child {DisplayObject} The DisplayObject instance to remove.
+     * @returns {DisplayObject} Returns an instance of itself.
      * @public
      */
-    public removeChild(child:IDisplayObject):IDisplayObject
+    public removeChild(child:DisplayObject):any
     {
         var index = this.children.indexOf(child);
-        if (index !== -1) {
+        if (index !== -1)
+        {
             this.children.splice(index, 1);
         }
         child.disable();
@@ -141,37 +187,19 @@ class DisplayObject extends EventDispatcher implements IDisplayObject
     }
 
     /**
-     * Removes all child IDisplayObject instances from the child list of the DisplayObjectContainer instance.
+     * Removes all child DisplayObject instances from the child list of the DisplayObjectContainer instance.
      * The parent property of the removed children is set to null , and the objects are garbage collected if
      * no other references to the children exist.
      *
      * @method removeChildren
-     * @returns {IDisplayObject} Returns an instance of itself.
+     * @returns {DisplayObject} Returns an instance of itself.
      */
-    public removeChildren():IDisplayObject
+    public removeChildren():any
     {
-        while (this.children.length > 0) {
-            this.removeChild( <IDisplayObject>this.children.pop() );
+        while (this.children.length > 0)
+        {
+            this.removeChild(<DisplayObject>this.children.pop());
         }
-
-        this.numChildren = this.children.length;
-
-        return this;
-    }
-
-    /**
-     * Adds a child IDisplayObject instance to this DisplayObjectContainer instance.
-     * The child is added at the index position specified. An index of 0 represents the back
-     * (bottom) of the display list for this DisplayObjectContainer object.
-     *
-     * @method addChildAt
-     * @param child {IDisplayObject} The IDisplayObject instance to add as a child of this object instance.
-     * @param index {int} The index position to which the child is added. If you specify a currently occupied index position, the child object that exists at that position and all higher positions are moved up one position in the child list.
-     * @returns {IDisplayObject} Returns an instance of itself.
-     */
-    public addChildAt(child:IDisplayObject, index:number):IDisplayObject
-    {
-        this.children.unshift(child);
 
         this.numChildren = this.children.length;
 
@@ -183,7 +211,7 @@ class DisplayObject extends EventDispatcher implements IDisplayObject
      * @method getChild
      * @param child
      */
-    public getChild(child:any):IDisplayObject
+    public getChild(child:any):DisplayObject
     {
         var index = this.children.indexOf(child);
         // TODO: throw error in child is not found.
@@ -195,20 +223,39 @@ class DisplayObject extends EventDispatcher implements IDisplayObject
      *
      * @method getChildAt
      * @param index {int} The index position of the child object.
-     * @returns {IDisplayObject} The child display object at the specified index position.
+     * @returns {DisplayObject} The child display object at the specified index position.
      */
-    public getChildAt(index:number):IDisplayObject
+    public getChildAt(index:number):DisplayObject
     {
         return this.children[index];
+    }
+
+    /**
+     * The setSize method sets the bounds within which the containing DisplayObject would
+     * like that component to lay itself out. It is expected that calling setSize will automatically
+     * call {{#crossLink "DisplayObject/layoutChildren:method"}}{{/crossLink}}.
+     *
+     * @param unscaledWidth {number} The width within which the component should lay itself out.
+     * @param unscaledHeight {number} The height within which the component should lay itself out.
+     * @returns {DisplayObject} Returns an instance of itself.
+     */
+    public setSize(unscaledWidth:number, unscaledHeight:number):any
+    {
+        this.unscaledWidth = unscaledWidth;
+        this.unscaledHeight = unscaledHeight;
+        this.layoutChildren();
+
+        return this;
     }
 
     /**
      * The layoutComponent method provides a common function to handle updating child objects.
      *
      * @method layoutChildren
-     * @returns {IDisplayObject} Returns an instance of itself.
+     * @returns {DisplayObject} Returns an instance of itself.
      */
-    public layoutChildren():IDisplayObject {
+    public layoutChildren():any
+    {
 
         return this;
     }

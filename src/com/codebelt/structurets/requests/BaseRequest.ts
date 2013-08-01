@@ -35,8 +35,8 @@
  * @submodule net
  * @constructor
  **/
-class BaseRequest extends EventDispatcher {
-
+class BaseRequest extends EventDispatcher
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */

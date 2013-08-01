@@ -34,8 +34,8 @@
  * @submodule view
  * @constructor
  **/
-class Bitmap extends CanvasElement {
-
+class Bitmap extends CanvasElement
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -54,18 +54,11 @@ class Bitmap extends CanvasElement {
         this.height = this._image.height;
     }
 
-    public createChildren():Bitmap
-    {
-        super.createChildren();
-
-        return this;
-    }
-
-    public render():Bitmap
+    public render():any
     {
         this.context.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
         this.context.scale(this.scaleX, this.scaleY);
-        this.context.rotate( NumberUtil.degreesToRadians(this.rotation) );
+        this.context.rotate(NumberUtil.degreesToRadians(this.rotation));
         this.context.translate(-this.width * 0.5, -this.height * 0.5);
 
         this.context.drawImage(this._image, 0, 0);

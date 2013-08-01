@@ -34,8 +34,8 @@
  * @submodule view
  * @constructor
  **/
-class Canvas extends CanvasElement {
-
+class Canvas extends CanvasElement
+{
     /**
      * @copy DOMElement.CLASS_NAME
      */
@@ -51,7 +51,7 @@ class Canvas extends CanvasElement {
     }
 
     //TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the '#'.
-    public appendTo(type:string, enabled:boolean = true):void
+    public appendTo(type:string, enabled:boolean = true):any
     {
 //        this.element = canvas.element[0];
         this.element = document.getElementById(type);
@@ -60,22 +60,28 @@ class Canvas extends CanvasElement {
         this.width = this.element.width;
         this.height = this.element.height;
 
-        if (!this.isCreated) {
+        if (!this.isCreated)
+        {
             this.createChildren();
             this.isCreated = true;
         }
 
-        if (enabled) {
+        if (enabled)
+        {
             this.enable();
-        } else {
+        }
+        else
+        {
             this.disable();
         }
+
+        return this;
     }
 
     /**
      * @override
      */
-    public addChild(child:CanvasElement):Canvas
+    public addChild(child:CanvasElement):any
     {
         child.parent = this.stage;
         child.stage = this.stage;
@@ -85,7 +91,7 @@ class Canvas extends CanvasElement {
         return this;
     }
 
-    public removeChild(child:CanvasElement):Canvas
+    public removeChild(child:CanvasElement):any
     {
         child.stage = null;
         child.context = null;
@@ -93,7 +99,7 @@ class Canvas extends CanvasElement {
         return this;
     }
 
-    public render():Canvas
+    public render():any
     {
         this.context.clearRect(0, 0, this.width, this.height);
 

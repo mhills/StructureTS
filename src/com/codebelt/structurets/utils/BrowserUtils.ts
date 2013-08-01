@@ -30,15 +30,18 @@
  * @submodule util
  * @constructor
  **/
-class BrowserUtils {
-                     //http://css-tricks.com/snippets/javascript/
+class BrowserUtils
+{
+    //http://css-tricks.com/snippets/javascript/
 
     /**
      * @copy BaseObject.CLASS_NAME
      */
     public static CLASS_NAME:string = 'BrowserUtils';
 
-    constructor() {}
+    constructor()
+    {
+    }
 
     public static hasBrowserHistory():boolean
     {
@@ -47,18 +50,22 @@ class BrowserUtils {
 
     public static hasLocalStorage():boolean
     {
-        try {
+        try
+        {
             return ('localStorage' in window) && window.localStorage !== null;
-        } catch(error) {
+        } catch (error)
+        {
             return false;
         }
     }
 
     public static hasSessionStorage():boolean
     {
-        try {
+        try
+        {
             return ('sessionStorage' in window) && window.sessionStorage !== null;
-        } catch(error){
+        } catch (error)
+        {
             return false;
         }
     }

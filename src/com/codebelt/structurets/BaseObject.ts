@@ -30,6 +30,7 @@
 ///<reference path='_declare/signals.d.ts'/>
 ///<reference path='_declare/route.d.ts'/>
 ///<reference path='_declare/hasher.d.ts'/>
+///<reference path='_declare/greensock.d.ts'/>
 
 ///<reference path='utils/Util.ts'/>
 
@@ -41,8 +42,8 @@
  * @submodule core
  * @constructor
  **/
-class BaseObject {
-
+class BaseObject
+{
     /**
      * The actually class name for the object.
      *
@@ -73,7 +74,8 @@ class BaseObject {
      */
     public isEnabled:boolean = false;
 
-    constructor() {
+    constructor()
+    {
         this.cid = Util.uniqueId();
     }
 
@@ -130,18 +132,6 @@ class BaseObject {
     public destroy():void
     {
         this.isEnabled = false;
-        /*
-        // Removing this code for now because if any class has a reference any other non-children classes then those class destroy method will be called and that would be bad.
-        var key:string;
-        for (key in this) {
-            // Loop through all Objects and call the destroy function if it has one.
-            if (typeof this[key]['destroy'] === 'function') {
-                this[key].destroy();
-            }
-
-            this[key] = null;
-        }
-        */
     }
 
 }

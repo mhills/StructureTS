@@ -1,13 +1,14 @@
 ///<reference path=''/>
 
-class XML {
-
+class XML
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'XML';
 
-    constructor() {
+    constructor()
+    {
 
     }
 
@@ -17,28 +18,34 @@ class XML {
 
         if (window.DOMParser)
         {
-            try {
+            try
+            {
                 dom = (new DOMParser()).parseFromString(xml, "text/xml");
             }
-            catch (e) {
+            catch (e)
+            {
                 dom = null;
             }
         }
         else if (window.ActiveXObject)
         {
-            try {
+            try
+            {
                 dom = new ActiveXObject('Microsoft.XMLDOM');
                 dom.async = false;
-                if (!dom.loadXML(xml)){
+                if (!dom.loadXML(xml))
+                {
                     // parse error ..
                     throw new Error(dom.parseError.reason + dom.parseError.srcText);
                 }
             }
-            catch (err) {
+            catch (err)
+            {
                 dom = null;
             }
         }
-        else {
+        else
+        {
             throw new Error("XML has an issue parsing xml string with dom parser");
         }
         return dom;

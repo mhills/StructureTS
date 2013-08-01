@@ -36,8 +36,8 @@
  * @submodule model
  * @constructor
  **/
-class LanguageModel extends EventDispatcher {
-
+class LanguageModel extends EventDispatcher
+{
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -58,7 +58,8 @@ class LanguageModel extends EventDispatcher {
 
     public static getInstance():LanguageModel
     {
-        if(this._instance == null) {
+        if (this._instance == null)
+        {
             this._instance = new LanguageModel();
         }
         return this._instance;
@@ -87,15 +88,17 @@ class LanguageModel extends EventDispatcher {
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
 
         var firstLanguageId:string;
-        var jsonData:any = JSON.parse( event.target.data );
+        var jsonData:any = JSON.parse(event.target.data);
         var vo:LanguageConfigVO;
         var len:number = jsonData.data.length
-        for(var i:number = 0; i < len; i++) {
-             vo = new LanguageConfigVO( jsonData.data[i] );
+        for (var i:number = 0; i < len; i++)
+        {
+            vo = new LanguageConfigVO(jsonData.data[i]);
             this._availableLanguagesDictionary[vo.id] = vo;
 
             // Save a reference to the first vo id so we can set that as the default language.
-            if (!firstLanguageId) {
+            if (!firstLanguageId)
+            {
                 firstLanguageId = vo.id;
             }
         }
@@ -104,8 +107,8 @@ class LanguageModel extends EventDispatcher {
         this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
 
         // Get the language vo and get the json file path to load that specific language.
-        var currentLanguageVO:LanguageConfigVO = this.getLangConfigById( this.currentLanguage );
-        this.loadLanguageData( currentLanguageVO.path );
+        var currentLanguageVO:LanguageConfigVO = this.getLangConfigById(this.currentLanguage);
+        this.loadLanguageData(currentLanguageVO.path);
     }
 
     /**
@@ -168,7 +171,7 @@ class LanguageModel extends EventDispatcher {
      */
     private onLanguageDataLoad(event:LoaderEvent):void
     {
-        this.data = JSON.parse( event.target.data );
+        this.data = JSON.parse(event.target.data);
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
         this._request = null
 
