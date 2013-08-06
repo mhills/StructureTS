@@ -46,6 +46,11 @@ class MovieClip extends CanvasElement
         this.height = this._image.height;
     }
 
+    public createChildren():void
+    {
+        super.createChildren();
+    }
+
     public render():void
     {
         if (this.currentFrame >= this.totalFrames)

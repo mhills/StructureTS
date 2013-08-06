@@ -23,6 +23,7 @@ var Util = (function () {
 var BaseObject = (function () {
     function BaseObject() {
         this.CLASS_NAME = 'BaseObject';
+        this.cid = null;
         this.isEnabled = false;
         this.cid = Util.uniqueId();
     }
@@ -260,8 +261,29 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
+    DisplayObject.prototype.swapChildren = function (child1, child2) {
+        return this;
+    };
+
+    DisplayObject.prototype.swapChildrenAt = function (index1, index2) {
+        if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
+            throw new TypeError('[DisplayObject] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
+        }
+
+        var child1 = this.getChildAt(index1);
+        var child2 = this.getChildAt(index2);
+
+        this.swapChildren(child1, child2);
+
+        return this;
+    };
+
+    DisplayObject.prototype.getChildIndex = function (child) {
+        return this.children.indexOf(child);
+    };
+
     DisplayObject.prototype.removeChild = function (child) {
-        var index = this.children.indexOf(child);
+        var index = this.getChildIndex(child);
         if (index !== -1) {
             this.children.splice(index, 1);
         }
@@ -281,12 +303,6 @@ var DisplayObject = (function (_super) {
         this.numChildren = this.children.length;
 
         return this;
-    };
-
-    DisplayObject.prototype.getChild = function (child) {
-        var index = this.children.indexOf(child);
-
-        return this.children[index];
     };
 
     DisplayObject.prototype.getChildAt = function (index) {
@@ -342,8 +358,6 @@ var CanvasElement = (function (_super) {
 
     CanvasElement.prototype.readerStart = function () {
         this.context.save();
-
-        return this;
     };
 
     CanvasElement.prototype.layoutChildren = function () {
@@ -360,8 +374,6 @@ var CanvasElement = (function (_super) {
 
     CanvasElement.prototype.renderEnd = function () {
         this.context.restore();
-
-        return this;
     };
 
     CanvasElement.prototype.addChild = function (child) {
@@ -484,14 +496,14 @@ var DOMElement = (function (_super) {
 
         this.$el.append(child.$el);
 
-        this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
+        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
         return this;
     };
 
     DOMElement.prototype.addChildAt = function (child, index) {
         var children = this.$el.children();
-        var length = children.length;
+        var length = children.length - 1;
 
         if (index < 0 || index >= length) {
             this.addChild(child);
@@ -508,6 +520,20 @@ var DOMElement = (function (_super) {
         }
 
         return this;
+    };
+
+    DOMElement.prototype.swapChildren = function (child1, child2) {
+        var child1Index = child1.$el.index();
+        var child2Index = child2.$el.index();
+
+        this.addChildAt(child1, child2Index);
+        this.addChildAt(child2, child1Index);
+
+        return this;
+    };
+
+    DOMElement.prototype.getChildAt = function (index) {
+        return _super.prototype.getChildAt.call(this, index);
     };
 
     DOMElement.prototype.getChild = function (selector) {
@@ -541,10 +567,6 @@ var DOMElement = (function (_super) {
         }
 
         return domElement;
-    };
-
-    DOMElement.prototype.getChildAt = function (index) {
-        return _super.prototype.getChildAt.call(this, index);
     };
 
     DOMElement.prototype.getChildren = function (selector) {
@@ -755,6 +777,12 @@ var Bitmap = (function (_super) {
         this.width = this._image.width;
         this.height = this._image.height;
     }
+    Bitmap.prototype.createChildren = function () {
+        _super.prototype.createChildren.call(this);
+
+        return this;
+    };
+
     Bitmap.prototype.render = function () {
         this.context.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
         this.context.scale(this.scaleX, this.scaleY);

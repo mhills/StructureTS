@@ -26,7 +26,7 @@
 ///<reference path='../display/DisplayObject.ts'/>
 ///<reference path='../display/DOMElement.ts'/>
 ///<reference path='../interfaces/ITransition.ts'/>
-///<reference path='../constants/TransitionTypes.ts'/>
+///<reference path='../constants/TransitionType.ts'/>
 ///<reference path='../controller/transitions/TransitionNone.ts'/>
 ///<reference path='../controller/transitions/TransitionPushLeft.ts'/>
 ///<reference path='../controller/transitions/TransitionPushRight.ts'/>
@@ -52,13 +52,13 @@ class TransitionFactory extends BaseObject
     {
         super();
 
-        this.registerTransition(TransitionTypes.NONE, new TransitionNone());
-        this.registerTransition(TransitionTypes.PUSH_LEFT, new TransitionPushLeft());
-        this.registerTransition(TransitionTypes.PUSH_RIGHT, new TransitionPushRight());
-        this.registerTransition(TransitionTypes.PUSH_UP, new TransitionPushUp());
-        this.registerTransition(TransitionTypes.PUSH_DOWN, new TransitionPushDown());
-        this.registerTransition(TransitionTypes.CROSSFADE, new TransitionCrossFade());
-        this.registerTransition(TransitionTypes.FADE_OUT_AND_IN, new TransitionFadeOutAndIn());
+        this.registerTransition(TransitionType.NONE, new TransitionNone());
+        this.registerTransition(TransitionType.PUSH_LEFT, new TransitionPushLeft());
+        this.registerTransition(TransitionType.PUSH_RIGHT, new TransitionPushRight());
+        this.registerTransition(TransitionType.PUSH_UP, new TransitionPushUp());
+        this.registerTransition(TransitionType.PUSH_DOWN, new TransitionPushDown());
+        this.registerTransition(TransitionType.CROSSFADE, new TransitionCrossFade());
+        this.registerTransition(TransitionType.FADE_OUT_AND_IN, new TransitionFadeOutAndIn());
     }
 
     public createTransition(transitionType:string, sectionStage:DisplayObject, currentView:DOMElement, nextView:DOMElement, duration:number = -1):ITransition

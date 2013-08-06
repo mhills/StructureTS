@@ -26,7 +26,7 @@
 ///<reference path='../display/DOMElement.ts'/>
 ///<reference path='../utils/TransitionFactory.ts'/>
 ///<reference path='../interfaces/ITransition.ts'/>
-///<reference path='../constants/TransitionTypes.ts'/>
+///<reference path='../constants/TransitionType.ts'/>
 ///<reference path='../events/TransitionManagerEvent.ts'/>
 ///<reference path='../events/TweenEvent.ts'/>
 
@@ -93,7 +93,7 @@ class TransitionManager extends BaseController
         return this;
     }
 
-    public setCurrentView(currentView:DOMElement, transitionType:string = TransitionTypes.NONE):any
+    public setCurrentView(currentView:DOMElement):any
     {
         this._currentView = currentView;
         this._viewContainer.addChild(this._currentView);
@@ -134,7 +134,7 @@ class TransitionManager extends BaseController
         return this;
     }
 
-    public transitionToNextView(nextView:DOMElement, transitionType:string = TransitionTypes.NONE, transitionDuration:number = -1):any
+    public transitionToNextView(nextView:DOMElement, transitionType:string = TransitionType.NONE, transitionDuration:number = -1):any
     {
         // If the current view is not set then throw an error.
         if (this._currentView == null)

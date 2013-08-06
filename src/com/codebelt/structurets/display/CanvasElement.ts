@@ -59,26 +59,24 @@ class CanvasElement extends DisplayObject
         TweenLite.ticker.addEventListener("tick", this.layoutChildren.bind(this), this);
     }
 
-    public createChildren():any
+    public createChildren():CanvasElement
     {
         //Meant to be overridden.
         return this;
     }
 
-    public render():any
+    public render():CanvasElement
     {
         //Meant to be overridden.
         return this;
     }
 
-    private readerStart():any
+    private readerStart():void
     {
         this.context.save();
-
-        return this;
     }
 
-    public layoutChildren():any
+    public layoutChildren():CanvasElement
     {
         if (!this.context || this.alpha <= 0 || !this.visible) return this;
 
@@ -90,14 +88,12 @@ class CanvasElement extends DisplayObject
         return this;
     }
 
-    private renderEnd():any
+    private renderEnd():void
     {
         this.context.restore();
-
-        return this;
     }
 
-    public addChild(child:CanvasElement):any
+    public addChild(child:CanvasElement):CanvasElement
     {
         //TODO: Add to children array with super DisplayObject.
         child.parent = this;
@@ -108,7 +104,7 @@ class CanvasElement extends DisplayObject
         return this;
     }
 
-    public removeChild(child:CanvasElement):any
+    public removeChild(child:CanvasElement):CanvasElement
     {
         //TODO: Remove children from array with super DisplayObject.
         child.stage = null;

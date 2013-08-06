@@ -45,4 +45,9 @@ interface IDOMElement extends IDisplayObject
      */
     $el:JQuery;
 
+    /**
+     * @method getChild
+     */
+    getChild(child:any):IDOMElement;
+
 }

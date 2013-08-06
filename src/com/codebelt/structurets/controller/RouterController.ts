@@ -43,15 +43,6 @@ class RouterController extends BaseController
     constructor()
     {
         super();
-        //only required if you want to set a default value
-//        if(! hasher.getHash()){
-//            hasher.setHash(DEFAULT_HASH);
-//        }
-//        console.log("hasher.getHash()", hasher.getHash())
-
-
-//        RouterController.navigate('login/', true);
-
     }
 
     public addRoute(pattern:string, handler:Function, scope:any, priority?:number):void
@@ -62,7 +53,7 @@ class RouterController extends BaseController
     public start():void
     {
 //        crossroads.routed.add(console.log, console); //log all routes
-//        hasher.prependHash = '!'; //default value is "/"
+//        hasher.prependHash = '!/'; //default value is "/"
         hasher.initialized.add(this.parseHash); //parse initial hash
         hasher.changed.add(this.parseHash); //parse hash changes
         hasher.init(); //start listening for hash changes
@@ -70,14 +61,18 @@ class RouterController extends BaseController
 
     public parseHash(newHash, oldHash):void
     {
+        console.log('parseHash', newHash);
         // second parameter of crossroads.parse() is the "defaultArguments" and should be an array
         // so we ignore the "oldHash" argument to avoid issues.
         crossroads.parse(newHash);
     }
 
-    public navigate(hash:string):void
+    public navigateTo(hash:string):void
     {
+        hash = hash.replace('#/', '');
+        hasher.setHash(hash);
 
+        console.log("hasher.getHash()", hasher.getHash())
     }
 
 }

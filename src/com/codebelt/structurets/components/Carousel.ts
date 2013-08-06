@@ -41,6 +41,9 @@ class Carousel extends EventDispatcher
      */
     public CLASS_NAME:string = 'Carousel';
 
+    public static DIRECTION_LEFT:string = 'directionLeft';
+    public static DIRECTION_RIGHT:string = 'directionRight';
+
     private _numberOfItems:number = -1;
     private _widthOfItem:number = -1;
     private _heightOfItem:number = -1;
@@ -53,16 +56,17 @@ class Carousel extends EventDispatcher
     private _currentIndex:number = 0;
     private _maxIndex:number = 0;
     private _isMoving:boolean = false;
+    private _direction:string = null;
 
-    private _tween:TweenMax = null;
+    public timelineMax:TimelineMax = null;
 
     public loop:boolean = false;
+    public crazy:boolean = false;
 
-    constructor(numOfItems, itemWidth, itemHeight, totalItemsVisible, container)
+    constructor(itemWidth, itemHeight, totalItemsVisible, container)
     {
         super();
 
-        this._numberOfItems = numOfItems;
         this._widthOfItem = itemWidth;
         this._heightOfItem = itemHeight;
         this._itemsVisible = totalItemsVisible;
@@ -70,76 +74,91 @@ class Carousel extends EventDispatcher
 
         this._container.getChildren();
 
+        this._numberOfItems = this._container.numChildren;
 
         this._maxIndex = Math.floor((this._numberOfItems - 1) / this._itemsVisible);
     }
 
-
-    setClipBuckets(bucketList)
-    {
-//    this.bucketHolder.removeChildren();
-//    this.bucketHolder.addChildren(bucketList);
-//
-//    this.itemList = this.carouselWrapper.getChild("ul").getChildren("li");
-//    this._maxIndex = Math.floor((this.numberOfItems - 1) / this.options.itemsVisible);
-//
-//    this.numberOfItems = this.itemList.length;
-//    this._widthOfItem = 202;
-//    this._maxIndex = Math.floor((this.numberOfItems - 1) / this.options.itemsVisible);
-//    this.carouselWidth = this._widthOfItem * this.numberOfItems + (80 + 60);//(padding-left, btn-next width)
-    }
-
-    transitionTo(index)
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private transitionTo(index):void
     {
         this._currentIndex = index;
         this.transition();
 
         if (this._currentIndex == 0)
         {
-            this.dispatchEvent(new CarouselEvent(CarouselEvent.START));
+            this.dispatchEvent(new CarouselEvent(CarouselEvent.BEGIN));
+            //console.log('CarouselEvent.START');
         }
         if (this._currentIndex == this._maxIndex)
         {
             this.dispatchEvent(new CarouselEvent(CarouselEvent.END));
+            //console.log('CarouselEvent.END');
         }
     }
 
-    transition()
+    /**
+     *
+     * @method transition
+     * @protected
+     */
+    public transition():void
     {
-//        this._isMoving = true;
+        var position:number;
 
-//        var leftOffset = this.carouselWrapper.style('left');
+        this._isMoving = true;
 
-//        var transitionTween = new Fx.Tween(this.carouselWrapper.mainElement);
-//        transitionTween.addEvent(FxEvent.START, this.onTweenStart.bind(this));
-//        transitionTween.addEvent(FxEvent.COMPLETE, this.onTweenComplete.bind(this));
-//
-        var numberOfFullTransitions = Math.floor(this._numberOfItems / this._itemsVisible);
-        var itemsLeftOver = this._numberOfItems - (numberOfFullTransitions * this._itemsVisible);
-        var numOfSlidesLeft = this._maxIndex - this._currentIndex;
-        var slideWidth = this._widthOfItem * this._itemsVisible;
-        var removeAmount = (numOfSlidesLeft == 0) ? slideWidth - (this._widthOfItem * itemsLeftOver) : 0;
-        var position = -(slideWidth * this._currentIndex - removeAmount);
-
-        console.log(position, this._container.numChildren);
-//        this._tween = TweenMax.to(this._container.$el, 1, {x: position});
-
-
-        var tl = new TimelineLite();
-        for (var i:number = 0; i < 10; i++)
-        {
-            tl.add( TweenLite.to((<DOMElement>this._container.children[i]).$el, 0.5, {x: position}), 0 );
+        if (this.loop) {
+            var slideWidth:number = this._widthOfItem * this._itemsVisible;
+            if (this._direction == Carousel.DIRECTION_RIGHT) {
+                (<HTMLScriptElement>this._container.el).style.left = -slideWidth + 'px';
+                for (var i:number = 0; i < this._itemsVisible; i++) {
+                    this._container.addChildAt( this._container.getChildAt(this._container.numChildren - 1), 0 );
+                }
+                position = 0;
+            } else {
+                position = -(slideWidth);
+            }
+        } else {
+            var numberOfFullTransitions:number = Math.floor(this._numberOfItems / this._itemsVisible);
+            var itemsLeftOver:number = this._numberOfItems - (numberOfFullTransitions * this._itemsVisible);
+            var numOfSlidesLeft:number = this._maxIndex - this._currentIndex;
+            var slideWidth:number = this._widthOfItem * this._itemsVisible;
+            var removeAmount:number = (numOfSlidesLeft === 0) ? slideWidth - (this._widthOfItem * itemsLeftOver) : 0;
+            position = -(slideWidth * this._currentIndex - removeAmount);
         }
 
+        var varsObject = {
+            onStart: this.onTweenStart,
+            onStartScope: this,
+            onUpdate: this.onTweenProgress,
+            onUpdateScope: this,
+            onComplete: this.onTweenComplete,
+            onCompleteScope: this
+        }
+        this.timelineMax = new TimelineMax(varsObject);
+        this.timelineMax.to(this._container.$el, 0.6, {left: position, ease: Cubic.easeOut});
 
         this.dispatchEvent(new CarouselEvent(CarouselEvent.CHANGE));
+        //console.log('CarouselEvent.CHANGE');
     }
 
-    private moveNext()
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private moveNext():void
     {
         var totalMoves = Math.floor(this._numberOfItems / this._itemsVisible);
 
-        if (this._currentIndex == totalMoves && !this.loop || this._isMoving) return;
+        if (!this.crazy) {
+            if (this._currentIndex == totalMoves && !this.loop || this._isMoving && this.loop) return;
+        }
 
         this._currentIndex++;
         if (this._currentIndex > totalMoves)
@@ -147,78 +166,148 @@ class Carousel extends EventDispatcher
             this._currentIndex = 0;
         }
 
+        this._direction = Carousel.DIRECTION_LEFT;
         this.transitionTo(this._currentIndex);
         this.dispatchEvent(new CarouselEvent(CarouselEvent.NEXT));
+        //console.log('CarouselEvent.NEXT');
     }
 
-    private movePrevious()
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private movePrevious():void
     {
-        if (this._currentIndex == 0 && !this.loop || this._isMoving) return;
+        if (!this.crazy) {
+            if (this._currentIndex == 0 && !this.loop || this._isMoving && this.loop) return;
+        }
 
         this._currentIndex--;
         if (this._currentIndex < 0)
         {
             this._currentIndex = this._maxIndex;
         }
+
+        this._direction = Carousel.DIRECTION_RIGHT;
         this.transitionTo(this._currentIndex);
         this.dispatchEvent(new CarouselEvent(CarouselEvent.PREVIOUS));
+        //console.log('CarouselEvent.PREVIOUS');
     }
 
-    onTweenStart()
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private onTweenStart():void
     {
 //        this.tweenProgressTimer = this.onTweenProgress.periodical(10, this);
-        this.dispatchEvent(new CarouselEvent(CarouselEvent.START));
+//        this.dispatchEvent(new CarouselEvent(CarouselEvent.START));
+//        //console.log('CarouselEvent.START');
+
     }
 
-    onTweenComplete(event)
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private onTweenComplete():void
     {
 //        clearInterval(this.tweenProgressTimer);
 //
         this._isMoving = false;
+
+        if (this.loop && this._direction == Carousel.DIRECTION_LEFT) {
+            (<HTMLScriptElement>this._container.el).style.left = '0';
+            for (var i:number = 0; i < this._itemsVisible; i++) {
+                this._container.addChild( this._container.getChildAt(0) );
+            }
+        }
+
+        //console.log('CarouselEvent.COMPLETE');
         this.dispatchEvent(new CarouselEvent(CarouselEvent.COMPLETE));
     }
 
-    onTweenProgress(event)
+    /**
+     *
+     * @method onTweenProgress
+     * @private
+     */
+    private onTweenProgress():void
     {
         this.dispatchEvent(new CarouselEvent(CarouselEvent.PROGRESS, false, false, this.getPercent()));
+        //console.log('CarouselEvent.PROGRESS');
     }
 
-    public prev()
+    /**
+     *
+     * @method prev
+     */
+    public prev():any
     {
         this.stop();
         this.movePrevious();
+
+        return this;
     }
 
-    public next()
+    /**
+     *
+     * @method next
+     */
+    public next():any
     {
         this.stop();
         this.moveNext();
+
+        return this;
     }
 
-    moveTo(index)
+    /**
+     *
+     * @method moveTo
+     * @params index {number}
+     */
+    public moveTo(index:number):any
     {
         this.stop();
         this.transitionTo(index);
+
+        return this;
     }
 
-    play()
+    /**
+     *
+     * @method play
+     */
+    public play():any
     {
         this.stop();
 //        this.autoSlideTimer = this.moveNext.periodical(this.options.speed, this);
+        return this;
     }
 
-    public stop()
+    /**
+     *
+     * @method transitionTo
+     */
+    public stop():any
     {
 //        clearInterval(this.autoSlideTimer);
+        return this;
     }
 
-    setPercent(value)
+    public setPercent(value):any
     {
 //        this.movedPercent = value;
 //
 //        var maskWidth = this.width();
 //        var distance = (this.movedPercent / 100) * (maskWidth - this.carouselWidth);
 //        this.carouselWrapper.style("left", distance);
+
+        return this;
     }
 
     getPercent()

@@ -132,7 +132,7 @@ class DOMElement extends DisplayObject
 
         this.$el.append(child.$el);
 
-        this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
+        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
         return this;
     }
@@ -144,7 +144,7 @@ class DOMElement extends DisplayObject
     public addChildAt(child:DOMElement, index:number):any
     {
         var children = this.$el.children();
-        var length = children.length;
+        var length = children.length - 1;
 
         // If the index passed in is less than 0 and greater than
         // the total number of children then place the item at the end.
@@ -174,6 +174,26 @@ class DOMElement extends DisplayObject
     }
 
     /**
+     * @copy DisplayObject.swapChildren
+     * @overridden
+     */
+    public swapChildren(child1:DOMElement, child2:DOMElement):any
+    {
+        var child1Index = child1.$el.index();
+        var child2Index = child2.$el.index();
+
+        this.addChildAt(child1, child2Index);
+        this.addChildAt(child2, child1Index);
+
+        return this;
+    }
+
+    public getChildAt(index:number):DOMElement
+    {
+        return <DOMElement>super.getChildAt(index);
+    }
+
+    /**
      * Allows two different types of arguments.
      * If the argument is of type string then it assumed the method is looking for a DOM id name, DOM class name or a DOM tag name.
      * If the argument is of type number then it assumed the method is looking for a DOMElement by its cid and will loop through the children array looking for a match.
@@ -199,8 +219,7 @@ class DOMElement extends DisplayObject
         // Create and new DOMElement object from the found jQuery element.
         else
         {
-            var jQueryElement:JQuery = this.$el.find(selector)
-                .first();// Gets the first match.
+            var jQueryElement:JQuery = this.$el.find(selector).first();// Gets the first match.
             if (jQueryElement.length == 0)
             {
                 throw new TypeError('[DOMElement] getChild(' + selector + ') Cannot find DOM $el');
@@ -230,11 +249,6 @@ class DOMElement extends DisplayObject
         }
 
         return domElement;
-    }
-
-    public getChildAt(index:number):DOMElement
-    {
-        return <DOMElement>super.getChildAt(index);
     }
 
     /**

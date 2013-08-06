@@ -25,12 +25,12 @@
 /**
  * YUIDoc_comment
  *
- * @class TransitionTypes
+ * @class TransitionType
  * @constructor
  **/
-class TransitionTypes
+class TransitionType
 {
-    public static CLASS_NAME:string = 'TransitionTypes';
+    public static CLASS_NAME:string = 'TransitionType';
 
     public static NONE:string = 'none';
     public static PUSH_LEFT:string = 'pushLeft';
@@ -42,7 +42,7 @@ class TransitionTypes
 
     constructor()
     {
-        throw new Error('[TransitionTypes] Do instantiation the TransitionTypes class because it is a static class.');
+        throw new Error('[TransitionType] Do instantiation the TransitionType class because it is a static class.');
     }
 
 }

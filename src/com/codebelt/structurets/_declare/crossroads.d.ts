@@ -1,5 +1,6 @@
 interface Crossroads {
 
+
     VERSION:string;
 
     bypassed:any;//:Signal;

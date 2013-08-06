@@ -162,6 +162,57 @@ class DisplayObject extends EventDispatcher
     }
 
     /**
+     * Swaps two DisplayObject's with each other.
+     *
+     * @method swapChildren
+     * @param child1 {DisplayObject} The DisplayObject instance to be swap.
+     * @param child2 {DisplayObject} The DisplayObject instance to be swap.
+     * @returns {DisplayObject} Returns an instance of itself.
+     */
+    public swapChildren(child1:DisplayObject, child2:DisplayObject):any
+    {
+        // Meant to be overridden because the extended class should call the addChildAt method.
+        return this;
+    }
+
+    /**
+     * @copy DisplayObject.swapChildrenAt
+     * @overridden
+     */
+    public swapChildrenAt(index1:number, index2:number):any
+    {
+        if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren)
+        {
+            throw new TypeError('[DisplayObject] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
+        }
+
+        var child1:DisplayObject = this.getChildAt(index1);
+        var child2:DisplayObject = this.getChildAt(index2);
+
+        this.swapChildren(child1, child2);
+
+        return this;
+    }
+
+    /**
+     *
+     * @method getChildIndex
+     * @param child {DisplayObject}
+     * @returns {number}
+     */
+    public getChildIndex(child:DisplayObject):number
+    {
+        return this.children.indexOf(child);
+    }
+
+    /*public setChildIndex(child:DisplayObject, index:number):any
+    {
+        this.addChildAt(child, index);
+
+        return this;
+    }*/
+
+    /**
      * Removes the specified child object instance from the child list of the parent object instance.
      * The parent property of the removed child is set to null , and the object is garbage collected if no other references
      * to the child exist. The index positions of any objects above the child in the parent object are decreased by 1.
@@ -173,7 +224,7 @@ class DisplayObject extends EventDispatcher
      */
     public removeChild(child:DisplayObject):any
     {
-        var index = this.children.indexOf(child);
+        var index = this.getChildIndex(child);
         if (index !== -1)
         {
             this.children.splice(index, 1);
@@ -204,18 +255,6 @@ class DisplayObject extends EventDispatcher
         this.numChildren = this.children.length;
 
         return this;
-    }
-
-    /**
-     *
-     * @method getChild
-     * @param child
-     */
-    public getChild(child:any):DisplayObject
-    {
-        var index = this.children.indexOf(child);
-        // TODO: throw error in child is not found.
-        return this.children[index];
     }
 
     /**

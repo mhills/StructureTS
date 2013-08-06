@@ -1,6 +1,5 @@
-// GreenSock Animation Platform (GSAP) - http://www.greensock.com/get-started-js/
-// JavaScript Docs http://api.greensock.com/js/
-// Version 1.2 (TypeScript 0.9)
+//GreenSock - TypeScript 0.9 Ambient Declarations Version 1.1 (From www.CodeBelt.com)
+//JavaScript Docs http://api.greensock.com/js/
 
 interface IDispatcher {
     addEventListener(type:string, callback:Function, scope:Object, useParam?:boolean, priority?:number):void;

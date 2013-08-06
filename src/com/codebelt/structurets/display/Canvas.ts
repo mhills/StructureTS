@@ -81,7 +81,7 @@ class Canvas extends CanvasElement
     /**
      * @override
      */
-    public addChild(child:CanvasElement):any
+    public addChild(child:CanvasElement):Canvas
     {
         child.parent = this.stage;
         child.stage = this.stage;
@@ -91,7 +91,7 @@ class Canvas extends CanvasElement
         return this;
     }
 
-    public removeChild(child:CanvasElement):any
+    public removeChild(child:CanvasElement):Canvas
     {
         child.stage = null;
         child.context = null;
@@ -99,7 +99,7 @@ class Canvas extends CanvasElement
         return this;
     }
 
-    public render():any
+    public render():Canvas
     {
         this.context.clearRect(0, 0, this.width, this.height);
 

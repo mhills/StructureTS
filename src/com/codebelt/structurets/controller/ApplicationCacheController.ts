@@ -79,7 +79,7 @@ class ApplicationCacheController
      */
     public static enable():void
     {
-        if (ApplicationCacheController._appCache && ApplicationCacheController.isEnabled === true) return;
+        if (!ApplicationCacheController._appCache || ApplicationCacheController.isEnabled === true) return;
 
         // Native Browser Event Listener
         ApplicationCacheController._appCache.addEventListener(ApplicationCacheEvent.CACHED, this.onCached.bind(this), false);
@@ -100,7 +100,7 @@ class ApplicationCacheController
      */
     public static disable():void
     {
-        if (ApplicationCacheController._appCache && ApplicationCacheController.isEnabled === false) return;
+        if (!ApplicationCacheController._appCache || ApplicationCacheController.isEnabled === false) return;
 
         ApplicationCacheController._appCache.removeEventListener(ApplicationCacheEvent.CACHED, ApplicationCacheController.onCached.bind(this), false);
         ApplicationCacheController._appCache.removeEventListener(ApplicationCacheEvent.CHECKING, ApplicationCacheController.onChecking.bind(this), false);

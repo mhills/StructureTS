@@ -31,6 +31,8 @@
 ///<reference path='_declare/route.d.ts'/>
 ///<reference path='_declare/hasher.d.ts'/>
 ///<reference path='_declare/greensock.d.ts'/>
+///<reference path='_declare/jquery.addEventListener.d.ts'/>
+///<reference path='_declare/log.d.ts'/>
 
 ///<reference path='utils/Util.ts'/>
 
@@ -62,7 +64,7 @@ class BaseObject
      * @type {int}
      * @readonly
      */
-    public cid:number;
+    public cid:number = null;
 
     /**
      * The isEnabled property is used to keep track of the enabled state.

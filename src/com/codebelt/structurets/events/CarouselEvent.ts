@@ -28,6 +28,15 @@ class CarouselEvent extends BaseEvent
     /**
      * YUIDoc_comment
      *
+     * @event BEGIN
+     * @type {string}
+     * @static
+     */
+    public static BEGIN:string = "CarouselEvent.begin";
+
+    /**
+     * YUIDoc_comment
+     *
      * @event END
      * @type {string}
      * @static

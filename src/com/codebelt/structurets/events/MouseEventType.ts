@@ -100,4 +100,13 @@ class MouseEventType
      */
     public static MOUSE_UP:string = "mouseup";
 
+    /**
+     *
+     *
+     * @property TAP
+     * @type {string}
+     * static
+     */
+    public static TAP:string = "tap";
+
 }

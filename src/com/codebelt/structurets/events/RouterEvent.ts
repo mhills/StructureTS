@@ -22,81 +22,48 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='IEventDispatcher.ts'/>
+///<reference path='BaseEvent.ts'/>
 
 /**
- * YUIDoc_comment
+ * The RouterEvent...
  *
- * @class IDisplayObject
+ * @class RouterEvent
+ * @extends BaseEvent
  * @module StructureTS
- * @submodule interface
- * @interface
+ * @submodule event
+ * @constructor
  **/
-interface IDisplayObject extends IEventDispatcher
+class RouterEvent extends BaseEvent
 {
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = 'RouterEvent';
 
     /**
-     * @property isCreated
+     * YUIDoc_comment
+     *
+     * @event CHANGE
+     * @type {string}
+     * @static
      */
-        isCreated:boolean;
+    public static CHANGE:string = 'RouterEvent.change';
 
     /**
-     * @property numChildren
+     * YUIDoc_comment
+     *
+     * @property url
+     * @type {string}
+     * @public
      */
-        numChildren:number;
+    public url:string = null;
 
-    /**
-     * @property children
-     */
-        children:IDisplayObject[];
 
-    /**
-     * @method createChildren
-     */
-    createChildren():any;
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, url:string = null, data:any = null)
+    {
+        super(type, bubbles, cancelable, data);
 
-    /**
-     * @method addChild
-     */
-    addChild(child:IDisplayObject):any;
+        this.url = url;
+    }
 
-    /**
-     * @method removeChild
-     */
-    removeChild(child:IDisplayObject):any;
-
-    /**
-     * @method removeChildren
-     */
-    removeChildren():any;
-
-    /**
-     * @method layoutChildren
-     */
-    layoutChildren():any;
-
-    /**
-     * @method addChildAt
-     */
-    addChildAt(child:IDisplayObject, index:number):any;
-
-    /**
-     * @method getChildAt
-     */
-    getChildAt(index:number):IDisplayObject;
-
-    /**
-     * @method getChildIndex
-     */
-    getChildIndex(child:IDisplayObject):number;
-
-    /**
-     * @method swapChildren
-     */
-    swapChildren(child1:IDisplayObject, child2:IDisplayObject):any
-
-    /**
-     * @method swapChildrenAt
-     */
-    swapChildrenAt(index1:number, index2:number):any;
 }
