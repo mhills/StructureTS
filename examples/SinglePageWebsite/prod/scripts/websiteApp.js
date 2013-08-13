@@ -882,15 +882,15 @@ var BaseRequest = (function (_super) {
     function BaseRequest(url) {
         _super.call(this);
         this.CLASS_NAME = 'BaseRequest';
-        this._path = '';
+        this.src = '';
         this.data = null;
         this.complete = false;
 
-        this._path = url;
+        this.src = url;
         this.configureRequest();
     }
     BaseRequest.prototype.configureRequest = function () {
-        this._request = new URLRequest(this._path);
+        this._request = new URLRequest(this.src);
         this._request.method = URLRequestMethod.GET;
 
         this._loader = new URLLoader();
@@ -923,16 +923,27 @@ var JsonRequest = (function (_super) {
     }
     return JsonRequest;
 })(BaseRequest);
+var LocalStorageEvent = (function (_super) {
+    __extends(LocalStorageEvent, _super);
+    function LocalStorageEvent(type, bubbles, cancelable, nativeEvent) {
+        _super.call(this, type, bubbles, cancelable, nativeEvent);
+        this.CLASS_NAME = 'LocalStorageEvent';
+
+        if (nativeEvent) {
+            this.key = nativeEvent.key;
+            this.oldValue = nativeEvent.oldValue;
+            this.newValue = nativeEvent.newValue;
+            this.url = nativeEvent.url;
+        }
+    }
+    LocalStorageEvent.STORAGE = 'storage';
+    return LocalStorageEvent;
+})(BaseEvent);
 var ValueObject = (function (_super) {
     __extends(ValueObject, _super);
-    function ValueObject(data) {
-        if (typeof data === "undefined") { data = null; }
+    function ValueObject() {
         _super.call(this);
         this.CLASS_NAME = 'ValueObject';
-
-        if (data) {
-            this.update(data);
-        }
     }
     ValueObject.prototype.update = function (data) {
         return this;
@@ -966,112 +977,6 @@ var ValueObject = (function (_super) {
     };
     return ValueObject;
 })(BaseObject);
-var LanguageConfigVO = (function (_super) {
-    __extends(LanguageConfigVO, _super);
-    function LanguageConfigVO(data) {
-        if (typeof data === "undefined") { data = null; }
-        _super.call(this, data);
-        this.CLASS_NAME = 'LanguageConfigVO';
-    }
-    LanguageConfigVO.prototype.update = function (data) {
-        this.id = data.id;
-        this.lang = data.lang;
-        this.text = data.text;
-        this.path = data.path;
-
-        return this;
-    };
-
-    LanguageConfigVO.prototype.copy = function () {
-        var data = _super.prototype.copy.call(this);
-        return new LanguageConfigVO(data);
-    };
-    return LanguageConfigVO;
-})(ValueObject);
-var LanguageModel = (function (_super) {
-    __extends(LanguageModel, _super);
-    function LanguageModel() {
-        _super.call(this);
-        this.CLASS_NAME = 'LanguageModel';
-        this._request = null;
-        this._availableLanguagesDictionary = [];
-        this.currentLanguage = null;
-        this.data = null;
-    }
-    LanguageModel.getInstance = function () {
-        if (this._instance == null) {
-            this._instance = new LanguageModel();
-        }
-        return this._instance;
-    };
-
-    LanguageModel.prototype.getLangConfigById = function (id) {
-        return this._availableLanguagesDictionary[id];
-    };
-
-    LanguageModel.prototype.onConfigLoaded = function (event) {
-        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
-
-        var firstLanguageId;
-        var jsonData = JSON.parse(event.target.data);
-        var vo;
-        var len = jsonData.data.length;
-        for (var i = 0; i < len; i++) {
-            vo = new LanguageConfigVO(jsonData.data[i]);
-            this._availableLanguagesDictionary[vo.id] = vo;
-
-            if (!firstLanguageId) {
-                firstLanguageId = vo.id;
-            }
-        }
-
-        this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
-
-        var currentLanguageVO = this.getLangConfigById(this.currentLanguage);
-        this.loadLanguageData(currentLanguageVO.path);
-    };
-
-    LanguageModel.prototype.loadConfig = function (path) {
-        this._request = new BaseRequest(path);
-        this._request.addEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
-        this._request.load();
-    };
-
-    LanguageModel.prototype.setLang = function (value) {
-        this.currentLanguage = value;
-    };
-
-    LanguageModel.prototype.loadLanguageData = function (path) {
-        this._request = new BaseRequest(path);
-        this._request.addEventListener(LoaderEvent.COMPLETE, this.onLanguageDataLoad, this);
-        this._request.load();
-    };
-
-    LanguageModel.prototype.onLanguageDataLoad = function (event) {
-        this.data = JSON.parse(event.target.data);
-        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
-        this._request = null;
-
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE, false, false, this.data));
-    };
-    return LanguageModel;
-})(EventDispatcher);
-var LocalStorageEvent = (function (_super) {
-    __extends(LocalStorageEvent, _super);
-    function LocalStorageEvent(type, bubbles, cancelable, nativeEvent) {
-        _super.call(this, type, bubbles, cancelable, nativeEvent);
-        this.CLASS_NAME = 'LocalStorageEvent';
-
-        if (nativeEvent) {
-            this.key = nativeEvent.key;
-            this.oldValue = nativeEvent.oldValue;
-            this.newValue = nativeEvent.newValue;
-            this.url = nativeEvent.url;
-        }
-    }
-    LocalStorageEvent.STORAGE = 'storage';
-    return LocalStorageEvent;
-})(BaseEvent);
 var LocalStorageController = (function (_super) {
     __extends(LocalStorageController, _super);
     function LocalStorageController() {
@@ -1081,13 +986,6 @@ var LocalStorageController = (function (_super) {
 
         window.addEventListener('storage', this.onLocalStorageEvent.bind(this));
     }
-    LocalStorageController.getInstance = function () {
-        if (this._instance == null) {
-            this._instance = new LocalStorageController();
-        }
-        return this._instance;
-    };
-
     LocalStorageController.prototype.setNamespace = function (namespace) {
         this._namespace = namespace;
     };
@@ -1147,9 +1045,115 @@ var LocalStorageController = (function (_super) {
     LocalStorageController.prototype.onLocalStorageEvent = function (event) {
         this.dispatchEvent(new LocalStorageEvent(LocalStorageEvent.STORAGE, false, false, event));
     };
-    LocalStorageController._instance = null;
     return LocalStorageController;
 })(BaseController);
+var LanguageConfigVO = (function (_super) {
+    __extends(LanguageConfigVO, _super);
+    function LanguageConfigVO(data) {
+        if (typeof data === "undefined") { data = null; }
+        _super.call(this);
+        this.CLASS_NAME = 'LanguageConfigVO';
+
+        if (data) {
+            this.update(data);
+        }
+    }
+    LanguageConfigVO.prototype.update = function (data) {
+        this.id = data.id;
+        this.lang = data.lang;
+        this.text = data.text;
+        this.path = data.path;
+
+        return this;
+    };
+
+    LanguageConfigVO.prototype.copy = function () {
+        var data = _super.prototype.copy.call(this);
+        return new LanguageConfigVO(data);
+    };
+    return LanguageConfigVO;
+})(ValueObject);
+var LanguageModel = (function (_super) {
+    __extends(LanguageModel, _super);
+    function LanguageModel() {
+        _super.call(this);
+        this.CLASS_NAME = 'LanguageModel';
+        this._request = null;
+        this._availableLanguagesDictionary = [];
+        this._localStorageController = null;
+        this.currentLanguage = null;
+        this.data = null;
+
+        this._localStorageController = new LocalStorageController();
+        this._localStorageController.setNamespace('.StructureTS');
+        this.currentLanguage = this._localStorageController.getItem('language', true);
+    }
+    LanguageModel.prototype.loadConfig = function (path) {
+        this._request = new BaseRequest(path);
+        this._request.addEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+        this._request.load();
+    };
+
+    LanguageModel.prototype.setLang = function (value) {
+        this.currentLanguage = value;
+    };
+
+    LanguageModel.prototype.loadLanguageData = function (vo) {
+        this._localStorageController.setItem('language', vo.id, true);
+
+        this._request = new BaseRequest(vo.path);
+        this._request.addEventListener(LoaderEvent.COMPLETE, this.onLanguageDataLoad, this);
+        this._request.load();
+    };
+
+    LanguageModel.prototype.getSupportedLanguages = function () {
+        var temp = [];
+        for (var key in this._availableLanguagesDictionary) {
+            temp.push(this._availableLanguagesDictionary[key]);
+        }
+        return temp;
+    };
+
+    LanguageModel.prototype.loadLanguageById = function (id) {
+        var vo = this.getLangConfigById(id);
+        this.loadLanguageData(vo);
+    };
+
+    LanguageModel.prototype.getLangConfigById = function (id) {
+        return this._availableLanguagesDictionary[id];
+    };
+
+    LanguageModel.prototype.onConfigLoaded = function (event) {
+        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+
+        var firstLanguageId;
+        var jsonData = JSON.parse(event.target.data);
+        var vo;
+        var len = jsonData.data.length;
+        for (var i = 0; i < len; i++) {
+            vo = new LanguageConfigVO(jsonData.data[i]);
+            this._availableLanguagesDictionary[vo.id] = vo;
+
+            if (!firstLanguageId) {
+                firstLanguageId = vo.id;
+            }
+        }
+
+        this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
+
+        var currentLanguageVO = this.getLangConfigById(this.currentLanguage);
+        this.loadLanguageData(currentLanguageVO);
+    };
+
+    LanguageModel.prototype.onLanguageDataLoad = function (event) {
+        this.data = JSON.parse(event.target.data);
+        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+        this._request = null;
+
+        this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE, false, false, this.data));
+    };
+    return LanguageModel;
+})(EventDispatcher);
 var LanguageEvent = (function (_super) {
     __extends(LanguageEvent, _super);
     function LanguageEvent(type, bubbles, cancelable, data) {

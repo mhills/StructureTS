@@ -44,7 +44,7 @@ class MouseEventType
      * @type {string}
      * static
      */
-    public static CLICK:string = "click";
+    public static CLICK:string = 'click';
 
     /**
      * The event occurs when the user double-clicks on an element.
@@ -53,7 +53,7 @@ class MouseEventType
      * @type {string}
      * static
      */
-    public static DBL_CLICK:string = "dblclick";
+    public static DBL_CLICK:string = 'dblclick';
 
     /**
      * The event occurs when a user presses a mouse button over an element.
@@ -62,7 +62,7 @@ class MouseEventType
      * @type {string}
      * static
      */
-    public static MOUSE_DOWN:string = "mousedown";
+    public static MOUSE_DOWN:string = 'mousedown';
 
     /**
      * The event occurs when the pointer is moving while it is over an element.
@@ -71,7 +71,7 @@ class MouseEventType
      * @type {string}
      * static
      */
-    public static MOUSE_MOVE:string = "mousemove";
+    public static MOUSE_MOVE:string = 'mousemove';
 
     /**
      * The event occurs when the pointer is moved onto an element.
@@ -80,7 +80,7 @@ class MouseEventType
      * @type {string}
      * static
      */
-    public static MOUSE_OVER:string = "mouseover";
+    public static MOUSE_OVER:string = 'mouseover';
 
     /**
      * The event occurs when a user moves the mouse pointer out of an element.
@@ -89,7 +89,7 @@ class MouseEventType
      * @type {string}
      * static
      */
-    public static MOUSE_OUT:string = "mouseout";
+    public static MOUSE_OUT:string = 'mouseout';
 
     /**
      * The event occurs when a user releases a mouse button over an element
@@ -98,7 +98,7 @@ class MouseEventType
      * @type {string}
      * static
      */
-    public static MOUSE_UP:string = "mouseup";
+    public static MOUSE_UP:string = 'mouseup';
 
     /**
      *
@@ -107,6 +107,6 @@ class MouseEventType
      * @type {string}
      * static
      */
-    public static TAP:string = "tap";
+    public static TAP:string = 'tap';
 
 }

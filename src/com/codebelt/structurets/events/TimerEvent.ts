@@ -22,59 +22,46 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../ValueObject.ts'/>
+///<reference path='BaseEvent.ts'/>
 
 /**
- * YUIDoc_comment
+ * The TimerEvent...
  *
- * @class LanguageConfigVO
- * @param [data] {any} Provide a way to update the value object upon initialization.
+ * @class TimerEvent
+ * @extends BaseEvent
+ * @module StructureTS
+ * @submodule event
  * @constructor
  **/
-class LanguageConfigVO extends ValueObject
+class TimerEvent extends BaseEvent
 {
     /**
-     * @copy ValueObject.CLASS_NAME
+     * @copy BaseObject.CLASS_NAME
      */
-    public CLASS_NAME:string = 'LanguageConfigVO';
-
-    public id:string;
-    public lang:string;
-    public text:string;
-    public path:string;
-
-    constructor(data:any = null)
-    {
-        super();
-
-        if (data)
-        {
-            this.update(data);
-        }
-    }
+    public CLASS_NAME:string = 'TimerEvent';
 
     /**
-     * @copy ValueObject.update
-     * @overridden
+     * Dispatched whenever a Timer object reaches an interval specified according to the Timer.delay property.
+     *
+     * @event TIMER
+     * @type {string}
+     * @static
      */
-    public update(data:any):any
-    {
-        this.id = data.id;
-        this.lang = data.lang;
-        this.text = data.text;
-        this.path = data.path;
-
-        return this;
-    }
+    public static TIMER:string = 'TimerEvent.timer';
 
     /**
-     * @copy ValueObject.copy
-     * @overridden
+     * Dispatched whenever it has completed the number of requests set by Timer.repeatCount.
+     *
+     * @event TIMER_COMPLETE
+     * @type {string}
+     * @static
      */
-    public copy():LanguageConfigVO
+    public static TIMER_COMPLETE:string = 'TimerEvent.timerComplete';
+
+
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
     {
-        var data:IValueObject = super.copy();
-        return new LanguageConfigVO(data);
+        super(type, bubbles, cancelable, data);
     }
 
 }

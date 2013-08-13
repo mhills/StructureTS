@@ -84,6 +84,7 @@ class Stage extends DOMElement
      * @method appendTo
      * @param type {string} A string value that you want the your code appended too. This can be an element id (#some-id), element class (.some-class) or a element tag (body).
      * @param [enabled=true] {boolean} Sets the enabled state of the object.
+     * @chainable
      */
     public appendTo(type:string, enabled:boolean = true):any
     {

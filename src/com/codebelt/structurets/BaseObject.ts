@@ -62,7 +62,8 @@ class BaseObject
      *
      * @property cid
      * @type {int}
-     * @readonly
+     * @default null
+     * @writeOnce
      */
     public cid:number = null;
 
@@ -97,6 +98,7 @@ class BaseObject
      * The enable method is responsible for enabling all event listeners and enabling children.
      *
      * @method enable
+     * @chainable
      * @public
      */
     public enable():any
@@ -111,6 +113,7 @@ class BaseObject
      * The disable method is responsible for disabling all event listeners and disabling children.
      *
      * @method disable
+     * @chainable
      * @public
      */
     public disable():any

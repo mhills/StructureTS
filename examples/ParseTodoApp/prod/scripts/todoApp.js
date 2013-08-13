@@ -624,21 +624,21 @@ var MouseEventType = (function () {
     }
     MouseEventType.CLASS_NAME = 'MouseEventType';
 
-    MouseEventType.CLICK = "click";
+    MouseEventType.CLICK = 'click';
 
-    MouseEventType.DBL_CLICK = "dblclick";
+    MouseEventType.DBL_CLICK = 'dblclick';
 
-    MouseEventType.MOUSE_DOWN = "mousedown";
+    MouseEventType.MOUSE_DOWN = 'mousedown';
 
-    MouseEventType.MOUSE_MOVE = "mousemove";
+    MouseEventType.MOUSE_MOVE = 'mousemove';
 
-    MouseEventType.MOUSE_OVER = "mouseover";
+    MouseEventType.MOUSE_OVER = 'mouseover';
 
-    MouseEventType.MOUSE_OUT = "mouseout";
+    MouseEventType.MOUSE_OUT = 'mouseout';
 
-    MouseEventType.MOUSE_UP = "mouseup";
+    MouseEventType.MOUSE_UP = 'mouseup';
 
-    MouseEventType.TAP = "tap";
+    MouseEventType.TAP = 'tap';
     return MouseEventType;
 })();
 var EventBroker = (function () {
@@ -692,14 +692,9 @@ var RequestEvent = (function (_super) {
 })(BaseEvent);
 var ValueObject = (function (_super) {
     __extends(ValueObject, _super);
-    function ValueObject(data) {
-        if (typeof data === "undefined") { data = null; }
+    function ValueObject() {
         _super.call(this);
         this.CLASS_NAME = 'ValueObject';
-
-        if (data) {
-            this.update(data);
-        }
     }
     ValueObject.prototype.update = function (data) {
         return this;

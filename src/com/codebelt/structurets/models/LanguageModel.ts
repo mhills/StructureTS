@@ -24,6 +24,7 @@
 
 ///<reference path='../interfaces/IDataStore.ts'/>
 ///<reference path='../events/EventDispatcher.ts'/>
+///<reference path='../controller/LocalStorageController.ts'/>
 ///<reference path='../events/LoaderEvent.ts'/>
 ///<reference path='../requests/BaseRequest.ts'/>
 ///<reference path='vo/LanguageConfigVO.ts'/>
@@ -43,10 +44,9 @@ class LanguageModel extends EventDispatcher
      */
     public CLASS_NAME:string = 'LanguageModel';
 
-    private static _instance:LanguageModel;
-
     private _request:BaseRequest = null;
-    private _availableLanguagesDictionary:any[] = [];
+    private _availableLanguagesDictionary:LanguageConfigVO[] = [];
+    private _localStorageController:LocalStorageController = null;
 
     public currentLanguage:string = null;
     public data:any = null;
@@ -54,61 +54,10 @@ class LanguageModel extends EventDispatcher
     constructor()
     {
         super();
-    }
 
-    public static getInstance():LanguageModel
-    {
-        if (this._instance == null)
-        {
-            this._instance = new LanguageModel();
-        }
-        return this._instance;
-    }
-
-    /**
-     *
-     * @method getLangConfigById
-     * @param id {string}
-     * @return {LanguageConfigVO}
-     * @private
-     */
-    private getLangConfigById(id:string):LanguageConfigVO
-    {
-        return this._availableLanguagesDictionary[id];
-    }
-
-    /**
-     *
-     * @method onConfigLoaded
-     * @param event {LoaderEvent}
-     * @private
-     */
-    private onConfigLoaded(event:LoaderEvent):void
-    {
-        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
-
-        var firstLanguageId:string;
-        var jsonData:any = JSON.parse(event.target.data);
-        var vo:LanguageConfigVO;
-        var len:number = jsonData.data.length
-        for (var i:number = 0; i < len; i++)
-        {
-            vo = new LanguageConfigVO(jsonData.data[i]);
-            this._availableLanguagesDictionary[vo.id] = vo;
-
-            // Save a reference to the first vo id so we can set that as the default language.
-            if (!firstLanguageId)
-            {
-                firstLanguageId = vo.id;
-            }
-        }
-
-        // If there is no default language set then use the first one in the _availableLanguagesDictionary.
-        this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
-
-        // Get the language vo and get the json file path to load that specific language.
-        var currentLanguageVO:LanguageConfigVO = this.getLangConfigById(this.currentLanguage);
-        this.loadLanguageData(currentLanguageVO.path);
+        this._localStorageController = new LocalStorageController();
+        this._localStorageController.setNamespace('.StructureTS');
+        this.currentLanguage = this._localStorageController.getItem('language', true);
     }
 
     /**
@@ -154,22 +103,93 @@ class LanguageModel extends EventDispatcher
     /**
      *
      * @method loadLanguageData
-     * @param path {string}
+     * @param path {LanguageConfigVO}
+     * @protected
      */
-    public loadLanguageData(path:string):void
+    public loadLanguageData(vo:LanguageConfigVO):void
     {
-        this._request = new BaseRequest(path);
+        this._localStorageController.setItem('language', vo.id, true);
+
+        this._request = new BaseRequest(vo.path);
         this._request.addEventListener(LoaderEvent.COMPLETE, this.onLanguageDataLoad, this);
         this._request.load();
     }
 
     /**
      *
+     * @method getSupportedLanguages
+     */
+    public getSupportedLanguages() {
+        var temp:LanguageConfigVO[] = [];
+        for (var key in this._availableLanguagesDictionary) {
+            temp.push(this._availableLanguagesDictionary[key]);
+        }
+        return temp;
+    }
+
+    /**
+     *
+     * @method loadLanguageById
+     */
+    public loadLanguageById(id:string):void
+    {
+        var vo:LanguageConfigVO = this.getLangConfigById(id);
+        this.loadLanguageData(vo);
+    }
+
+    /**
+     *
+     * @method getLangConfigById
+     * @param id {string}
+     * @return {LanguageConfigVO}
+     * @protected
+     */
+    public getLangConfigById(id:string):LanguageConfigVO
+    {
+        return this._availableLanguagesDictionary[id];
+    }
+
+    /**
+     *
+     * @method onConfigLoaded
+     * @param event {LoaderEvent}
+     * @protected
+     */
+    public onConfigLoaded(event:LoaderEvent):void
+    {
+        this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+
+        var firstLanguageId:string;
+        var jsonData:any = JSON.parse(event.target.data);
+        var vo:LanguageConfigVO;
+        var len:number = jsonData.data.length
+        for (var i:number = 0; i < len; i++)
+        {
+            vo = new LanguageConfigVO(jsonData.data[i]);
+            this._availableLanguagesDictionary[vo.id] = vo;
+
+            // Save a reference to the first vo id so we can set that as the default language.
+            if (!firstLanguageId)
+            {
+                firstLanguageId = vo.id;
+            }
+        }
+
+        // If there is no default language set then use the first one in the _availableLanguagesDictionary.
+        this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
+
+        // Get the language vo and get the json file path to load that specific language.
+        var currentLanguageVO:LanguageConfigVO = this.getLangConfigById(this.currentLanguage);
+        this.loadLanguageData(currentLanguageVO);
+    }
+
+    /**
+     *
      * @method onLanguageDataLoad
      * @param event {LoaderEvent}
-     * @private
+     * @protected
      */
-    private onLanguageDataLoad(event:LoaderEvent):void
+    public onLanguageDataLoad(event:LoaderEvent):void
     {
         this.data = JSON.parse(event.target.data);
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);

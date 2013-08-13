@@ -50,7 +50,7 @@ class Collection extends EventDispatcher implements ICollection
      * @type {array}
      * @protected
      */
-    public _items:IValueObject[];
+    public _items:IValueObject[] = [];
 
     /**
      * YUIDoc_comment
@@ -66,8 +66,6 @@ class Collection extends EventDispatcher implements ICollection
     constructor()
     {
         super();
-
-        this._items = [];
     }
 
     /**

@@ -306,7 +306,6 @@ class BaseEvent
      * @property data
      * @type {any}
      * @default null
-     * @readOnly
      */
     public data:any = null;
 
@@ -316,7 +315,6 @@ class BaseEvent
      * @property bubble
      * @type {boolean}
      * @default false
-     * @readOnly
      */
     public bubble:boolean = false;
 
@@ -326,7 +324,6 @@ class BaseEvent
      * @property cancelable
      * @type {boolean}
      * @default false
-     * @readOnly
      */
     public cancelable:boolean = false;
 
@@ -350,7 +347,6 @@ class BaseEvent
 
     constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
     {
-
         this.type = type;
         this.bubble = bubbles;
         this.cancelable = cancelable;
@@ -365,7 +361,7 @@ class BaseEvent
      *
      * @method stopPropagation
      */
-        stopPropagation():void
+    stopPropagation():void
     {
         this.isPropagationStopped = true;
     }
@@ -377,7 +373,7 @@ class BaseEvent
      *
      * @method stopImmediatePropagation
      */
-        stopImmediatePropagation():void
+    stopImmediatePropagation():void
     {
         this.stopPropagation();
         this.isImmediatePropagationStopped = true;

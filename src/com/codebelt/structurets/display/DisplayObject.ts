@@ -102,6 +102,7 @@ class DisplayObject extends EventDispatcher
      * @method createChildren
      * @returns {DisplayObject} Returns an instance of itself.
      * @public
+     * @chainable
      */
     public createChildren():any
     {
@@ -118,6 +119,7 @@ class DisplayObject extends EventDispatcher
      * @method addChild
      * @param child {DisplayObject} The DisplayObject instance to add as a child of this DisplayObjectContainer instance.
      * @returns {DisplayObject} Returns an instance of itself.
+     * @chainable
      */
     public addChild(child:DisplayObject):any
     {
@@ -144,6 +146,7 @@ class DisplayObject extends EventDispatcher
      * @param child {DisplayObject} The DisplayObject instance to add as a child of this object instance.
      * @param index {int} The index position to which the child is added. If you specify a currently occupied index position, the child object that exists at that position and all higher positions are moved up one position in the child list.
      * @returns {DisplayObject} Returns an instance of itself.
+     * @chainable
      */
     public addChildAt(child:DisplayObject, index:number):any
     {
@@ -168,6 +171,7 @@ class DisplayObject extends EventDispatcher
      * @param child1 {DisplayObject} The DisplayObject instance to be swap.
      * @param child2 {DisplayObject} The DisplayObject instance to be swap.
      * @returns {DisplayObject} Returns an instance of itself.
+     * @chainable
      */
     public swapChildren(child1:DisplayObject, child2:DisplayObject):any
     {
@@ -221,6 +225,7 @@ class DisplayObject extends EventDispatcher
      * @param child {DisplayObject} The DisplayObject instance to remove.
      * @returns {DisplayObject} Returns an instance of itself.
      * @public
+     * @chainable
      */
     public removeChild(child:DisplayObject):any
     {
@@ -244,6 +249,7 @@ class DisplayObject extends EventDispatcher
      *
      * @method removeChildren
      * @returns {DisplayObject} Returns an instance of itself.
+     * @chainable
      */
     public removeChildren():any
     {
@@ -277,6 +283,7 @@ class DisplayObject extends EventDispatcher
      * @param unscaledWidth {number} The width within which the component should lay itself out.
      * @param unscaledHeight {number} The height within which the component should lay itself out.
      * @returns {DisplayObject} Returns an instance of itself.
+     * @chainable
      */
     public setSize(unscaledWidth:number, unscaledHeight:number):any
     {
@@ -292,6 +299,7 @@ class DisplayObject extends EventDispatcher
      *
      * @method layoutChildren
      * @returns {DisplayObject} Returns an instance of itself.
+     * @chainable
      */
     public layoutChildren():any
     {

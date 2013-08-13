@@ -22,59 +22,27 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../ValueObject.ts'/>
-
 /**
- * YUIDoc_comment
+ * The WindowEventType...
  *
- * @class LanguageConfigVO
- * @param [data] {any} Provide a way to update the value object upon initialization.
- * @constructor
+ * @class WindowEventType
+ * @module StructureTS
+ * @submodule event
+ * @static
  **/
-class LanguageConfigVO extends ValueObject
+class WindowEventType
 {
     /**
-     * @copy ValueObject.CLASS_NAME
+     * @copy BaseObject.CLASS_NAME
      */
-    public CLASS_NAME:string = 'LanguageConfigVO';
-
-    public id:string;
-    public lang:string;
-    public text:string;
-    public path:string;
-
-    constructor(data:any = null)
-    {
-        super();
-
-        if (data)
-        {
-            this.update(data);
-        }
-    }
+    public static CLASS_NAME:string = 'WindowEventType';
 
     /**
-     * @copy ValueObject.update
-     * @overridden
+     *
+     *
+     * @property CHANGE
+     * @type {string}
+     * static
      */
-    public update(data:any):any
-    {
-        this.id = data.id;
-        this.lang = data.lang;
-        this.text = data.text;
-        this.path = data.path;
-
-        return this;
-    }
-
-    /**
-     * @copy ValueObject.copy
-     * @overridden
-     */
-    public copy():LanguageConfigVO
-    {
-        var data:IValueObject = super.copy();
-        return new LanguageConfigVO(data);
-    }
-
+    public static CHANGE:string = "change";
 }

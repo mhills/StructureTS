@@ -41,14 +41,9 @@ class ValueObject extends BaseObject implements IValueObject
      */
     public CLASS_NAME:string = 'ValueObject';
 
-    constructor(data:any = null)
+    constructor()
     {
         super();
-
-        if (data)
-        {
-            this.update(data);
-        }
     }
 
     /**
@@ -59,7 +54,6 @@ class ValueObject extends BaseObject implements IValueObject
      */
     public update(data:any):any
     {
-
         return this;
     }
 

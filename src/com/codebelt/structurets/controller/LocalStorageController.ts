@@ -24,6 +24,7 @@
 
 ///<reference path='BaseController'/>
 ///<reference path='../events/LocalStorageEvent.ts'/>
+///<reference path='../models/ValueObject.ts'/>
 
 /**
  * The LocalStorageController...
@@ -40,8 +41,6 @@ class LocalStorageController extends BaseController
      */
     public CLASS_NAME:string = 'LocalStorageController';
 
-    private static _instance:LocalStorageController = null;
-
     /**
      * Current user namespace. The namespace is optional.
      *
@@ -57,15 +56,6 @@ class LocalStorageController extends BaseController
         super();
 
         window.addEventListener('storage', this.onLocalStorageEvent.bind(this));
-    }
-
-    public static getInstance():LocalStorageController
-    {
-        if (this._instance == null)
-        {
-            this._instance = new LocalStorageController();
-        }
-        return this._instance;
     }
 
     /**

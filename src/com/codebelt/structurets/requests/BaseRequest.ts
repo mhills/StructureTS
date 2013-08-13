@@ -23,6 +23,7 @@
  */
 
 ///<reference path='../events/EventDispatcher.ts'/>
+///<reference path='../interfaces/IDataStore.ts'/>
 ///<reference path='../net/URLRequest.ts'/>
 ///<reference path='../net/URLLoader.ts'/>
 ///<reference path='../events/LoaderEvent.ts'/>
@@ -35,17 +36,17 @@
  * @submodule net
  * @constructor
  **/
-class BaseRequest extends EventDispatcher
+class BaseRequest extends EventDispatcher implements IDataStore
 {
     /**
      * @copy BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'BaseRequest';
 
-    private _path:string = '';
     private _request:URLRequest;
     private _loader:URLLoader;
 
+    public src:string = '';
     public data:any = null;
     public complete:boolean = false;
 
@@ -53,13 +54,13 @@ class BaseRequest extends EventDispatcher
     {
         super();
 
-        this._path = url;
+        this.src = url;
         this.configureRequest();
     }
 
     private configureRequest():void
     {
-        this._request = new URLRequest(this._path);
+        this._request = new URLRequest(this.src);
         this._request.method = URLRequestMethod.GET;
 
         this._loader = new URLLoader();

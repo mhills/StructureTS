@@ -115,6 +115,7 @@ class DOMElement extends DisplayObject
      * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
      * @returns {DOMElement} Returns an instance of itself.
      * @overridden
+     * @chainable
      */
     public addChild(child:DOMElement):any
     {
@@ -188,6 +189,13 @@ class DOMElement extends DisplayObject
         return this;
     }
 
+    /**
+     *
+     * @method getChildAt
+     * @param index {number}
+     * @returns {DOMElement}
+     * @public
+     */
     public getChildAt(index:number):DOMElement
     {
         return <DOMElement>super.getChildAt(index);
@@ -297,6 +305,7 @@ class DOMElement extends DisplayObject
      * @returns {DOMElement} Returns an instance of itself.
      * @override
      * @public
+     * @chainable
      */
     public removeChild(child:DOMElement):any
     {
@@ -317,6 +326,7 @@ class DOMElement extends DisplayObject
      * @returns {DOMElement} Returns an instance of itself.
      * @override
      * @public
+     * @chainable
      */
     public removeChildren():any
     {
@@ -366,6 +376,7 @@ class DOMElement extends DisplayObject
      * @method alpha
      * @param number
      * @returns {DOMElement} Returns an instance of itself.
+     * @chainable
      */
     public alpha(number):any
     {
