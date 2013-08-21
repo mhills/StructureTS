@@ -35,13 +35,13 @@ interface ICore
 
     /**
      * @property CLASS_NAME
-     * @readonly
+     * @readOnly
      */
     CLASS_NAME:string;
 
     /**
      * @property cid
-     * @readonly
+     * @readOnly
      */
     cid:number;
 

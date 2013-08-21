@@ -76,6 +76,11 @@ interface ICollection
     hasItem(items:IValueObject):boolean
 
     /**
+     * @method indexOf
+     */
+    indexOf(items:IValueObject):number
+
+    /**
      * @method getItemByIndex
      */
     getItemByIndex(index:number):IValueObject;

@@ -29,13 +29,28 @@
  * <p>The properties of the {{#crossLink "BaseEvent"}}{{/crossLink}} class carry basic information about an event, such as the event's type or whether the event's default behavior can be canceled.
  * For many events, such as the events represented by the Event class constants, this basic information is sufficient. Other events, however, may require more
  * detailed information.</p>
- *
  * @class BaseEvent
+ * @example
+ *      // Example: how to create a custom event by extending BaseEvent.
+ *       class CountryEvent extends BaseEvent {
+ *          public CLASS_NAME:string = 'CountryEvent';
+ *
+ *          public static CHANGE_COUNTRY:string = "CountryEvent.changeCountry";
+ *
+ *          public countryName:string = null;
+ *
+ *          constructor(type:string, countryName:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null) {
+ *              super(type, bubbles, cancelable, data);
+ *
+ *              this.countryName = countryName;
+ *          }
+ *      }
  * @param type {string} The type of event. The type is case-sensitive.
  * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
- * Note: Bubbling will only work with DisplayObject classes throw the display list hierarchy. Any classes that do not have a parent cannot bubble.
+ * Note: With event-bubbling you can let one Event subsequently call on every ancestor ({{#crossLink "EventDispatcher/parent:property"}}{{/crossLink}})
+ * (containers of containers of etc.) of the {{#crossLink "DisplayObject"}}{{/crossLink}} that originally dispatched the Event, all the way up to the surface ({{#crossLink "Stage"}}{{/crossLink}}). Any classes that do not have a parent cannot bubble.
  * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
- * @param [data=null] {any}
+ * @param [data=null] {any} Use to pass any type of data with the event.
  * @module StructureTS
  * @submodule event
  * @constructor
@@ -292,7 +307,7 @@ class BaseEvent
     public type:string = null;
 
     /**
-     * The event target.
+     * A reference to the object that originally dispatched the event.
      *
      * @property target
      * @type {any}
@@ -302,6 +317,17 @@ class BaseEvent
     public target:any = null;
 
     /**
+     * The currentTarget property always points to the {{#crossLink "DisplayObject"}}{{/crossLink}} that the event is currently processing (i.e. bubbling at).
+     *
+     * @property currentTarget
+     * @type {any}
+     * @default null
+     * @readOnly
+     */
+    public currentTarget:any = null;
+
+    /**
+     * Use to pass any type of data with the event.
      *
      * @property data
      * @type {any}

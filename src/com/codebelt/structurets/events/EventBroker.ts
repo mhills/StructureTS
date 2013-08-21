@@ -41,6 +41,7 @@ class EventBroker
     public static CLASS_NAME:string = 'EventBroker';
 
     /**
+     * A reference to the EventDispatcher object.
      *
      * @property _eventDispatcher
      * @type {EventDispatcher}
@@ -57,7 +58,7 @@ class EventBroker
     /**
      * Registers an event listener object with an EventBroker object so that the listener receives notification of an event.
      * @example
-     *      EventBroker.addEventListener(BaseEvent.CHANGE, handlerMethod, this);
+     *      EventBroker.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
      *      private handlerMethod(event:BaseEvent):void {
      *          console.log(event.target + " sent the event.");
      *      }
@@ -76,7 +77,7 @@ class EventBroker
     /**
      * Removes a specified listener from the EventBroker object.
      * @example
-     *      EventBroker.removeEventListener(BaseEvent.CHANGE, handlerMethod, this);
+     *      EventBroker.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
      *      private handlerMethod(event:BaseEvent):void {
      *          console.log(event.target + " sent the event.");
      *      }

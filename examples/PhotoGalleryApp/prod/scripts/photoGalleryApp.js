@@ -60,6 +60,7 @@ var BaseEvent = (function () {
         this.CLASS_NAME = 'BaseEvent';
         this.type = null;
         this.target = null;
+        this.currentTarget = null;
         this.data = null;
         this.bubble = false;
         this.cancelable = false;
@@ -164,6 +165,7 @@ var EventDispatcher = (function (_super) {
                 index = i + 1;
             }
         }
+
         list.splice(index, 0, { c: callback, s: scope, pr: priority });
 
         return this;
@@ -188,6 +190,8 @@ var EventDispatcher = (function (_super) {
         if (event.target == null) {
             event.target = this;
         }
+
+        event.currentTarget = this;
 
         var list = this._listeners[event.type];
         if (list) {
@@ -267,7 +271,7 @@ var DisplayObject = (function (_super) {
 
     DisplayObject.prototype.swapChildrenAt = function (index1, index2) {
         if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
-            throw new TypeError('[DisplayObject] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
+            throw new TypeError('[' + this.getQualifiedClassName() + '] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
         }
 
         var child1 = this.getChildAt(index1);
@@ -312,7 +316,9 @@ var DisplayObject = (function (_super) {
     DisplayObject.prototype.setSize = function (unscaledWidth, unscaledHeight) {
         this.unscaledWidth = unscaledWidth;
         this.unscaledHeight = unscaledHeight;
-        this.layoutChildren();
+        if (this.isCreated) {
+            this.layoutChildren();
+        }
 
         return this;
     };
@@ -334,9 +340,7 @@ var TemplateFactory = (function () {
     function TemplateFactory() {
     }
     TemplateFactory.createTemplate = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        return jQuery(template);
+        return TemplateFactory.create(templatePath, data);
     };
 
     TemplateFactory.createView = function (templatePath, data) {
@@ -368,14 +372,10 @@ var TemplateFactory = (function () {
 
             var templateFunction = templateObj[templatePath];
             if (!templateFunction) {
-                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+                template = null;
+            } else {
+                template = templateFunction(data);
             }
-
-            template = templateFunction(data);
-        }
-
-        if (!template) {
-            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
         }
 
         return template;
@@ -392,31 +392,38 @@ var TemplateFactory = (function () {
 var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
-        if (typeof type === "undefined") { type = 'div'; }
+        if (typeof type === "undefined") { type = null; }
         if (typeof params === "undefined") { params = {}; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
-        this._node = null;
-        this._options = {};
         this._isVisible = true;
         this.el = null;
         this.$el = null;
 
-        this._node = type;
-        this._options = params;
+        if (type) {
+            this.$el = jQuery("<" + type + "/>", params);
+        }
     }
     DOMElement.prototype.createChildren = function (template, data) {
-        if (typeof template === 'function') {
+        if (typeof template === "undefined") { template = 'div'; }
+        if (typeof data === "undefined") { data = null; }
+        console.log("template", template);
+        if (typeof template === 'function' && !this.$el) {
             Jaml.register(this.CLASS_NAME, template);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
-        } else if (typeof template === 'string') {
-            this.$el = TemplateFactory.createTemplate(template, data);
-        } else if (this._node && !this.$el) {
-            this.$el = jQuery("<" + this._node + "/>", this._options);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, data));
+        } else if (typeof template === 'string' && !this.$el) {
+            var html = TemplateFactory.createTemplate(template, data);
+            if (html) {
+                this.$el = $(html);
+            } else {
+                this.$el = jQuery("<" + template + "/>", data);
+            }
         }
 
+        console.log("rpbertd", this.$el);
         this.el = this.$el[0];
 
+        console.log("createChildren", this.el);
         return this;
     };
 
@@ -427,11 +434,12 @@ var DOMElement = (function (_super) {
             child.createChildren();
             child.isCreated = true;
         }
-        child.layoutChildren();
 
         child.$el.attr('data-cid', child.cid);
 
         this.$el.append(child.$el);
+
+        child.layoutChildren();
 
         child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
@@ -483,7 +491,7 @@ var DOMElement = (function (_super) {
         } else {
             var jQueryElement = this.$el.find(selector).first();
             if (jQueryElement.length == 0) {
-                throw new TypeError('[DOMElement] getChild(' + selector + ') Cannot find DOM $el');
+                throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $el');
             }
 
             var cid = jQueryElement.data('cid');
@@ -588,7 +596,6 @@ var DOMElement = (function (_super) {
     DOMElement.prototype.destroy = function () {
         this.el = null;
         this.$el = null;
-        this._options = null;
 
         _super.prototype.destroy.call(this);
     };
@@ -608,7 +615,7 @@ var Stage = (function (_super) {
             this.createChildren();
             this.isCreated = true;
         }
-
+        console.log("appendTo", type, this.$el, this.el);
         if (enabled) {
             this.enable();
         } else {

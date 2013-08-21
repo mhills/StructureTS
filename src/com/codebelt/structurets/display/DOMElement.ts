@@ -42,9 +42,6 @@ class DOMElement extends DisplayObject
      */
     public CLASS_NAME:string = 'DOMElement';
 
-    private _node:string = null;
-    public _options:any = {};//TODO: fix this. it should not be public or should it?
-
     /**
      * Whether or not the display object is visible. Display objects that are not visible are disabled.
      * For example, if visible=false for an InteractiveObject instance, it cannot be clicked.
@@ -74,36 +71,44 @@ class DOMElement extends DisplayObject
      */
     public $el:JQuery = null;
 
-    constructor(type:string = 'div', params:any = {})
+    constructor(type:string = null, params:any = {})
     {
         super();
 
-        this._node = type;
-        this._options = params;
+        if (type) {
+            this.$el = jQuery("<" + type + "/>", params);
+        }
     }
 
     /**
      * @copy DisplayObject.createChildren
      * @overridden
      */
-    public createChildren(template?:any, data?:any):any
+    public createChildren(template:any = 'div', data:any = null):any
     {
-        if (typeof template === 'function')
+        console.log("template",template);
+        if (typeof template === 'function' && !this.$el)
         {
             Jaml.register(this.CLASS_NAME, template);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, data));
         }
-        else if (typeof template === 'string')
+        else if (typeof template === 'string' && !this.$el)
         {
-            this.$el = TemplateFactory.createTemplate(template, data);
-        }
-        else if (this._node && !this.$el)
-        {
-            this.$el = jQuery("<" + this._node + "/>", this._options);
+            var html:string = TemplateFactory.createTemplate(template, data);
+            if (html)
+            {
+                this.$el = $(html);
+            }
+            else
+            {
+                this.$el = jQuery("<" + template + "/>", data);
+            }
         }
 
+        console.log("rpbertd", this.$el)
         this.el = this.$el[0];
 
+        console.log("createChildren", this.el)
         return this;
     }
 
@@ -126,12 +131,13 @@ class DOMElement extends DisplayObject
             child.createChildren();// Render the item before adding to the DOM
             child.isCreated = true;
         }
-        child.layoutChildren();
 
         // Adds the cid to the DOM element so we can know what what Class object the element belongs too.
         child.$el.attr('data-cid', child.cid);
 
         this.$el.append(child.$el);
+
+        child.layoutChildren();
 
         child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
@@ -230,7 +236,7 @@ class DOMElement extends DisplayObject
             var jQueryElement:JQuery = this.$el.find(selector).first();// Gets the first match.
             if (jQueryElement.length == 0)
             {
-                throw new TypeError('[DOMElement] getChild(' + selector + ') Cannot find DOM $el');
+                throw new TypeError('['+this.getQualifiedClassName()+'] getChild(' + selector + ') Cannot find DOM $el');
             }
 
             // Loop through the children array to see if the cid found on the jQueryElement matches any in the children array.
@@ -417,7 +423,6 @@ class DOMElement extends DisplayObject
     {
         this.el = null;
         this.$el = null;
-        this._options = null;
 
         super.destroy();
     }

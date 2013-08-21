@@ -89,7 +89,6 @@ class LocalStorageController extends BaseController
      * @param data {Object}
      * @param useNamespace {boolean}
      */
-        // TODO maybe make data a ValueObject instead of an Object.
     public setItem(key:string, data:any, useNamespace:boolean = false):void
     {
         if (useNamespace)
@@ -100,12 +99,10 @@ class LocalStorageController extends BaseController
         if (data instanceof ValueObject)
         {
             data = <ValueObject>data.toJSON();
-            console.log("in")
         }
         else
         {
             data = JSON.stringify(data);
-            console.log("out")
         }
 
         localStorage.setItem(key, data);

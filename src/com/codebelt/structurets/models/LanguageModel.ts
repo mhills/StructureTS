@@ -26,6 +26,7 @@
 ///<reference path='../events/EventDispatcher.ts'/>
 ///<reference path='../controller/LocalStorageController.ts'/>
 ///<reference path='../events/LoaderEvent.ts'/>
+///<reference path='../events/LanguageEvent.ts'/>
 ///<reference path='../requests/BaseRequest.ts'/>
 ///<reference path='vo/LanguageConfigVO.ts'/>
 
@@ -178,6 +179,8 @@ class LanguageModel extends EventDispatcher
         // If there is no default language set then use the first one in the _availableLanguagesDictionary.
         this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
 
+        this.dispatchEvent(new LoaderEvent(LanguageEvent.CONFIG_LOADED, false, false, this.data));
+
         // Get the language vo and get the json file path to load that specific language.
         var currentLanguageVO:LanguageConfigVO = this.getLangConfigById(this.currentLanguage);
         this.loadLanguageData(currentLanguageVO);
@@ -195,7 +198,7 @@ class LanguageModel extends EventDispatcher
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
         this._request = null
 
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE, false, false, this.data));
+        this.dispatchEvent(new LoaderEvent(LanguageEvent.LANGUAGE_LOADED, false, false, this.data));
     }
 
 }

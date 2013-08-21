@@ -22,10 +22,8 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path=''/>
-
 /**
- * The Util...
+ * A Utility class that has several static methods to assist in development.
  *
  * @class Util
  * @module StructureTS
@@ -40,9 +38,9 @@ class Util
     public static CLASS_NAME:string = 'Util';
 
     /**
-     * YUIDoc_comment
+     * Keeps track of the count for the uniqueId method.
      *
-     * @property idCounter
+     * @property _idCounter
      * @type {init}
      * @private
      */
@@ -53,10 +51,16 @@ class Util
     }
 
     /**
-     * Generates a unique ID. If prefix is passed, the ID will be appended to it.
+     * Generates a unique ID. If a prefix is passed in, the value will be appended to it.
+     * @example
+     *      var property:number = Util.uniqueId();
      *
-     * @param [prefix]
-     * @returns {init|string}
+     *      var property:string = Util.uniqueId('yomama_');
+     * @method uniqueId
+     * @param [prefix] {string} The string value used for the prefix.
+     * @returns {init|string} Returns the unique identifier.
+     * @public
+     * @static
      */
     public static uniqueId(prefix:string = null):any
     {
@@ -72,6 +76,14 @@ class Util
         }
     }
 
+    /**
+     * Generates a random boolean.
+     *
+     * @method getRandomBoolean
+     * @returns {boolean} Returns a random boolean.
+     * @public
+     * @static
+     */
     public static getRandomBoolean():boolean
     {
         return (Math.random() > .5) ? true : false;

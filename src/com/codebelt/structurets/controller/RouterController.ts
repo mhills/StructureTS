@@ -40,6 +40,15 @@ class RouterController extends BaseController
      */
     public CLASS_NAME:string = 'RouterController';
 
+    /**
+     * YUIDoc_comment
+     *
+     * @property _active
+     * @type {boolean}
+     * @private
+     */
+    private _active:boolean = false;
+
     constructor()
     {
         super();
@@ -52,27 +61,58 @@ class RouterController extends BaseController
 
     public start():void
     {
+        if (this._active) return;
+
 //        crossroads.routed.add(console.log, console); //log all routes
 //        hasher.prependHash = '!/'; //default value is "/"
         hasher.initialized.add(this.parseHash); //parse initial hash
         hasher.changed.add(this.parseHash); //parse hash changes
         hasher.init(); //start listening for hash changes
+
+        this._active = true;
     }
 
     public parseHash(newHash, oldHash):void
     {
-        console.log('parseHash', newHash);
-        // second parameter of crossroads.parse() is the "defaultArguments" and should be an array
-        // so we ignore the "oldHash" argument to avoid issues.
         crossroads.parse(newHash);
     }
 
-    public navigateTo(hash:string):void
+    /**
+     *
+     * @method navigateTo
+     * @param hash {string}
+     * @param [silently=false] {boolean}
+     */
+    public navigateTo(hash:string, silently:boolean = false):void
     {
         hash = hash.replace('#/', '');
-        hasher.setHash(hash);
+        if (silently) {
+            hasher.changed.active = false;
+            hasher.setHash(hash);
+            hasher.changed.active = true;
+        } else {
+            hasher.setHash(hash);
+        }
+    }
 
-        console.log("hasher.getHash()", hasher.getHash())
+    public getHash():string
+    {
+        return hasher.getHash();
+    }
+
+    public getHashAsArray():any[]
+    {
+        return hasher.getHashAsArray();
+    }
+
+    public getURL():string
+    {
+        return hasher.getURL();
+    }
+
+    public getBaseURL():string
+    {
+        return hasher.getBaseURL();
     }
 
 }

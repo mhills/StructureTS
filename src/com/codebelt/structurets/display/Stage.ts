@@ -95,7 +95,7 @@ class Stage extends DOMElement
             this.createChildren();
             this.isCreated = true;
         }
-
+        console.log("appendTo", type, this.$el, this.el)
         if (enabled)
         {
             this.enable();

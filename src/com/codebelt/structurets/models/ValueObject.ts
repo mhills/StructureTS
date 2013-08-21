@@ -83,7 +83,7 @@ class ValueObject extends BaseObject implements IValueObject
     }
 
     /**
-     * ...
+     *
      *
      * @method clone
      * @returns {Object}
@@ -94,8 +94,7 @@ class ValueObject extends BaseObject implements IValueObject
     }
 
     /**
-     * ...
-     * TODO: make it return an IValueObject. Right now it only returns an Object.
+     *
      *
      * @method copy
      * @returns {IValueObject}
@@ -114,31 +113,5 @@ class ValueObject extends BaseObject implements IValueObject
 
         return <IValueObject>copy;
     }
-
-    /*public set(prop:any, value?:any):any
-     {
-     if (!prop) throw new Error('You must pass a argument into the set method.')
-
-     if (typeof(prop) === "object")
-     {
-     for(var key in prop)
-     {
-     this[key] = prop[key];
-     }
-     }
-     else if (typeof(prop) === "string")
-     {
-     this[prop] = value;
-     }
-
-     console.log("Event.change, todo: make it dispatch event?");
-     return this;
-     }*/
-
-    /*public get(prop:string):any
-     {
-     if (!prop) return this;
-     return this[prop];
-     }*/
 
 }

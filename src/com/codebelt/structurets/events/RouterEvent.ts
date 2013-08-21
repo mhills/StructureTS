@@ -29,6 +29,13 @@
  *
  * @class RouterEvent
  * @extends BaseEvent
+ * @param type {string} The type of event. The type is case-sensitive.
+ * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
+ * Note: Bubbling will only work with DisplayObject classes throw the display list hierarchy. Any classes that do not have a parent cannot bubble.
+ * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
+ * @param [url=null] {string}
+ * @param [data=null] {any}
+ * @param [silent=false] {boolean} Indicates whether setting hash value should dispatching changed event within the {{#crossLink "RouterController"}}{{/crossLink}}.
  * @module StructureTS
  * @submodule event
  * @constructor
@@ -58,12 +65,22 @@ class RouterEvent extends BaseEvent
      */
     public url:string = null;
 
+    /**
+     * YUIDoc_comment
+     *
+     * @property silent
+     * @type {boolean}
+     * @public
+     */
+    public silent:boolean = null;
 
-    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, url:string = null, data:any = null)
+
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, url:string = null, data:any = null, silent:boolean = false)
     {
         super(type, bubbles, cancelable, data);
 
         this.url = url;
+        this.silent = silent;
     }
 
 }

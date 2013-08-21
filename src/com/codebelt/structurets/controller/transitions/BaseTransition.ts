@@ -50,7 +50,7 @@ class BaseTransition extends EventDispatcher implements ITransition
      *
      * @property transition
      * @type {TimelineMax}
-     * @readonly
+     * @readOnly
      */
     public transition:TimelineMax = null;
 

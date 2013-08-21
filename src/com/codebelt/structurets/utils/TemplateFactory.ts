@@ -49,11 +49,9 @@ class TemplateFactory
     {
     }
 
-    public static createTemplate(templatePath:string, data?:Object)
+    public static createTemplate(templatePath:string, data?:Object):string
     {
-        var template:string = TemplateFactory.create(templatePath, data);
-
-        return jQuery(template);
+        return TemplateFactory.create(templatePath, data);
     }
 
     public static createView(templatePath:string, data?:Object):DOMElement
@@ -99,17 +97,15 @@ class TemplateFactory
             var templateFunction:Function = templateObj[templatePath];
             if (!templateFunction)
             {
-                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+                // Set to null so it can be used in a condition statement in the DOMElement class.
+                template = null;
             }
-
-            //The templatePath gets a function storage in the associative array.
-            //we call the function by passing in the data as the argument.
-            template = templateFunction(data);
-        }
-
-        if (!template)
-        {
-            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+            else
+            {
+                // The templatePath gets a function storage in the associative array.
+                // We call the function by passing in the data as the argument.
+                template = templateFunction(data);
+            }
         }
 
         return template;

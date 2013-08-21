@@ -121,7 +121,7 @@ class URLLoader extends EventDispatcher
     public onComplete(data):void
     {
         this.ready = true;
-//        console.log("[URLLoader] - onComplete", data);
+        //console.log("[URLLoader] - onComplete", data);
         this.data = data.responseText;
         this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
     }

@@ -139,7 +139,7 @@ class TransitionManager extends BaseController
         // If the current view is not set then throw an error.
         if (this._currentView == null)
         {
-            throw new Error('[TransitionManager] The current view must be set before attempting to transition to another view. See the setCurrentView method');
+            throw new Error('['+this.getQualifiedClassName()+'] The current view must be set before attempting to transition to another view. See the setCurrentView method');
         }
 
         // If the transition is running then complete right away so we can start the next one.

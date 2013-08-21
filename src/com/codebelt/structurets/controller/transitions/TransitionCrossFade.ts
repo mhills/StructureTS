@@ -59,6 +59,7 @@ class TransitionCrossFade extends BaseTransition
             onCompleteScope: this
         }
         this.transition = new TimelineMax(varsObject);
+        this.transition.add(TweenMax.to(currentView.$el, duration, {opacity: 0, ease: Expo.easeInOut}));
         this.transition.add(TweenMax.from(nextView.$el, duration, {opacity: 0, ease: Expo.easeInOut}), 0);
 
         return this;

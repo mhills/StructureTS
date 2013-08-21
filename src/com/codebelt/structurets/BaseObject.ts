@@ -25,7 +25,7 @@
 ///<reference path='_declare/jaml.d.ts'/>
 ///<reference path='_declare/jquery.d.ts'/>
 ///<reference path='_declare/handlebars.d.ts'/>
-///<reference path='_declare/underscore.d.ts'/>
+///<reference path='_declare/lo-dash.d.ts'/>
 ///<reference path='_declare/crossroads.d.ts'/>
 ///<reference path='_declare/signals.d.ts'/>
 ///<reference path='_declare/route.d.ts'/>
@@ -47,7 +47,7 @@
 class BaseObject
 {
     /**
-     * The actually class name for the object.
+     * The fully qualified class name of the object. Use {{#crossLink "BaseObject/getQualifiedClassName:method"}}{{/crossLink}} method to retrieve the class name of a StructureTS object.
      *
      * @property CLASS_NAME
      * @type {string}
@@ -57,18 +57,18 @@ class BaseObject
     public CLASS_NAME:string = 'BaseObject';
 
     /**
-     * The cid or client id is a unique identifier automatically assigned to all StructureTS objects
-     * when they're first created.
+     * The cid or client id is a unique identifier automatically assigned to most StructureTS objects upon instantiation.
      *
      * @property cid
      * @type {int}
      * @default null
      * @writeOnce
+     * @public
      */
     public cid:number = null;
 
     /**
-     * The isEnabled property is used to keep track of the enabled state.
+     * The isEnabled property is used to keep track of the enabled state of the object.
      *
      * @property isEnabled
      * @type {boolean}
@@ -84,9 +84,10 @@ class BaseObject
 
     /**
      * Returns the fully qualified class name of an object.
-     *
+     * @example
+     *      instance.getQualifiedClassName();
      * @method getQualifiedClassName
-     * @returns {string}
+     * @returns {string} Returns the class name.
      * @public
      */
     public getQualifiedClassName():string
@@ -95,8 +96,16 @@ class BaseObject
     }
 
     /**
-     * The enable method is responsible for enabling all event listeners and enabling children.
+     * The enable method is responsible for enabling event listeners and children of the containing objects.
+     * @example
+     *      public enable():void {
+     *          if (this.isEnabled === true) return;
      *
+     *          this._childInstance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+     *          this._childInstance.enable();
+     *
+     *          super.enable();
+     *      }
      * @method enable
      * @chainable
      * @public
@@ -110,8 +119,16 @@ class BaseObject
     }
 
     /**
-     * The disable method is responsible for disabling all event listeners and disabling children.
+     * The disable method is responsible for disabling event listeners and children of the containing objects.
+     * @example
+     *      public disable():void {
+     *          if (this.isEnabled === false) return;
      *
+     *          this._childInstance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+     *          this._childInstance.disable();
+     *
+     *          super.enable();
+     *      }
      * @method disable
      * @chainable
      * @public
@@ -131,8 +148,15 @@ class BaseObject
      * function to stop all running Timers, all running Sounds, remove any event
      * listeners and take any other steps necessary to make an object eligible for garbage collection.
      * It is critical that all subclasses call the super for this function in their overridden methods.
+     * @example
+     *      public destroy():void {
+     *          this._childInstance.destroy();
+     *          this._childInstance = null;
      *
+     *          super.destroy();
+     *      }
      * @method destroy
+     * @public
      */
     public destroy():void
     {

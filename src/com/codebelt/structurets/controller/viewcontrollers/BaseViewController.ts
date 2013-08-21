@@ -41,9 +41,9 @@ class BaseViewController extends DOMElement implements IViewController
      */
     public CLASS_NAME:string = 'BaseViewController';
 
-    constructor(type:string = 'div', params:any = {})
+    constructor()
     {
-        super(type, params);
+        super();
     }
 
     public update(...rest):any
@@ -51,4 +51,15 @@ class BaseViewController extends DOMElement implements IViewController
 
         return this;
     }
+
+    /**
+     * Sets the browser title.
+     *
+     * @method setPageTitle
+     * @param title {string}
+     */
+    public setPageTitle(title:string) {
+        document.title = title;
+    }
+
 }

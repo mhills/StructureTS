@@ -46,11 +46,11 @@ class Collection extends EventDispatcher implements ICollection
     /**
      * YUIDoc_comment
      *
-     * @property _items
+     * @property items
      * @type {array}
-     * @protected
+     * @readOnly
      */
-    public _items:IValueObject[] = [];
+    public items:IValueObject[] = [];
 
     /**
      * YUIDoc_comment
@@ -58,7 +58,7 @@ class Collection extends EventDispatcher implements ICollection
      * @property length
      * @type {init}
      * @default 0
-     * @readonly
+     * @readOnly
      * @public
      */
     public length:number = 0;
@@ -81,13 +81,13 @@ class Collection extends EventDispatcher implements ICollection
     {
         if (!(item instanceof ValueObject))
         {
-            throw new TypeError('Item must be of the IValueObject type');
+            throw new TypeError('['+this.getQualifiedClassName()+'] Item must be of the IValueObject type');
         }
 
         if (!this.hasItem(item))
         {
-            this._items.push(item);
-            this.length = this._items.length;
+            this.items.push(item);
+            this.length = this.items.length;
         }
 
         if (!silent)
@@ -110,16 +110,16 @@ class Collection extends EventDispatcher implements ICollection
     {
         if (!(item instanceof ValueObject))
         {
-            throw new TypeError('Item must be of the IValueObject type');
+            throw new TypeError('['+this.getQualifiedClassName()+'] Item must be of the IValueObject type');
         }
 
         if (!this.hasItem(item))
         {
-            throw new Error('Collection does not have item ' + item);
+            throw new Error('['+this.getQualifiedClassName()+'] Collection does not have item ' + item);
         }
 
-        this._items.splice(this._items.indexOf(item), 1);
-        this.length = this._items.length;
+        this.items.splice(this.items.indexOf(item), 1);
+        this.length = this.items.length;
 
         if (!silent)
         {
@@ -159,7 +159,20 @@ class Collection extends EventDispatcher implements ICollection
      */
     public hasItem(items:IValueObject):boolean
     {
-        return !this._items.indexOf(items);
+        return !this.items.indexOf(items);
+    }
+
+    /**
+     * Returns the array index position of the value object.
+     *
+     * @method indexOf
+     * @param item {IValueObject} IValueObject get the index of.
+     * @return {boolean}
+     * @public
+     */
+    public indexOf(items:IValueObject):number
+    {
+        return this.items.indexOf(items);
     }
 
     /**
@@ -200,13 +213,13 @@ class Collection extends EventDispatcher implements ICollection
             index = 0;
         }
 
-        if (index >= this._items.length)
+        if (index >= this.items.length)
         {
-            index = this._items.length - 1;
+            index = this.items.length - 1;
         }
 
         // Return the item by the index. It will return null if the array is empty.
-        return this._items[index] || null;
+        return this.items[index] || null;
     }
 
     /**
@@ -218,19 +231,97 @@ class Collection extends EventDispatcher implements ICollection
      */
     public forEach(operation:any):void
     {
-//        _.each(this._items, operation);
+//        _.each(this.items, operation);
     }
 
     /**
      * Examines each element in a collection, returning an array of all elements that have the given properties.
      * When checking properties, this method performs a deep comparison between values to determine if they are equivalent to each other.
+     * @example
+     *      // Finds all value object that has 'Robert' in it.
+     *      this._collection.find("Robert");
+     *      // Finds any value object that has 'Robert' or 'Heater' or 23 in it.
+     *      this._collection.find(["Robert", "Heather", 32]);
+     *
+     *      // Finds all value objects that same key and value you are searching for.
+     *      this._collection.find({ name: 'apple', organic: false, type: 'fruit' });
+     *      this._collection.find([{ type: 'vegetable' }, { name: 'apple', 'organic: false, type': 'fruit' }]);
      *
      * @method find
+     * @param arg {Object|Array}
+     * @return {array} Returns a list of found IValueObject's.
      * @public
      */
-    public find(properties:any):IValueObject[]
+    public find(arg:any):IValueObject[]
     {
-        return _.where(this._items, properties);
+        // If properties is not an array then make it an array object.
+        arg = (arg instanceof Array) ? arg : [arg];
+
+        var foundItems:IValueObject[] = [];
+        var len = arg.length;
+        var prop:any;
+        for (var i:number = 0; i < len; i++)
+        {
+            prop = arg[i];
+            // Add found value object to the foundItems array.
+            if ((typeof prop === 'string') || (typeof prop === 'number') || (typeof prop === 'boolean')) {
+                // If the item to check against is not an object.
+                foundItems = foundItems.concat(this.findPropertyValue(prop));
+            }
+            else
+            {
+                // If the item to check against is an object.
+                foundItems = foundItems.concat(_.where(this.items, prop));
+            }
+        }
+
+        // Removes all duplicated objects found in the temp array.
+        return _.uniq(foundItems);
+    }
+
+
+    /**
+     * Loops through all properties of an object and check to see if the value matches the argument passed in.
+     *
+     * @method findPropertyValue
+     * @param arg {String|Number|Boolean>}
+     * @return {array} Returns a list of found IValueObject's.
+     * @private
+     */
+    private findPropertyValue(arg:any) {
+        // If properties is not an array then make it an array object.
+        arg = (arg instanceof Array) ? arg : [arg];
+
+        var foundItems = [];
+        var itemsLength = this.items.length;
+        var itemsToFindLength = arg.length;
+        // Loop through each value object in the collection.
+        for (var i = 0; i < itemsLength; i++)
+        {
+            var valueObject = this.items[i];
+            // Loop through each properties on the value object.
+            for (var key in valueObject)
+            {
+                // Check if the key value is a property.
+                if (valueObject.hasOwnProperty(key))
+                {
+                    var propertyValue = valueObject[key];
+                    // Loop through each of the string value's to find a match in the value object.
+                    for (var j = 0; j < itemsToFindLength; j++)
+                    {
+                        var value = arg[j];
+                        // If the value object property equals the string value then keep a reference to that value object.
+                        if (propertyValue === value)
+                        {
+                            // Add found value object to the foundItems array.
+                            foundItems.push(valueObject);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return foundItems;
     }
 
     /**
@@ -243,7 +334,7 @@ class Collection extends EventDispatcher implements ICollection
         //TODO: figure out to set the type to Function with out getting error: Type '(x: IValueObject) => boolean' requires a call signature, but type 'Function' lacks one.
     public sort(sort:any):void
     {
-//        this._items.sort(sort);
+//        this.items.sort(sort);
     }
 
     /**
@@ -259,15 +350,15 @@ class Collection extends EventDispatcher implements ICollection
     {
         if (removeItems)
         {
-//            _.filter(this._items, filter);
-//            this.length = this._items.length;
-//            return this._items;
+//            _.filter(this.items, filter);
+//            this.length = this.items.length;
+//            return this.items;
         }
         else
         {
 //            var collection:ICollection = this.copy();
 //            collection.filter(filter, true);
-//            _.filter(collection._items, filter);
+//            _.filter(collection.items, filter);
 //            return
         }
         return null;
@@ -281,7 +372,7 @@ class Collection extends EventDispatcher implements ICollection
      */
     public map(map:any)
     {
-//        this._items = _.map(this._items, map);
+//        this.items = _.map(this.items, map);
     }
 
 //    /**
@@ -303,7 +394,7 @@ class Collection extends EventDispatcher implements ICollection
     public copy():ICollection
     {
         var collection:ICollection = new Collection();
-        collection.addItems(this._items.slice(0));
+        collection.addItems(this.items.slice(0));
         return collection;
     }
 
@@ -316,7 +407,7 @@ class Collection extends EventDispatcher implements ICollection
      */
     public clear(silent:boolean = false):void
     {
-        this._items = [];
+        this.items = [];
         this.length = 0;
 
         if (!silent)
@@ -331,7 +422,7 @@ class Collection extends EventDispatcher implements ICollection
      */
     public destroy():void
     {
-        this._items = null;
+        this.items = null;
         this.length = null;
 
         super.destroy();

@@ -1,15 +1,14 @@
 interface Crossroads {
 
-
     VERSION:string;
 
     bypassed:any;//:Signal;
     routed:any;//:Signal;
     normalizeFn:Function;
-    shouldTypecast:bool;
-    greedy:bool;
-    greedyEnabled:bool;
-    ignoreState:bool;
+    shouldTypecast:boolean;
+    greedy:boolean;
+    greedyEnabled:boolean;
+    ignoreState:boolean;
     matched:any;//:Signal;
 
     addRoute(pattern:string, handler?:Function, priority?:number):Route;

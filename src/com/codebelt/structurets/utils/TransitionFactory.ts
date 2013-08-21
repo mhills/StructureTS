@@ -66,7 +66,7 @@ class TransitionFactory extends BaseObject
         var concreteFactory:ITransition = this._transitions[transitionType];
         if (concreteFactory == null)
         {
-            throw new Error('[TransitionFactory] Not found factory for type: ' + transitionType);
+            throw new Error('['+this.getQualifiedClassName()+'] Not found factory for type: ' + transitionType);
         }
 
         if (duration >= 0)
@@ -84,7 +84,7 @@ class TransitionFactory extends BaseObject
         // TODO: should this throw an error or just not add the ITransition?
         if (this._transitions.hasOwnProperty(key))
         {
-            throw new Error('[TransitionFactory] A transition with that key has already been registered.');
+            throw new Error('['+this.getQualifiedClassName()+'] A transition with that key has already been registered.');
         }
 
         this._transitions[key] = transitionFactory;

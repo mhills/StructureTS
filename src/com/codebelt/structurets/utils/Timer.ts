@@ -83,7 +83,7 @@ class Timer extends EventDispatcher {
      *
      * @property running
      * @type {boolean}
-     * @readonly
+     * @readOnly
      */
     public running:boolean = false;
 

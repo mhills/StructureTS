@@ -131,6 +131,16 @@ module.exports = function(grunt) {
                     sourcemap: false,
                     declaration: false
                 }
+            },
+            bubble: {
+                src: ['<%= EXAMPLE_PATH %>EventBubbling/scripts/EventBubblingApp.ts'],
+                dest: '<%= EXAMPLE_PATH %>EventBubbling/scripts/eventBubblingApp.js',
+                options: {
+                    target: 'es3', // Options: es3, es5
+                    base_path: '',
+                    sourcemap: false,
+                    declaration: false
+                }
             }
         },
 
@@ -261,6 +271,13 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['gallery']
             },
+            bubble: {
+                files: [
+                    '<%= EXAMPLE_PATH %>EventBubbling/script/**/*.ts',
+                    '<%= SRC_PATH %>com/**/*.ts'
+                ],
+                tasks: ['bubble']
+            },
             temp: {
                 files: [
                     '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/typescript.js'
@@ -320,6 +337,7 @@ module.exports = function(grunt) {
     grunt.registerTask('website', ['typescript:website']);
     grunt.registerTask('todo', ['typescript:todo']);
     grunt.registerTask('canvas', ['typescript:canvas']);
+    grunt.registerTask('bubble', ['typescript:bubble']);
     grunt.registerTask('filmprod', ['typescript:film', 'jst:film', 'json:film', 'concat']);
     grunt.registerTask('film', ['typescript:film', 'concat']);
     grunt.registerTask('gallery', ['typescript:gallery']);

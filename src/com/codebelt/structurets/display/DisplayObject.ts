@@ -56,7 +56,8 @@ class DisplayObject extends EventDispatcher
      * @property numChildren
      * @type {init}
      * @default 0
-     * @readonly
+     * @readOnly
+     * @public
      */
     public numChildren:number = 0;
 
@@ -65,7 +66,8 @@ class DisplayObject extends EventDispatcher
      *
      * @property children
      * @type {array}
-     * @readonly
+     * @readOnly
+     * @public
      */
     public children:DisplayObject[] = [];
 
@@ -76,6 +78,7 @@ class DisplayObject extends EventDispatcher
      * @property unscaledWidth
      * @type {number}
      * @default 100
+     * @public
      */
     public unscaledWidth:number = 100;
 
@@ -85,6 +88,7 @@ class DisplayObject extends EventDispatcher
      * @property unscaledHeight
      * @type {number}
      * @default 100
+     * @public
      */
     public unscaledHeight:number = 100;
 
@@ -187,7 +191,7 @@ class DisplayObject extends EventDispatcher
     {
         if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren)
         {
-            throw new TypeError('[DisplayObject] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
+            throw new TypeError('['+this.getQualifiedClassName()+'] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
         }
 
         var child1:DisplayObject = this.getChildAt(index1);
@@ -289,7 +293,9 @@ class DisplayObject extends EventDispatcher
     {
         this.unscaledWidth = unscaledWidth;
         this.unscaledHeight = unscaledHeight;
-        this.layoutChildren();
+        if (this.isCreated) {
+            this.layoutChildren();
+        }
 
         return this;
     }

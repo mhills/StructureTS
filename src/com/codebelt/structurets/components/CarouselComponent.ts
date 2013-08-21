@@ -30,16 +30,15 @@
 /**
  * YUIDoc_comment
  *
- * @class Carousel
+ * @class CarouselComponent
  * @extends EventDispatcher
  * @constructor
  **/
-class Carousel extends EventDispatcher
-{
+class CarouselComponent extends EventDispatcher {
     /**
      * @copy BaseObject.CLASS_NAME
      */
-    public CLASS_NAME:string = 'Carousel';
+    public CLASS_NAME:string = 'CarouselComponent';
 
     public static DIRECTION_LEFT:string = 'directionLeft';
     public static DIRECTION_RIGHT:string = 'directionRight';
@@ -77,6 +76,18 @@ class Carousel extends EventDispatcher
         this._numberOfItems = this._container.numChildren;
 
         this._maxIndex = Math.floor((this._numberOfItems - 1) / this._itemsVisible);
+
+        this._container.$el.width(this._numberOfItems * this._widthOfItem);
+    }
+
+    /**
+     * YUIDoc_comment
+     *
+     * @method update
+     */
+    public update() {
+        this._numberOfItems = this._container.numChildren;
+        this._container.$el.width(this._numberOfItems * this._widthOfItem);
     }
 
     /**
@@ -112,18 +123,25 @@ class Carousel extends EventDispatcher
 
         this._isMoving = true;
 
-        if (this.loop) {
+        if (this.loop)
+        {
             var slideWidth:number = this._widthOfItem * this._itemsVisible;
-            if (this._direction == Carousel.DIRECTION_RIGHT) {
+            if (this._direction == CarouselComponent.DIRECTION_RIGHT)
+            {
                 (<HTMLScriptElement>this._container.el).style.left = -slideWidth + 'px';
-                for (var i:number = 0; i < this._itemsVisible; i++) {
-                    this._container.addChildAt( this._container.getChildAt(this._container.numChildren - 1), 0 );
+                for (var i:number = 0; i < this._itemsVisible; i++)
+                {
+                    this._container.addChildAt(this._container.getChildAt(this._container.numChildren - 1), 0);
                 }
                 position = 0;
-            } else {
+            }
+            else
+            {
                 position = -(slideWidth);
             }
-        } else {
+        }
+        else
+        {
             var numberOfFullTransitions:number = Math.floor(this._numberOfItems / this._itemsVisible);
             var itemsLeftOver:number = this._numberOfItems - (numberOfFullTransitions * this._itemsVisible);
             var numOfSlidesLeft:number = this._maxIndex - this._currentIndex;
@@ -156,7 +174,8 @@ class Carousel extends EventDispatcher
     {
         var totalMoves = Math.floor(this._numberOfItems / this._itemsVisible);
 
-        if (!this.crazy) {
+        if (!this.crazy)
+        {
             if (this._currentIndex == totalMoves && !this.loop || this._isMoving && this.loop) return;
         }
 
@@ -166,7 +185,7 @@ class Carousel extends EventDispatcher
             this._currentIndex = 0;
         }
 
-        this._direction = Carousel.DIRECTION_LEFT;
+        this._direction = CarouselComponent.DIRECTION_LEFT;
         this.transitionTo(this._currentIndex);
         this.dispatchEvent(new CarouselEvent(CarouselEvent.NEXT));
         //console.log('CarouselEvent.NEXT');
@@ -179,7 +198,8 @@ class Carousel extends EventDispatcher
      */
     private movePrevious():void
     {
-        if (!this.crazy) {
+        if (!this.crazy)
+        {
             if (this._currentIndex == 0 && !this.loop || this._isMoving && this.loop) return;
         }
 
@@ -189,7 +209,7 @@ class Carousel extends EventDispatcher
             this._currentIndex = this._maxIndex;
         }
 
-        this._direction = Carousel.DIRECTION_RIGHT;
+        this._direction = CarouselComponent.DIRECTION_RIGHT;
         this.transitionTo(this._currentIndex);
         this.dispatchEvent(new CarouselEvent(CarouselEvent.PREVIOUS));
         //console.log('CarouselEvent.PREVIOUS');
@@ -219,10 +239,12 @@ class Carousel extends EventDispatcher
 //
         this._isMoving = false;
 
-        if (this.loop && this._direction == Carousel.DIRECTION_LEFT) {
+        if (this.loop && this._direction == CarouselComponent.DIRECTION_LEFT)
+        {
             (<HTMLScriptElement>this._container.el).style.left = '0';
-            for (var i:number = 0; i < this._itemsVisible; i++) {
-                this._container.addChild( this._container.getChildAt(0) );
+            for (var i:number = 0; i < this._itemsVisible; i++)
+            {
+                this._container.addChild(this._container.getChildAt(0));
             }
         }
 

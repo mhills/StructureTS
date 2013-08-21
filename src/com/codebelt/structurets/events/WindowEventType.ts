@@ -23,7 +23,7 @@
  */
 
 /**
- * The WindowEventType...
+ * YUIDoc_comment
  *
  * @class WindowEventType
  * @module StructureTS
@@ -38,11 +38,11 @@ class WindowEventType
     public static CLASS_NAME:string = 'WindowEventType';
 
     /**
-     *
+     * YUIDoc_comment
      *
      * @property CHANGE
      * @type {string}
-     * static
+     * @static
      */
     public static CHANGE:string = "change";
 }

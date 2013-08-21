@@ -110,7 +110,7 @@ class Hasher extends EventDispatcher {
      *
      * @property _hashValRegexp
      * @type {RegExp}
-     * @readonly
+     * @readOnly
      * @private
      */
     private _hashValRegexp:RegExp = /#(.*)$/;
@@ -119,7 +119,7 @@ class Hasher extends EventDispatcher {
      *
      * @property _baseUrlRegexp
      * @type {RegExp}
-     * @readonly
+     * @readOnly
      * @private
      */
     private _baseUrlRegexp:RegExp = /(\?.*)|(\#.*)/;
@@ -128,7 +128,7 @@ class Hasher extends EventDispatcher {
      *
      * @property _hashRegexp
      * @type {RegExp}
-     * @readonly
+     * @readOnly
      * @private
      */
     private _hashRegexp:RegExp = /^\#/;
@@ -139,7 +139,7 @@ class Hasher extends EventDispatcher {
      *
      * @property _isIE
      * @type {boolean}
-     * @readonly
+     * @readOnly
      * @private
      */
     private _isIE:boolean = (!+"\v1");
@@ -148,7 +148,7 @@ class Hasher extends EventDispatcher {
      * hashchange is supported by FF3.6+, IE8+, Chrome 5+, Safari 5+ but feature detection fails on IE compatibility mode, so we need to check documentMode.
      * @property _isHashChangeSupported
      * @type {boolean}
-     * @readonly
+     * @readOnly
      * @private
      */
     private _isHashChangeSupported:boolean = ('onhashchange' in window) && document.documentMode !== 7;
@@ -157,7 +157,7 @@ class Hasher extends EventDispatcher {
      * Check if is IE6-7 since hash change is only supported on IE8+ and changing hash value on IE6-7 doesn't generate history record.
      * @property _hashRegexp
      * @type {boolean}
-     * @readonly
+     * @readOnly
      * @private
      */
     private _isLegacyIE:boolean = false;
@@ -166,7 +166,7 @@ class Hasher extends EventDispatcher {
      *
      * @property _isLocal
      * @type {boolean}
-     * @readonly
+     * @readOnly
      * @private
      */
     private _isLocal:boolean = (location.protocol === 'file:');
