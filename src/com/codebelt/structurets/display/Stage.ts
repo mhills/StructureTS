@@ -89,13 +89,14 @@ class Stage extends DOMElement
     public appendTo(type:string, enabled:boolean = true):any
     {
         this.$el = jQuery(type);
+        this.$el.attr('data-cid', this.cid);
 
         if (!this.isCreated)
         {
             this.createChildren();
             this.isCreated = true;
         }
-        console.log("appendTo", type, this.$el, this.el)
+
         if (enabled)
         {
             this.enable();

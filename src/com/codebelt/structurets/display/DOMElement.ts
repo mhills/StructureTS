@@ -86,7 +86,6 @@ class DOMElement extends DisplayObject
      */
     public createChildren(template:any = 'div', data:any = null):any
     {
-        console.log("template",template);
         if (typeof template === 'function' && !this.$el)
         {
             Jaml.register(this.CLASS_NAME, template);
@@ -105,10 +104,8 @@ class DOMElement extends DisplayObject
             }
         }
 
-        console.log("rpbertd", this.$el)
         this.el = this.$el[0];
 
-        console.log("createChildren", this.el)
         return this;
     }
 

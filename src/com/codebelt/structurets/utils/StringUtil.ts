@@ -84,12 +84,10 @@ class StringUtil
             var r = Math.random() * 16 | 0;
             var v = (c == 'x') ? r : (r & 0x3 | 0x8);
             return v.toString(16);
-        };
+        });
 
         return uuid;
     }
-
-;
 
     public static queryStringToObject(queryString:string):Object
     {
@@ -108,6 +106,38 @@ class StringUtil
         }
 
         return params;
+    }
+
+    /**
+     * Remove all whitespace from the string passed in.
+     * @example
+     *      var str = "   a b    c d e f g ";
+     *      StringUtil.removeAllWhitespace(str);
+     *      // "abcdefg"
+     *
+     * @method removeAllWhitespace
+     * @param str {string}
+     * @returns {string}
+     */
+    public static removeAllWhitespace(str:string):string
+    {
+        return str.replace(/\s+/g, '');
+    }
+
+    /**
+     * Remove leading and trailing whitespace.
+     * @example
+     *      var str = "   a b    c d e f g ";
+     *      StringUtil.removeLeadingTrailingWhitespace(str);
+     *      // "a b c d e f g"
+     *
+     * @method removeLeadingTrailingWhitespace
+     * @param str {string}
+     * @returns {string}
+     */
+    public static removeLeadingTrailingWhitespace(str:string):string
+    {
+        return str.replace(/(^\s+|\s+$)/g,'');
     }
 
 }

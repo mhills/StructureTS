@@ -1,18 +1,21 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 
+///<reference path='SonView.ts'/>
+
 /**
  * YUIDoc_comment
  *
- * @class ContainerView
+ * @class DadView
  * @constructor
  **/
-class ContainerView extends DOMElement {
+class DadView extends DOMElement {
 
-    public CLASS_NAME:string = 'ContainerView';
+    public CLASS_NAME:string = 'DadView';
+
+    private _sonView:SonView = null;
 
     constructor() {
         super();
-
     }
 
     /**
@@ -20,14 +23,16 @@ class ContainerView extends DOMElement {
      * @overridden
      */
     public createChildren():void {
-//        super.createChildren(function(data){
-//            div ({'class': 'container'},
-//                div({'class': 'container-hd'},
-//                    p(data.name)
-//                )
-//            )
-//        }, {name: 'Alpha Container'});
-        super.createChildren();
+        super.createChildren(function(data){
+            div ({'class': 'container'},
+                div({'class': 'container-hd'},
+                    p(data.name)
+                )
+            )
+        }, {name: this.getQualifiedClassName()});
+
+        this._sonView = new SonView();
+        this.addChild(this._sonView);
     }
 
     /**

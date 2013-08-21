@@ -23,6 +23,7 @@
  */
 
 ///<reference path='../display/DOMElement.ts'/>
+///<reference path='../utils/StringUtil.ts'/>
 
 /**
  * The TemplateFactory...
@@ -70,19 +71,21 @@ class TemplateFactory
         var template:string;
         var isClassOrIdName:boolean = regex.test(templatePath);
 
-
         if (isClassOrIdName)
         {
+            var htmlString:string = $(templatePath).html();
+            htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
+
             if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE)
             {
                 // Underscore Template:
-                var templateMethod:Function = _.template($(templatePath).html());
+                var templateMethod:Function = _.template(htmlString);
                 template = templateMethod(data);
             }
             else
             {
                 // Handlebars Template
-                var templateMethod:Function = Handlebars.compile($(templatePath).html());
+                var templateMethod:Function = Handlebars.compile(htmlString);
                 template = templateMethod(data);
             }
         }
@@ -91,7 +94,7 @@ class TemplateFactory
             var templateObj:Object = window[TemplateFactory.templateNamespace];
             if (!templateObj)
             {
-                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
+                return template;
             }
 
             var templateFunction:Function = templateObj[templatePath];

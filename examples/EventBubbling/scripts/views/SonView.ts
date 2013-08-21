@@ -1,30 +1,33 @@
-///<reference path='../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../src/com/codebelt/structurets/display/Stage.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 
-///<reference path='views/GrandpaView.ts'/>
 /**
+ * YUIDoc_comment
  *
- * @class EventBubblingApp
- * @extends Stage
+ * @class SonView
  * @constructor
  **/
-class EventBubblingApp extends Stage {
+class SonView extends DOMElement {
 
-    private _grandpaView:GrandpaView = null;
+    public CLASS_NAME:string = 'SonView';
 
     constructor() {
         super();
     }
 
     /**
-     * @copy DOMElement.createChildren
+     * @copy DisplayObject.createChildren
      * @overridden
      */
     public createChildren():void {
-        super.createChildren();
+        super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
+    }
 
-        this._grandpaView = new GrandpaView();
-        this.addChild(this._grandpaView);
+    /**
+     * @copy DisplayObject.layoutChildren
+     * @overridden
+     */
+    public layoutChildren():void {
+
     }
 
     /**
