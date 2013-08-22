@@ -145,7 +145,6 @@ class Timer extends EventDispatcher {
         return this._repeatCount;
     }
 
-
     /**
      * Set the total number of times the timer is set to run. If the repeat count is set to 0, the timer continues indefinitely. If the repeat count is nonzero, the timer runs the specified number of times. If repeatCount is set to a total that is the same or less then currentCount the timer stops and will not fire again.
      *
@@ -161,7 +160,6 @@ class Timer extends EventDispatcher {
 
         return this;
     }
-
 
     /**
      * Stops the timer, if it is running, and sets the currentCount property back to 0, like the reset button of a stopwatch.

@@ -78,6 +78,7 @@ class BulkLoader extends EventDispatcher
     public getHtmlTemplate(key:string, templateId:string):string
     {
         //TODO: check if you need to change this to user the TemplateFactory
+        console.log(this.getQualifiedClassName(),'TODO: check if you need to change this to user the TemplateFactory')
         var rawHtml:string = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
         return rawHtml;
     }

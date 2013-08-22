@@ -25,7 +25,7 @@
 ///<reference path=''/>
 
 /**
- * The TimeUtil...
+ * YUIDoc_comment
  *
  * @class TimeUtil
  * @module StructureTS
@@ -42,7 +42,6 @@ class TimeUtil
     constructor()
     {
     }
-
 
 //    public static STANDARD:number = 12;
 //    public static MILITARY:number = 24;

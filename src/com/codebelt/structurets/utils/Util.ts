@@ -43,6 +43,7 @@ class Util
      * @property _idCounter
      * @type {init}
      * @private
+     * @static
      */
     private static _idCounter:number = 0;
 
@@ -54,8 +55,10 @@ class Util
      * Generates a unique ID. If a prefix is passed in, the value will be appended to it.
      * @example
      *      var property:number = Util.uniqueId();
+     *      // 1
      *
      *      var property:string = Util.uniqueId('yomama_');
+     *      // yomama_1
      * @method uniqueId
      * @param [prefix] {string} The string value used for the prefix.
      * @returns {init|string} Returns the unique identifier.
@@ -78,7 +81,8 @@ class Util
 
     /**
      * Generates a random boolean.
-     *
+     * @example
+     *      Util.getRandomBoolean();
      * @method getRandomBoolean
      * @returns {boolean} Returns a random boolean.
      * @public

@@ -40,12 +40,24 @@
  *
  * @class TransitionFactory
  * @extends BaseObject
+ * @module StructureTS
+ * @submodule util
  * @constructor
  **/
 class TransitionFactory extends BaseObject
 {
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
     public CLASS_NAME:string = 'TransitionFactory';
 
+    /**
+     * YUIDoc_comment
+     *
+     * @property _transitions
+     * @type {Object}
+     * @private
+     */
     private _transitions:Object = {};
 
     constructor()
@@ -61,6 +73,16 @@ class TransitionFactory extends BaseObject
         this.registerTransition(TransitionType.FADE_OUT_AND_IN, new TransitionFadeOutAndIn());
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @param transitionType {string}
+     * @param sectionStage {DisplayObject}
+     * @param currentView {DOMElement}
+     * @param nextView {DOMElement}
+     * @param duration {number}
+     * @returns {ITransition}
+     */
     public createTransition(transitionType:string, sectionStage:DisplayObject, currentView:DOMElement, nextView:DOMElement, duration:number = -1):ITransition
     {
         var concreteFactory:ITransition = this._transitions[transitionType];
@@ -79,15 +101,25 @@ class TransitionFactory extends BaseObject
         }
     }
 
-    public registerTransition(key:string, transitionFactory:ITransition):void
+    /**
+     * The registerTransition method allows you to add custom transitions to the {{#crossLink "TransitionFactory"}}{{/crossLink}}.
+     *
+     * @method registerTransition
+     * @param key {string} The key value for the transition being passed in.
+     * @param transitionFactory{ITransition} A transition that implements {{#crossLink "ITransition"}}{{/crossLink}}.
+     * @chainable
+     * @public
+     */
+    public registerTransition(key:string, transitionFactory:ITransition):any
     {
-        // TODO: should this throw an error or just not add the ITransition?
         if (this._transitions.hasOwnProperty(key))
         {
             throw new Error('['+this.getQualifiedClassName()+'] A transition with that key has already been registered.');
         }
 
         this._transitions[key] = transitionFactory;
+
+        return this;
     }
 
     /**

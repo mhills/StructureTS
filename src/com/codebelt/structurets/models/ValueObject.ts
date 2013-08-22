@@ -26,7 +26,7 @@
 ///<reference path='../BaseObject.ts'/>
 
 /**
- * The ValueObject...
+ * Value Object (VO) is a design pattern used to transfer data between software application subsystems.
  *
  * @class ValueObject
  * @param [data] {any} Provide a way to update the value object upon initialization.
@@ -51,6 +51,7 @@ class ValueObject extends BaseObject implements IValueObject
      *
      * @method update
      * @param data {any}
+     * @public
      */
     public update(data:any):any
     {
@@ -62,6 +63,7 @@ class ValueObject extends BaseObject implements IValueObject
      *
      * @method toJSON
      * @returns {string}
+     * @public
      */
     public toJSON():string
     {
@@ -73,6 +75,7 @@ class ValueObject extends BaseObject implements IValueObject
      *
      * @method fromJSON
      * @param json {string}
+     * @public
      */
     public fromJSON(json:string):any
     {
@@ -87,6 +90,7 @@ class ValueObject extends BaseObject implements IValueObject
      *
      * @method clone
      * @returns {Object}
+     * @public
      */
     public clone():Object
     {
@@ -98,6 +102,7 @@ class ValueObject extends BaseObject implements IValueObject
      *
      * @method copy
      * @returns {IValueObject}
+     * @public
      */
     public copy():IValueObject
     {

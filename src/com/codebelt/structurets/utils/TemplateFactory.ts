@@ -26,7 +26,7 @@
 ///<reference path='../utils/StringUtil.ts'/>
 
 /**
- * The TemplateFactory...
+ * YUIDoc_comment
  *
  * @class TemplateFactory
  * @module StructureTS
