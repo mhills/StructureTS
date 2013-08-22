@@ -47,7 +47,7 @@ class NavigationView extends DOMElement
             )
         });
 
-//        this._languageSelect = new LanguageSelect();
+        this._languageSelect = new LanguageSelect();
 //        this.addChildAt(this._languageSelect, 0);
         return this;
     }

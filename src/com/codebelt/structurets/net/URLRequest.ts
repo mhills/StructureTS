@@ -82,7 +82,7 @@ class URLRequest extends BaseObject
      */
     public data:any = null;
 
-    constructor(url:String = null)
+    constructor(url:string = null)
     {
         super();
         this.url = url;
