@@ -23,13 +23,7 @@ class GrandpaView extends DOMElement {
      * @overridden
      */
     public createChildren():void {
-        super.createChildren(function(data){
-            div ({'class': 'container'},
-                div({'class': 'container-hd'},
-                    p(data.name)
-                )
-            )
-        }, {name: this.getQualifiedClassName()});
+        super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
 
         this._dadView = new DadView();
         this.addChild(this._dadView);
@@ -50,6 +44,8 @@ class GrandpaView extends DOMElement {
     public enable():void {
         if (this.isEnabled === true) return;
 
+        this._dadView.enable();
+
         super.enable();
     }
 
@@ -59,6 +55,8 @@ class GrandpaView extends DOMElement {
      */
     public disable():void {
         if (this.isEnabled === false) return;
+
+        this._dadView.disable();
 
         super.disable();
     }

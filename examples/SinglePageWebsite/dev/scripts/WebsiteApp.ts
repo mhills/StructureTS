@@ -23,9 +23,8 @@ class WebsiteApp extends Stage
     private _footerView:FooterView = null;
     private _mainView:MainView = null;
 
-    private _languageManager:LanguageModel;
-    private _request:JsonRequest;
-//    private _bulkLoader:BulkLoader;
+    private _languageManager:LanguageModel = null;
+    private _request:JsonRequest = null;
 
     constructor() {
         super();
@@ -43,15 +42,6 @@ class WebsiteApp extends Stage
         this._request = new JsonRequest();
 //        http://qa3mred.nerderylabs.com/user/authenticate.json
     }
-
-    /*private loadHtmlTemplates(event:LoaderEvent):void
-     {
-     this._bulkLoader = BulkLoader.getInstance();
-     this._bulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
-     this._bulkLoader.addFile(new HtmlLoader("templates/templates.html"), "masterTemplates");
-     this._bulkLoader.load();
-     }*/
-
 
     public createChildren():DOMElement {
         super.createChildren();
@@ -81,8 +71,6 @@ class WebsiteApp extends Stage
 
     private init(event):void
     {
-//        this._bulkLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.init);
-
         this._pageContainer = new DOMElement("div", {id: "page"});
         this.addChild(this._pageContainer);
 

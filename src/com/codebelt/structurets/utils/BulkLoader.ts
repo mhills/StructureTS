@@ -60,9 +60,10 @@ class BulkLoader extends EventDispatcher
         return this._instance;
     }
 
-    public addFile(dataStore:IDataStore, key:string):void
+    public addFile(dataStore:IDataStore, key:string):any
     {
         this._dataStores[key] = dataStore;
+        return this;
     }
 
     public getFile(key:string):IDataStore
@@ -83,7 +84,7 @@ class BulkLoader extends EventDispatcher
         return rawHtml;
     }
 
-    public load():void
+    public load():any
     {
         for (var key in this._dataStores)
         {
@@ -91,6 +92,8 @@ class BulkLoader extends EventDispatcher
             dataStore.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
             dataStore.load();
         }
+
+        return this;
     }
 
     private onLoadComplete(event:LoaderEvent):void

@@ -81,7 +81,7 @@ class Canvas extends CanvasElement
     /**
      * @override
      */
-    public addChild(child:CanvasElement):Canvas
+    public addChild(child:CanvasElement):any
     {
         child.parent = this.stage;
         child.stage = this.stage;
@@ -91,7 +91,7 @@ class Canvas extends CanvasElement
         return this;
     }
 
-    public removeChild(child:CanvasElement):Canvas
+    public removeChild(child:CanvasElement):any
     {
         child.stage = null;
         child.context = null;
@@ -99,38 +99,11 @@ class Canvas extends CanvasElement
         return this;
     }
 
-    public render():Canvas
+    public render():any
     {
         this.context.clearRect(0, 0, this.width, this.height);
 
         return this;
     }
-
-//
-//    //TODO: Figure out how to handle both class events and native canvas events.
-//    //Override event listeners becuase Canvas is both and CanvasElement and DOMElement.
-//    public addEventListener(type:string, callback:Function, scope:any)
-//    {
-////        if (document.addEventListener) {
-////            this.element.addEventListener(type, callback, false);
-////        } else if (document.attachEvent)  {
-////            this.element.attachEvent("on" + type, callback);
-////        } else {
-////            this.element["on" + type] = callback;
-////        }
-//    }
-//
-//    //TODO: Figure out how to handle both class events and native canvas events.
-//    //Override event listeners becuase Canvas is both and CanvasElement and DOMElement.
-//    public removeEventListener(type:string, callback:Function, scope:any)
-//    {
-////        if (document.removeEventListener) {
-////            this.element[0].removeEventListener(type, callback, false);
-////        } else if (document.detachEvent)  {
-////            this.element[0].detachEvent("on" + type, callback);
-////        } else {
-////            this.element[0]["on" + type] = null;
-////        }
-//    }
 
 }

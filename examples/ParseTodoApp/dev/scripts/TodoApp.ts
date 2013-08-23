@@ -6,6 +6,7 @@
 ///<reference path='../../../../src/com/codebelt/structurets/events/MouseEventType.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/events/EventBroker.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/utils/TemplateFactory.ts'/>
+
 ///<reference path='event/ListItemEvent.ts'/>
 ///<reference path='model/AppModel.ts'/>
 
@@ -33,7 +34,7 @@ class TodoApp extends Stage
      * @copy DOMElement.createChildren
      * @overridden
      */
-    public createChildren():DOMElement
+    public createChildren():void
     {
         super.createChildren();
 
@@ -41,56 +42,48 @@ class TodoApp extends Stage
 
         this._input = this.getChild('#js-todo-input');
         this._submitBtn = this.getChild('#js-submit-button');
-
-//        TemplateFactory.templateEngine = TemplateFactory.HANDLEBARS
         this._noTasksMessage = TemplateFactory.createView('#noTodoItemsTemplate');
 
         this._incompleteItemList = this.getChild('#js-incomplete-items');
         this._incompleteItemList.addChild(this._noTasksMessage);
 
         this.updateItemList();
-
-        return this;
     }
 
     /**
      * @copy DisplayObject.enable
      * @overridden
      */
-    public enable():DOMElement {
-        if (this.isEnabled === true) return this;
+    public enable():void {
+        if (this.isEnabled === true) return;
 
-        this._submitBtn.el.addEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
-//            this._submitBtn.$el.on(MouseEventType.CLICK, this.onSubmitButton.bind(this));
-        this._incompleteItemList.$el.on(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this) );
+        this._submitBtn.$el.addEventListener(MouseEventType.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$el.addEventListener(MouseEventType.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
         this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
         super.enable();
-        return this;
     }
 
     /**
      * @copy DisplayObject.disable
      * @overridden
      */
-    public disable():DOMElement {
-        if (this.isEnabled === false) return this;
+    public disable():void {
+        if (this.isEnabled === false) return;
 
-        this._submitBtn.el.removeEventListener(MouseEventType.CLICK, (event:MouseEvent) => this.onSubmitButton(event), false);
-//            this._submitBtn.$el.off(MouseEventType.CLICK, this.onSubmitButton.bind(this));
-        this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
+        this._submitBtn.$el.removeEventListener(MouseEventType.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$el.removeEventListener(MouseEventType.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
         super.disable();
-        return this;
     }
 
-    private onSubmitButton(event:MouseEvent):void
+    private onSubmitButton(event:JQueryEventObject):void
     {
         var text:string = this._input.$el.val();
 

@@ -60,6 +60,7 @@ var BaseEvent = (function () {
         this.CLASS_NAME = 'BaseEvent';
         this.type = null;
         this.target = null;
+        this.currentTarget = null;
         this.data = null;
         this.bubble = false;
         this.cancelable = false;
@@ -164,6 +165,7 @@ var EventDispatcher = (function (_super) {
                 index = i + 1;
             }
         }
+
         list.splice(index, 0, { c: callback, s: scope, pr: priority });
 
         return this;
@@ -188,6 +190,8 @@ var EventDispatcher = (function (_super) {
         if (event.target == null) {
             event.target = this;
         }
+
+        event.currentTarget = this;
 
         var list = this._listeners[event.type];
         if (list) {
@@ -267,7 +271,7 @@ var DisplayObject = (function (_super) {
 
     DisplayObject.prototype.swapChildrenAt = function (index1, index2) {
         if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
-            throw new TypeError('[DisplayObject] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
+            throw new TypeError('[' + this.getQualifiedClassName() + '] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
         }
 
         var child1 = this.getChildAt(index1);
@@ -312,7 +316,9 @@ var DisplayObject = (function (_super) {
     DisplayObject.prototype.setSize = function (unscaledWidth, unscaledHeight) {
         this.unscaledWidth = unscaledWidth;
         this.unscaledHeight = unscaledHeight;
-        this.layoutChildren();
+        if (this.isCreated) {
+            this.layoutChildren();
+        }
 
         return this;
     };
@@ -330,13 +336,75 @@ var DisplayObject = (function (_super) {
     };
     return DisplayObject;
 })(EventDispatcher);
+var StringUtil = (function () {
+    function StringUtil() {
+    }
+    StringUtil.stringToBoolean = function (str) {
+        return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
+    };
+
+    StringUtil.getExtension = function (filename) {
+        return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
+    };
+
+    StringUtil.hyphenToCamelCase = function (str) {
+        return str.replace(/-([a-z])/g, function (g) {
+            return g[1].toUpperCase();
+        });
+    };
+
+    StringUtil.hyphenToPascalCase = function (str) {
+        return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated) {
+            return hyphenated.toUpperCase();
+        });
+    };
+
+    StringUtil.camelCaseToHyphen = function (str) {
+        return str.replace(/([a-z][A-Z])/g, function (g) {
+            return g[0] + '-' + g[1].toLowerCase();
+        });
+    };
+
+    StringUtil.createUUID = function () {
+        var uuid = ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx').replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0;
+            var v = (c == 'x') ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+
+        return uuid;
+    };
+
+    StringUtil.queryStringToObject = function (queryString) {
+        var params = {};
+        var temp = null;
+
+        var queries = queryString.substring(1).split("&");
+
+        var len = queries.length;
+        for (var i = 0; i < len; i++) {
+            temp = queries[i].split('=');
+            params[temp[0]] = temp[1];
+        }
+
+        return params;
+    };
+
+    StringUtil.removeAllWhitespace = function (str) {
+        return str.replace(/\s+/g, '');
+    };
+
+    StringUtil.removeLeadingTrailingWhitespace = function (str) {
+        return str.replace(/(^\s+|\s+$)/g, '');
+    };
+    StringUtil.CLASS_NAME = 'StringUtil';
+    return StringUtil;
+})();
 var TemplateFactory = (function () {
     function TemplateFactory() {
     }
     TemplateFactory.createTemplate = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        return jQuery(template);
+        return TemplateFactory.create(templatePath, data);
     };
 
     TemplateFactory.createView = function (templatePath, data) {
@@ -353,29 +421,28 @@ var TemplateFactory = (function () {
         var isClassOrIdName = regex.test(templatePath);
 
         if (isClassOrIdName) {
+            var htmlString = $(templatePath).html();
+            htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
+
             if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
-                var templateMethod = _.template($(templatePath).html());
+                var templateMethod = _.template(htmlString);
                 template = templateMethod(data);
             } else {
-                var templateMethod = Handlebars.compile($(templatePath).html());
+                var templateMethod = Handlebars.compile(htmlString);
                 template = templateMethod(data);
             }
         } else {
             var templateObj = window[TemplateFactory.templateNamespace];
             if (!templateObj) {
-                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
+                return template;
             }
 
             var templateFunction = templateObj[templatePath];
             if (!templateFunction) {
-                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+                template = null;
+            } else {
+                template = templateFunction(data);
             }
-
-            template = templateFunction(data);
-        }
-
-        if (!template) {
-            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
         }
 
         return template;
@@ -392,27 +459,31 @@ var TemplateFactory = (function () {
 var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
-        if (typeof type === "undefined") { type = 'div'; }
+        if (typeof type === "undefined") { type = null; }
         if (typeof params === "undefined") { params = {}; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
-        this._node = null;
-        this._options = {};
         this._isVisible = true;
         this.el = null;
         this.$el = null;
 
-        this._node = type;
-        this._options = params;
+        if (type) {
+            this.$el = jQuery("<" + type + "/>", params);
+        }
     }
     DOMElement.prototype.createChildren = function (template, data) {
-        if (typeof template === 'function') {
+        if (typeof template === "undefined") { template = 'div'; }
+        if (typeof data === "undefined") { data = null; }
+        if (typeof template === 'function' && !this.$el) {
             Jaml.register(this.CLASS_NAME, template);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
-        } else if (typeof template === 'string') {
-            this.$el = TemplateFactory.createTemplate(template, data);
-        } else if (this._node && !this.$el) {
-            this.$el = jQuery("<" + this._node + "/>", this._options);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, data));
+        } else if (typeof template === 'string' && !this.$el) {
+            var html = TemplateFactory.createTemplate(template, data);
+            if (html) {
+                this.$el = $(html);
+            } else {
+                this.$el = jQuery("<" + template + "/>", data);
+            }
         }
 
         this.el = this.$el[0];
@@ -427,11 +498,12 @@ var DOMElement = (function (_super) {
             child.createChildren();
             child.isCreated = true;
         }
-        child.layoutChildren();
 
         child.$el.attr('data-cid', child.cid);
 
         this.$el.append(child.$el);
+
+        child.layoutChildren();
 
         child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
@@ -483,7 +555,7 @@ var DOMElement = (function (_super) {
         } else {
             var jQueryElement = this.$el.find(selector).first();
             if (jQueryElement.length == 0) {
-                throw new TypeError('[DOMElement] getChild(' + selector + ') Cannot find DOM $el');
+                throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $el');
             }
 
             var cid = jQueryElement.data('cid');
@@ -588,7 +660,6 @@ var DOMElement = (function (_super) {
     DOMElement.prototype.destroy = function () {
         this.el = null;
         this.$el = null;
-        this._options = null;
 
         _super.prototype.destroy.call(this);
     };
@@ -603,7 +674,8 @@ var Stage = (function (_super) {
     Stage.prototype.appendTo = function (type, enabled) {
         if (typeof enabled === "undefined") { enabled = true; }
         this.$el = jQuery(type);
-
+        this.$el.attr('data-cid', this.cid);
+        debugger;
         if (!this.isCreated) {
             this.createChildren();
             this.isCreated = true;
@@ -838,52 +910,40 @@ var TodoApp = (function (_super) {
 
         this._input = this.getChild('#js-todo-input');
         this._submitBtn = this.getChild('#js-submit-button');
-
+        console.log(this._submitBtn);
         this._noTasksMessage = TemplateFactory.createView('#noTodoItemsTemplate');
 
         this._incompleteItemList = this.getChild('#js-incomplete-items');
         this._incompleteItemList.addChild(this._noTasksMessage);
 
         this.updateItemList();
-
-        return this;
     };
 
     TodoApp.prototype.enable = function () {
-        var _this = this;
         if (this.isEnabled === true)
-            return this;
+            return;
 
-        this._submitBtn.el.addEventListener(MouseEventType.CLICK, function (event) {
-            return _this.onSubmitButton(event);
-        }, false);
-
-        this._incompleteItemList.$el.on(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
+        this._submitBtn.$el.addEventListener(MouseEventType.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$el.addEventListener(MouseEventType.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
         this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
         _super.prototype.enable.call(this);
-        return this;
     };
 
     TodoApp.prototype.disable = function () {
-        var _this = this;
         if (this.isEnabled === false)
-            return this;
+            return;
 
-        this._submitBtn.el.removeEventListener(MouseEventType.CLICK, function (event) {
-            return _this.onSubmitButton(event);
-        }, false);
-
-        this._incompleteItemList.$el.off(MouseEventType.CLICK, '.list-item', this.onTodoSelected.bind(this));
+        this._submitBtn.$el.removeEventListener(MouseEventType.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$el.removeEventListener(MouseEventType.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
         _super.prototype.disable.call(this);
-        return this;
     };
 
     TodoApp.prototype.onSubmitButton = function (event) {

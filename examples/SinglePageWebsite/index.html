@@ -4,10 +4,10 @@
     <title></title>
     <link rel="stylesheet" href="prod/styles/styles.min.css" type="text/css" media="screen" charset="utf-8" />
 </head>
-<body data-lang="sp" onload="javascript:init();">
+<body data-lang="sp">
 
-    <script type="text/javascript" src="../../libs/lodash.v1.3.1.min.js"></script>
-    <script type="text/javascript" src="../../libs/jquery/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="../../libs/lodash/lodash.compat.js"></script>
+    <script type="text/javascript" src="../../libs/jquery/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../../libs/jaml/Jaml-all.js"></script>
 
     <script type="text/javascript" src="../../libs/signals/signals.js"></script>
@@ -17,10 +17,11 @@
     <script type="text/javascript" src="../../libs/greensock/easing/EasePack.js"></script>
     <script type="text/javascript" src="../../libs/greensock/TweenLite.js"></script>
 
-    <script type="text/javascript" src="prod/scripts/websiteApp.js"></script>
     <script type="text/javascript" src="prod/scripts/templates.js"></script>
+    <script type="text/javascript" src="prod/scripts/websiteApp.js"></script>
+
     <script type="text/javascript">
-        function init() {
+        window.onload = function(event) {
             var app = new WebsiteApp();
             app.appendTo('body');
         }

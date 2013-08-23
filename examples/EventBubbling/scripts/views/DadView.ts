@@ -23,13 +23,7 @@ class DadView extends DOMElement {
      * @overridden
      */
     public createChildren():void {
-        super.createChildren(function(data){
-            div ({'class': 'container'},
-                div({'class': 'container-hd'},
-                    p(data.name)
-                )
-            )
-        }, {name: this.getQualifiedClassName()});
+        super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
 
         this._sonView = new SonView();
         this.addChild(this._sonView);
@@ -50,6 +44,8 @@ class DadView extends DOMElement {
     public enable():void {
         if (this.isEnabled === true) return;
 
+        this._sonView.enable();
+
         super.enable();
     }
 
@@ -59,6 +55,8 @@ class DadView extends DOMElement {
      */
     public disable():void {
         if (this.isEnabled === false) return;
+
+        this._sonView.disable();
 
         super.disable();
     }

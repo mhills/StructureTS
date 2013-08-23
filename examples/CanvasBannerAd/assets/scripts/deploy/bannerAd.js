@@ -60,6 +60,7 @@ var BaseEvent = (function () {
         this.CLASS_NAME = 'BaseEvent';
         this.type = null;
         this.target = null;
+        this.currentTarget = null;
         this.data = null;
         this.bubble = false;
         this.cancelable = false;
@@ -164,6 +165,7 @@ var EventDispatcher = (function (_super) {
                 index = i + 1;
             }
         }
+
         list.splice(index, 0, { c: callback, s: scope, pr: priority });
 
         return this;
@@ -188,6 +190,8 @@ var EventDispatcher = (function (_super) {
         if (event.target == null) {
             event.target = this;
         }
+
+        event.currentTarget = this;
 
         var list = this._listeners[event.type];
         if (list) {
@@ -267,7 +271,7 @@ var DisplayObject = (function (_super) {
 
     DisplayObject.prototype.swapChildrenAt = function (index1, index2) {
         if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
-            throw new TypeError('[DisplayObject] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
+            throw new TypeError('[' + this.getQualifiedClassName() + '] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
         }
 
         var child1 = this.getChildAt(index1);
@@ -312,7 +316,9 @@ var DisplayObject = (function (_super) {
     DisplayObject.prototype.setSize = function (unscaledWidth, unscaledHeight) {
         this.unscaledWidth = unscaledWidth;
         this.unscaledHeight = unscaledHeight;
-        this.layoutChildren();
+        if (this.isCreated) {
+            this.layoutChildren();
+        }
 
         return this;
     };
@@ -358,6 +364,7 @@ var CanvasElement = (function (_super) {
 
     CanvasElement.prototype.readerStart = function () {
         this.context.save();
+        return this;
     };
 
     CanvasElement.prototype.layoutChildren = function () {
@@ -374,6 +381,7 @@ var CanvasElement = (function (_super) {
 
     CanvasElement.prototype.renderEnd = function () {
         this.context.restore();
+        return this;
     };
 
     CanvasElement.prototype.addChild = function (child) {
@@ -393,13 +401,75 @@ var CanvasElement = (function (_super) {
     };
     return CanvasElement;
 })(DisplayObject);
+var StringUtil = (function () {
+    function StringUtil() {
+    }
+    StringUtil.stringToBoolean = function (str) {
+        return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
+    };
+
+    StringUtil.getExtension = function (filename) {
+        return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
+    };
+
+    StringUtil.hyphenToCamelCase = function (str) {
+        return str.replace(/-([a-z])/g, function (g) {
+            return g[1].toUpperCase();
+        });
+    };
+
+    StringUtil.hyphenToPascalCase = function (str) {
+        return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated) {
+            return hyphenated.toUpperCase();
+        });
+    };
+
+    StringUtil.camelCaseToHyphen = function (str) {
+        return str.replace(/([a-z][A-Z])/g, function (g) {
+            return g[0] + '-' + g[1].toLowerCase();
+        });
+    };
+
+    StringUtil.createUUID = function () {
+        var uuid = ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx').replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0;
+            var v = (c == 'x') ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+
+        return uuid;
+    };
+
+    StringUtil.queryStringToObject = function (queryString) {
+        var params = {};
+        var temp = null;
+
+        var queries = queryString.substring(1).split("&");
+
+        var len = queries.length;
+        for (var i = 0; i < len; i++) {
+            temp = queries[i].split('=');
+            params[temp[0]] = temp[1];
+        }
+
+        return params;
+    };
+
+    StringUtil.removeAllWhitespace = function (str) {
+        return str.replace(/\s+/g, '');
+    };
+
+    StringUtil.removeLeadingTrailingWhitespace = function (str) {
+        return str.replace(/(^\s+|\s+$)/g, '');
+    };
+    StringUtil.CLASS_NAME = 'StringUtil';
+    return StringUtil;
+})();
 var TemplateFactory = (function () {
     function TemplateFactory() {
     }
     TemplateFactory.createTemplate = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        return jQuery(template);
+        return TemplateFactory.create(templatePath, data);
     };
 
     TemplateFactory.createView = function (templatePath, data) {
@@ -416,29 +486,28 @@ var TemplateFactory = (function () {
         var isClassOrIdName = regex.test(templatePath);
 
         if (isClassOrIdName) {
+            var htmlString = $(templatePath).html();
+            htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
+
             if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
-                var templateMethod = _.template($(templatePath).html());
+                var templateMethod = _.template(htmlString);
                 template = templateMethod(data);
             } else {
-                var templateMethod = Handlebars.compile($(templatePath).html());
+                var templateMethod = Handlebars.compile(htmlString);
                 template = templateMethod(data);
             }
         } else {
             var templateObj = window[TemplateFactory.templateNamespace];
             if (!templateObj) {
-                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
+                return template;
             }
 
             var templateFunction = templateObj[templatePath];
             if (!templateFunction) {
-                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+                template = null;
+            } else {
+                template = templateFunction(data);
             }
-
-            template = templateFunction(data);
-        }
-
-        if (!template) {
-            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
         }
 
         return template;
@@ -455,27 +524,31 @@ var TemplateFactory = (function () {
 var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
-        if (typeof type === "undefined") { type = 'div'; }
+        if (typeof type === "undefined") { type = null; }
         if (typeof params === "undefined") { params = {}; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
-        this._node = null;
-        this._options = {};
         this._isVisible = true;
         this.el = null;
         this.$el = null;
 
-        this._node = type;
-        this._options = params;
+        if (type) {
+            this.$el = jQuery("<" + type + "/>", params);
+        }
     }
     DOMElement.prototype.createChildren = function (template, data) {
-        if (typeof template === 'function') {
+        if (typeof template === "undefined") { template = 'div'; }
+        if (typeof data === "undefined") { data = null; }
+        if (typeof template === 'function' && !this.$el) {
             Jaml.register(this.CLASS_NAME, template);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
-        } else if (typeof template === 'string') {
-            this.$el = TemplateFactory.createTemplate(template, data);
-        } else if (this._node && !this.$el) {
-            this.$el = jQuery("<" + this._node + "/>", this._options);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, data));
+        } else if (typeof template === 'string' && !this.$el) {
+            var html = TemplateFactory.createTemplate(template, data);
+            if (html) {
+                this.$el = $(html);
+            } else {
+                this.$el = jQuery("<" + template + "/>", data);
+            }
         }
 
         this.el = this.$el[0];
@@ -490,11 +563,12 @@ var DOMElement = (function (_super) {
             child.createChildren();
             child.isCreated = true;
         }
-        child.layoutChildren();
 
         child.$el.attr('data-cid', child.cid);
 
         this.$el.append(child.$el);
+
+        child.layoutChildren();
 
         child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
@@ -546,7 +620,7 @@ var DOMElement = (function (_super) {
         } else {
             var jQueryElement = this.$el.find(selector).first();
             if (jQueryElement.length == 0) {
-                throw new TypeError('[DOMElement] getChild(' + selector + ') Cannot find DOM $el');
+                throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $el');
             }
 
             var cid = jQueryElement.data('cid');
@@ -651,7 +725,6 @@ var DOMElement = (function (_super) {
     DOMElement.prototype.destroy = function () {
         this.el = null;
         this.$el = null;
-        this._options = null;
 
         _super.prototype.destroy.call(this);
     };
@@ -720,6 +793,7 @@ var Stage = (function (_super) {
     Stage.prototype.appendTo = function (type, enabled) {
         if (typeof enabled === "undefined") { enabled = true; }
         this.$el = jQuery(type);
+        this.$el.attr('data-cid', this.cid);
 
         if (!this.isCreated) {
             this.createChildren();
@@ -827,6 +901,7 @@ var BulkLoader = (function (_super) {
 
     BulkLoader.prototype.addFile = function (dataStore, key) {
         this._dataStores[key] = dataStore;
+        return this;
     };
 
     BulkLoader.prototype.getFile = function (key) {
@@ -838,6 +913,7 @@ var BulkLoader = (function (_super) {
     };
 
     BulkLoader.prototype.getHtmlTemplate = function (key, templateId) {
+        console.log(this.getQualifiedClassName(), 'TODO: check if you need to change this to user the TemplateFactory');
         var rawHtml = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
         return rawHtml;
     };
@@ -848,6 +924,8 @@ var BulkLoader = (function (_super) {
             dataStore.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
             dataStore.load();
         }
+
+        return this;
     };
 
     BulkLoader.prototype.onLoadComplete = function (event) {
@@ -914,24 +992,20 @@ var BannerAd = (function (_super) {
     }
     BannerAd.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
-
-        return this;
     };
 
     BannerAd.prototype.enable = function () {
         if (this.isEnabled === true)
-            return this;
+            return;
 
         _super.prototype.enable.call(this);
-        return this;
     };
 
     BannerAd.prototype.disable = function () {
         if (this.isEnabled === false)
-            return this;
+            return;
 
         _super.prototype.disable.call(this);
-        return this;
     };
 
     BannerAd.prototype.init = function (event) {
@@ -962,14 +1036,14 @@ var BannerAd = (function (_super) {
         this.addChild(this._boxOfCandy);
 
         TweenLite.to(this._boxOfCandy, 1, { delay: 0.5, alpha: 1, scaleX: 1, scaleY: 1, ease: Cubic.easeOut });
-        TweenLite.to(this._cherry, 0.5, { delay: 1, y: 37, ease: Cubic.easeOut, onComplete: this.onCherryComplete.bind(this) });
+        TweenLite.to(this._cherry, 0.5, { delay: 1, y: 37, ease: Cubic.easeOut, onComplete: this.onCherryComplete, onCompleteScope: this });
     };
 
     BannerAd.prototype.onCherryComplete = function () {
         this._cherryDipped.visible = true;
         this.removeChild(this._cherry);
 
-        TweenLite.to(this._cherryDipped, 0.5, { y: 3, ease: Cubic.easeInOut, onComplete: this.onCherryDippedComplete.bind(this) });
+        TweenLite.to(this._cherryDipped, 0.5, { y: 3, ease: Cubic.easeInOut, onComplete: this.onCherryDippedComplete, onCompleteScope: this });
     };
 
     BannerAd.prototype.onCherryDippedComplete = function () {

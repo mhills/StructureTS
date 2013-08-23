@@ -26,6 +26,8 @@ class BannerAd extends Canvas
     {
         super();
 
+        // TODO: extend Stage and not Canvas.
+
         this._bulkLoader = new BulkLoader();
         this._bulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
         this._bulkLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry.png"), "cherry");
@@ -39,33 +41,29 @@ class BannerAd extends Canvas
      * @copy CanvasElement.createChildren
      * @overridden
      */
-    public createChildren():Canvas
+    public createChildren():void
     {
         super.createChildren();
-
-        return this;
     }
 
     /**
      * @copy DisplayObject.enable
      * @overridden
      */
-    public enable():Canvas {
-        if (this.isEnabled === true) return this;
+    public enable():void {
+        if (this.isEnabled === true) return;
 
         super.enable();
-        return this;
     }
 
     /**
      * @copy DisplayObject.disable
      * @overridden
      */
-    public disable():Canvas {
-        if (this.isEnabled === false) return this;
+    public disable():any {
+        if (this.isEnabled === false) return;
 
         super.disable();
-        return this;
     }
 
     private init(event:LoaderEvent):void
@@ -97,7 +95,7 @@ class BannerAd extends Canvas
         this.addChild(this._boxOfCandy);
 
         TweenLite.to(this._boxOfCandy, 1, {delay: 0.5, alpha:1, scaleX:1, scaleY:1, ease:Cubic.easeOut});
-        TweenLite.to(this._cherry, 0.5, {delay: 1, y:37, ease:Cubic.easeOut, onComplete: this.onCherryComplete.bind(this)});
+        TweenLite.to(this._cherry, 0.5, {delay: 1, y:37, ease:Cubic.easeOut, onComplete: this.onCherryComplete, onCompleteScope: this});
     }
 
     private onCherryComplete():void
@@ -105,7 +103,7 @@ class BannerAd extends Canvas
         this._cherryDipped.visible = true;
         this.removeChild(this._cherry);
 
-        TweenLite.to(this._cherryDipped, 0.5, {y:3, ease:Cubic.easeInOut, onComplete: this.onCherryDippedComplete.bind(this)});
+        TweenLite.to(this._cherryDipped, 0.5, {y:3, ease:Cubic.easeInOut, onComplete: this.onCherryDippedComplete, onCompleteScope: this});
     }
 
     private onCherryDippedComplete():void

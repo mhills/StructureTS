@@ -691,14 +691,40 @@ var Stage = (function (_super) {
     };
     return Stage;
 })(DOMElement);
+var MouseEventType = (function () {
+    function MouseEventType() {
+    }
+    MouseEventType.CLASS_NAME = 'MouseEventType';
+
+    MouseEventType.CLICK = 'click';
+
+    MouseEventType.DBL_CLICK = 'dblclick';
+
+    MouseEventType.MOUSE_DOWN = 'mousedown';
+
+    MouseEventType.MOUSE_MOVE = 'mousemove';
+
+    MouseEventType.MOUSE_OVER = 'mouseover';
+
+    MouseEventType.MOUSE_OUT = 'mouseout';
+
+    MouseEventType.MOUSE_UP = 'mouseup';
+
+    MouseEventType.TAP = 'tap';
+    return MouseEventType;
+})();
 var SonView = (function (_super) {
     __extends(SonView, _super);
     function SonView() {
         _super.call(this);
         this.CLASS_NAME = 'SonView';
+        this._dispatchButton = null;
     }
     SonView.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
+
+        this._dispatchButton = new DOMElement('button', { 'class': 'button_dispatch', text: 'Dispatch Event' });
+        this.addChild(this._dispatchButton);
     };
 
     SonView.prototype.layoutChildren = function () {
@@ -708,6 +734,8 @@ var SonView = (function (_super) {
         if (this.isEnabled === true)
             return;
 
+        this._dispatchButton.$el.addEventListener(MouseEventType.CLICK, this.onButtonClick, this);
+
         _super.prototype.enable.call(this);
     };
 
@@ -715,7 +743,17 @@ var SonView = (function (_super) {
         if (this.isEnabled === false)
             return;
 
+        this._dispatchButton.$el.removeEventListener(MouseEventType.CLICK, this.onButtonClick, this);
+
         _super.prototype.disable.call(this);
+    };
+
+    SonView.prototype.onButtonClick = function (event) {
+        event.preventDefault();
+
+        this._dispatchButton.$el.text('Event Sent!');
+
+        this.dispatchEvent(new BaseEvent(BaseEvent.CHANGE, true));
     };
     return SonView;
 })(DOMElement);
@@ -727,9 +765,7 @@ var DadView = (function (_super) {
         this._sonView = null;
     }
     DadView.prototype.createChildren = function () {
-        _super.prototype.createChildren.call(this, function (data) {
-            div({ 'class': 'container' }, div({ 'class': 'container-hd' }, p(data.name)));
-        }, { name: this.getQualifiedClassName() });
+        _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
         this._sonView = new SonView();
         this.addChild(this._sonView);
@@ -742,12 +778,16 @@ var DadView = (function (_super) {
         if (this.isEnabled === true)
             return;
 
+        this._sonView.enable();
+
         _super.prototype.enable.call(this);
     };
 
     DadView.prototype.disable = function () {
         if (this.isEnabled === false)
             return;
+
+        this._sonView.disable();
 
         _super.prototype.disable.call(this);
     };
@@ -761,9 +801,7 @@ var GrandpaView = (function (_super) {
         this._dadView = null;
     }
     GrandpaView.prototype.createChildren = function () {
-        _super.prototype.createChildren.call(this, function (data) {
-            div({ 'class': 'container' }, div({ 'class': 'container-hd' }, p(data.name)));
-        }, { name: this.getQualifiedClassName() });
+        _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
         this._dadView = new DadView();
         this.addChild(this._dadView);
@@ -776,12 +814,16 @@ var GrandpaView = (function (_super) {
         if (this.isEnabled === true)
             return;
 
+        this._dadView.enable();
+
         _super.prototype.enable.call(this);
     };
 
     GrandpaView.prototype.disable = function () {
         if (this.isEnabled === false)
             return;
+
+        this._dadView.disable();
 
         _super.prototype.disable.call(this);
     };
@@ -804,12 +846,16 @@ var EventBubblingApp = (function (_super) {
         if (this.isEnabled === true)
             return;
 
+        this._grandpaView.enable();
+
         _super.prototype.enable.call(this);
     };
 
     EventBubblingApp.prototype.disable = function () {
         if (this.isEnabled === false)
             return;
+
+        this._grandpaView.disable();
 
         _super.prototype.disable.call(this);
     };

@@ -2,6 +2,7 @@
 ///<reference path='../../../src/com/codebelt/structurets/display/Stage.ts'/>
 
 ///<reference path='views/GrandpaView.ts'/>
+
 /**
  *
  * @class EventBubblingApp
@@ -34,6 +35,8 @@ class EventBubblingApp extends Stage {
     public enable():void {
         if (this.isEnabled === true) return;
 
+        this._grandpaView.enable();
+
         super.enable();
     }
 
@@ -43,6 +46,8 @@ class EventBubblingApp extends Stage {
      */
     public disable():void {
         if (this.isEnabled === false) return;
+
+        this._grandpaView.disable();
 
         super.disable();
     }
