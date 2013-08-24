@@ -718,13 +718,16 @@ var SonView = (function (_super) {
     function SonView() {
         _super.call(this);
         this.CLASS_NAME = 'SonView';
+        this._childrenContainer = null;
         this._dispatchButton = null;
     }
     SonView.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
+        this._childrenContainer = this.getChild('.js-childrenArea');
+
         this._dispatchButton = new DOMElement('button', { 'class': 'button_dispatch', text: 'Dispatch Event' });
-        this.addChild(this._dispatchButton);
+        this._childrenContainer.addChild(this._dispatchButton);
     };
 
     SonView.prototype.layoutChildren = function () {
@@ -748,6 +751,16 @@ var SonView = (function (_super) {
         _super.prototype.disable.call(this);
     };
 
+    SonView.prototype.destroy = function () {
+        this._dispatchButton.destroy();
+        this._dispatchButton = null;
+
+        this._childrenContainer.destroy();
+        this._childrenContainer = null;
+
+        _super.prototype.destroy.call(this);
+    };
+
     SonView.prototype.onButtonClick = function (event) {
         event.preventDefault();
 
@@ -762,13 +775,16 @@ var DadView = (function (_super) {
     function DadView() {
         _super.call(this);
         this.CLASS_NAME = 'DadView';
+        this._childrenContainer = null;
         this._sonView = null;
     }
     DadView.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
+        this._childrenContainer = this.getChild('.js-childrenArea');
+
         this._sonView = new SonView();
-        this.addChild(this._sonView);
+        this._childrenContainer.addChild(this._sonView);
     };
 
     DadView.prototype.layoutChildren = function () {
@@ -791,6 +807,16 @@ var DadView = (function (_super) {
 
         _super.prototype.disable.call(this);
     };
+
+    DadView.prototype.destroy = function () {
+        this._sonView.destroy();
+        this._sonView = null;
+
+        this._childrenContainer.destroy();
+        this._childrenContainer = null;
+
+        _super.prototype.destroy.call(this);
+    };
     return DadView;
 })(DOMElement);
 var GrandpaView = (function (_super) {
@@ -798,13 +824,16 @@ var GrandpaView = (function (_super) {
     function GrandpaView() {
         _super.call(this);
         this.CLASS_NAME = 'GrandpaView';
+        this._childrenContainer = null;
         this._dadView = null;
     }
     GrandpaView.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
+        this._childrenContainer = this.getChild('.js-childrenArea');
+
         this._dadView = new DadView();
-        this.addChild(this._dadView);
+        this._childrenContainer.addChild(this._dadView);
     };
 
     GrandpaView.prototype.layoutChildren = function () {
@@ -827,22 +856,33 @@ var GrandpaView = (function (_super) {
 
         _super.prototype.disable.call(this);
     };
+
+    GrandpaView.prototype.destroy = function () {
+        this._dadView.destroy();
+        this._dadView = null;
+
+        this._childrenContainer.destroy();
+        this._childrenContainer = null;
+
+        _super.prototype.destroy.call(this);
+    };
     return GrandpaView;
 })(DOMElement);
-var EventBubblingApp = (function (_super) {
-    __extends(EventBubblingApp, _super);
-    function EventBubblingApp() {
+var RootView = (function (_super) {
+    __extends(RootView, _super);
+    function RootView() {
         _super.call(this);
+        this.CLASS_NAME = 'RootView';
         this._grandpaView = null;
     }
-    EventBubblingApp.prototype.createChildren = function () {
-        _super.prototype.createChildren.call(this);
+    RootView.prototype.createChildren = function () {
+        _super.prototype.createChildren.call(this, '#wrapperTemplate');
 
         this._grandpaView = new GrandpaView();
         this.addChild(this._grandpaView);
     };
 
-    EventBubblingApp.prototype.enable = function () {
+    RootView.prototype.enable = function () {
         if (this.isEnabled === true)
             return;
 
@@ -851,13 +891,52 @@ var EventBubblingApp = (function (_super) {
         _super.prototype.enable.call(this);
     };
 
-    EventBubblingApp.prototype.disable = function () {
+    RootView.prototype.disable = function () {
         if (this.isEnabled === false)
             return;
 
         this._grandpaView.disable();
 
         _super.prototype.disable.call(this);
+    };
+    return RootView;
+})(DOMElement);
+var EventBubblingApp = (function (_super) {
+    __extends(EventBubblingApp, _super);
+    function EventBubblingApp() {
+        _super.call(this);
+        this._rootView = null;
+    }
+    EventBubblingApp.prototype.createChildren = function () {
+        _super.prototype.createChildren.call(this);
+
+        this._rootView = new RootView();
+        this.addChild(this._rootView);
+    };
+
+    EventBubblingApp.prototype.enable = function () {
+        if (this.isEnabled === true)
+            return;
+
+        this._rootView.enable();
+
+        _super.prototype.enable.call(this);
+    };
+
+    EventBubblingApp.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return;
+
+        this._rootView.disable();
+
+        _super.prototype.disable.call(this);
+    };
+
+    EventBubblingApp.prototype.destroy = function () {
+        this._rootView.destroy();
+        this._rootView = null;
+
+        _super.prototype.destroy.call(this);
     };
     return EventBubblingApp;
 })(Stage);

@@ -1,4 +1,4 @@
-///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 
 ///<reference path='SonView.ts'/>
 
@@ -12,6 +12,7 @@ class DadView extends DOMElement {
 
     public CLASS_NAME:string = 'DadView';
 
+    private _childrenContainer:DOMElement = null;
     private _sonView:SonView = null;
 
     constructor() {
@@ -25,8 +26,10 @@ class DadView extends DOMElement {
     public createChildren():void {
         super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
 
+        this._childrenContainer = this.getChild('.js-childrenArea');
+
         this._sonView = new SonView();
-        this.addChild(this._sonView);
+        this._childrenContainer.addChild(this._sonView);
     }
 
     /**
@@ -59,6 +62,20 @@ class DadView extends DOMElement {
         this._sonView.disable();
 
         super.disable();
+    }
+
+    /**
+     * @copy DisplayObject.destroy
+     * @overridden
+     */
+    public destroy():void {
+        this._sonView.destroy();
+        this._sonView = null;
+
+        this._childrenContainer.destroy();
+        this._childrenContainer = null;
+
+        super.destroy();
     }
 
 }

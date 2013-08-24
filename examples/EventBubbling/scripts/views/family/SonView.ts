@@ -1,5 +1,5 @@
-///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/events/MouseEventType.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/events/MouseEventType.ts'/>
 
 /**
  * YUIDoc_comment
@@ -11,6 +11,7 @@ class SonView extends DOMElement {
 
     public CLASS_NAME:string = 'SonView';
 
+    private _childrenContainer:DOMElement = null;
     private _dispatchButton:DOMElement = null;
 
     constructor() {
@@ -24,8 +25,10 @@ class SonView extends DOMElement {
     public createChildren():void {
         super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
 
+        this._childrenContainer = this.getChild('.js-childrenArea');
+
         this._dispatchButton = new DOMElement('button', {'class': 'button_dispatch', text: 'Dispatch Event'});
-        this.addChild(this._dispatchButton);
+        this._childrenContainer.addChild(this._dispatchButton);
     }
 
     /**
@@ -60,12 +63,24 @@ class SonView extends DOMElement {
         super.disable();
     }
 
+    /**
+     * @copy DisplayObject.destroy
+     * @overridden
+     */
+    public destroy():void {
+        this._dispatchButton.destroy();
+        this._dispatchButton = null;
+
+        this._childrenContainer.destroy();
+        this._childrenContainer = null;
+
+        super.destroy();
+    }
+
     private onButtonClick(event:JQueryEventObject):void {
         event.preventDefault();
 
-        this._dispatchButton.$el.text('Event Sent!');
-
-        this.dispatchEvent(new BaseEvent(BaseEvent.CHANGE, true));
+        this.dispatchEvent(new BaseEvent(BaseEvent.CHANGE, true, true));
     }
 
 }

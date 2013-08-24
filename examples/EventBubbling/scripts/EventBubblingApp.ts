@@ -1,7 +1,7 @@
 ///<reference path='../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../src/com/codebelt/structurets/display/Stage.ts'/>
 
-///<reference path='views/GrandpaView.ts'/>
+///<reference path='views/RootView.ts'/>
 
 /**
  *
@@ -11,7 +11,7 @@
  **/
 class EventBubblingApp extends Stage {
 
-    private _grandpaView:GrandpaView = null;
+    private _rootView:RootView = null;
 
     constructor() {
         super();
@@ -24,8 +24,8 @@ class EventBubblingApp extends Stage {
     public createChildren():void {
         super.createChildren();
 
-        this._grandpaView = new GrandpaView();
-        this.addChild(this._grandpaView);
+        this._rootView = new RootView();
+        this.addChild(this._rootView);
     }
 
     /**
@@ -35,7 +35,7 @@ class EventBubblingApp extends Stage {
     public enable():void {
         if (this.isEnabled === true) return;
 
-        this._grandpaView.enable();
+        this._rootView.enable();
 
         super.enable();
     }
@@ -47,9 +47,20 @@ class EventBubblingApp extends Stage {
     public disable():void {
         if (this.isEnabled === false) return;
 
-        this._grandpaView.disable();
+        this._rootView.disable();
 
         super.disable();
+    }
+
+    /**
+     * @copy DisplayObject.destroy
+     * @overridden
+     */
+    public destroy():void {
+        this._rootView.destroy();
+        this._rootView = null;
+
+        super.destroy();
     }
 
 }

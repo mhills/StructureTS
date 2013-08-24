@@ -21,11 +21,20 @@
             <div class="container-hd">
                 <p>{{title}}</p>
             </div>
-            <div class="container-bd">
+            <div class="container-bd js-childrenArea">
                 <div class="splitPair">
                     <span class="message">Event bubbled by.</span>
                     <input type="checkbox" class="splitPair-input"/>
                 </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="wrapperTemplate" type="text/template">
+        <div class="wrapper">
+            <div class="splitPair">
+                <span class="message message_stage">Stage has received the event</span>
+                <button type="button">Clear</button>
             </div>
         </div>
     </script>
@@ -40,6 +49,7 @@
 
 <body>
 
+<!--
 <div class="wrapper">
     <div class="splitPair">
         <span class="message message_stage">Stage has received the event</span>
@@ -80,6 +90,7 @@
         </div>
     </div>
 </div>
+-->
 
 </body>
 

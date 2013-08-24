@@ -1,40 +1,32 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 
-///<reference path='DadView.ts'/>
+///<reference path='family/GrandpaView.ts'/>
 
 /**
  * YUIDoc_comment
  *
- * @class GrandpaView
+ * @class RootView
  * @constructor
  **/
-class GrandpaView extends DOMElement {
+class RootView extends DOMElement {
 
-    public CLASS_NAME:string = 'GrandpaView';
+    public CLASS_NAME:string = 'RootView';
 
-    private _dadView:DadView = null;
+    private _grandpaView:GrandpaView = null;
 
     constructor() {
         super();
     }
 
     /**
-     * @copy DisplayObject.createChildren
+     * @copy DOMElement.createChildren
      * @overridden
      */
     public createChildren():void {
-        super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
+        super.createChildren('#wrapperTemplate');
 
-        this._dadView = new DadView();
-        this.addChild(this._dadView);
-    }
-
-    /**
-     * @copy DisplayObject.layoutChildren
-     * @overridden
-     */
-    public layoutChildren():void {
-
+        this._grandpaView = new GrandpaView();
+        this.addChild(this._grandpaView);
     }
 
     /**
@@ -44,7 +36,7 @@ class GrandpaView extends DOMElement {
     public enable():void {
         if (this.isEnabled === true) return;
 
-        this._dadView.enable();
+        this._grandpaView.enable();
 
         super.enable();
     }
@@ -56,7 +48,7 @@ class GrandpaView extends DOMElement {
     public disable():void {
         if (this.isEnabled === false) return;
 
-        this._dadView.disable();
+        this._grandpaView.disable();
 
         super.disable();
     }
