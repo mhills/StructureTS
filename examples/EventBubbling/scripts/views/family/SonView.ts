@@ -13,6 +13,7 @@ class SonView extends DOMElement {
 
     private _childrenContainer:DOMElement = null;
     private _dispatchButton:DOMElement = null;
+    private _sonMessage:DOMElement = null;
 
     constructor() {
         super();
@@ -29,6 +30,8 @@ class SonView extends DOMElement {
 
         this._dispatchButton = new DOMElement('button', {'class': 'button_dispatch', text: 'Dispatch Event'});
         this._childrenContainer.addChild(this._dispatchButton);
+
+        this._sonMessage = this.getChild('.js-message');
     }
 
     /**
@@ -36,7 +39,7 @@ class SonView extends DOMElement {
      * @overridden
      */
     public layoutChildren():void {
-
+        this._sonMessage.$el.css('opacity', 0);
     }
 
     /**
@@ -45,6 +48,8 @@ class SonView extends DOMElement {
      */
     public enable():void {
         if (this.isEnabled === true) return;
+
+        this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._dispatchButton.$el.addEventListener(MouseEventType.CLICK, this.onButtonClick, this);
 
@@ -57,6 +62,8 @@ class SonView extends DOMElement {
      */
     public disable():void {
         if (this.isEnabled === false) return;
+
+        this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._dispatchButton.$el.removeEventListener(MouseEventType.CLICK, this.onButtonClick, this);
 
@@ -81,6 +88,18 @@ class SonView extends DOMElement {
         event.preventDefault();
 
         this.dispatchEvent(new BaseEvent(BaseEvent.CHANGE, true, true));
+    }
+
+    private onBubbled(event:BaseEvent):void {
+        var checkbox:boolean = this._childrenContainer.$el.find('[type=checkbox]')
+            .first()
+            .prop('checked');
+
+        if (checkbox == true) {
+            event.stopPropagation();
+        }
+
+        this._sonMessage.$el.css('opacity', 1);
     }
 
 }

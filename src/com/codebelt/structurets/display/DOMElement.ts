@@ -71,12 +71,31 @@ class DOMElement extends DisplayObject
      */
     public $el:JQuery = null;
 
-    constructor(type:string = null, params:any = {})
+    /**
+     * Holds onto the value passed into the constructor.
+     *
+     * @property _type
+     * @type {string}
+     * @default null
+     */
+    private _type:string = null;
+
+    /**
+     * Holds onto the value passed into the constructor.
+     *
+     * @property _params
+     * @type {any}
+     * @default null
+     */
+    private _params:any = null;
+
+    constructor(type:string = null, params:any = null)
     {
         super();
 
         if (type) {
-            this.$el = jQuery("<" + type + "/>", params);
+            this._type = type;
+            this._params = params;
         }
     }
 
@@ -84,23 +103,28 @@ class DOMElement extends DisplayObject
      * @copy DisplayObject.createChildren
      * @overridden
      */
-    public createChildren(template:any = 'div', data:any = null):any
+    public createChildren(type:any = 'div', params:any = null):any
     {
-        if (typeof template === 'function' && !this.$el)
+        // Use the data passed into the constructor first else use the arguments from createChildren.
+        type = this._type || type;
+        params = this._params || params;
+
+        // If the typeof is a Function then the template data must be Jaml.
+        if (typeof type === 'function' && !this.$el)
         {
-            Jaml.register(this.CLASS_NAME, template);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, data));
+            Jaml.register(this.CLASS_NAME, type);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, params));
         }
-        else if (typeof template === 'string' && !this.$el)
+        else if (typeof type === 'string' && !this.$el)
         {
-            var html:string = TemplateFactory.createTemplate(template, data);
+            var html:string = TemplateFactory.createTemplate(type, params);
             if (html)
             {
                 this.$el = $(html);
             }
             else
             {
-                this.$el = jQuery("<" + template + "/>", data);
+                this.$el = jQuery("<" + type + "/>", params);
             }
         }
 

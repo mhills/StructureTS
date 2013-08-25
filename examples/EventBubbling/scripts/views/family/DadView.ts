@@ -14,6 +14,7 @@ class DadView extends DOMElement {
 
     private _childrenContainer:DOMElement = null;
     private _sonView:SonView = null;
+    private _dadMessage:DOMElement = null;
 
     constructor() {
         super();
@@ -30,6 +31,8 @@ class DadView extends DOMElement {
 
         this._sonView = new SonView();
         this._childrenContainer.addChild(this._sonView);
+
+        this._dadMessage = this.getChild('.js-message');
     }
 
     /**
@@ -37,7 +40,8 @@ class DadView extends DOMElement {
      * @overridden
      */
     public layoutChildren():void {
-
+        this._dadMessage.$el.css('opacity', 0);
+        this._sonView.layoutChildren();
     }
 
     /**
@@ -46,6 +50,8 @@ class DadView extends DOMElement {
      */
     public enable():void {
         if (this.isEnabled === true) return;
+
+        this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._sonView.enable();
 
@@ -58,6 +64,8 @@ class DadView extends DOMElement {
      */
     public disable():void {
         if (this.isEnabled === false) return;
+
+        this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._sonView.disable();
 
@@ -76,6 +84,18 @@ class DadView extends DOMElement {
         this._childrenContainer = null;
 
         super.destroy();
+    }
+
+    private onBubbled(event:BaseEvent):void {
+        var checkbox:boolean = this._childrenContainer.$el.find('[type=checkbox]')
+            .first()
+            .prop('checked');
+
+        if (checkbox == true) {
+            event.stopPropagation();
+        }
+
+        this._dadMessage.$el.css('opacity', 1);
     }
 
 }

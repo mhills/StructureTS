@@ -8,7 +8,6 @@ html, body {
   font-size: 84%;
   font-weight: bold;
   font-family: arial, sans-serif;
-  text-transform: lowercase;
 }
 
 .wrapper {
@@ -73,6 +72,5 @@ html, body {
 
 .button_dispatch {
   padding: 10px; 
-  text-transform: lowercase;
   font-weight: bold;
 }

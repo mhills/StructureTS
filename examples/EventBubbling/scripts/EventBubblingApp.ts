@@ -1,7 +1,7 @@
 ///<reference path='../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../src/com/codebelt/structurets/display/Stage.ts'/>
 
-///<reference path='views/RootView.ts'/>
+///<reference path='views/family/GrandpaView.ts'/>
 
 /**
  *
@@ -11,7 +11,9 @@
  **/
 class EventBubblingApp extends Stage {
 
-    private _rootView:RootView = null;
+    private _grandpaView:GrandpaView = null;
+    private _clearButton:DOMElement = null;
+    private _stageMessage:DOMElement = null;
 
     constructor() {
         super();
@@ -24,8 +26,20 @@ class EventBubblingApp extends Stage {
     public createChildren():void {
         super.createChildren();
 
-        this._rootView = new RootView();
-        this.addChild(this._rootView);
+        this._grandpaView = new GrandpaView();
+        this.addChild(this._grandpaView);
+
+        this._clearButton = this.getChild('#js-clearButton');
+        this._stageMessage = this.getChild('.js-message');
+    }
+
+    /**
+     * @copy DisplayObject.layoutChildren
+     * @overridden
+     */
+    public layoutChildren():void {
+        this._stageMessage.$el.css('opacity', 0);
+        this._grandpaView.layoutChildren();
     }
 
     /**
@@ -35,7 +49,10 @@ class EventBubblingApp extends Stage {
     public enable():void {
         if (this.isEnabled === true) return;
 
-        this._rootView.enable();
+        this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
+
+        this._clearButton.$el.addEventListener(MouseEventType.CLICK, this.onClearClick, this);
+        this._grandpaView.enable();
 
         super.enable();
     }
@@ -47,20 +64,20 @@ class EventBubblingApp extends Stage {
     public disable():void {
         if (this.isEnabled === false) return;
 
-        this._rootView.disable();
+        this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
+
+        this._clearButton.$el.removeEventListener(MouseEventType.CLICK, this.onClearClick, this);
+        this._grandpaView.disable();
 
         super.disable();
     }
 
-    /**
-     * @copy DisplayObject.destroy
-     * @overridden
-     */
-    public destroy():void {
-        this._rootView.destroy();
-        this._rootView = null;
+    private onClearClick(event:JQueryEventObject):void {
+        this.layoutChildren();
+    }
 
-        super.destroy();
+    private onBubbled(event:BaseEvent):void {
+        this._stageMessage.$el.css('opacity', 1);
     }
 
 }

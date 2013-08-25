@@ -95,15 +95,12 @@ class Stage extends DOMElement
         {
             this.createChildren();
             this.isCreated = true;
+            this.layoutChildren();
         }
 
         if (enabled)
         {
             this.enable();
-        }
-        else
-        {
-            this.disable();
         }
 
         return this;

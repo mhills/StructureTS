@@ -14,6 +14,7 @@ class GrandpaView extends DOMElement {
 
     private _childrenContainer:DOMElement = null;
     private _dadView:DadView = null;
+    private _grandpaMessage:DOMElement = null;
 
     constructor() {
         super();
@@ -30,6 +31,8 @@ class GrandpaView extends DOMElement {
 
         this._dadView = new DadView();
         this._childrenContainer.addChild(this._dadView);
+
+        this._grandpaMessage = this.getChild('.js-message');
     }
 
     /**
@@ -37,7 +40,8 @@ class GrandpaView extends DOMElement {
      * @overridden
      */
     public layoutChildren():void {
-
+        this._grandpaMessage.$el.css('opacity', 0);
+        this._dadView.layoutChildren();
     }
 
     /**
@@ -46,6 +50,8 @@ class GrandpaView extends DOMElement {
      */
     public enable():void {
         if (this.isEnabled === true) return;
+
+        this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._dadView.enable();
 
@@ -58,6 +64,8 @@ class GrandpaView extends DOMElement {
      */
     public disable():void {
         if (this.isEnabled === false) return;
+
+        this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._dadView.disable();
 
@@ -76,6 +84,18 @@ class GrandpaView extends DOMElement {
         this._childrenContainer = null;
 
         super.destroy();
+    }
+
+    private onBubbled(event:BaseEvent):void {
+        var checkbox:boolean = this._childrenContainer.$el.find('[type=checkbox]')
+                                                          .first()
+                                                          .prop('checked');
+
+        if (checkbox == true) {
+            event.stopPropagation();
+        }
+
+        this._grandpaMessage.$el.css('opacity', 1);
     }
 
 }

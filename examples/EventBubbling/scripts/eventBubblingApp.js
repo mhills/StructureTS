@@ -460,29 +460,35 @@ var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
         if (typeof type === "undefined") { type = null; }
-        if (typeof params === "undefined") { params = {}; }
+        if (typeof params === "undefined") { params = null; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
         this._isVisible = true;
         this.el = null;
         this.$el = null;
+        this._type = null;
+        this._params = null;
 
         if (type) {
-            this.$el = jQuery("<" + type + "/>", params);
+            this._type = type;
+            this._params = params;
         }
     }
-    DOMElement.prototype.createChildren = function (template, data) {
-        if (typeof template === "undefined") { template = 'div'; }
-        if (typeof data === "undefined") { data = null; }
-        if (typeof template === 'function' && !this.$el) {
-            Jaml.register(this.CLASS_NAME, template);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, data));
-        } else if (typeof template === 'string' && !this.$el) {
-            var html = TemplateFactory.createTemplate(template, data);
+    DOMElement.prototype.createChildren = function (type, params) {
+        if (typeof type === "undefined") { type = 'div'; }
+        if (typeof params === "undefined") { params = null; }
+        type = this._type || type;
+        params = this._params || params;
+
+        if (typeof type === 'function' && !this.$el) {
+            Jaml.register(this.CLASS_NAME, type);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, params));
+        } else if (typeof type === 'string' && !this.$el) {
+            var html = TemplateFactory.createTemplate(type, params);
             if (html) {
                 this.$el = $(html);
             } else {
-                this.$el = jQuery("<" + template + "/>", data);
+                this.$el = jQuery("<" + type + "/>", params);
             }
         }
 
@@ -679,12 +685,11 @@ var Stage = (function (_super) {
         if (!this.isCreated) {
             this.createChildren();
             this.isCreated = true;
+            this.layoutChildren();
         }
 
         if (enabled) {
             this.enable();
-        } else {
-            this.disable();
         }
 
         return this;
@@ -720,6 +725,7 @@ var SonView = (function (_super) {
         this.CLASS_NAME = 'SonView';
         this._childrenContainer = null;
         this._dispatchButton = null;
+        this._sonMessage = null;
     }
     SonView.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
@@ -728,14 +734,19 @@ var SonView = (function (_super) {
 
         this._dispatchButton = new DOMElement('button', { 'class': 'button_dispatch', text: 'Dispatch Event' });
         this._childrenContainer.addChild(this._dispatchButton);
+
+        this._sonMessage = this.getChild('.js-message');
     };
 
     SonView.prototype.layoutChildren = function () {
+        this._sonMessage.$el.css('opacity', 0);
     };
 
     SonView.prototype.enable = function () {
         if (this.isEnabled === true)
             return;
+
+        this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._dispatchButton.$el.addEventListener(MouseEventType.CLICK, this.onButtonClick, this);
 
@@ -745,6 +756,8 @@ var SonView = (function (_super) {
     SonView.prototype.disable = function () {
         if (this.isEnabled === false)
             return;
+
+        this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._dispatchButton.$el.removeEventListener(MouseEventType.CLICK, this.onButtonClick, this);
 
@@ -764,9 +777,17 @@ var SonView = (function (_super) {
     SonView.prototype.onButtonClick = function (event) {
         event.preventDefault();
 
-        this._dispatchButton.$el.text('Event Sent!');
+        this.dispatchEvent(new BaseEvent(BaseEvent.CHANGE, true, true));
+    };
 
-        this.dispatchEvent(new BaseEvent(BaseEvent.CHANGE, true));
+    SonView.prototype.onBubbled = function (event) {
+        var checkbox = this._childrenContainer.$el.find('[type=checkbox]').first().prop('checked');
+
+        if (checkbox == true) {
+            event.stopPropagation();
+        }
+
+        this._sonMessage.$el.css('opacity', 1);
     };
     return SonView;
 })(DOMElement);
@@ -777,6 +798,7 @@ var DadView = (function (_super) {
         this.CLASS_NAME = 'DadView';
         this._childrenContainer = null;
         this._sonView = null;
+        this._dadMessage = null;
     }
     DadView.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
@@ -785,14 +807,20 @@ var DadView = (function (_super) {
 
         this._sonView = new SonView();
         this._childrenContainer.addChild(this._sonView);
+
+        this._dadMessage = this.getChild('.js-message');
     };
 
     DadView.prototype.layoutChildren = function () {
+        this._dadMessage.$el.css('opacity', 0);
+        this._sonView.layoutChildren();
     };
 
     DadView.prototype.enable = function () {
         if (this.isEnabled === true)
             return;
+
+        this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._sonView.enable();
 
@@ -802,6 +830,8 @@ var DadView = (function (_super) {
     DadView.prototype.disable = function () {
         if (this.isEnabled === false)
             return;
+
+        this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._sonView.disable();
 
@@ -817,6 +847,16 @@ var DadView = (function (_super) {
 
         _super.prototype.destroy.call(this);
     };
+
+    DadView.prototype.onBubbled = function (event) {
+        var checkbox = this._childrenContainer.$el.find('[type=checkbox]').first().prop('checked');
+
+        if (checkbox == true) {
+            event.stopPropagation();
+        }
+
+        this._dadMessage.$el.css('opacity', 1);
+    };
     return DadView;
 })(DOMElement);
 var GrandpaView = (function (_super) {
@@ -826,6 +866,7 @@ var GrandpaView = (function (_super) {
         this.CLASS_NAME = 'GrandpaView';
         this._childrenContainer = null;
         this._dadView = null;
+        this._grandpaMessage = null;
     }
     GrandpaView.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
@@ -834,14 +875,20 @@ var GrandpaView = (function (_super) {
 
         this._dadView = new DadView();
         this._childrenContainer.addChild(this._dadView);
+
+        this._grandpaMessage = this.getChild('.js-message');
     };
 
     GrandpaView.prototype.layoutChildren = function () {
+        this._grandpaMessage.$el.css('opacity', 0);
+        this._dadView.layoutChildren();
     };
 
     GrandpaView.prototype.enable = function () {
         if (this.isEnabled === true)
             return;
+
+        this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._dadView.enable();
 
@@ -851,6 +898,8 @@ var GrandpaView = (function (_super) {
     GrandpaView.prototype.disable = function () {
         if (this.isEnabled === false)
             return;
+
+        this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
         this._dadView.disable();
 
@@ -866,59 +915,49 @@ var GrandpaView = (function (_super) {
 
         _super.prototype.destroy.call(this);
     };
+
+    GrandpaView.prototype.onBubbled = function (event) {
+        var checkbox = this._childrenContainer.$el.find('[type=checkbox]').first().prop('checked');
+
+        if (checkbox == true) {
+            event.stopPropagation();
+        }
+
+        this._grandpaMessage.$el.css('opacity', 1);
+    };
     return GrandpaView;
-})(DOMElement);
-var RootView = (function (_super) {
-    __extends(RootView, _super);
-    function RootView() {
-        _super.call(this);
-        this.CLASS_NAME = 'RootView';
-        this._grandpaView = null;
-    }
-    RootView.prototype.createChildren = function () {
-        _super.prototype.createChildren.call(this, '#wrapperTemplate');
-
-        this._grandpaView = new GrandpaView();
-        this.addChild(this._grandpaView);
-    };
-
-    RootView.prototype.enable = function () {
-        if (this.isEnabled === true)
-            return;
-
-        this._grandpaView.enable();
-
-        _super.prototype.enable.call(this);
-    };
-
-    RootView.prototype.disable = function () {
-        if (this.isEnabled === false)
-            return;
-
-        this._grandpaView.disable();
-
-        _super.prototype.disable.call(this);
-    };
-    return RootView;
 })(DOMElement);
 var EventBubblingApp = (function (_super) {
     __extends(EventBubblingApp, _super);
     function EventBubblingApp() {
         _super.call(this);
-        this._rootView = null;
+        this._grandpaView = null;
+        this._clearButton = null;
+        this._stageMessage = null;
     }
     EventBubblingApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
 
-        this._rootView = new RootView();
-        this.addChild(this._rootView);
+        this._grandpaView = new GrandpaView();
+        this.addChild(this._grandpaView);
+
+        this._clearButton = this.getChild('#js-clearButton');
+        this._stageMessage = this.getChild('.js-message');
+    };
+
+    EventBubblingApp.prototype.layoutChildren = function () {
+        this._stageMessage.$el.css('opacity', 0);
+        this._grandpaView.layoutChildren();
     };
 
     EventBubblingApp.prototype.enable = function () {
         if (this.isEnabled === true)
             return;
 
-        this._rootView.enable();
+        this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
+
+        this._clearButton.$el.addEventListener(MouseEventType.CLICK, this.onClearClick, this);
+        this._grandpaView.enable();
 
         _super.prototype.enable.call(this);
     };
@@ -927,16 +966,20 @@ var EventBubblingApp = (function (_super) {
         if (this.isEnabled === false)
             return;
 
-        this._rootView.disable();
+        this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
+
+        this._clearButton.$el.removeEventListener(MouseEventType.CLICK, this.onClearClick, this);
+        this._grandpaView.disable();
 
         _super.prototype.disable.call(this);
     };
 
-    EventBubblingApp.prototype.destroy = function () {
-        this._rootView.destroy();
-        this._rootView = null;
+    EventBubblingApp.prototype.onClearClick = function (event) {
+        this.layoutChildren();
+    };
 
-        _super.prototype.destroy.call(this);
+    EventBubblingApp.prototype.onBubbled = function (event) {
+        this._stageMessage.$el.css('opacity', 1);
     };
     return EventBubblingApp;
 })(Stage);
