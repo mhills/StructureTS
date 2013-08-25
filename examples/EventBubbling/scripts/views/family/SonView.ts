@@ -92,8 +92,8 @@ class SonView extends DOMElement {
 
     private onBubbled(event:BaseEvent):void {
         var checkbox:boolean = this._childrenContainer.$el.find('[type=checkbox]')
-            .first()
-            .prop('checked');
+                                                          .first()
+                                                          .prop('checked');
 
         if (checkbox == true) {
             event.stopPropagation();
