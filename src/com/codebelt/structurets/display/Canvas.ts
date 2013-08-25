@@ -70,10 +70,6 @@ class Canvas extends CanvasElement
         {
             this.enable();
         }
-        else
-        {
-            this.disable();
-        }
 
         return this;
     }

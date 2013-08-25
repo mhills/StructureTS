@@ -525,29 +525,35 @@ var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
         if (typeof type === "undefined") { type = null; }
-        if (typeof params === "undefined") { params = {}; }
+        if (typeof params === "undefined") { params = null; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
         this._isVisible = true;
         this.el = null;
         this.$el = null;
+        this._type = null;
+        this._params = null;
 
         if (type) {
-            this.$el = jQuery("<" + type + "/>", params);
+            this._type = type;
+            this._params = params;
         }
     }
-    DOMElement.prototype.createChildren = function (template, data) {
-        if (typeof template === "undefined") { template = 'div'; }
-        if (typeof data === "undefined") { data = null; }
-        if (typeof template === 'function' && !this.$el) {
-            Jaml.register(this.CLASS_NAME, template);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, data));
-        } else if (typeof template === 'string' && !this.$el) {
-            var html = TemplateFactory.createTemplate(template, data);
+    DOMElement.prototype.createChildren = function (type, params) {
+        if (typeof type === "undefined") { type = 'div'; }
+        if (typeof params === "undefined") { params = null; }
+        type = this._type || type;
+        params = this._params || params;
+
+        if (typeof type === 'function' && !this.$el) {
+            Jaml.register(this.CLASS_NAME, type);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, params));
+        } else if (typeof type === 'string' && !this.$el) {
+            var html = TemplateFactory.createTemplate(type, params);
             if (html) {
                 this.$el = $(html);
             } else {
-                this.$el = jQuery("<" + template + "/>", data);
+                this.$el = jQuery("<" + type + "/>", params);
             }
         }
 
@@ -754,8 +760,6 @@ var Canvas = (function (_super) {
 
         if (enabled) {
             this.enable();
-        } else {
-            this.disable();
         }
 
         return this;
@@ -798,12 +802,11 @@ var Stage = (function (_super) {
         if (!this.isCreated) {
             this.createChildren();
             this.isCreated = true;
+            this.layoutChildren();
         }
 
         if (enabled) {
             this.enable();
-        } else {
-            this.disable();
         }
 
         return this;
