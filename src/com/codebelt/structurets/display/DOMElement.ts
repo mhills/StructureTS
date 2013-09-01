@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='DisplayObject.ts'/>
+///<reference path='DisplayObjectContainer.ts'/>
 ///<reference path='../events/BaseEvent.ts'/>
 ///<reference path='../utils/TemplateFactory.ts'/>
 
@@ -30,12 +30,12 @@
  * The {{#crossLink "DOMElement"}}{{/crossLink}} class is the base class for all objects that can be placed into the HTML DOM.
  *
  * @class DOMElement
- * @extends DisplayObject
+ * @extends DisplayObjectContainer
  * @module StructureTS
  * @submodule view
  * @constructor
  **/
-class DOMElement extends DisplayObject
+class DOMElement extends DisplayObjectContainer
 {
     /**
      * @copy BaseObject.CLASS_NAME
@@ -100,7 +100,7 @@ class DOMElement extends DisplayObject
     }
 
     /**
-     * @copy DisplayObject.createChildren
+     * @copy DisplayObjectContainer.createChildren
      * @overridden
      */
     public createChildren(type:any = 'div', params:any = null):any
@@ -134,7 +134,7 @@ class DOMElement extends DisplayObject
     }
 
     /**
-     * @copy DisplayObject.addChild
+     * @copy DisplayObjectContainer.addChild
      * @example
      *      container.addChild(domElementInstance);
      * @method addChild
@@ -166,7 +166,7 @@ class DOMElement extends DisplayObject
     }
 
     /**
-     * @copy DisplayObject.addChildAt
+     * @copy DisplayObjectContainer.addChildAt
      * @overridden
      */
     public addChildAt(child:DOMElement, index:number):any
@@ -202,7 +202,7 @@ class DOMElement extends DisplayObject
     }
 
     /**
-     * @copy DisplayObject.swapChildren
+     * @copy DisplayObjectContainer.swapChildren
      * @overridden
      */
     public swapChildren(child1:DOMElement, child2:DOMElement):any
@@ -229,58 +229,62 @@ class DOMElement extends DisplayObject
     }
 
     /**
-     * Allows two different types of arguments.
-     * If the argument is of type string then it assumed the method is looking for a DOM id name, DOM class name or a DOM tag name.
-     * If the argument is of type number then it assumed the method is looking for a DOMElement by its cid and will loop through the children array looking for a match.
+     * Gets a DOMElement by its cid.
      *
-     * @method getChild
-     * @param selector {string|number}
+     * @method getChildByCid
+     * @param selector {number}
      * @returns {DOMElement}
      * @override
      * @public
      */
-    public getChild(selector:any):DOMElement
+    public getChildByCid(cid:number):DOMElement
     {
-        var domElement:DOMElement = null;
-
-        // If a selector is a number which should be the cid of the object then this will find the object with the same cid value in the children array.
-        if (typeof selector === 'number')
+        var domElement:DOMElement = <DOMElement>_.find(this.children, function(child)
         {
-            domElement = <DOMElement>_.find(this.children, function (domElement)
-            {
-                return domElement.cid == selector;
-            });
+            return child.cid == cid;
+        });
+
+        return domElement || null;
+    }
+
+    /**
+     * Returns a DOMElement object with the first found DOM element by the passed in selector.
+     *
+     * @method getChild
+     * @param selector {string} DOM id name, DOM class name or a DOM tag name.
+     * @returns {DOMElement}
+     * @override
+     * @public
+     */
+    public getChild(selector:string):DOMElement
+    {
+        // Get the first match from the selector passed in.
+        var jQueryElement:JQuery = this.$el.find(selector).first();
+        if (jQueryElement.length == 0)
+        {
+            throw new TypeError('['+this.getQualifiedClassName()+'] getChild(' + selector + ') Cannot find DOM $el');
         }
-        // Create and new DOMElement object from the found jQuery element.
-        else
+
+        // Loop through the children array to see if the cid found on the jQueryElement matches any in the children array.
+        var cid:number = jQueryElement.data('cid');
+        var domElement:DOMElement = <DOMElement>_.find(this.children, function (domElement)
         {
-            var jQueryElement:JQuery = this.$el.find(selector).first();// Gets the first match.
-            if (jQueryElement.length == 0)
-            {
-                throw new TypeError('['+this.getQualifiedClassName()+'] getChild(' + selector + ') Cannot find DOM $el');
-            }
+            return domElement.cid == cid;
+        });
 
-            // Loop through the children array to see if the cid found on the jQueryElement matches any in the children array.
-            var cid:number = jQueryElement.data('cid');
-            domElement = <DOMElement>_.find(this.children, function (domElement)
-            {
-                return domElement.cid == cid;
-            });
+        // Create a DOMElement from the jQueryElement.
+        if (!domElement)
+        {
+            // Create a new DOMElement and assign the jQuery element to it.
+            domElement = new DOMElement();
+            domElement.$el = jQueryElement;
+            domElement.$el.attr('data-cid', domElement.cid);
+            domElement.el = jQueryElement[0];
+            domElement.isCreated = true;
 
-            // Create a DOMElement from the jQueryElement.
-            if (!domElement)
-            {
-                domElement = new DOMElement();
-                domElement.$el = jQueryElement;
-                domElement.$el.attr('data-cid', domElement.cid);
-
-                domElement.el = jQueryElement[0];
-                domElement.isCreated = true;
-
-                // Added to the super addChild method because we don't need to append the element to the DOM.
-                // At this point it already exists and we are just getting a reference to the DOM element.
-                super.addChild(domElement);
-            }
+            // Added to the super addChild method because we don't need to append the element to the DOM.
+            // At this point it already exists and we are just getting a reference to the DOM element.
+            super.addChild(domElement);
         }
 
         return domElement;
@@ -290,7 +294,7 @@ class DOMElement extends DisplayObject
      * Gets all the HTML elements children of this object.
      *
      * @method getChildren
-     * @param [selector] {string} You can pass in any type of jQuery selector.
+     * @param [selector] {string} You can pass in any type of jQuery selector. If there is no selector passed in it will get all the children this parent element.
      * @returns {Array} Returns a list of DOMElement's. It will grab all children HTML DOM elements of this object and will create a DOMElement for each DOM child.
      * If the 'data-cid' property exists is on an HTML element a DOMElement will not be create for that element because it will be assumed it already exists as a DOMElement.
      */
@@ -304,7 +308,7 @@ class DOMElement extends DisplayObject
         _.each($list, (item, index) =>
         {
             $child = jQuery(item);
-            // If the jQuery element already has cid data property then must be an existing DisplayObject (DOMElement).
+            // If the jQuery element already has cid data property then must be an existing DisplayObjectContainer (DOMElement) in the children array.
             if (!$child.data('cid'))
             {
                 domElement = new DOMElement();
@@ -328,7 +332,7 @@ class DOMElement extends DisplayObject
      * to the child exist. The index positions of any objects above the child in the parent object are decreased by 1.
      *
      * @method removeChild
-     * @param child {DOMElement} The DisplayObject instance to remove.
+     * @param child {DOMElement} The DisplayObjectContainer instance to remove.
      * @returns {DOMElement} Returns an instance of itself.
      * @override
      * @public
@@ -387,7 +391,7 @@ class DOMElement extends DisplayObject
     }
 
     /**
-     * @copy DisplayObject.layoutChildren
+     * @copy DisplayObjectContainer.layoutChildren
      */
     public layoutChildren():any
     {
@@ -437,14 +441,15 @@ class DOMElement extends DisplayObject
     }
 
     /**
-     * @copy DisplayObject.destroy
+     * @copy DisplayObjectContainer.destroy
      * @overridden
      */
     public destroy():void
     {
-        this.el = null;
-        this.$el = null;
-
         super.destroy();
+
+        this.$el = null;
+        this.el = null;
     }
+
 }

@@ -67,16 +67,6 @@ class BaseObject
      */
     public cid:number = null;
 
-    /**
-     * The isEnabled property is used to keep track of the enabled state of the object.
-     *
-     * @property isEnabled
-     * @type {boolean}
-     * @default false
-     * @protected
-     */
-    public isEnabled:boolean = false;
-
     constructor()
     {
         this.cid = Util.uniqueId();
@@ -96,71 +86,26 @@ class BaseObject
     }
 
     /**
-     * The enable method is responsible for enabling event listeners and children of the containing objects.
-     * @example
-     *      public enable():void {
-     *          if (this.isEnabled === true) return;
-     *
-     *          this._childInstance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
-     *          this._childInstance.enable();
-     *
-     *          super.enable();
-     *      }
-     * @method enable
-     * @chainable
-     * @public
-     */
-    public enable():any
-    {
-        if (this.isEnabled === true) return this;
-
-        this.isEnabled = true;
-        return this;
-    }
-
-    /**
-     * The disable method is responsible for disabling event listeners and children of the containing objects.
-     * @example
-     *      public disable():void {
-     *          if (this.isEnabled === false) return;
-     *
-     *          this._childInstance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
-     *          this._childInstance.disable();
-     *
-     *          super.enable();
-     *      }
-     * @method disable
-     * @chainable
-     * @public
-     */
-    public disable():any
-    {
-        if (this.isEnabled === false) return this;
-
-        this.isEnabled = false;
-        return this;
-    }
-
-    /**
      * The purpose of the destroy method is to make an object ready for garbage collection. This
      * should be thought of as a one way function. Once destroy is called no further methods should be
      * called on the object or properties accessed. It is the responsibility of those who implement this
      * function to stop all running Timers, all running Sounds, remove any event
      * listeners and take any other steps necessary to make an object eligible for garbage collection.
      * It is critical that all subclasses call the super for this function in their overridden methods.
+     *
+     * Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs. The {{#crossLink "BaseObject/destroy:method"}}{{/crossLink}} method also calls the {{#crossLink "InteractiveObject/disabled:method"}}{{/crossLink}} method on all classes that extend {{#crossLink "InteractiveObject"}}{{/crossLink}}.
      * @example
      *      public destroy():void {
+     *          super.destroy();
+     *
      *          this._childInstance.destroy();
      *          this._childInstance = null;
-     *
-     *          super.destroy();
      *      }
      * @method destroy
      * @public
      */
     public destroy():void
     {
-        this.isEnabled = false;
     }
 
 }

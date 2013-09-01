@@ -263,14 +263,14 @@ class Collection extends EventDispatcher implements ICollection
         for (var i:number = 0; i < len; i++)
         {
             prop = arg[i];
-            // Add found value object to the foundItems array.
+            // Adds found value object to the foundItems array.
             if ((typeof prop === 'string') || (typeof prop === 'number') || (typeof prop === 'boolean')) {
-                // If the item to check against is not an object.
+                // If the item is not an object.
                 foundItems = foundItems.concat(this.findPropertyValue(prop));
             }
             else
             {
-                // If the item to check against is an object.
+                // If the item is an object.
                 foundItems = foundItems.concat(_.where(this.items, prop));
             }
         }
@@ -422,10 +422,10 @@ class Collection extends EventDispatcher implements ICollection
      */
     public destroy():void
     {
+        super.destroy();
+
         this.items = null;
         this.length = null;
-
-        super.destroy();
     }
 
 }

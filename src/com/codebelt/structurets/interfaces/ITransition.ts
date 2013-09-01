@@ -23,7 +23,7 @@
  */
 
 ///<reference path='../interfaces/IEventDispatcher.ts'/>
-///<reference path='../display/DisplayObject.ts'/>
+///<reference path='../display/DisplayObjectContainer.ts'/>
 ///<reference path='../display/DOMElement.ts'/>
 
 /**
@@ -34,7 +34,7 @@
  **/
 interface ITransition extends IEventDispatcher {
 
-    createTransition(transitionType:string, sectionStage:DisplayObject, currentView:DOMElement, nextView:DOMElement, duration?:number):ITransition;
+    createTransition(transitionType:string, sectionStage:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration?:number):ITransition;
     complete():any;
 
 }

@@ -25,23 +25,23 @@
 ///<reference path='../events/EventDispatcher.ts'/>
 
 /**
- * The {{#crossLink "DisplayObject"}}{{/crossLink}} class is the base class for all objects that can be placed on the display list.
+ * The {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} class is the base class for all objects that can be placed on the display list.
  *
- * @class DisplayObject
+ * @class DisplayObjectContainer
  * @extends EventDispatcher
  * @module StructureTS
  * @submodule view
  * @constructor
  **/
-class DisplayObject extends EventDispatcher
+class DisplayObjectContainer extends EventDispatcher
 {
     /**
      * @copy EventDispatcher.CLASS_NAME
      */
-    public CLASS_NAME:string = 'DisplayObject';
+    public CLASS_NAME:string = 'DisplayObjectContainer';
 
     /**
-     * The isCreated property is used to keep track if it is the first time this DisplayObject is created.
+     * The isCreated property is used to keep track if it is the first time this DisplayObjectContainer is created.
      *
      * @property isCreated
      * @type {boolean}
@@ -62,14 +62,14 @@ class DisplayObject extends EventDispatcher
     public numChildren:number = 0;
 
     /**
-     * A reference to the child DisplayObject instances to this parent object instance.
+     * A reference to the child DisplayObjectContainer instances to this parent object instance.
      *
      * @property children
      * @type {array}
      * @readOnly
      * @public
      */
-    public children:DisplayObject[] = [];
+    public children:DisplayObjectContainer[] = [];
 
 
     /**
@@ -100,11 +100,11 @@ class DisplayObject extends EventDispatcher
     /**
      * The createChildren function is intended to provide a consistent place for the creation and adding
      * of children to the view. It will automatically be called the first time that the view is added
-     * to another DisplayObject. It is critical that all subclasses call the super for this function in
+     * to another DisplayObjectContainer. It is critical that all subclasses call the super for this function in
      * their overridden methods.
      *
      * @method createChildren
-     * @returns {DisplayObject} Returns an instance of itself.
+     * @returns {DisplayObjectContainer} Returns an instance of itself.
      * @public
      * @chainable
      */
@@ -114,18 +114,18 @@ class DisplayObject extends EventDispatcher
     }
 
     /**
-     * Adds a child DisplayObject instance to this parent object instance. The child is added to the front (top) of all other
+     * Adds a child DisplayObjectContainer instance to this parent object instance. The child is added to the front (top) of all other
      * children in this parent object instance. (To add a child to a specific index position, use the addChildAt() method.)
      *
      * If you add a child object that already has a different parent, the object is removed from the child
      * list of the other parent object.
      *
      * @method addChild
-     * @param child {DisplayObject} The DisplayObject instance to add as a child of this DisplayObjectContainer instance.
-     * @returns {DisplayObject} Returns an instance of itself.
+     * @param child {DisplayObjectContainer} The DisplayObjectContainer instance to add as a child of this DisplayObjectContainerContainer instance.
+     * @returns {DisplayObjectContainer} Returns an instance of itself.
      * @chainable
      */
-    public addChild(child:DisplayObject):any
+    public addChild(child:DisplayObjectContainer):any
     {
         //If the child being passed in already has a parent then remove the reference from there.
         if (child.parent)
@@ -142,17 +142,17 @@ class DisplayObject extends EventDispatcher
     }
 
     /**
-     * Adds a child DisplayObject instance to this DisplayObjectContainer instance.
+     * Adds a child DisplayObjectContainer instance to this DisplayObjectContainerContainer instance.
      * The child is added at the index position specified. An index of 0 represents the back
-     * (bottom) of the display list for this DisplayObjectContainer object.
+     * (bottom) of the display list for this DisplayObjectContainerContainer object.
      *
      * @method addChildAt
-     * @param child {DisplayObject} The DisplayObject instance to add as a child of this object instance.
+     * @param child {DisplayObjectContainer} The DisplayObjectContainer instance to add as a child of this object instance.
      * @param index {int} The index position to which the child is added. If you specify a currently occupied index position, the child object that exists at that position and all higher positions are moved up one position in the child list.
-     * @returns {DisplayObject} Returns an instance of itself.
+     * @returns {DisplayObjectContainer} Returns an instance of itself.
      * @chainable
      */
-    public addChildAt(child:DisplayObject, index:number):any
+    public addChildAt(child:DisplayObjectContainer, index:number):any
     {
         //If the child being passed in already has a parent then remove the reference from there.
         if (child.parent)
@@ -169,22 +169,22 @@ class DisplayObject extends EventDispatcher
     }
 
     /**
-     * Swaps two DisplayObject's with each other.
+     * Swaps two DisplayObjectContainer's with each other.
      *
      * @method swapChildren
-     * @param child1 {DisplayObject} The DisplayObject instance to be swap.
-     * @param child2 {DisplayObject} The DisplayObject instance to be swap.
-     * @returns {DisplayObject} Returns an instance of itself.
+     * @param child1 {DisplayObjectContainer} The DisplayObjectContainer instance to be swap.
+     * @param child2 {DisplayObjectContainer} The DisplayObjectContainer instance to be swap.
+     * @returns {DisplayObjectContainer} Returns an instance of itself.
      * @chainable
      */
-    public swapChildren(child1:DisplayObject, child2:DisplayObject):any
+    public swapChildren(child1:DisplayObjectContainer, child2:DisplayObjectContainer):any
     {
         // Meant to be overridden because the extended class should call the addChildAt method.
         return this;
     }
 
     /**
-     * @copy DisplayObject.swapChildrenAt
+     * @copy DisplayObjectContainer.swapChildrenAt
      * @overridden
      */
     public swapChildrenAt(index1:number, index2:number):any
@@ -194,8 +194,8 @@ class DisplayObject extends EventDispatcher
             throw new TypeError('['+this.getQualifiedClassName()+'] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
         }
 
-        var child1:DisplayObject = this.getChildAt(index1);
-        var child2:DisplayObject = this.getChildAt(index2);
+        var child1:DisplayObjectContainer = this.getChildAt(index1);
+        var child2:DisplayObjectContainer = this.getChildAt(index2);
 
         this.swapChildren(child1, child2);
 
@@ -205,20 +205,13 @@ class DisplayObject extends EventDispatcher
     /**
      *
      * @method getChildIndex
-     * @param child {DisplayObject}
+     * @param child {DisplayObjectContainer}
      * @returns {number}
      */
-    public getChildIndex(child:DisplayObject):number
+    public getChildIndex(child:DisplayObjectContainer):number
     {
         return this.children.indexOf(child);
     }
-
-    /*public setChildIndex(child:DisplayObject, index:number):any
-    {
-        this.addChildAt(child, index);
-
-        return this;
-    }*/
 
     /**
      * Removes the specified child object instance from the child list of the parent object instance.
@@ -226,12 +219,12 @@ class DisplayObject extends EventDispatcher
      * to the child exist. The index positions of any objects above the child in the parent object are decreased by 1.
      *
      * @method removeChild
-     * @param child {DisplayObject} The DisplayObject instance to remove.
-     * @returns {DisplayObject} Returns an instance of itself.
+     * @param child {DisplayObjectContainer} The DisplayObjectContainer instance to remove.
+     * @returns {DisplayObjectContainer} Returns an instance of itself.
      * @public
      * @chainable
      */
-    public removeChild(child:DisplayObject):any
+    public removeChild(child:DisplayObjectContainer):any
     {
         var index = this.getChildIndex(child);
         if (index !== -1)
@@ -247,19 +240,19 @@ class DisplayObject extends EventDispatcher
     }
 
     /**
-     * Removes all child DisplayObject instances from the child list of the DisplayObjectContainer instance.
+     * Removes all child DisplayObjectContainer instances from the child list of the DisplayObjectContainerContainer instance.
      * The parent property of the removed children is set to null , and the objects are garbage collected if
      * no other references to the children exist.
      *
      * @method removeChildren
-     * @returns {DisplayObject} Returns an instance of itself.
+     * @returns {DisplayObjectContainer} Returns an instance of itself.
      * @chainable
      */
     public removeChildren():any
     {
         while (this.children.length > 0)
         {
-            this.removeChild(<DisplayObject>this.children.pop());
+            this.removeChild(<DisplayObjectContainer>this.children.pop());
         }
 
         this.numChildren = this.children.length;
@@ -272,21 +265,21 @@ class DisplayObject extends EventDispatcher
      *
      * @method getChildAt
      * @param index {int} The index position of the child object.
-     * @returns {DisplayObject} The child display object at the specified index position.
+     * @returns {DisplayObjectContainer} The child display object at the specified index position.
      */
-    public getChildAt(index:number):DisplayObject
+    public getChildAt(index:number):DisplayObjectContainer
     {
         return this.children[index];
     }
 
     /**
-     * The setSize method sets the bounds within which the containing DisplayObject would
+     * The setSize method sets the bounds within which the containing DisplayObjectContainer would
      * like that component to lay itself out. It is expected that calling setSize will automatically
-     * call {{#crossLink "DisplayObject/layoutChildren:method"}}{{/crossLink}}.
+     * call {{#crossLink "DisplayObjectContainer/layoutChildren:method"}}{{/crossLink}}.
      *
      * @param unscaledWidth {number} The width within which the component should lay itself out.
      * @param unscaledHeight {number} The height within which the component should lay itself out.
-     * @returns {DisplayObject} Returns an instance of itself.
+     * @returns {DisplayObjectContainer} Returns an instance of itself.
      * @chainable
      */
     public setSize(unscaledWidth:number, unscaledHeight:number):any
@@ -304,7 +297,7 @@ class DisplayObject extends EventDispatcher
      * The layoutComponent method provides a common function to handle updating child objects.
      *
      * @method layoutChildren
-     * @returns {DisplayObject} Returns an instance of itself.
+     * @returns {DisplayObjectContainer} Returns an instance of itself.
      * @chainable
      */
     public layoutChildren():any
@@ -319,11 +312,10 @@ class DisplayObject extends EventDispatcher
      */
     public destroy():void
     {
-        this.disable();
+        super.destroy();
+
         this.children = [];
         this.numChildren = 0;
-
-        super.destroy();
     }
 
 }

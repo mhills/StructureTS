@@ -71,13 +71,7 @@ class CarouselComponent extends EventDispatcher {
         this._itemsVisible = totalItemsVisible;
         this._container = container;
 
-        this._container.getChildren();
-
-        this._numberOfItems = this._container.numChildren;
-
-        this._maxIndex = Math.floor((this._numberOfItems - 1) / this._itemsVisible);
-
-        this._container.$el.width(this._numberOfItems * this._widthOfItem);
+        this.update();
     }
 
     /**
@@ -86,8 +80,11 @@ class CarouselComponent extends EventDispatcher {
      * @method update
      */
     public update() {
+        this._container.getChildren();
         this._numberOfItems = this._container.numChildren;
+        this._maxIndex = Math.floor((this._numberOfItems - 1) / this._itemsVisible);
         this._container.$el.width(this._numberOfItems * this._widthOfItem);
+        console.log("this._container.numChildren", this._container.numChildren);
     }
 
     /**
@@ -260,7 +257,6 @@ class CarouselComponent extends EventDispatcher {
     private onTweenProgress():void
     {
         this.dispatchEvent(new CarouselEvent(CarouselEvent.PROGRESS, false, false, this.getPercent()));
-        //console.log('CarouselEvent.PROGRESS');
     }
 
     /**

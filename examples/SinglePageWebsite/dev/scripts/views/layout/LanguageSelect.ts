@@ -1,6 +1,7 @@
 ///<reference path='../../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../../../../src/com/codebelt/structurets/models/LanguageModel.ts'/>
 ///<reference path='../../../../../../src/com/codebelt/structurets/events/LanguageEvent.ts'/>
+
+///<reference path='../../models/MainLanguageModel.ts'/>
 
 class LanguageSelect extends DOMElement {
 
@@ -9,12 +10,11 @@ class LanguageSelect extends DOMElement {
     constructor()
     {
         super();
-
-        var languageManagerData = LanguageModel.getInstance().data;
     }
 
     public createChildren():DOMElement
     {
+        var languageManagerData = MainLanguageModel.getInstance().data;
         super.createChildren(function(data)
         {
             select(

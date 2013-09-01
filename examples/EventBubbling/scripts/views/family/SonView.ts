@@ -1,5 +1,5 @@
 ///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../../../src/com/codebelt/structurets/events/MouseEventType.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/events/native/MouseEvents.ts'/>
 
 /**
  * YUIDoc_comment
@@ -51,7 +51,7 @@ class SonView extends DOMElement {
 
         this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-        this._dispatchButton.$el.addEventListener(MouseEventType.CLICK, this.onButtonClick, this);
+        this._dispatchButton.$el.addEventListener(MouseEvents.CLICK, this.onButtonClick, this);
 
         super.enable();
     }
@@ -65,7 +65,7 @@ class SonView extends DOMElement {
 
         this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-        this._dispatchButton.$el.removeEventListener(MouseEventType.CLICK, this.onButtonClick, this);
+        this._dispatchButton.$el.removeEventListener(MouseEvents.CLICK, this.onButtonClick, this);
 
         super.disable();
     }

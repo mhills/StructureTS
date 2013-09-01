@@ -59,12 +59,12 @@ class TransitionManager extends BaseController
         this._viewContainer = displayContainer;
     }
 
-    public getCurrentView():DisplayObject
+    public getCurrentView():DisplayObjectContainer
     {
         return this._currentView;
     }
 
-    public getSectionStage():DisplayObject
+    public getSectionStage():DisplayObjectContainer
     {
         return this._viewContainer;
     }
@@ -108,16 +108,15 @@ class TransitionManager extends BaseController
      */
     public destroy():void
     {
-        this._viewContainer = null;
-        this._currentView = null;
-        this._nextView = null;
+        super.destroy();
 
         this._transitionFactory.destroy();
         this._transitionFactory = null;
-        this._runningTransition.destroy();
         this._runningTransition = null;
 
-        super.destroy();
+        this._viewContainer = null;
+        this._currentView = null;
+        this._nextView = null;
     }
 
     private removeCurrentView():any
@@ -127,7 +126,7 @@ class TransitionManager extends BaseController
             return this;
         }
         this._viewContainer.removeChild(this._currentView);
-        this._currentView.disable();
+        this._currentView.destroy();
         this._currentView = this._nextView;
         this._nextView = null;
 

@@ -24,7 +24,7 @@
 
 ///<reference path='BaseTransition.ts'/>
 ///<reference path='../../interfaces/ITransition.ts'/>
-///<reference path='../../display/DisplayObject.ts'/>
+///<reference path='../../display/DisplayObjectContainer.ts'/>
 ///<reference path='../../display/DOMElement.ts'/>
 
 /**
@@ -48,7 +48,7 @@ class TransitionPushUp extends BaseTransition
         super();
     }
 
-    public createTransition(transitionType:string, viewContainer:DisplayObject, currentView:DOMElement, nextView:DOMElement, duration:number = 0.75):ITransition
+    public createTransition(transitionType:string, viewContainer:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = 0.75):ITransition
     {
         // Immediately places the next view out of display bounds.
         TweenMax.to(nextView.$el, 0, {y: viewContainer.unscaledHeight});

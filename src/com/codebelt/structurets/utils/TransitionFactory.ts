@@ -23,7 +23,7 @@
  */
 
 ///<reference path='../BaseObject.ts'/>
-///<reference path='../display/DisplayObject.ts'/>
+///<reference path='../display/DisplayObjectContainer.ts'/>
 ///<reference path='../display/DOMElement.ts'/>
 ///<reference path='../interfaces/ITransition.ts'/>
 ///<reference path='../constants/TransitionType.ts'/>
@@ -77,13 +77,13 @@ class TransitionFactory extends BaseObject
      * YUIDoc_comment
      *
      * @param transitionType {string}
-     * @param sectionStage {DisplayObject}
+     * @param sectionStage {DisplayObjectContainer}
      * @param currentView {DOMElement}
      * @param nextView {DOMElement}
      * @param duration {number}
      * @returns {ITransition}
      */
-    public createTransition(transitionType:string, sectionStage:DisplayObject, currentView:DOMElement, nextView:DOMElement, duration:number = -1):ITransition
+    public createTransition(transitionType:string, sectionStage:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = -1):ITransition
     {
         var concreteFactory:ITransition = this._transitions[transitionType];
         if (concreteFactory == null)
@@ -128,9 +128,9 @@ class TransitionFactory extends BaseObject
      */
     public destroy():void
     {
-        this._transitions = null;
-
         super.destroy();
+
+        this._transitions = null;
     }
 
 }

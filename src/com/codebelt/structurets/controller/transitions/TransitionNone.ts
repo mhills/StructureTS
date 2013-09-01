@@ -24,7 +24,7 @@
 
 ///<reference path='BaseTransition.ts'/>
 ///<reference path='../../interfaces/ITransition.ts'/>
-///<reference path='../../display/DisplayObject.ts'/>
+///<reference path='../../display/DisplayObjectContainer.ts'/>
 ///<reference path='../../display/DOMElement.ts'/>
 
 /**
@@ -52,7 +52,7 @@ class TransitionNone extends BaseTransition
      * @copy BaseTransition.createTransition
      * @overridden
      */
-    public createTransition(transitionType:string, viewContainer:DisplayObject, currentView:DOMElement, nextView:DOMElement, duration:number = 0):ITransition
+    public createTransition(transitionType:string, viewContainer:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = 0):ITransition
     {
         // Needs a setTimeout because the events would fire before the addEventListener had time to be setup on the Transition object.
         setTimeout(() =>

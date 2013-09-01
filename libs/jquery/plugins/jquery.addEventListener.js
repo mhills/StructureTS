@@ -1,4 +1,4 @@
-(function($, win, doc){
+(function($, window, document){
 
     $.fn.addEventListener = function(type, selector, data, callback, scope)
     {

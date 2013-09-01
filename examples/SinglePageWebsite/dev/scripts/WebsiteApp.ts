@@ -11,6 +11,7 @@
 ///<reference path='views/layout/NavigationView.ts'/>
 ///<reference path='views/layout/FooterView.ts'/>
 ///<reference path='views/MainView.ts'/>
+///<reference path='models/MainLanguageModel.ts'/>
 
 class WebsiteApp extends Stage
 {
@@ -23,24 +24,19 @@ class WebsiteApp extends Stage
     private _footerView:FooterView = null;
     private _mainView:MainView = null;
 
-    private _languageManager:LanguageModel = null;
+    private _languageManager:MainLanguageModel = null;
     private _request:JsonRequest = null;
 
     constructor() {
         super();
 
-        var ls = LocalStorageController.getInstance();
-        var languageId = ls.getItem('language') || 'en';
-
-        this._languageManager = LanguageModel.getInstance();
-        this._languageManager.addEventListener(LoaderEvent.COMPLETE, this.init, this);
-        this._languageManager.setLang( languageId );
+        this._languageManager = MainLanguageModel.getInstance();
+        this._languageManager.addEventListener(LanguageEvent.LANGUAGE_LOADED, this.init, this);
         this._languageManager.loadConfig(WebsiteApp.BASE_PATH + 'data/languages/languages.json');
 
         this._router = new RouterController();
 
         this._request = new JsonRequest();
-//        http://qa3mred.nerderylabs.com/user/authenticate.json
     }
 
     public createChildren():DOMElement {

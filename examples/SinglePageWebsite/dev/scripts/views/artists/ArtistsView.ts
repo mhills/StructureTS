@@ -81,24 +81,21 @@ class ArtistsView extends DOMElement
         //Show all the albums for a artist.
         if(artist && !album)
         {
-            var artistMarkup = new DOMElement();
-            artistMarkup.$el = TemplateFactory.createTemplate('templates/Albums.tpl', {data: this._artistVOList[artist]});
+            var artistMarkup = new DOMElement('templates/Albums.tpl', {data: this._artistVOList[artist]});
             this._container.removeChildren();
             this._container.addChild(artistMarkup);
         }
         //Show album so user can buy it.
         else if (artist && album)
         {
-            var artistMarkup = new DOMElement();
-            artistMarkup.$el = TemplateFactory.createTemplate('templates/BuyAlbum.tpl', {data: this._artistVOList[artist].albumList[album]});
+            var artistMarkup = new DOMElement('templates/BuyAlbum.tpl', {data: this._artistVOList[artist].albumList[album]});
             this._container.removeChildren();
             this._container.addChild(artistMarkup);
         }
         //Default view of all artists
         else
         {
-            var artistMarkup = new DOMElement();
-            artistMarkup.$el = TemplateFactory.createTemplate('templates/Artists.tpl', {data: this._artistVOList});
+            var artistMarkup = new DOMElement('templates/Artists.tpl', {data: this._artistVOList});
 //            artistMarkup.visible(false);
             this._container.removeChildren();
             this._container.addChild(artistMarkup);

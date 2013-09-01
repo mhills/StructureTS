@@ -25,42 +25,19 @@
 /**
  * YUIDoc_comment
  *
- * @class IValueObject
+ * @class WindowEvents
  * @module StructureTS
- * @submodule interface
- * @interface
+ * @submodule nativeEvent
+ * @static
  **/
-interface IValueObject
+class WindowEvents
 {
-
     /**
-     * @method clone
+     * YUIDoc_comment
+     *
+     * @property CHANGE
+     * @type {string}
+     * @static
      */
-    clone():Object;
-
-    /**
-     * @method copy
-     */
-    copy():IValueObject;
-
-    /**
-     * @method toJSON
-     */
-    toJSON():any;
-
-    /**
-     * @method toJSONString
-     */
-    toJSONString():string
-
-    /**
-     * @method fromJSON
-     */
-    fromJSON(json:Object):any;
-
-    /**
-     * @method destroy
-     */
-    destroy():void;
-
+    public static CHANGE:string = "change";
 }

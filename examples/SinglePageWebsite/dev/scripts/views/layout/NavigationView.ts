@@ -4,20 +4,21 @@
 ///<reference path='../../../../../../src/com/codebelt/structurets/controller/LocalStorageController.ts'/>
 
 ///<reference path='LanguageSelect.ts'/>
+///<reference path='../../models/MainLanguageModel.ts'/>
 
 class NavigationView extends DOMElement
 {
     public CLASS_NAME:string = 'NavigationView';
 
-    private _languageSelect:LanguageSelect = null;
+    private _data:any = null;
 
     constructor()
     {
         super();
 
-        var languageManagerData = LanguageModel.getInstance().data;
+        var languageManagerData = MainLanguageModel.getInstance().data;
 
-        this._options = {
+        this._data = {
             title: languageManagerData.mainTitle,
             link1: languageManagerData.mainNavigation.home,
             link2: languageManagerData.mainNavigation.aboutUs,
@@ -45,16 +46,13 @@ class NavigationView extends DOMElement
                     )
                 )
             )
-        });
+        }, this._data);
 
-        this._languageSelect = new LanguageSelect();
-//        this.addChildAt(this._languageSelect, 0);
         return this;
     }
 
     public layoutChildren():DOMElement
     {
-//        this._languageSelect.value( LocalStorageController.getInstance().getItem('language') );
         return this;
     }
 
@@ -63,8 +61,6 @@ class NavigationView extends DOMElement
      */
     public enable():DOMElement {
         if (this.isEnabled === true) return this;
-
-//            this._languageSelect.addEventListener(LanguageEvent.LANGUAGE_CHANGE, this.onLanguageChange, this);
 
         super.enable();
         return this;
@@ -76,15 +72,13 @@ class NavigationView extends DOMElement
     public disable():DOMElement {
         if (this.isEnabled === false) return this;
 
-//            this._languageSelect.removeEventListener(LanguageEvent.LANGUAGE_CHANGE, this.onLanguageChange);
-
         super.disable();
         return this;
     }
 
     public onLanguageChange(event):void
     {
-        var ls = LocalStorageController.getInstance();
+        var ls = new LocalStorageController();
         ls.setItem('language', event.data);
 
         document.location.reload(false);

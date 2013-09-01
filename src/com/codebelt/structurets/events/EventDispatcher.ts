@@ -22,22 +22,22 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../BaseObject.ts'/>
+///<reference path='../CollectiveObject.ts'/>
 ///<reference path='BaseEvent.ts'/>
 
 /**
- * The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the DisplayObject class.
+ * The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the DisplayObjectContainer class.
  * The EventDispatcher class allows any object on the display list to be an event target.
  * The EventDispatcher provides methods for managing prioritized queues of event listeners and dispatching events.
- * {{#crossLink "DisplayObject"}}{{/crossLink}} classes dispatch events.
+ * {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} classes dispatch events.
  *
  * @class EventDispatcher
- * @extends BaseObject
+ * @extends CollectiveObject
  * @module StructureTS
  * @submodule event
  * @constructor
  **/
-class EventDispatcher extends BaseObject
+class EventDispatcher extends CollectiveObject
 {
     /**
      * @copy BaseObject.CLASS_NAME
@@ -205,15 +205,15 @@ class EventDispatcher extends BaseObject
     }
 
     /**
-     * @copy BaseObject.destroy
+     * @copy CollectiveObject.destroy
      * @overridden
      */
     public destroy():void
     {
+        super.destroy();
+
         this.parent = null;
         this._listeners = null;
-
-        super.destroy();
     }
 
 }

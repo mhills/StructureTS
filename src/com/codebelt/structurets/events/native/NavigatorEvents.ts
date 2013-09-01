@@ -23,26 +23,31 @@
  */
 
 /**
- * YUIDoc_comment
+ * The NavigatorEvents...
  *
- * @class WindowEventType
+ * @class NavigatorEvents
  * @module StructureTS
- * @submodule event
+ * @submodule nativeEvent
  * @static
  **/
-class WindowEventType
+class NavigatorEvents
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * YUIDoc_comment
+     *
+     * @event ONLINE
+     * @type {string}
+     * @static
      */
-    public static CLASS_NAME:string = 'WindowEventType';
+    public static ONLINE:string = "online";
 
     /**
      * YUIDoc_comment
      *
-     * @property CHANGE
+     * @event OFFLINE
      * @type {string}
      * @static
      */
-    public static CHANGE:string = "change";
+    public static OFFLINE:string = "offline";
+
 }

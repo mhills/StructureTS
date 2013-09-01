@@ -1,6 +1,6 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/events/MouseEventType.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/events/native/MouseEvents.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/events/RequestEvent.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/utils/TemplateFactory.ts'/>
 

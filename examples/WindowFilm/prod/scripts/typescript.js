@@ -12,6 +12,29 @@ var Util = (function () {
         }
     };
 
+    Util.deletePropertyFromObject = function (object, list) {
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+                var value = object[key];
+
+                if (value instanceof Array) {
+                    var array = value;
+                    for (var index in array) {
+                        Util.deletePropertyFromObject(array[index], list);
+                    }
+                } else {
+                    for (var listIndex in list) {
+                        if (key === list[listIndex]) {
+                            delete value;
+                        }
+                    }
+                }
+            }
+        }
+
+        return object;
+    };
+
     Util.getRandomBoolean = function () {
         return (Math.random() > .5) ? true : false;
     };
@@ -24,14 +47,30 @@ var BaseObject = (function () {
     function BaseObject() {
         this.CLASS_NAME = 'BaseObject';
         this.cid = null;
-        this.isEnabled = false;
         this.cid = Util.uniqueId();
     }
     BaseObject.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
     };
 
-    BaseObject.prototype.enable = function () {
+    BaseObject.prototype.destroy = function () {
+    };
+    return BaseObject;
+})();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var CollectiveObject = (function (_super) {
+    __extends(CollectiveObject, _super);
+    function CollectiveObject() {
+        _super.call(this);
+        this.CLASS_NAME = 'CollectiveObject';
+        this.isEnabled = false;
+    }
+    CollectiveObject.prototype.enable = function () {
         if (this.isEnabled === true)
             return this;
 
@@ -39,7 +78,7 @@ var BaseObject = (function () {
         return this;
     };
 
-    BaseObject.prototype.disable = function () {
+    CollectiveObject.prototype.disable = function () {
         if (this.isEnabled === false)
             return this;
 
@@ -47,11 +86,14 @@ var BaseObject = (function () {
         return this;
     };
 
-    BaseObject.prototype.destroy = function () {
+    CollectiveObject.prototype.destroy = function () {
+        _super.prototype.destroy.call(this);
+
+        this.disable();
         this.isEnabled = false;
     };
-    return BaseObject;
-})();
+    return CollectiveObject;
+})(BaseObject);
 var BaseEvent = (function () {
     function BaseEvent(type, bubbles, cancelable, data) {
         if (typeof bubbles === "undefined") { bubbles = false; }
@@ -60,6 +102,7 @@ var BaseEvent = (function () {
         this.CLASS_NAME = 'BaseEvent';
         this.type = null;
         this.target = null;
+        this.currentTarget = null;
         this.data = null;
         this.bubble = false;
         this.cancelable = false;
@@ -131,12 +174,6 @@ var BaseEvent = (function () {
     BaseEvent.RESIZE = 'BaseEvent.resize';
     return BaseEvent;
 })();
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 var EventDispatcher = (function (_super) {
     __extends(EventDispatcher, _super);
     function EventDispatcher() {
@@ -164,6 +201,7 @@ var EventDispatcher = (function (_super) {
                 index = i + 1;
             }
         }
+
         list.splice(index, 0, { c: callback, s: scope, pr: priority });
 
         return this;
@@ -189,6 +227,8 @@ var EventDispatcher = (function (_super) {
             event.target = this;
         }
 
+        event.currentTarget = this;
+
         var list = this._listeners[event.type];
         if (list) {
             var i = list.length;
@@ -213,29 +253,29 @@ var EventDispatcher = (function (_super) {
     };
 
     EventDispatcher.prototype.destroy = function () {
+        _super.prototype.destroy.call(this);
+
         this.parent = null;
         this._listeners = null;
-
-        _super.prototype.destroy.call(this);
     };
     return EventDispatcher;
-})(BaseObject);
-var DisplayObject = (function (_super) {
-    __extends(DisplayObject, _super);
-    function DisplayObject() {
+})(CollectiveObject);
+var DisplayObjectContainer = (function (_super) {
+    __extends(DisplayObjectContainer, _super);
+    function DisplayObjectContainer() {
         _super.call(this);
-        this.CLASS_NAME = 'DisplayObject';
+        this.CLASS_NAME = 'DisplayObjectContainer';
         this.isCreated = false;
         this.numChildren = 0;
         this.children = [];
         this.unscaledWidth = 100;
         this.unscaledHeight = 100;
     }
-    DisplayObject.prototype.createChildren = function () {
+    DisplayObjectContainer.prototype.createChildren = function () {
         return this;
     };
 
-    DisplayObject.prototype.addChild = function (child) {
+    DisplayObjectContainer.prototype.addChild = function (child) {
         if (child.parent) {
             child.parent.removeChild(child);
         }
@@ -248,7 +288,7 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.addChildAt = function (child, index) {
+    DisplayObjectContainer.prototype.addChildAt = function (child, index) {
         if (child.parent) {
             child.parent.removeChild(child);
         }
@@ -261,13 +301,13 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.swapChildren = function (child1, child2) {
+    DisplayObjectContainer.prototype.swapChildren = function (child1, child2) {
         return this;
     };
 
-    DisplayObject.prototype.swapChildrenAt = function (index1, index2) {
+    DisplayObjectContainer.prototype.swapChildrenAt = function (index1, index2) {
         if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
-            throw new TypeError('[DisplayObject] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
+            throw new TypeError('[' + this.getQualifiedClassName() + '] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
         }
 
         var child1 = this.getChildAt(index1);
@@ -278,11 +318,11 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.getChildIndex = function (child) {
+    DisplayObjectContainer.prototype.getChildIndex = function (child) {
         return this.children.indexOf(child);
     };
 
-    DisplayObject.prototype.removeChild = function (child) {
+    DisplayObjectContainer.prototype.removeChild = function (child) {
         var index = this.getChildIndex(child);
         if (index !== -1) {
             this.children.splice(index, 1);
@@ -295,7 +335,7 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.removeChildren = function () {
+    DisplayObjectContainer.prototype.removeChildren = function () {
         while (this.children.length > 0) {
             this.removeChild(this.children.pop());
         }
@@ -305,38 +345,101 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.getChildAt = function (index) {
+    DisplayObjectContainer.prototype.getChildAt = function (index) {
         return this.children[index];
     };
 
-    DisplayObject.prototype.setSize = function (unscaledWidth, unscaledHeight) {
+    DisplayObjectContainer.prototype.setSize = function (unscaledWidth, unscaledHeight) {
         this.unscaledWidth = unscaledWidth;
         this.unscaledHeight = unscaledHeight;
-        this.layoutChildren();
+        if (this.isCreated) {
+            this.layoutChildren();
+        }
 
         return this;
     };
 
-    DisplayObject.prototype.layoutChildren = function () {
+    DisplayObjectContainer.prototype.layoutChildren = function () {
         return this;
     };
 
-    DisplayObject.prototype.destroy = function () {
-        this.disable();
+    DisplayObjectContainer.prototype.destroy = function () {
+        _super.prototype.destroy.call(this);
+
         this.children = [];
         this.numChildren = 0;
-
-        _super.prototype.destroy.call(this);
     };
-    return DisplayObject;
+    return DisplayObjectContainer;
 })(EventDispatcher);
+var StringUtil = (function () {
+    function StringUtil() {
+    }
+    StringUtil.stringToBoolean = function (str) {
+        return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
+    };
+
+    StringUtil.getExtension = function (filename) {
+        return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
+    };
+
+    StringUtil.hyphenToCamelCase = function (str) {
+        return str.replace(/-([a-z])/g, function (g) {
+            return g[1].toUpperCase();
+        });
+    };
+
+    StringUtil.hyphenToPascalCase = function (str) {
+        return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated) {
+            return hyphenated.toUpperCase();
+        });
+    };
+
+    StringUtil.camelCaseToHyphen = function (str) {
+        return str.replace(/([a-z][A-Z])/g, function (g) {
+            return g[0] + '-' + g[1].toLowerCase();
+        });
+    };
+
+    StringUtil.createUUID = function () {
+        var uuid = ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx').replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0;
+            var v = (c == 'x') ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+
+        return uuid;
+    };
+
+    StringUtil.queryStringToObject = function (queryString) {
+        var params = {};
+        var temp = null;
+
+        var queries = queryString.substring(1).split("&");
+
+        var len = queries.length;
+        for (var i = 0; i < len; i++) {
+            temp = queries[i].split('=');
+            params[temp[0]] = temp[1];
+        }
+
+        return params;
+    };
+
+    StringUtil.removeAllWhitespace = function (str) {
+        return str.replace(/\s+/g, '');
+    };
+
+    StringUtil.removeLeadingTrailingWhitespace = function (str) {
+        return str.replace(/(^\s+|\s+$)/g, '');
+    };
+    StringUtil.CLASS_NAME = 'StringUtil';
+    return StringUtil;
+})();
 var TemplateFactory = (function () {
     function TemplateFactory() {
     }
     TemplateFactory.createTemplate = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        return jQuery(template);
+        return TemplateFactory.create(templatePath, data);
     };
 
     TemplateFactory.createView = function (templatePath, data) {
@@ -353,29 +456,28 @@ var TemplateFactory = (function () {
         var isClassOrIdName = regex.test(templatePath);
 
         if (isClassOrIdName) {
+            var htmlString = $(templatePath).html();
+            htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
+
             if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
-                var templateMethod = _.template($(templatePath).html());
+                var templateMethod = _.template(htmlString);
                 template = templateMethod(data);
             } else {
-                var templateMethod = Handlebars.compile($(templatePath).html());
+                var templateMethod = Handlebars.compile(htmlString);
                 template = templateMethod(data);
             }
         } else {
             var templateObj = window[TemplateFactory.templateNamespace];
             if (!templateObj) {
-                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
+                return template;
             }
 
             var templateFunction = templateObj[templatePath];
             if (!templateFunction) {
-                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+                template = null;
+            } else {
+                template = templateFunction(data);
             }
-
-            template = templateFunction(data);
-        }
-
-        if (!template) {
-            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
         }
 
         return template;
@@ -392,27 +494,37 @@ var TemplateFactory = (function () {
 var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
-        if (typeof type === "undefined") { type = 'div'; }
-        if (typeof params === "undefined") { params = {}; }
+        if (typeof type === "undefined") { type = null; }
+        if (typeof params === "undefined") { params = null; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
-        this._node = null;
-        this._options = {};
         this._isVisible = true;
         this.el = null;
         this.$el = null;
+        this._type = null;
+        this._params = null;
 
-        this._node = type;
-        this._options = params;
+        if (type) {
+            this._type = type;
+            this._params = params;
+        }
     }
-    DOMElement.prototype.createChildren = function (template, data) {
-        if (typeof template === 'function') {
-            Jaml.register(this.CLASS_NAME, template);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, this._options));
-        } else if (typeof template === 'string') {
-            this.$el = TemplateFactory.createTemplate(template, data);
-        } else if (this._node && !this.$el) {
-            this.$el = jQuery("<" + this._node + "/>", this._options);
+    DOMElement.prototype.createChildren = function (type, params) {
+        if (typeof type === "undefined") { type = 'div'; }
+        if (typeof params === "undefined") { params = null; }
+        type = this._type || type;
+        params = this._params || params;
+
+        if (typeof type === 'function' && !this.$el) {
+            Jaml.register(this.CLASS_NAME, type);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, params));
+        } else if (typeof type === 'string' && !this.$el) {
+            var html = TemplateFactory.createTemplate(type, params);
+            if (html) {
+                this.$el = $(html);
+            } else {
+                this.$el = jQuery("<" + type + "/>", params);
+            }
         }
 
         this.el = this.$el[0];
@@ -427,11 +539,12 @@ var DOMElement = (function (_super) {
             child.createChildren();
             child.isCreated = true;
         }
-        child.layoutChildren();
 
         child.$el.attr('data-cid', child.cid);
 
         this.$el.append(child.$el);
+
+        child.layoutChildren();
 
         child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
@@ -473,34 +586,33 @@ var DOMElement = (function (_super) {
         return _super.prototype.getChildAt.call(this, index);
     };
 
+    DOMElement.prototype.getChildByCid = function (cid) {
+        var domElement = _.find(this.children, function (child) {
+            return child.cid == cid;
+        });
+
+        return domElement || null;
+    };
+
     DOMElement.prototype.getChild = function (selector) {
-        var domElement = null;
+        var jQueryElement = this.$el.find(selector).first();
+        if (jQueryElement.length == 0) {
+            throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $el');
+        }
 
-        if (typeof selector === 'number') {
-            domElement = _.find(this.children, function (domElement) {
-                return domElement.cid == selector;
-            });
-        } else {
-            var jQueryElement = this.$el.find(selector).first();
-            if (jQueryElement.length == 0) {
-                throw new TypeError('[DOMElement] getChild(' + selector + ') Cannot find DOM $el');
-            }
+        var cid = jQueryElement.data('cid');
+        var domElement = _.find(this.children, function (domElement) {
+            return domElement.cid == cid;
+        });
 
-            var cid = jQueryElement.data('cid');
-            domElement = _.find(this.children, function (domElement) {
-                return domElement.cid == cid;
-            });
+        if (!domElement) {
+            domElement = new DOMElement();
+            domElement.$el = jQueryElement;
+            domElement.$el.attr('data-cid', domElement.cid);
+            domElement.el = jQueryElement[0];
+            domElement.isCreated = true;
 
-            if (!domElement) {
-                domElement = new DOMElement();
-                domElement.$el = jQueryElement;
-                domElement.$el.attr('data-cid', domElement.cid);
-
-                domElement.el = jQueryElement[0];
-                domElement.isCreated = true;
-
-                _super.prototype.addChild.call(this, domElement);
-            }
+            _super.prototype.addChild.call(this, domElement);
         }
 
         return domElement;
@@ -586,14 +698,13 @@ var DOMElement = (function (_super) {
     };
 
     DOMElement.prototype.destroy = function () {
-        this.el = null;
-        this.$el = null;
-        this._options = null;
-
         _super.prototype.destroy.call(this);
+
+        this.$el = null;
+        this.el = null;
     };
     return DOMElement;
-})(DisplayObject);
+})(DisplayObjectContainer);
 var Stage = (function (_super) {
     __extends(Stage, _super);
     function Stage() {
@@ -603,43 +714,41 @@ var Stage = (function (_super) {
     Stage.prototype.appendTo = function (type, enabled) {
         if (typeof enabled === "undefined") { enabled = true; }
         this.$el = jQuery(type);
+        this.$el.attr('data-cid', this.cid);
 
         if (!this.isCreated) {
             this.createChildren();
             this.isCreated = true;
+            this.layoutChildren();
         }
 
         if (enabled) {
             this.enable();
-        } else {
-            this.disable();
         }
 
         return this;
     };
     return Stage;
 })(DOMElement);
-var MouseEventType = (function () {
-    function MouseEventType() {
+var MouseEvents = (function () {
+    function MouseEvents() {
     }
-    MouseEventType.CLASS_NAME = 'MouseEventType';
+    MouseEvents.CLICK = 'click';
 
-    MouseEventType.CLICK = 'click';
+    MouseEvents.DBL_CLICK = 'dblclick';
 
-    MouseEventType.DBL_CLICK = 'dblclick';
+    MouseEvents.MOUSE_DOWN = 'mousedown';
 
-    MouseEventType.MOUSE_DOWN = 'mousedown';
+    MouseEvents.MOUSE_MOVE = 'mousemove';
 
-    MouseEventType.MOUSE_MOVE = 'mousemove';
+    MouseEvents.MOUSE_OVER = 'mouseover';
 
-    MouseEventType.MOUSE_OVER = 'mouseover';
+    MouseEvents.MOUSE_OUT = 'mouseout';
 
-    MouseEventType.MOUSE_OUT = 'mouseout';
+    MouseEvents.MOUSE_UP = 'mouseup';
 
-    MouseEventType.MOUSE_UP = 'mouseup';
-
-    MouseEventType.TAP = 'tap';
-    return MouseEventType;
+    MouseEvents.TAP = 'tap';
+    return MouseEvents;
 })();
 var RequestEvent = (function (_super) {
     __extends(RequestEvent, _super);
@@ -686,15 +795,11 @@ var SelectBoxTemp = (function (_super) {
     function SelectBoxTemp() {
         _super.call(this);
         this.CLASS_NAME = 'SelectBoxTemp';
-
-        this._options = {
-            car: "red"
-        };
     }
     SelectBoxTemp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this, function (data) {
             select(option({ value: 'en' }, 'English'), option({ value: 'fr' }, data.car), option({ value: 'sp' }, 'Spanish'));
-        });
+        }, { car: 'red' });
 
         return this;
     };

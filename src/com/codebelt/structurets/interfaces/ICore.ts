@@ -51,16 +51,6 @@ interface ICore
     getQualifiedClassName():string;
 
     /**
-     * @method enable
-     */
-    enable():any;
-
-    /**
-     * @method disable
-     */
-    disable():any;
-
-    /**
      * @method destroy
      */
     destroy():void

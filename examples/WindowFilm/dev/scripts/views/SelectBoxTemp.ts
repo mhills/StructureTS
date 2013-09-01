@@ -13,10 +13,6 @@ class SelectBoxTemp extends DOMElement {
 
     constructor() {
         super();
-
-        this._options = {
-            car: "red"
-        }
     }
 
     public createChildren():DOMElement {
@@ -26,7 +22,7 @@ class SelectBoxTemp extends DOMElement {
                 option({value: 'fr'}, data.car),
                 option({value: 'sp'}, 'Spanish')
             )
-        });
+        }, {car: 'red'});
 
         return this;
     }

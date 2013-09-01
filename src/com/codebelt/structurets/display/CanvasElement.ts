@@ -22,19 +22,19 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='DisplayObject.ts'/>
+///<reference path='DisplayObjectContainer.ts'/>
 ///<reference path='Canvas.ts'/>
 
 /**
  * The CanvasElement...
  *
  * @class CanvasElement
- * @extends DisplayObject
+ * @extends DisplayObjectContainer
  * @module StructureTS
  * @submodule view
  * @constructor
  **/
-class CanvasElement extends DisplayObject
+class CanvasElement extends DisplayObjectContainer
 {
     /**
      * @copy BaseObject.CLASS_NAME
@@ -97,7 +97,7 @@ class CanvasElement extends DisplayObject
 
     public addChild(child:CanvasElement):any
     {
-        //TODO: Add to children array with super DisplayObject.
+        //TODO: Add to children array with super DisplayObjectContainer.
         child.parent = this;
         child.stage = this.stage;
         child.context = this.context;
@@ -108,7 +108,7 @@ class CanvasElement extends DisplayObject
 
     public removeChild(child:CanvasElement):any
     {
-        //TODO: Remove children from array with super DisplayObject.
+        //TODO: Remove children from array with super DisplayObjectContainer.
         child.stage = null;
         child.context = null;
 

@@ -128,6 +128,8 @@ class URLLoader extends EventDispatcher
 
     public destroy():void
     {
+        super.destroy();
+
         this._defer = null;
         this.data = null;
     }

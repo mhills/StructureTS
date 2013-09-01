@@ -3,7 +3,7 @@
 
 ///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/events/MouseEventType.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/events/native/MouseEvents.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/events/EventBroker.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/utils/TemplateFactory.ts'/>
 
@@ -57,8 +57,8 @@ class TodoApp extends Stage
     public enable():void {
         if (this.isEnabled === true) return;
 
-        this._submitBtn.$el.addEventListener(MouseEventType.CLICK, this.onSubmitButton, this);
-        this._incompleteItemList.$el.addEventListener(MouseEventType.CLICK, '.list-item', this.onTodoSelected, this);
+        this._submitBtn.$el.addEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$el.addEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
@@ -74,8 +74,8 @@ class TodoApp extends Stage
     public disable():void {
         if (this.isEnabled === false) return;
 
-        this._submitBtn.$el.removeEventListener(MouseEventType.CLICK, this.onSubmitButton, this);
-        this._incompleteItemList.$el.removeEventListener(MouseEventType.CLICK, '.list-item', this.onTodoSelected, this);
+        this._submitBtn.$el.removeEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$el.removeEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
@@ -95,7 +95,7 @@ class TodoApp extends Stage
         var $element:JQuery = $(event.currentTarget);
 
         var cid:number = $element.data('cid');
-        var domElement:DOMElement = this._incompleteItemList.getChild(cid);
+        var domElement:DOMElement = this._incompleteItemList.getChildByCid(cid);
         var id:string = domElement.$el.children('input').data('id');
 
         this._appModel.markItemComplete(id);

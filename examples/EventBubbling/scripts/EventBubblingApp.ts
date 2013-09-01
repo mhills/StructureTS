@@ -51,7 +51,7 @@ class EventBubblingApp extends Stage {
 
         this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-        this._clearButton.$el.addEventListener(MouseEventType.CLICK, this.onClearClick, this);
+        this._clearButton.$el.addEventListener(MouseEvents.CLICK, this.onClearClick, this);
         this._grandpaView.enable();
 
         super.enable();
@@ -66,7 +66,7 @@ class EventBubblingApp extends Stage {
 
         this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-        this._clearButton.$el.removeEventListener(MouseEventType.CLICK, this.onClearClick, this);
+        this._clearButton.$el.removeEventListener(MouseEvents.CLICK, this.onClearClick, this);
         this._grandpaView.disable();
 
         super.disable();

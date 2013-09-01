@@ -24,6 +24,7 @@
 
 ///<reference path='../interfaces/IValueObject.ts'/>
 ///<reference path='../BaseObject.ts'/>
+///<reference path='../utils/Util.ts'/>
 
 /**
  * Value Object (VO) is a design pattern used to transfer data between software application subsystems.
@@ -62,12 +63,26 @@ class ValueObject extends BaseObject implements IValueObject
      * ...
      *
      * @method toJSON
+     * @returns {ValueObject}
+     * @public
+     */
+    public toJSON():ValueObject
+    {
+        //TODO: test on vo that extends multiple vo's
+        var clone:ValueObject = <ValueObject>this.clone();
+        return Util.deletePropertyFromObject(clone, ['cid']);
+    }
+
+    /**
+     * ...
+     *
+     * @method toJSONString
      * @returns {string}
      * @public
      */
-    public toJSON():string
+    public toJSONString():string
     {
-        return JSON.stringify(this.copy());
+        return JSON.stringify(this.toJSON());
     }
 
     /**
@@ -110,7 +125,7 @@ class ValueObject extends BaseObject implements IValueObject
 
         for (var key in this)
         {
-            if (key !== 'isEnabled' && this.hasOwnProperty(key))
+            if (this.hasOwnProperty(key))
             {
                 copy[key] = this[key];
             }

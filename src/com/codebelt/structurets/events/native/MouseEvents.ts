@@ -23,20 +23,15 @@
  */
 
 /**
- * The MouseEventType...
+ * The MouseEvents...
  *
- * @class MouseEventType
+ * @class MouseEvents
  * @module StructureTS
- * @submodule event
+ * @submodule nativeEvent
  * @static
  **/
-class MouseEventType
+class MouseEvents
 {
-    /**
-     * @copy BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'MouseEventType';
-
     /**
      * The event occurs when the user clicks on an element.
      *

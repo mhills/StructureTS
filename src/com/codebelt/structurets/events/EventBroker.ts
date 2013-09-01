@@ -68,8 +68,9 @@ class EventBroker
      * @param scope {any} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
      * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
      * @static
+     * @public
      */
-    public static addEventListener(type:string, callback:Function, scope:any, priority:number = 0):any
+    public static addEventListener(type:string, callback:Function, scope:any, priority:number = 0):void
     {
         EventBroker._eventDispatcher.addEventListener(type, callback, scope, priority);
     }
@@ -84,11 +85,12 @@ class EventBroker
      * @method removeEventListener
      * @param type {String} The type of event.
      * @param callback {Function} The listener object to remove.
-     * @param scope {any} The scope of the listener object to be removed. This was added because it was need for the {{#crossLink "EventBroker"}}{{/crossLink}} class.
+     * @param scope {any} The scope of the listener object to be removed.
      * To keep things consistent this parameter is required.
      * @static
+     * @public
      */
-    public static removeEventListener(type:string, callback:Function, scope:any):any
+    public static removeEventListener(type:string, callback:Function, scope:any):void
     {
         EventBroker._eventDispatcher.removeEventListener(type, callback, scope);
     }
@@ -105,8 +107,9 @@ class EventBroker
      * @param event {BaseEvent} The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
      * extend the {{#crossLink "BaseEvent"}}{{/crossLink}}.
      * @static
+     * @public
      */
-    public static dispatchEvent(event:BaseEvent):any
+    public static dispatchEvent(event:BaseEvent):void
     {
         EventBroker._eventDispatcher.dispatchEvent(event);
     }

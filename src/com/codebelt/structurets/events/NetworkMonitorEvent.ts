@@ -25,9 +25,9 @@
 ///<reference path='BaseEvent.ts'/>
 
 /**
- * The RequestEvent...
+ * The NetworkMonitorEvent...
  *
- * @class RequestEvent
+ * @class NetworkMonitorEvent
  * @extends BaseEvent
  * @param type {string} The type of event. The type is case-sensitive.
  * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
@@ -39,34 +39,64 @@
  * @submodule event
  * @constructor
  **/
-class RequestEvent extends BaseEvent
+class NetworkMonitorEvent extends BaseEvent
 {
     /**
      * @copy BaseObject.CLASS_NAME
      */
-    public CLASS_NAME:string = 'RequestEvent';
+    public CLASS_NAME:string = 'NetworkMonitorEvent';
 
     /**
      * YUIDoc_comment
      *
-     * @event SUCCESS
+     * @event STATUS
      * @type {string}
      * @static
      */
-    public static SUCCESS:string = "RequestEvent.success";
+    public static STATUS:string = "NetworkMonitorEvent.status";
 
     /**
      * YUIDoc_comment
      *
-     * @event ERROR
+     * @event ONLINE
      * @type {string}
      * @static
      */
-    public static ERROR:string = "RequestEvent.error";
+    public static ONLINE:string = "NetworkMonitorEvent.online";
 
-    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
+    /**
+     * YUIDoc_comment
+     *
+     * @event OFFLINE
+     * @type {string}
+     * @static
+     */
+    public static OFFLINE:string = "NetworkMonitorEvent.offline";
+
+    /**
+     * YUIDoc_comment
+     *
+     * @property status
+     * @type {string}
+     * @public
+     */
+    public status:string = null;
+
+    /**
+     * YUIDoc_comment
+     *
+     * @property connected
+     * @type {boolean}
+     * @public
+     */
+    public connected:boolean = false;
+
+    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, status:string = null, connected:boolean = null, data:any = null)
     {
         super(type, bubbles, cancelable, data);
+
+        this.status = status;
+        this.connected = connected;
     }
 
 }

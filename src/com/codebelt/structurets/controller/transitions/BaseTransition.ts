@@ -25,7 +25,7 @@
 ///<reference path='../../BaseObject.ts'/>
 ///<reference path='../../events/EventDispatcher.ts'/>
 ///<reference path='../../interfaces/ITransition.ts'/>
-///<reference path='../../display/DisplayObject.ts'/>
+///<reference path='../../display/DisplayObjectContainer.ts'/>
 ///<reference path='../../display/DOMElement.ts'/>
 ///<reference path='../../events/TweenEvent.ts'/>
 
@@ -64,13 +64,13 @@ class BaseTransition extends EventDispatcher implements ITransition
      *
      * @method createTransition
      * @param transitionType {string)
-     * @param viewContainer {DisplayObject)
+     * @param viewContainer {DisplayObjectContainer)
      * @param currentView {DOMElement)
      * @param nextView {DOMElement)
      * @param [duration=0.75] {number)
      * @returns {ITransition}
      */
-    public createTransition(transitionType:string, viewContainer:DisplayObject, currentView:DOMElement, nextView:DOMElement, duration:number = 0.75):ITransition
+    public createTransition(transitionType:string, viewContainer:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = 0.75):ITransition
     {
         return this;
     }
@@ -140,10 +140,10 @@ class BaseTransition extends EventDispatcher implements ITransition
      */
     public destroy():void
     {
+        super.destroy();
+
         this.complete();
         this.transition = null;
-
-        super.destroy();
     }
 
 }

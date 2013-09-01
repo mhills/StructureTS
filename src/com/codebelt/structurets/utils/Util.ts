@@ -80,6 +80,54 @@ class Util
     }
 
     /**
+     * @method deletePropertyFromObject
+     * @param object {Object} The object you want to remove properties from.
+     * @param list {array} A list of property names you want to remove from the object.
+     * @returns {any} Returns the object passed in without the removed the properties.
+     * @public
+     * @static
+     */
+    public static deletePropertyFromObject(object:any, list:any[]):any
+    {
+        // Loop through the object properties.
+        for (var key in object)
+        {
+            // If the key is a property and not function.
+            if (object.hasOwnProperty(key))
+            {
+                var value:any = object[key];
+                // If the property is an Array.
+                if (value instanceof Array)
+                {
+                    // Loop through the Array and call the Util.deletePropertyFromObject method on each object in the array.
+                    var array:any[] = value;
+                    for (var index in array)
+                    {
+                        // Recursive function call.
+                        Util.deletePropertyFromObject(array[index], list);
+                    }
+                }
+                else
+                {
+                    // Loop through the list of property name.
+                    for (var listIndex in list)
+                    {
+                        // If the key(property name) equals the property name in the list array.
+                        if (key === list[listIndex])
+                        {
+                            // Delete the property from the object.
+                            delete value;
+                        }
+                    }
+
+                }
+            }
+        }
+
+        return object;
+    }
+
+    /**
      * Generates a random boolean.
      * @example
      *      Util.getRandomBoolean();

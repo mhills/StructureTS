@@ -12,6 +12,29 @@ var Util = (function () {
         }
     };
 
+    Util.deletePropertyFromObject = function (object, list) {
+        for (var key in object) {
+            if (object.hasOwnProperty(key)) {
+                var value = object[key];
+
+                if (value instanceof Array) {
+                    var array = value;
+                    for (var index in array) {
+                        Util.deletePropertyFromObject(array[index], list);
+                    }
+                } else {
+                    for (var listIndex in list) {
+                        if (key === list[listIndex]) {
+                            delete value;
+                        }
+                    }
+                }
+            }
+        }
+
+        return object;
+    };
+
     Util.getRandomBoolean = function () {
         return (Math.random() > .5) ? true : false;
     };
@@ -24,14 +47,30 @@ var BaseObject = (function () {
     function BaseObject() {
         this.CLASS_NAME = 'BaseObject';
         this.cid = null;
-        this.isEnabled = false;
         this.cid = Util.uniqueId();
     }
     BaseObject.prototype.getQualifiedClassName = function () {
         return this.CLASS_NAME;
     };
 
-    BaseObject.prototype.enable = function () {
+    BaseObject.prototype.destroy = function () {
+    };
+    return BaseObject;
+})();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var CollectiveObject = (function (_super) {
+    __extends(CollectiveObject, _super);
+    function CollectiveObject() {
+        _super.call(this);
+        this.CLASS_NAME = 'CollectiveObject';
+        this.isEnabled = false;
+    }
+    CollectiveObject.prototype.enable = function () {
         if (this.isEnabled === true)
             return this;
 
@@ -39,7 +78,7 @@ var BaseObject = (function () {
         return this;
     };
 
-    BaseObject.prototype.disable = function () {
+    CollectiveObject.prototype.disable = function () {
         if (this.isEnabled === false)
             return this;
 
@@ -47,11 +86,14 @@ var BaseObject = (function () {
         return this;
     };
 
-    BaseObject.prototype.destroy = function () {
+    CollectiveObject.prototype.destroy = function () {
+        _super.prototype.destroy.call(this);
+
+        this.disable();
         this.isEnabled = false;
     };
-    return BaseObject;
-})();
+    return CollectiveObject;
+})(BaseObject);
 var BaseEvent = (function () {
     function BaseEvent(type, bubbles, cancelable, data) {
         if (typeof bubbles === "undefined") { bubbles = false; }
@@ -132,12 +174,6 @@ var BaseEvent = (function () {
     BaseEvent.RESIZE = 'BaseEvent.resize';
     return BaseEvent;
 })();
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
 var EventDispatcher = (function (_super) {
     __extends(EventDispatcher, _super);
     function EventDispatcher() {
@@ -217,29 +253,29 @@ var EventDispatcher = (function (_super) {
     };
 
     EventDispatcher.prototype.destroy = function () {
+        _super.prototype.destroy.call(this);
+
         this.parent = null;
         this._listeners = null;
-
-        _super.prototype.destroy.call(this);
     };
     return EventDispatcher;
-})(BaseObject);
-var DisplayObject = (function (_super) {
-    __extends(DisplayObject, _super);
-    function DisplayObject() {
+})(CollectiveObject);
+var DisplayObjectContainer = (function (_super) {
+    __extends(DisplayObjectContainer, _super);
+    function DisplayObjectContainer() {
         _super.call(this);
-        this.CLASS_NAME = 'DisplayObject';
+        this.CLASS_NAME = 'DisplayObjectContainer';
         this.isCreated = false;
         this.numChildren = 0;
         this.children = [];
         this.unscaledWidth = 100;
         this.unscaledHeight = 100;
     }
-    DisplayObject.prototype.createChildren = function () {
+    DisplayObjectContainer.prototype.createChildren = function () {
         return this;
     };
 
-    DisplayObject.prototype.addChild = function (child) {
+    DisplayObjectContainer.prototype.addChild = function (child) {
         if (child.parent) {
             child.parent.removeChild(child);
         }
@@ -252,7 +288,7 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.addChildAt = function (child, index) {
+    DisplayObjectContainer.prototype.addChildAt = function (child, index) {
         if (child.parent) {
             child.parent.removeChild(child);
         }
@@ -265,11 +301,11 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.swapChildren = function (child1, child2) {
+    DisplayObjectContainer.prototype.swapChildren = function (child1, child2) {
         return this;
     };
 
-    DisplayObject.prototype.swapChildrenAt = function (index1, index2) {
+    DisplayObjectContainer.prototype.swapChildrenAt = function (index1, index2) {
         if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
             throw new TypeError('[' + this.getQualifiedClassName() + '] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
         }
@@ -282,11 +318,11 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.getChildIndex = function (child) {
+    DisplayObjectContainer.prototype.getChildIndex = function (child) {
         return this.children.indexOf(child);
     };
 
-    DisplayObject.prototype.removeChild = function (child) {
+    DisplayObjectContainer.prototype.removeChild = function (child) {
         var index = this.getChildIndex(child);
         if (index !== -1) {
             this.children.splice(index, 1);
@@ -299,7 +335,7 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.removeChildren = function () {
+    DisplayObjectContainer.prototype.removeChildren = function () {
         while (this.children.length > 0) {
             this.removeChild(this.children.pop());
         }
@@ -309,11 +345,11 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.getChildAt = function (index) {
+    DisplayObjectContainer.prototype.getChildAt = function (index) {
         return this.children[index];
     };
 
-    DisplayObject.prototype.setSize = function (unscaledWidth, unscaledHeight) {
+    DisplayObjectContainer.prototype.setSize = function (unscaledWidth, unscaledHeight) {
         this.unscaledWidth = unscaledWidth;
         this.unscaledHeight = unscaledHeight;
         if (this.isCreated) {
@@ -323,18 +359,17 @@ var DisplayObject = (function (_super) {
         return this;
     };
 
-    DisplayObject.prototype.layoutChildren = function () {
+    DisplayObjectContainer.prototype.layoutChildren = function () {
         return this;
     };
 
-    DisplayObject.prototype.destroy = function () {
-        this.disable();
+    DisplayObjectContainer.prototype.destroy = function () {
+        _super.prototype.destroy.call(this);
+
         this.children = [];
         this.numChildren = 0;
-
-        _super.prototype.destroy.call(this);
     };
-    return DisplayObject;
+    return DisplayObjectContainer;
 })(EventDispatcher);
 var StringUtil = (function () {
     function StringUtil() {
@@ -460,29 +495,35 @@ var DOMElement = (function (_super) {
     __extends(DOMElement, _super);
     function DOMElement(type, params) {
         if (typeof type === "undefined") { type = null; }
-        if (typeof params === "undefined") { params = {}; }
+        if (typeof params === "undefined") { params = null; }
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
         this._isVisible = true;
         this.el = null;
         this.$el = null;
+        this._type = null;
+        this._params = null;
 
         if (type) {
-            this.$el = jQuery("<" + type + "/>", params);
+            this._type = type;
+            this._params = params;
         }
     }
-    DOMElement.prototype.createChildren = function (template, data) {
-        if (typeof template === "undefined") { template = 'div'; }
-        if (typeof data === "undefined") { data = null; }
-        if (typeof template === 'function' && !this.$el) {
-            Jaml.register(this.CLASS_NAME, template);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, data));
-        } else if (typeof template === 'string' && !this.$el) {
-            var html = TemplateFactory.createTemplate(template, data);
+    DOMElement.prototype.createChildren = function (type, params) {
+        if (typeof type === "undefined") { type = 'div'; }
+        if (typeof params === "undefined") { params = null; }
+        type = this._type || type;
+        params = this._params || params;
+
+        if (typeof type === 'function' && !this.$el) {
+            Jaml.register(this.CLASS_NAME, type);
+            this.$el = jQuery(Jaml.render(this.CLASS_NAME, params));
+        } else if (typeof type === 'string' && !this.$el) {
+            var html = TemplateFactory.createTemplate(type, params);
             if (html) {
                 this.$el = $(html);
             } else {
-                this.$el = jQuery("<" + template + "/>", data);
+                this.$el = jQuery("<" + type + "/>", params);
             }
         }
 
@@ -545,34 +586,33 @@ var DOMElement = (function (_super) {
         return _super.prototype.getChildAt.call(this, index);
     };
 
+    DOMElement.prototype.getChildByCid = function (cid) {
+        var domElement = _.find(this.children, function (child) {
+            return child.cid == cid;
+        });
+
+        return domElement || null;
+    };
+
     DOMElement.prototype.getChild = function (selector) {
-        var domElement = null;
+        var jQueryElement = this.$el.find(selector).first();
+        if (jQueryElement.length == 0) {
+            throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $el');
+        }
 
-        if (typeof selector === 'number') {
-            domElement = _.find(this.children, function (domElement) {
-                return domElement.cid == selector;
-            });
-        } else {
-            var jQueryElement = this.$el.find(selector).first();
-            if (jQueryElement.length == 0) {
-                throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $el');
-            }
+        var cid = jQueryElement.data('cid');
+        var domElement = _.find(this.children, function (domElement) {
+            return domElement.cid == cid;
+        });
 
-            var cid = jQueryElement.data('cid');
-            domElement = _.find(this.children, function (domElement) {
-                return domElement.cid == cid;
-            });
+        if (!domElement) {
+            domElement = new DOMElement();
+            domElement.$el = jQueryElement;
+            domElement.$el.attr('data-cid', domElement.cid);
+            domElement.el = jQueryElement[0];
+            domElement.isCreated = true;
 
-            if (!domElement) {
-                domElement = new DOMElement();
-                domElement.$el = jQueryElement;
-                domElement.$el.attr('data-cid', domElement.cid);
-
-                domElement.el = jQueryElement[0];
-                domElement.isCreated = true;
-
-                _super.prototype.addChild.call(this, domElement);
-            }
+            _super.prototype.addChild.call(this, domElement);
         }
 
         return domElement;
@@ -658,13 +698,13 @@ var DOMElement = (function (_super) {
     };
 
     DOMElement.prototype.destroy = function () {
-        this.el = null;
-        this.$el = null;
-
         _super.prototype.destroy.call(this);
+
+        this.$el = null;
+        this.el = null;
     };
     return DOMElement;
-})(DisplayObject);
+})(DisplayObjectContainer);
 var Stage = (function (_super) {
     __extends(Stage, _super);
     function Stage() {
@@ -675,43 +715,40 @@ var Stage = (function (_super) {
         if (typeof enabled === "undefined") { enabled = true; }
         this.$el = jQuery(type);
         this.$el.attr('data-cid', this.cid);
-        debugger;
+
         if (!this.isCreated) {
             this.createChildren();
             this.isCreated = true;
+            this.layoutChildren();
         }
 
         if (enabled) {
             this.enable();
-        } else {
-            this.disable();
         }
 
         return this;
     };
     return Stage;
 })(DOMElement);
-var MouseEventType = (function () {
-    function MouseEventType() {
+var MouseEvents = (function () {
+    function MouseEvents() {
     }
-    MouseEventType.CLASS_NAME = 'MouseEventType';
+    MouseEvents.CLICK = 'click';
 
-    MouseEventType.CLICK = 'click';
+    MouseEvents.DBL_CLICK = 'dblclick';
 
-    MouseEventType.DBL_CLICK = 'dblclick';
+    MouseEvents.MOUSE_DOWN = 'mousedown';
 
-    MouseEventType.MOUSE_DOWN = 'mousedown';
+    MouseEvents.MOUSE_MOVE = 'mousemove';
 
-    MouseEventType.MOUSE_MOVE = 'mousemove';
+    MouseEvents.MOUSE_OVER = 'mouseover';
 
-    MouseEventType.MOUSE_OVER = 'mouseover';
+    MouseEvents.MOUSE_OUT = 'mouseout';
 
-    MouseEventType.MOUSE_OUT = 'mouseout';
+    MouseEvents.MOUSE_UP = 'mouseup';
 
-    MouseEventType.MOUSE_UP = 'mouseup';
-
-    MouseEventType.TAP = 'tap';
-    return MouseEventType;
+    MouseEvents.TAP = 'tap';
+    return MouseEvents;
 })();
 var EventBroker = (function () {
     function EventBroker() {
@@ -773,7 +810,12 @@ var ValueObject = (function (_super) {
     };
 
     ValueObject.prototype.toJSON = function () {
-        return JSON.stringify(this.copy());
+        var clone = this.clone();
+        return Util.deletePropertyFromObject(clone, ['cid']);
+    };
+
+    ValueObject.prototype.toJSONString = function () {
+        return JSON.stringify(this.toJSON());
     };
 
     ValueObject.prototype.fromJSON = function (json) {
@@ -791,7 +833,7 @@ var ValueObject = (function (_super) {
         var copy = new Object();
 
         for (var key in this) {
-            if (key !== 'isEnabled' && this.hasOwnProperty(key)) {
+            if (this.hasOwnProperty(key)) {
                 copy[key] = this[key];
             }
         }
@@ -910,7 +952,6 @@ var TodoApp = (function (_super) {
 
         this._input = this.getChild('#js-todo-input');
         this._submitBtn = this.getChild('#js-submit-button');
-        console.log(this._submitBtn);
         this._noTasksMessage = TemplateFactory.createView('#noTodoItemsTemplate');
 
         this._incompleteItemList = this.getChild('#js-incomplete-items');
@@ -923,8 +964,8 @@ var TodoApp = (function (_super) {
         if (this.isEnabled === true)
             return;
 
-        this._submitBtn.$el.addEventListener(MouseEventType.CLICK, this.onSubmitButton, this);
-        this._incompleteItemList.$el.addEventListener(MouseEventType.CLICK, '.list-item', this.onTodoSelected, this);
+        this._submitBtn.$el.addEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$el.addEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
@@ -937,8 +978,8 @@ var TodoApp = (function (_super) {
         if (this.isEnabled === false)
             return;
 
-        this._submitBtn.$el.removeEventListener(MouseEventType.CLICK, this.onSubmitButton, this);
-        this._incompleteItemList.$el.removeEventListener(MouseEventType.CLICK, '.list-item', this.onTodoSelected, this);
+        this._submitBtn.$el.removeEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$el.removeEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
@@ -956,7 +997,7 @@ var TodoApp = (function (_super) {
         var $element = $(event.currentTarget);
 
         var cid = $element.data('cid');
-        var domElement = this._incompleteItemList.getChild(cid);
+        var domElement = this._incompleteItemList.getChildByCid(cid);
         var id = domElement.$el.children('input').data('id');
 
         this._appModel.markItemComplete(id);
