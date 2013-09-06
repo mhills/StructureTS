@@ -40,7 +40,7 @@ class DadView extends DOMElement {
      * @overridden
      */
     public layoutChildren():void {
-        this._dadMessage.$el.css('opacity', 0);
+        this._dadMessage.$element.css('opacity', 0);
         this._sonView.layoutChildren();
     }
 
@@ -87,7 +87,7 @@ class DadView extends DOMElement {
     }
 
     private onBubbled(event:BaseEvent):void {
-        var checkbox:boolean = this._childrenContainer.$el.find('[type=checkbox]')
+        var checkbox:boolean = this._childrenContainer.$element.find('[type=checkbox]')
                                                           .first()
                                                           .prop('checked');
 
@@ -95,7 +95,7 @@ class DadView extends DOMElement {
             event.stopPropagation();
         }
 
-        this._dadMessage.$el.css('opacity', 1);
+        this._dadMessage.$element.css('opacity', 1);
     }
 
 }

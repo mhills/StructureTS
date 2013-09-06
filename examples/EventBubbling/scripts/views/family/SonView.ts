@@ -39,7 +39,7 @@ class SonView extends DOMElement {
      * @overridden
      */
     public layoutChildren():void {
-        this._sonMessage.$el.css('opacity', 0);
+        this._sonMessage.$element.css('opacity', 0);
     }
 
     /**
@@ -51,7 +51,7 @@ class SonView extends DOMElement {
 
         this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-        this._dispatchButton.$el.addEventListener(MouseEvents.CLICK, this.onButtonClick, this);
+        this._dispatchButton.$element.addEventListener(MouseEvents.CLICK, this.onButtonClick, this);
 
         super.enable();
     }
@@ -65,7 +65,7 @@ class SonView extends DOMElement {
 
         this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-        this._dispatchButton.$el.removeEventListener(MouseEvents.CLICK, this.onButtonClick, this);
+        this._dispatchButton.$element.removeEventListener(MouseEvents.CLICK, this.onButtonClick, this);
 
         super.disable();
     }
@@ -91,7 +91,7 @@ class SonView extends DOMElement {
     }
 
     private onBubbled(event:BaseEvent):void {
-        var checkbox:boolean = this._childrenContainer.$el.find('[type=checkbox]')
+        var checkbox:boolean = this._childrenContainer.$element.find('[type=checkbox]')
                                                           .first()
                                                           .prop('checked');
 
@@ -99,7 +99,7 @@ class SonView extends DOMElement {
             event.stopPropagation();
         }
 
-        this._sonMessage.$el.css('opacity', 1);
+        this._sonMessage.$element.css('opacity', 1);
     }
 
 }

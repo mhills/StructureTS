@@ -38,7 +38,7 @@ class EventBubblingApp extends Stage {
      * @overridden
      */
     public layoutChildren():void {
-        this._stageMessage.$el.css('opacity', 0);
+        this._stageMessage.$element.css('opacity', 0);
         this._grandpaView.layoutChildren();
     }
 
@@ -51,7 +51,7 @@ class EventBubblingApp extends Stage {
 
         this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-        this._clearButton.$el.addEventListener(MouseEvents.CLICK, this.onClearClick, this);
+        this._clearButton.$element.addEventListener(MouseEvents.CLICK, this.onClearClick, this);
         this._grandpaView.enable();
 
         super.enable();
@@ -66,7 +66,7 @@ class EventBubblingApp extends Stage {
 
         this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-        this._clearButton.$el.removeEventListener(MouseEvents.CLICK, this.onClearClick, this);
+        this._clearButton.$element.removeEventListener(MouseEvents.CLICK, this.onClearClick, this);
         this._grandpaView.disable();
 
         super.disable();
@@ -77,7 +77,7 @@ class EventBubblingApp extends Stage {
     }
 
     private onBubbled(event:BaseEvent):void {
-        this._stageMessage.$el.css('opacity', 1);
+        this._stageMessage.$element.css('opacity', 1);
     }
 
 }

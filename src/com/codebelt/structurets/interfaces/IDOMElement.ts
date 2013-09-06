@@ -36,14 +36,14 @@ interface IDOMElement extends IDisplayObject
 {
 
     /**
-     * @property el
+     * @property element
      */
-    el:Element;
+    element:Element;
 
     /**
-     * @property $el
+     * @property $element
      */
-    $el:JQuery;
+    $element:JQuery;
 
     /**
      * @method getChild

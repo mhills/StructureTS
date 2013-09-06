@@ -2248,43 +2248,6 @@ var BaseObject = (function () {
     };
     return BaseObject;
 })();
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
-var CollectiveObject = (function (_super) {
-    __extends(CollectiveObject, _super);
-    function CollectiveObject() {
-        _super.call(this);
-        this.CLASS_NAME = 'CollectiveObject';
-        this.isEnabled = false;
-    }
-    CollectiveObject.prototype.enable = function () {
-        if (this.isEnabled === true)
-            return this;
-
-        this.isEnabled = true;
-        return this;
-    };
-
-    CollectiveObject.prototype.disable = function () {
-        if (this.isEnabled === false)
-            return this;
-
-        this.isEnabled = false;
-        return this;
-    };
-
-    CollectiveObject.prototype.destroy = function () {
-        _super.prototype.destroy.call(this);
-
-        this.disable();
-        this.isEnabled = false;
-    };
-    return CollectiveObject;
-})(BaseObject);
 var BaseEvent = (function () {
     function BaseEvent(type, bubbles, cancelable, data) {
         if (typeof bubbles === "undefined") { bubbles = false; }
@@ -2365,6 +2328,12 @@ var BaseEvent = (function () {
     BaseEvent.RESIZE = 'BaseEvent.resize';
     return BaseEvent;
 })();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 var EventDispatcher = (function (_super) {
     __extends(EventDispatcher, _super);
     function EventDispatcher() {
@@ -2372,6 +2341,7 @@ var EventDispatcher = (function (_super) {
         this.CLASS_NAME = 'EventDispatcher';
         this._listeners = null;
         this.parent = null;
+        this.isEnabled = false;
 
         this._listeners = [];
     }
@@ -2446,11 +2416,30 @@ var EventDispatcher = (function (_super) {
     EventDispatcher.prototype.destroy = function () {
         _super.prototype.destroy.call(this);
 
+        this.disable();
+        this.isEnabled = false;
+
         this.parent = null;
         this._listeners = null;
     };
+
+    EventDispatcher.prototype.enable = function () {
+        if (this.isEnabled === true)
+            return this;
+
+        this.isEnabled = true;
+        return this;
+    };
+
+    EventDispatcher.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return this;
+
+        this.isEnabled = false;
+        return this;
+    };
     return EventDispatcher;
-})(CollectiveObject);
+})(BaseObject);
 var DisplayObjectContainer = (function (_super) {
     __extends(DisplayObjectContainer, _super);
     function DisplayObjectContainer() {
@@ -2637,7 +2626,7 @@ var TemplateFactory = (function () {
         var template = TemplateFactory.create(templatePath, data);
 
         var view = new DOMElement();
-        view.$el = jQuery(template);
+        view.$element = jQuery(template);
         return view;
     };
 
@@ -2690,8 +2679,8 @@ var DOMElement = (function (_super) {
         _super.call(this);
         this.CLASS_NAME = 'DOMElement';
         this._isVisible = true;
-        this.el = null;
-        this.$el = null;
+        this.element = null;
+        this.$element = null;
         this._type = null;
         this._params = null;
 
@@ -2706,19 +2695,19 @@ var DOMElement = (function (_super) {
         type = this._type || type;
         params = this._params || params;
 
-        if (typeof type === 'function' && !this.$el) {
+        if (typeof type === 'function' && !this.$element) {
             Jaml.register(this.CLASS_NAME, type);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, params));
-        } else if (typeof type === 'string' && !this.$el) {
+            this.$element = jQuery(Jaml.render(this.CLASS_NAME, params));
+        } else if (typeof type === 'string' && !this.$element) {
             var html = TemplateFactory.createTemplate(type, params);
             if (html) {
-                this.$el = $(html);
+                this.$element = $(html);
             } else {
-                this.$el = jQuery("<" + type + "/>", params);
+                this.$element = jQuery("<" + type + "/>", params);
             }
         }
 
-        this.el = this.$el[0];
+        this.element = this.$element[0];
 
         return this;
     };
@@ -2731,19 +2720,25 @@ var DOMElement = (function (_super) {
             child.isCreated = true;
         }
 
-        child.$el.attr('data-cid', child.cid);
+        child.$element.attr('data-cid', child.cid);
 
-        this.$el.append(child.$el);
+        child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
+        this.$element.append(child.$element);
 
         child.layoutChildren();
-
-        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
 
         return this;
     };
 
+    DOMElement.prototype.onAddedToDom = function (event) {
+        var child = event.data;
+        child.$element.removeEventListener('DOMNodeInsertedIntoDocument', this.onAddedToDom, this);
+        child.layoutChildren();
+        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
+    };
+
     DOMElement.prototype.addChildAt = function (child, index) {
-        var children = this.$el.children();
+        var children = this.$element.children();
         var length = children.length - 1;
 
         if (index < 0 || index >= length) {
@@ -2753,19 +2748,20 @@ var DOMElement = (function (_super) {
                 child.createChildren();
                 child.isCreated = true;
             }
+            child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
             child.layoutChildren();
 
             _super.prototype.addChildAt.call(this, child, index);
 
-            jQuery(children.get(index)).before(child.$el);
+            jQuery(children.get(index)).before(child.$element);
         }
 
         return this;
     };
 
     DOMElement.prototype.swapChildren = function (child1, child2) {
-        var child1Index = child1.$el.index();
-        var child2Index = child2.$el.index();
+        var child1Index = child1.$element.index();
+        var child2Index = child2.$element.index();
 
         this.addChildAt(child1, child2Index);
         this.addChildAt(child2, child1Index);
@@ -2786,9 +2782,9 @@ var DOMElement = (function (_super) {
     };
 
     DOMElement.prototype.getChild = function (selector) {
-        var jQueryElement = this.$el.find(selector).first();
+        var jQueryElement = this.$element.find(selector).first();
         if (jQueryElement.length == 0) {
-            throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $el');
+            throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $element');
         }
 
         var cid = jQueryElement.data('cid');
@@ -2798,9 +2794,9 @@ var DOMElement = (function (_super) {
 
         if (!domElement) {
             domElement = new DOMElement();
-            domElement.$el = jQueryElement;
-            domElement.$el.attr('data-cid', domElement.cid);
-            domElement.el = jQueryElement[0];
+            domElement.$element = jQueryElement;
+            domElement.$element.attr('data-cid', domElement.cid);
+            domElement.element = jQueryElement[0];
             domElement.isCreated = true;
 
             _super.prototype.addChild.call(this, domElement);
@@ -2814,16 +2810,16 @@ var DOMElement = (function (_super) {
         var _this = this;
         var $child;
         var domElement;
-        var $list = this.$el.children(selector);
+        var $list = this.$element.children(selector);
 
         _.each($list, function (item, index) {
             $child = jQuery(item);
 
             if (!$child.data('cid')) {
                 domElement = new DOMElement();
-                domElement.$el = $child;
-                domElement.$el.attr('data-cid', domElement.cid);
-                domElement.el = item;
+                domElement.$element = $child;
+                domElement.$element.attr('data-cid', domElement.cid);
+                domElement.element = item;
                 domElement.isCreated = true;
 
                 _super.prototype.addChild.call(_this, domElement);
@@ -2834,8 +2830,8 @@ var DOMElement = (function (_super) {
     };
 
     DOMElement.prototype.removeChild = function (child) {
-        child.$el.unbind();
-        child.$el.remove();
+        child.$element.unbind();
+        child.$element.remove();
 
         _super.prototype.removeChild.call(this, child);
 
@@ -2845,7 +2841,7 @@ var DOMElement = (function (_super) {
     DOMElement.prototype.removeChildren = function () {
         _super.prototype.removeChildren.call(this);
 
-        this.$el.empty();
+        this.$element.empty();
 
         return this;
     };
@@ -2871,17 +2867,17 @@ var DOMElement = (function (_super) {
     };
 
     DOMElement.prototype.alpha = function (number) {
-        this.$el.css('opacity', number);
+        this.$element.css('opacity', number);
         return this;
     };
 
     DOMElement.prototype.visible = function (value) {
         if (value == false) {
             this._isVisible = false;
-            this.$el.hide();
+            this.$element.hide();
         } else if (value == true) {
             this._isVisible = true;
-            this.$el.show();
+            this.$element.show();
         } else if (value == undefined) {
             return this._isVisible;
         }
@@ -2891,8 +2887,8 @@ var DOMElement = (function (_super) {
     DOMElement.prototype.destroy = function () {
         _super.prototype.destroy.call(this);
 
-        this.$el = null;
-        this.el = null;
+        this.$element = null;
+        this.element = null;
     };
     return DOMElement;
 })(DisplayObjectContainer);
@@ -2904,8 +2900,8 @@ var Stage = (function (_super) {
     }
     Stage.prototype.appendTo = function (type, enabled) {
         if (typeof enabled === "undefined") { enabled = true; }
-        this.$el = jQuery(type);
-        this.$el.attr('data-cid', this.cid);
+        this.$element = jQuery(type);
+        this.$element.attr('data-cid', this.cid);
 
         if (!this.isCreated) {
             this.createChildren();

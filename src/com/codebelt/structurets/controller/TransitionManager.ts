@@ -119,18 +119,16 @@ class TransitionManager extends BaseController
         this._nextView = null;
     }
 
-    private removeCurrentView():any
+    private removeCurrentView():void
     {
-        if (!this._currentView)
+        if (this._currentView == null)
         {
-            return this;
+            return;
         }
         this._viewContainer.removeChild(this._currentView);
         this._currentView.destroy();
         this._currentView = this._nextView;
         this._nextView = null;
-
-        return this;
     }
 
     public transitionToNextView(nextView:DOMElement, transitionType:string = TransitionType.NONE, transitionDuration:number = -1):any
@@ -163,20 +161,23 @@ class TransitionManager extends BaseController
         return this;
     }
 
-    private onTransitionStart(event:TweenEvent):any
+    private onTransitionStart(event:TweenEvent):void
     {
         this.dispatchEvent(new TransitionManagerEvent(TransitionManagerEvent.TRANSITION_START));
-        return this;
     }
 
-    private onTransitionComplete(event:TweenEvent):any
+    private onTransitionUpdate(event:TweenEvent):void
+    {
+    }
+
+    private onTransitionComplete(event:TweenEvent):void
     {
         if (this._currentView)
         {
             this.removeCurrentView();
         }
 
-        if (this._runningTransition)
+        if (this._runningTransition != null)
         {
             this._runningTransition.removeEventListener(TweenEvent.START, this.onTransitionStart, this);
             this._runningTransition.removeEventListener(TweenEvent.COMPLETE, this.onTransitionComplete, this);
@@ -185,8 +186,6 @@ class TransitionManager extends BaseController
 
         this._state = TransitionManager.READY;
         this.dispatchEvent(new TransitionManagerEvent(TransitionManagerEvent.TRANSITION_COMPLETE));
-
-        return this;
     }
 
 }

@@ -33,7 +33,7 @@ class LanguageSelect extends DOMElement {
     public enable():DOMElement {
         if (this.isEnabled === true) return this;
 
-        this.$el.on('change', this.onLanguageChange.bind(this));
+        this.$element.on('change', this.onLanguageChange.bind(this));
 
         super.enable();
         return this;
@@ -45,7 +45,7 @@ class LanguageSelect extends DOMElement {
     public disable():DOMElement {
         if (this.isEnabled === false) return this;
 
-        this.$el.off('change', this.onLanguageChange.bind(this));
+        this.$element.off('change', this.onLanguageChange.bind(this));
 
         super.disable();
         return this;
@@ -59,7 +59,7 @@ class LanguageSelect extends DOMElement {
 
     public value(value:any):void
     {
-        this.$el.val(value);
+        this.$element.val(value);
     }
 
 }

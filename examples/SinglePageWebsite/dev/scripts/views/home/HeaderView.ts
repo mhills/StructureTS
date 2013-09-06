@@ -12,7 +12,7 @@ class HeaderView extends DOMElement
     createChildren():DOMElement
     {
         super.createChildren('templates/Header.tpl');
-//        var domElement = this.getChild('#my-slider').$el[0];
+//        var domElement = this.getChild('#my-slider').$element[0];
 //        this._dragDealer = new DragDealer(domElement, {
 //            slide: true,
 //            animationCallback: function(x, y) {

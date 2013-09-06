@@ -12,7 +12,7 @@ class HomeBodyTemp extends DOMElement
 
     createChildren()
     {
-        this.$el = TemplateFactory.createTemplate('templates/HomeBody.tpl', {name: "Robert"});
+        this.$element = TemplateFactory.createTemplate('templates/HomeBody.tpl', {name: "Robert"});
 
         super.createChildren();
     }

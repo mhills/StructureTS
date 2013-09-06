@@ -83,8 +83,7 @@ class CarouselComponent extends EventDispatcher {
         this._container.getChildren();
         this._numberOfItems = this._container.numChildren;
         this._maxIndex = Math.floor((this._numberOfItems - 1) / this._itemsVisible);
-        this._container.$el.width(this._numberOfItems * this._widthOfItem);
-        console.log("this._container.numChildren", this._container.numChildren);
+        this._container.$element.width(this._numberOfItems * this._widthOfItem);
     }
 
     /**
@@ -125,7 +124,7 @@ class CarouselComponent extends EventDispatcher {
             var slideWidth:number = this._widthOfItem * this._itemsVisible;
             if (this._direction == CarouselComponent.DIRECTION_RIGHT)
             {
-                (<HTMLScriptElement>this._container.el).style.left = -slideWidth + 'px';
+                (<HTMLScriptElement>this._container.element).style.left = -slideWidth + 'px';
                 for (var i:number = 0; i < this._itemsVisible; i++)
                 {
                     this._container.addChildAt(this._container.getChildAt(this._container.numChildren - 1), 0);
@@ -156,7 +155,7 @@ class CarouselComponent extends EventDispatcher {
             onCompleteScope: this
         }
         this.timelineMax = new TimelineMax(varsObject);
-        this.timelineMax.to(this._container.$el, 0.6, {left: position, ease: Cubic.easeOut});
+        this.timelineMax.to(this._container.$element, 0.6, {left: position, ease: Cubic.easeOut});
 
         this.dispatchEvent(new CarouselEvent(CarouselEvent.CHANGE));
         //console.log('CarouselEvent.CHANGE');
@@ -238,7 +237,7 @@ class CarouselComponent extends EventDispatcher {
 
         if (this.loop && this._direction == CarouselComponent.DIRECTION_LEFT)
         {
-            (<HTMLScriptElement>this._container.el).style.left = '0';
+            (<HTMLScriptElement>this._container.element).style.left = '0';
             for (var i:number = 0; i < this._itemsVisible; i++)
             {
                 this._container.addChild(this._container.getChildAt(0));

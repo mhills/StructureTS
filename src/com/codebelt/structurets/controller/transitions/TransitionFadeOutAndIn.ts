@@ -59,8 +59,8 @@ class TransitionFadeOutAndIn extends BaseTransition
             onCompleteScope: this
         }
         this.transition = new TimelineMax(varsObject);
-        this.transition.add(TweenMax.to(currentView.$el, duration, {opacity: 0, ease: Expo.easeInOut}));
-        this.transition.add(TweenMax.from(nextView.$el, duration, {opacity: 0, ease: Expo.easeInOut}));
+        this.transition.add(TweenMax.to(currentView.$element, duration, {opacity: 0, ease: Expo.easeInOut}));
+        this.transition.add(TweenMax.from(nextView.$element, duration, {opacity: 0, ease: Expo.easeInOut}));
 
         return this;
     }

@@ -52,6 +52,11 @@
  *              super.disable();
  *           }
  *
+ *           public destroy():void {
+ *              super.destroy();
+ *              // Add items to clean up.
+ *           }
+ *
  *      }
  *
  * <b>Instantiation Example</b><br>
@@ -88,8 +93,8 @@ class Stage extends DOMElement
      */
     public appendTo(type:string, enabled:boolean = true):any
     {
-        this.$el = jQuery(type);
-        this.$el.attr('data-cid', this.cid);
+        this.$element = jQuery(type);
+        this.$element.attr('data-cid', this.cid);
 
         if (!this.isCreated)
         {

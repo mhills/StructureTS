@@ -60,7 +60,7 @@ class TemplateFactory
         var template:string = TemplateFactory.create(templatePath, data);
 
         var view:DOMElement = new DOMElement();
-        view.$el = jQuery(template);
+        view.$element = jQuery(template);
         return view;
     }
 

@@ -40,7 +40,7 @@ class GrandpaView extends DOMElement {
      * @overridden
      */
     public layoutChildren():void {
-        this._grandpaMessage.$el.css('opacity', 0);
+        this._grandpaMessage.$element.css('opacity', 0);
         this._dadView.layoutChildren();
     }
 
@@ -87,7 +87,7 @@ class GrandpaView extends DOMElement {
     }
 
     private onBubbled(event:BaseEvent):void {
-        var checkbox:boolean = this._childrenContainer.$el.find('[type=checkbox]')
+        var checkbox:boolean = this._childrenContainer.$element.find('[type=checkbox]')
                                                           .first()
                                                           .prop('checked');
 
@@ -95,7 +95,7 @@ class GrandpaView extends DOMElement {
             event.stopPropagation();
         }
 
-        this._grandpaMessage.$el.css('opacity', 1);
+        this._grandpaMessage.$element.css('opacity', 1);
     }
 
 }

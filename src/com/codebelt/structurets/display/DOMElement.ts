@@ -56,20 +56,20 @@ class DOMElement extends DisplayObjectContainer
     /**
      * A cached of the DOM Element.
      *
-     * @property el
+     * @property element
      * @type {Element}
      * @default null
      */
-    public el:Element = null;
+    public element:Element = null;
 
     /**
      * A cached jQuery object for the view's element.
      *
-     * @property $el
+     * @property $element
      * @type {JQuery}
      * @default null
      */
-    public $el:JQuery = null;
+    public $element:JQuery = null;
 
     /**
      * Holds onto the value passed into the constructor.
@@ -110,25 +110,25 @@ class DOMElement extends DisplayObjectContainer
         params = this._params || params;
 
         // If the typeof is a Function then the template data must be Jaml.
-        if (typeof type === 'function' && !this.$el)
+        if (typeof type === 'function' && !this.$element)
         {
             Jaml.register(this.CLASS_NAME, type);
-            this.$el = jQuery(Jaml.render(this.CLASS_NAME, params));
+            this.$element = jQuery(Jaml.render(this.CLASS_NAME, params));
         }
-        else if (typeof type === 'string' && !this.$el)
+        else if (typeof type === 'string' && !this.$element)
         {
             var html:string = TemplateFactory.createTemplate(type, params);
             if (html)
             {
-                this.$el = $(html);
+                this.$element = $(html);
             }
             else
             {
-                this.$el = jQuery("<" + type + "/>", params);
+                this.$element = jQuery("<" + type + "/>", params);
             }
         }
 
-        this.el = this.$el[0];
+        this.element = this.$element[0];
 
         return this;
     }
@@ -154,15 +154,29 @@ class DOMElement extends DisplayObjectContainer
         }
 
         // Adds the cid to the DOM element so we can know what what Class object the element belongs too.
-        child.$el.attr('data-cid', child.cid);
+        child.$element.attr('data-cid', child.cid);
 
-        this.$el.append(child.$el);
+        child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
+        this.$element.append(child.$element);
 
         child.layoutChildren();
 
-        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
-
         return this;
+    }
+
+    /**
+     * Gets called when the child object is added to the DOM.
+     * The method will call {{#crossLink "DOMElement/layoutChildren:method"}}{{/crossLink}} and dispatch the BaseEvent.ADDED event.
+     *
+     * @method onDomAdded
+     * @param event {JQueryEventObject}
+     * @private
+     */
+    private onAddedToDom(event:JQueryEventObject) {
+        var child:DOMElement = event.data;
+        child.$element.removeEventListener('DOMNodeInsertedIntoDocument', this.onAddedToDom, this);
+        child.layoutChildren();
+        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
     }
 
     /**
@@ -171,7 +185,7 @@ class DOMElement extends DisplayObjectContainer
      */
     public addChildAt(child:DOMElement, index:number):any
     {
-        var children = this.$el.children();
+        var children = this.$element.children();
         var length = children.length - 1;
 
         // If the index passed in is less than 0 and greater than
@@ -189,13 +203,14 @@ class DOMElement extends DisplayObjectContainer
                 child.createChildren();// Render the item before adding to the DOM
                 child.isCreated = true;
             }
+            child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
             child.layoutChildren();
 
             // Adds the child at a specific index but also will remove the child from another parent object if one exists.
             super.addChildAt(child, index);
 
             // Adds the child before the a child already in the DOM.
-            jQuery(children.get(index)).before(child.$el);
+            jQuery(children.get(index)).before(child.$element);
         }
 
         return this;
@@ -207,8 +222,8 @@ class DOMElement extends DisplayObjectContainer
      */
     public swapChildren(child1:DOMElement, child2:DOMElement):any
     {
-        var child1Index = child1.$el.index();
-        var child2Index = child2.$el.index();
+        var child1Index = child1.$element.index();
+        var child2Index = child2.$element.index();
 
         this.addChildAt(child1, child2Index);
         this.addChildAt(child2, child1Index);
@@ -259,10 +274,10 @@ class DOMElement extends DisplayObjectContainer
     public getChild(selector:string):DOMElement
     {
         // Get the first match from the selector passed in.
-        var jQueryElement:JQuery = this.$el.find(selector).first();
+        var jQueryElement:JQuery = this.$element.find(selector).first();
         if (jQueryElement.length == 0)
         {
-            throw new TypeError('['+this.getQualifiedClassName()+'] getChild(' + selector + ') Cannot find DOM $el');
+            throw new TypeError('['+this.getQualifiedClassName()+'] getChild(' + selector + ') Cannot find DOM $element');
         }
 
         // Loop through the children array to see if the cid found on the jQueryElement matches any in the children array.
@@ -277,9 +292,9 @@ class DOMElement extends DisplayObjectContainer
         {
             // Create a new DOMElement and assign the jQuery element to it.
             domElement = new DOMElement();
-            domElement.$el = jQueryElement;
-            domElement.$el.attr('data-cid', domElement.cid);
-            domElement.el = jQueryElement[0];
+            domElement.$element = jQueryElement;
+            domElement.$element.attr('data-cid', domElement.cid);
+            domElement.element = jQueryElement[0];
             domElement.isCreated = true;
 
             // Added to the super addChild method because we don't need to append the element to the DOM.
@@ -303,7 +318,7 @@ class DOMElement extends DisplayObjectContainer
         //TODO: Make sure the index of the children added is the same as the what is in the actual DOM.
         var $child:JQuery;
         var domElement:DOMElement;
-        var $list:JQuery = this.$el.children(selector);
+        var $list:JQuery = this.$element.children(selector);
 
         _.each($list, (item, index) =>
         {
@@ -312,9 +327,9 @@ class DOMElement extends DisplayObjectContainer
             if (!$child.data('cid'))
             {
                 domElement = new DOMElement();
-                domElement.$el = $child;
-                domElement.$el.attr('data-cid', domElement.cid);
-                domElement.el = item;
+                domElement.$element = $child;
+                domElement.$element.attr('data-cid', domElement.cid);
+                domElement.element = item;
                 domElement.isCreated = true;
 
                 // Added to the super addChild method because we don't need to append the element to the DOM.
@@ -340,8 +355,8 @@ class DOMElement extends DisplayObjectContainer
      */
     public removeChild(child:DOMElement):any
     {
-        child.$el.unbind();
-        child.$el.remove();
+        child.$element.unbind();
+        child.$element.remove();
 
         super.removeChild(child);
 
@@ -363,7 +378,7 @@ class DOMElement extends DisplayObjectContainer
     {
         super.removeChildren();
 
-        this.$el.empty();
+        this.$element.empty();
 
         return this;
     }
@@ -411,7 +426,7 @@ class DOMElement extends DisplayObjectContainer
      */
     public alpha(number):any
     {
-        this.$el.css('opacity', number);
+        this.$element.css('opacity', number);
         return this;
     }
 
@@ -426,12 +441,12 @@ class DOMElement extends DisplayObjectContainer
         if (value == false)
         {
             this._isVisible = false;
-            this.$el.hide();
+            this.$element.hide();
         }
         else if (value == true)
         {
             this._isVisible = true;
-            this.$el.show();
+            this.$element.show();
         }
         else if (value == undefined)
         {
@@ -448,8 +463,8 @@ class DOMElement extends DisplayObjectContainer
     {
         super.destroy();
 
-        this.$el = null;
-        this.el = null;
+        this.$element = null;
+        this.element = null;
     }
 
 }

@@ -57,8 +57,8 @@ class TodoApp extends Stage
     public enable():void {
         if (this.isEnabled === true) return;
 
-        this._submitBtn.$el.addEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
-        this._incompleteItemList.$el.addEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
+        this._submitBtn.$element.addEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$element.addEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
@@ -74,8 +74,8 @@ class TodoApp extends Stage
     public disable():void {
         if (this.isEnabled === false) return;
 
-        this._submitBtn.$el.removeEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
-        this._incompleteItemList.$el.removeEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
+        this._submitBtn.$element.removeEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
+        this._incompleteItemList.$element.removeEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
 
         this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
         this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
@@ -85,7 +85,7 @@ class TodoApp extends Stage
 
     private onSubmitButton(event:JQueryEventObject):void
     {
-        var text:string = this._input.$el.val();
+        var text:string = this._input.$element.val();
 
         this._appModel.addListItem(text);
     }
@@ -96,7 +96,7 @@ class TodoApp extends Stage
 
         var cid:number = $element.data('cid');
         var domElement:DOMElement = this._incompleteItemList.getChildByCid(cid);
-        var id:string = domElement.$el.children('input').data('id');
+        var id:string = domElement.$element.children('input').data('id');
 
         this._appModel.markItemComplete(id);
         this._incompleteItemList.removeChild(domElement);
@@ -111,7 +111,7 @@ class TodoApp extends Stage
 
     private onAddItemSuccess(event:ListItemEvent):void
     {
-        this._input.$el.val('')
+        this._input.$element.val('')
                        .focus();
 
         this.updateItemList();

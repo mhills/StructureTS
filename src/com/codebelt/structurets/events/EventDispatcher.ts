@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../CollectiveObject.ts'/>
+///<reference path='../BaseObject.ts'/>
 ///<reference path='BaseEvent.ts'/>
 
 /**
@@ -32,12 +32,12 @@
  * {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} classes dispatch events.
  *
  * @class EventDispatcher
- * @extends CollectiveObject
+ * @extends BaseObject
  * @module StructureTS
  * @submodule event
  * @constructor
  **/
-class EventDispatcher extends CollectiveObject
+class EventDispatcher extends BaseObject
 {
     /**
      * @copy BaseObject.CLASS_NAME
@@ -62,6 +62,16 @@ class EventDispatcher extends CollectiveObject
      * @type {any}
      */
     public parent:any = null;
+
+    /**
+     * The isEnabled property is used to keep track of the enabled state of the object.
+     *
+     * @property isEnabled
+     * @type {boolean}
+     * @default false
+     * @protected
+     */
+    public isEnabled:boolean = false;
 
     constructor()
     {
@@ -212,8 +222,57 @@ class EventDispatcher extends CollectiveObject
     {
         super.destroy();
 
+        this.disable();
+        this.isEnabled = false;
+
         this.parent = null;
         this._listeners = null;
+    }
+
+    /**
+     * The enable method is responsible for enabling event listeners and/or children of the containing objects.
+     * @example
+     *      public enable():void {
+     *          if (this.isEnabled === true) return;
+     *
+     *          this._childInstance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+     *          this._childInstance.enable();
+     *
+     *          super.enable();
+     *      }
+     * @method enable
+     * @chainable
+     * @public
+     */
+    public enable():any
+    {
+        if (this.isEnabled === true) return this;
+
+        this.isEnabled = true;
+        return this;
+    }
+
+    /**
+     * The disable method is responsible for disabling event listeners and/or children of the containing objects.
+     * @example
+     *      public disable():void {
+     *          if (this.isEnabled === false) return;
+     *
+     *          this._childInstance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+     *          this._childInstance.disable();
+     *
+     *          super.enable();
+     *      }
+     * @method disable
+     * @chainable
+     * @public
+     */
+    public disable():any
+    {
+        if (this.isEnabled === false) return this;
+
+        this.isEnabled = false;
+        return this;
     }
 
 }

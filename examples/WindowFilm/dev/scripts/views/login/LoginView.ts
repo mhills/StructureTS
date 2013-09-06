@@ -92,11 +92,11 @@ class LoginView extends DOMElement {
 //            loginButtonHandler: function(event) {
 //                event.preventDefault();
 //
-//                var isValid = this.loginForm.$el.validate()
+//                var isValid = this.loginForm.$element.validate()
 //                    .form();
 //
 //                if(isValid){
-//                    var formData = this.loginForm.$el.serializeObject();
+//                    var formData = this.loginForm.$element.serializeObject();
 //                    var authenticateVO = new AuthenticateVO(formData);
 //                    this.loginRequest.setData(authenticateVO).load();
 //                }

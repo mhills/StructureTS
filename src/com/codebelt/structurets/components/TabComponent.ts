@@ -158,7 +158,6 @@ class TabComponent extends EventDispatcher {
         this._$tabButtons.removeClass(this.activeClassName);
 
         var $tabButton = this._$tabButtons.siblings('[data-' + this._tabButtonAttributeName + '=' + index + ']');
-        console.log("$tabButton", $tabButton);
         $tabButton.addClass(this.activeClassName);
     }
 
