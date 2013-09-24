@@ -50,9 +50,6 @@ class TransitionPushDown extends BaseTransition
 
     public createTransition(transitionType:string, viewContainer:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = 0.75):ITransition
     {
-        // Immediately places the next view out of display bounds.
-        TweenMax.to(nextView.$element, 0, {y: -viewContainer.unscaledHeight});
-
         var varsObject = {
             onStart: this.onTweenStart,
             onStartScope: this,
@@ -62,8 +59,8 @@ class TransitionPushDown extends BaseTransition
             onCompleteScope: this
         }
         this.transition = new TimelineMax(varsObject);
-        this.transition.add(new TweenMax(currentView.$element, duration, {y: viewContainer.unscaledHeight, ease: Expo.easeInOut}), 0);
-        this.transition.add(new TweenMax(nextView.$element, duration, {y: 0, ease: Expo.easeInOut}), 0);
+        this.transition.add(TweenMax.to(currentView.$element, duration, {y: viewContainer.unscaledHeight, ease: Expo.easeInOut}), 0);
+        this.transition.add(TweenMax.from(nextView.$element, duration, {y: -viewContainer.unscaledHeight, ease: Expo.easeInOut}), 0);
 
         return this;
     }

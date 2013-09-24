@@ -59,6 +59,10 @@ class RouterController extends BaseController
         crossroads.addRoute(pattern, handler.bind(scope), priority);
     }
 
+    /**
+     *
+     * @method start
+     */
     public start():void
     {
         if (this._active) return;
@@ -72,6 +76,12 @@ class RouterController extends BaseController
         this._active = true;
     }
 
+    /**
+     *
+     * @method parseHash
+     * @param newHash {string}
+     * @param oldHash {string}
+     */
     public parseHash(newHash, oldHash):void
     {
         crossroads.parse(newHash);
@@ -95,21 +105,41 @@ class RouterController extends BaseController
         }
     }
 
+    /**
+     *
+     * @method getHash
+     * @returns {string}
+     */
     public getHash():string
     {
         return hasher.getHash();
     }
 
+    /**
+     *
+     * @method getHashAsArray
+     * @returns {array}
+     */
     public getHashAsArray():any[]
     {
         return hasher.getHashAsArray();
     }
 
+    /**
+     *
+     * @method getURL
+     * @returns {string}
+     */
     public getURL():string
     {
         return hasher.getURL();
     }
 
+    /**
+     *
+     * @method getBaseURL
+     * @returns {string}
+     */
     public getBaseURL():string
     {
         return hasher.getBaseURL();

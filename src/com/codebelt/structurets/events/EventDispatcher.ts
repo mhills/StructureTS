@@ -162,7 +162,6 @@ class EventDispatcher extends BaseObject
 
     /**
      * <p>Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the dispatchEvent() method is called.</p>
-     * TODO: show this example: http://www.rubenswieringa.com/blog/eventbubbles-eventcancelable-and-eventcurrenttarget
      * @example
      *      var event:BaseEvent = new BaseEvent(BaseEvent.CHANGE);
      *      instance.dispatchEvent(event);
