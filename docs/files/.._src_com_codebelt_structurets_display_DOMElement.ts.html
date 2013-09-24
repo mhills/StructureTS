@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>../src/com/codebelt/structurets/display/DOMElement.ts - StructureTS-Project</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="StructureTS-Project"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.1.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/ApplicationCacheController.html">ApplicationCacheController</a></li>
+            
+                <li><a href="../classes/ApplicationCacheEvent.html">ApplicationCacheEvent</a></li>
+            
+                <li><a href="../classes/BaseController.html">BaseController</a></li>
+            
+                <li><a href="../classes/BaseEvent.html">BaseEvent</a></li>
+            
+                <li><a href="../classes/BaseObject.html">BaseObject</a></li>
+            
+                <li><a href="../classes/BaseRequest.html">BaseRequest</a></li>
+            
+                <li><a href="../classes/BaseTransition.html">BaseTransition</a></li>
+            
+                <li><a href="../classes/BaseViewController.html">BaseViewController</a></li>
+            
+                <li><a href="../classes/Bitmap.html">Bitmap</a></li>
+            
+                <li><a href="../classes/BrowserUtils.html">BrowserUtils</a></li>
+            
+                <li><a href="../classes/BulkLoader.html">BulkLoader</a></li>
+            
+                <li><a href="../classes/Canvas.html">Canvas</a></li>
+            
+                <li><a href="../classes/CanvasElement.html">CanvasElement</a></li>
+            
+                <li><a href="../classes/CarouselComponent.html">CarouselComponent</a></li>
+            
+                <li><a href="../classes/CarouselEvent.html">CarouselEvent</a></li>
+            
+                <li><a href="../classes/Collection.html">Collection</a></li>
+            
+                <li><a href="../classes/DataLoader.html">DataLoader</a></li>
+            
+                <li><a href="../classes/DisplayObjectContainer.html">DisplayObjectContainer</a></li>
+            
+                <li><a href="../classes/DOMElement.html">DOMElement</a></li>
+            
+                <li><a href="../classes/EventBroker.html">EventBroker</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/HtmlLoader.html">HtmlLoader</a></li>
+            
+                <li><a href="../classes/ICollection.html">ICollection</a></li>
+            
+                <li><a href="../classes/ICore.html">ICore</a></li>
+            
+                <li><a href="../classes/IDataStore.html">IDataStore</a></li>
+            
+                <li><a href="../classes/IDisplayObject.html">IDisplayObject</a></li>
+            
+                <li><a href="../classes/IDOMElement.html">IDOMElement</a></li>
+            
+                <li><a href="../classes/ImageLoader.html">ImageLoader</a></li>
+            
+                <li><a href="../classes/ITransition.html">ITransition</a></li>
+            
+                <li><a href="../classes/IValueObject.html">IValueObject</a></li>
+            
+                <li><a href="../classes/IViewController.html">IViewController</a></li>
+            
+                <li><a href="../classes/LanguageConfigVO.html">LanguageConfigVO</a></li>
+            
+                <li><a href="../classes/LanguageEvent.html">LanguageEvent</a></li>
+            
+                <li><a href="../classes/LanguageModel.html">LanguageModel</a></li>
+            
+                <li><a href="../classes/LoaderEvent.html">LoaderEvent</a></li>
+            
+                <li><a href="../classes/LocalStorageController.html">LocalStorageController</a></li>
+            
+                <li><a href="../classes/LocalStorageEvent.html">LocalStorageEvent</a></li>
+            
+                <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
+            
+                <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
+            
+                <li><a href="../classes/NavigatorEvents.html">NavigatorEvents</a></li>
+            
+                <li><a href="../classes/NetworkMonitor.html">NetworkMonitor</a></li>
+            
+                <li><a href="../classes/NetworkMonitorEvent.html">NetworkMonitorEvent</a></li>
+            
+                <li><a href="../classes/NumberUtil.html">NumberUtil</a></li>
+            
+                <li><a href="../classes/RequestEvent.html">RequestEvent</a></li>
+            
+                <li><a href="../classes/RouterController.html">RouterController</a></li>
+            
+                <li><a href="../classes/RouterEvent.html">RouterEvent</a></li>
+            
+                <li><a href="../classes/Stage.html">Stage</a></li>
+            
+                <li><a href="../classes/StringUtil.html">StringUtil</a></li>
+            
+                <li><a href="../classes/TabComponent.html">TabComponent</a></li>
+            
+                <li><a href="../classes/TemplateFactory.html">TemplateFactory</a></li>
+            
+                <li><a href="../classes/Timer.html">Timer</a></li>
+            
+                <li><a href="../classes/TimerEvent.html">TimerEvent</a></li>
+            
+                <li><a href="../classes/TimeUtil.html">TimeUtil</a></li>
+            
+                <li><a href="../classes/TransitionCrossFade.html">TransitionCrossFade</a></li>
+            
+                <li><a href="../classes/TransitionFactory.html">TransitionFactory</a></li>
+            
+                <li><a href="../classes/TransitionFadeOutAndIn.html">TransitionFadeOutAndIn</a></li>
+            
+                <li><a href="../classes/TransitionManager.html">TransitionManager</a></li>
+            
+                <li><a href="../classes/TransitionManagerEvent.html">TransitionManagerEvent</a></li>
+            
+                <li><a href="../classes/TransitionNone.html">TransitionNone</a></li>
+            
+                <li><a href="../classes/TransitionPushDown.html">TransitionPushDown</a></li>
+            
+                <li><a href="../classes/TransitionPushLeft.html">TransitionPushLeft</a></li>
+            
+                <li><a href="../classes/TransitionPushRight.html">TransitionPushRight</a></li>
+            
+                <li><a href="../classes/TransitionPushUp.html">TransitionPushUp</a></li>
+            
+                <li><a href="../classes/TransitionType.html">TransitionType</a></li>
+            
+                <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
+            
+                <li><a href="../classes/URLContentType.html">URLContentType</a></li>
+            
+                <li><a href="../classes/URLLoader.html">URLLoader</a></li>
+            
+                <li><a href="../classes/URLLoaderDataFormat.html">URLLoaderDataFormat</a></li>
+            
+                <li><a href="../classes/URLRequest.html">URLRequest</a></li>
+            
+                <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
+            
+                <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValueObject.html">ValueObject</a></li>
+            
+                <li><a href="../classes/WindowEvents.html">WindowEvents</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/controller.html">controller</a></li>
+            
+                <li><a href="../modules/core.html">core</a></li>
+            
+                <li><a href="../modules/event.html">event</a></li>
+            
+                <li><a href="../modules/interface.html">interface</a></li>
+            
+                <li><a href="../modules/model.html">model</a></li>
+            
+                <li><a href="../modules/nativeEvent.html">nativeEvent</a></li>
+            
+                <li><a href="../modules/net.html">net</a></li>
+            
+                <li><a href="../modules/StructureTS.html">StructureTS</a></li>
+            
+                <li><a href="../modules/util.html">util</a></li>
+            
+                <li><a href="../modules/view.html">view</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/display/DOMElement.ts</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+ * Copyright (c) 2013 Robert S. https://github.com/codeBelt/StructureTS
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the &quot;Software&quot;), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge,
+ * publish, distribute, sublicense, and/or sell copies of the Software,
+ * and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+///&lt;reference path=&#x27;DisplayObjectContainer.ts&#x27;/&gt;
+///&lt;reference path=&#x27;../events/BaseEvent.ts&#x27;/&gt;
+///&lt;reference path=&#x27;../utils/TemplateFactory.ts&#x27;/&gt;
+
+/**
+ * The {{#crossLink &quot;DOMElement&quot;}}{{/crossLink}} class is the base class for all objects that can be placed into the HTML DOM.
+ *
+ * @class DOMElement
+ * @extends DisplayObjectContainer
+ * @module StructureTS
+ * @submodule view
+ * @constructor
+ **/
+class DOMElement extends DisplayObjectContainer
+{
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = &#x27;DOMElement&#x27;;
+
+    /**
+     * Whether or not the display object is visible. Display objects that are not visible are disabled.
+     * For example, if visible=false for an InteractiveObject instance, it cannot be clicked.
+     *
+     * @property _isVisible
+     * @type {boolean}
+     * @default true
+     * @private
+     */
+    private _isVisible:boolean = true;
+
+    /**
+     * A cached of the DOM Element.
+     *
+     * @property element
+     * @type {Element}
+     * @default null
+     */
+    public element:Element = null;
+
+    /**
+     * A cached jQuery object for the view&#x27;s element.
+     *
+     * @property $element
+     * @type {JQuery}
+     * @default null
+     */
+    public $element:JQuery = null;
+
+    /**
+     * Holds onto the value passed into the constructor.
+     *
+     * @property _type
+     * @type {string}
+     * @default null
+     */
+    private _type:string = null;
+
+    /**
+     * Holds onto the value passed into the constructor.
+     *
+     * @property _params
+     * @type {any}
+     * @default null
+     */
+    private _params:any = null;
+
+    constructor(type:string = null, params:any = null)
+    {
+        super();
+
+        if (type) {
+            this._type = type;
+            this._params = params;
+        }
+    }
+
+    /**
+     * @copy DisplayObjectContainer.createChildren
+     * @overridden
+     */
+    public createChildren(type:any = &#x27;div&#x27;, params:any = null):any
+    {
+        // Use the data passed into the constructor first else use the arguments from createChildren.
+        type = this._type || type;
+        params = this._params || params;
+
+        // If the typeof is a Function then the template data must be Jaml.
+        if (typeof type === &#x27;function&#x27; &amp;&amp; !this.$element)
+        {
+            Jaml.register(this.CLASS_NAME, type);
+            this.$element = jQuery(Jaml.render(this.CLASS_NAME, params));
+        }
+        else if (typeof type === &#x27;string&#x27; &amp;&amp; !this.$element)
+        {
+            var html:string = TemplateFactory.createTemplate(type, params);
+            if (html)
+            {
+                this.$element = $(html);
+            }
+            else
+            {
+                this.$element = jQuery(&quot;&lt;&quot; + type + &quot;/&gt;&quot;, params);
+            }
+        }
+
+        this.element = this.$element[0];
+
+        return this;
+    }
+
+    /**
+     * @copy DisplayObjectContainer.addChild
+     * @example
+     *      container.addChild(domElementInstance);
+     * @method addChild
+     * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
+     * @returns {DOMElement} Returns an instance of itself.
+     * @overridden
+     * @chainable
+     */
+    public addChild(child:DOMElement):any
+    {
+        super.addChild(child);
+
+        if (!child.isCreated)
+        {
+            child.createChildren();// Render the item before adding to the DOM
+            child.isCreated = true;
+        }
+
+        // Adds the cid to the DOM element so we can know what what Class object the element belongs too.
+        child.$element.attr(&#x27;data-cid&#x27;, child.cid);
+
+        child.$element.addEventListener(&#x27;DOMNodeInsertedIntoDocument&#x27;, child, this.onAddedToDom, this);
+        this.$element.append(child.$element);
+
+        child.layoutChildren();
+
+        return this;
+    }
+
+    /**
+     * Gets called when the child object is added to the DOM.
+     * The method will call {{#crossLink &quot;DOMElement/layoutChildren:method&quot;}}{{/crossLink}} and dispatch the BaseEvent.ADDED event.
+     *
+     * @method onDomAdded
+     * @param event {JQueryEventObject}
+     * @private
+     */
+    private onAddedToDom(event:JQueryEventObject) {
+        var child:DOMElement = event.data;
+        child.$element.removeEventListener(&#x27;DOMNodeInsertedIntoDocument&#x27;, this.onAddedToDom, this);
+        child.layoutChildren();
+        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
+    }
+
+    /**
+     * @copy DisplayObjectContainer.addChildAt
+     * @overridden
+     */
+    public addChildAt(child:DOMElement, index:number):any
+    {
+        var children = this.$element.children();
+        var length = children.length - 1;
+
+        // If the index passed in is less than 0 and greater than
+        // the total number of children then place the item at the end.
+        if (index &lt; 0 || index &gt;= length)
+        {
+            this.addChild(child);
+        }
+        // Else get the child in the children array by the
+        // index passed in and place the item before that child.
+        else
+        {
+            if (!child.isCreated)
+            {
+                child.createChildren();// Render the item before adding to the DOM
+                child.isCreated = true;
+            }
+            child.$element.addEventListener(&#x27;DOMNodeInsertedIntoDocument&#x27;, child, this.onAddedToDom, this);
+            child.layoutChildren();
+
+            // Adds the child at a specific index but also will remove the child from another parent object if one exists.
+            super.addChildAt(child, index);
+
+            // Adds the child before the a child already in the DOM.
+            jQuery(children.get(index)).before(child.$element);
+        }
+
+        return this;
+    }
+
+    /**
+     * @copy DisplayObjectContainer.swapChildren
+     * @overridden
+     */
+    public swapChildren(child1:DOMElement, child2:DOMElement):any
+    {
+        var child1Index = child1.$element.index();
+        var child2Index = child2.$element.index();
+
+        this.addChildAt(child1, child2Index);
+        this.addChildAt(child2, child1Index);
+
+        return this;
+    }
+
+    /**
+     *
+     * @method getChildAt
+     * @param index {number}
+     * @returns {DOMElement}
+     * @public
+     */
+    public getChildAt(index:number):DOMElement
+    {
+        return &lt;DOMElement&gt;super.getChildAt(index);
+    }
+
+    /**
+     * Gets a DOMElement by its cid.
+     *
+     * @method getChildByCid
+     * @param selector {number}
+     * @returns {DOMElement}
+     * @override
+     * @public
+     */
+    public getChildByCid(cid:number):DOMElement
+    {
+        var domElement:DOMElement = &lt;DOMElement&gt;_.find(this.children, function(child)
+        {
+            return child.cid == cid;
+        });
+
+        return domElement || null;
+    }
+
+    /**
+     * Returns a DOMElement object with the first found DOM element by the passed in selector.
+     *
+     * @method getChild
+     * @param selector {string} DOM id name, DOM class name or a DOM tag name.
+     * @returns {DOMElement}
+     * @override
+     * @public
+     */
+    public getChild(selector:string):DOMElement
+    {
+        // Get the first match from the selector passed in.
+        var jQueryElement:JQuery = this.$element.find(selector).first();
+        if (jQueryElement.length == 0)
+        {
+            throw new TypeError(&#x27;[&#x27;+this.getQualifiedClassName()+&#x27;] getChild(&#x27; + selector + &#x27;) Cannot find DOM $element&#x27;);
+        }
+
+        // Loop through the children array to see if the cid found on the jQueryElement matches any in the children array.
+        var cid:number = jQueryElement.data(&#x27;cid&#x27;);
+        var domElement:DOMElement = &lt;DOMElement&gt;_.find(this.children, function (domElement)
+        {
+            return domElement.cid == cid;
+        });
+
+        // Create a DOMElement from the jQueryElement.
+        if (!domElement)
+        {
+            // Create a new DOMElement and assign the jQuery element to it.
+            domElement = new DOMElement();
+            domElement.$element = jQueryElement;
+            domElement.$element.attr(&#x27;data-cid&#x27;, domElement.cid);
+            domElement.element = jQueryElement[0];
+            domElement.isCreated = true;
+
+            // Added to the super addChild method because we don&#x27;t need to append the element to the DOM.
+            // At this point it already exists and we are just getting a reference to the DOM element.
+            super.addChild(domElement);
+        }
+
+        return domElement;
+    }
+
+    /**
+     * Gets all the HTML elements children of this object.
+     *
+     * @method getChildren
+     * @param [selector] {string} You can pass in any type of jQuery selector. If there is no selector passed in it will get all the children this parent element.
+     * @returns {Array} Returns a list of DOMElement&#x27;s. It will grab all children HTML DOM elements of this object and will create a DOMElement for each DOM child.
+     * If the &#x27;data-cid&#x27; property exists is on an HTML element a DOMElement will not be create for that element because it will be assumed it already exists as a DOMElement.
+     */
+    public getChildren(selector:string = &#x27;&#x27;):DOMElement[]
+    {
+        //TODO: Make sure the index of the children added is the same as the what is in the actual DOM.
+        var $child:JQuery;
+        var domElement:DOMElement;
+        var $list:JQuery = this.$element.children(selector);
+
+        _.each($list, (item, index) =&gt;
+        {
+            $child = jQuery(item);
+            // If the jQuery element already has cid data property then must be an existing DisplayObjectContainer (DOMElement) in the children array.
+            if (!$child.data(&#x27;cid&#x27;))
+            {
+                domElement = new DOMElement();
+                domElement.$element = $child;
+                domElement.$element.attr(&#x27;data-cid&#x27;, domElement.cid);
+                domElement.element = item;
+                domElement.isCreated = true;
+
+                // Added to the super addChild method because we don&#x27;t need to append the element to the DOM.
+                // At this point it already exists and we are just getting a reference to the DOM element.
+                super.addChild(domElement);
+            }
+        });
+
+        return &lt;DOMElement[]&gt;this.children;
+    }
+
+    /**
+     * Removes the specified child object instance from the child list of the parent object instance.
+     * The parent property of the removed child is set to null , and the object is garbage collected if no other references
+     * to the child exist. The index positions of any objects above the child in the parent object are decreased by 1.
+     *
+     * @method removeChild
+     * @param child {DOMElement} The DisplayObjectContainer instance to remove.
+     * @returns {DOMElement} Returns an instance of itself.
+     * @override
+     * @public
+     * @chainable
+     */
+    public removeChild(child:DOMElement):any
+    {
+        child.$element.unbind();
+        child.$element.remove();
+
+        super.removeChild(child);
+
+        return this;
+    }
+
+    /**
+     * Removes all child object instances from the child list of the parent object instance.
+     * The parent property of the removed children is set to null , and the objects are garbage collected if no other
+     * references to the children exist.
+     *
+     * @method removeChildren
+     * @returns {DOMElement} Returns an instance of itself.
+     * @override
+     * @public
+     * @chainable
+     */
+    public removeChildren():any
+    {
+        super.removeChildren();
+
+        this.$element.empty();
+
+        return this;
+    }
+
+    /**
+     * @copy BaseObject.enable
+     */
+    public enable():any
+    {
+        if (this.isEnabled === true) return this;
+
+        super.enable();
+        return this;
+    }
+
+    /**
+     * @copy BaseObject.disable
+     */
+    public disable():any
+    {
+        if (this.isEnabled === false) return this;
+
+        super.disable();
+        return this;
+    }
+
+    /**
+     * @copy DisplayObjectContainer.layoutChildren
+     */
+    public layoutChildren():any
+    {
+
+        return this;
+    }
+
+    /**
+     * Indicates the alpha transparency value of the object specified. Valid values are 0 (fully transparent)
+     * to 1 (fully opaque). The default value is 1. Display objects with alpha set to 0 are active, even though
+     * they are invisible.
+     *
+     * @method alpha
+     * @param number
+     * @returns {DOMElement} Returns an instance of itself.
+     * @chainable
+     */
+    public alpha(number):any
+    {
+        this.$element.css(&#x27;opacity&#x27;, number);
+        return this;
+    }
+
+    /**
+     *
+     * @method visible
+     * @param value
+     * @returns {any}
+     */
+    public visible(value:boolean):any
+    {
+        if (value == false)
+        {
+            this._isVisible = false;
+            this.$element.hide();
+        }
+        else if (value == true)
+        {
+            this._isVisible = true;
+            this.$element.show();
+        }
+        else if (value == undefined)
+        {
+            return this._isVisible;
+        }
+        return this;
+    }
+
+    /**
+     * @copy DisplayObjectContainer.destroy
+     * @overridden
+     */
+    public destroy():void
+    {
+        super.destroy();
+
+        this.$element = null;
+        this.element = null;
+    }
+
+}
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
