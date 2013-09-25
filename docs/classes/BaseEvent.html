@@ -254,7 +254,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l26"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:26</code></a>
+            Defined in: <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l26"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:26</code></a>
         </div>
     
 
@@ -271,9 +271,9 @@
 
 
 <div class="box intro">
-    <p>The <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a> class is used as the base class for the creation of Event objects, which are passed as parameters to event listeners when an event occurs.</p>
+    <p>The <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a> class is used as the base class for the creation of Event objects, which are passed as parameters to event listeners when an event occurs.</p>
 
-<p>The properties of the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a> class carry basic information about an event, such as the event's type or whether the event's default behavior can be canceled.
+<p>The properties of the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a> class carry basic information about an event, such as the event&#39;s type or whether the event&#39;s default behavior can be canceled.
 For many events, such as the events represented by the Event class constants, this basic information is sufficient. Other events, however, may require more
 detailed information.</p>
 </div>
@@ -341,7 +341,7 @@ detailed information.</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l26"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:26</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l26"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:26</code></a>
         
         </p>
 
@@ -371,6 +371,7 @@ detailed information.</p>
 
                     <div class="param-description">
                         <p>The type of event. The type is case-sensitive.</p>
+
                     </div>
 
                     
@@ -387,8 +388,9 @@ detailed information.</p>
 
                     <div class="param-description">
                         <p>Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
-Note: With event-bubbling you can let one Event subsequently call on every ancestor (<a href="../classes/EventDispatcher.html#property_parent" class="crosslink">parent</a>)
-(containers of containers of etc.) of the <a href="../classes/DisplayObjectContainer.html" class="crosslink">DisplayObjectContainer</a> that originally dispatched the Event, all the way up to the surface (<a href="../classes/Stage.html" class="crosslink">Stage</a>). Any classes that do not have a parent cannot bubble.</p>
+Note: With event-bubbling you can let one Event subsequently call on every ancestor (<a href="..\classes\EventDispatcher.html#property_parent" class="crosslink">parent</a>)
+(containers of containers of etc.) of the <a href="..\classes\DisplayObjectContainer.html" class="crosslink">DisplayObjectContainer</a> that originally dispatched the Event, all the way up to the surface (<a href="..\classes\Stage.html" class="crosslink">Stage</a>). Any classes that do not have a parent cannot bubble.</p>
+
                     </div>
 
                     
@@ -405,6 +407,7 @@ Note: With event-bubbling you can let one Event subsequently call on every ances
 
                     <div class="param-description">
                         <p>Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.</p>
+
                     </div>
 
                     
@@ -421,6 +424,7 @@ Note: With event-bubbling you can let one Event subsequently call on every ances
 
                     <div class="param-description">
                         <p>Use to pass any type of data with the event.</p>
+
                     </div>
 
                     
@@ -439,9 +443,9 @@ Note: With event-bubbling you can let one Event subsequently call on every ances
             <div class="example-content">
                 <pre class="code prettyprint"><code> // Example: how to create a custom event by extending BaseEvent.
   class CountryEvent extends BaseEvent {
-     public CLASS_NAME:string = 'CountryEvent';
+     public CLASS_NAME:string = &#39;CountryEvent&#39;;
 
-     public static CHANGE_COUNTRY:string = "CountryEvent.changeCountry";
+     public static CHANGE_COUNTRY:string = &quot;CountryEvent.changeCountry&quot;;
 
      public countryName:string = null;
 
@@ -450,8 +454,8 @@ Note: With event-bubbling you can let one Event subsequently call on every ances
 
          this.countryName = countryName;
      }
- }
-</code></pre>
+ }</code></pre>
+
             </div>
         </div>
     
@@ -854,7 +858,7 @@ Note: With event-bubbling you can let one Event subsequently call on every ances
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l395"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:395</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l395"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:395</code></a>
         
         </p>
 
@@ -867,7 +871,8 @@ Note: With event-bubbling you can let one Event subsequently call on every ances
     <div class="description">
         <p>Prevents processing of any event listeners in the current node and any subsequent nodes in the event flow.
 This method takes effect immediately, and it affects event listeners in the current node. In contrast, the stopPropagation()
-method doesn't take effect until all the event listeners in the current node finish processing.</p>
+method doesn&#39;t take effect until all the event listeners in the current node finish processing.</p>
+
     </div>
 
     
@@ -910,7 +915,7 @@ method doesn't take effect until all the event listeners in the current node fin
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l382"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:382</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l382"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:382</code></a>
         
         </p>
 
@@ -925,6 +930,7 @@ method doesn't take effect until all the event listeners in the current node fin
 This method does not affect any event listeners in the current node (currentTarget). In contrast, the stopImmediatePropagation()
 method prevents processing of event listeners in both the current node and subsequent nodes. Additional calls to this method have no effect.
 This method can be called in any phase of</p>
+
     </div>
 
     
@@ -966,7 +972,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l338"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:338</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l338"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:338</code></a>
         
         </p>
 
@@ -977,6 +983,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>Indicates whether an event is a bubbling event.</p>
+
     </div>
 
     
@@ -1012,7 +1019,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l347"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:347</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l347"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:347</code></a>
         
         </p>
 
@@ -1023,6 +1030,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>Indicates whether the behavior associated with the event can be prevented.</p>
+
     </div>
 
     
@@ -1058,7 +1066,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l319"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:319</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l319"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:319</code></a>
         
         </p>
 
@@ -1068,7 +1076,8 @@ This method can be called in any phase of</p>
     </div>
 
     <div class="description">
-        <p>The currentTarget property always points to the <a href="../classes/DisplayObjectContainer.html" class="crosslink">DisplayObjectContainer</a> that the event is currently processing (i.e. bubbling at).</p>
+        <p>The currentTarget property always points to the <a href="..\classes\DisplayObjectContainer.html" class="crosslink">DisplayObjectContainer</a> that the event is currently processing (i.e. bubbling at).</p>
+
     </div>
 
     
@@ -1104,7 +1113,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l329"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:329</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l329"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:329</code></a>
         
         </p>
 
@@ -1115,6 +1124,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>Use to pass any type of data with the event.</p>
+
     </div>
 
     
@@ -1150,7 +1160,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l365"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:365</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l365"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:365</code></a>
         
         </p>
 
@@ -1196,7 +1206,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l356"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:356</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l356"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:356</code></a>
         
         </p>
 
@@ -1242,7 +1252,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l309"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:309</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l309"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:309</code></a>
         
         </p>
 
@@ -1253,6 +1263,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>A reference to the object that originally dispatched the event.</p>
+
     </div>
 
     
@@ -1288,7 +1299,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l299"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:299</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l299"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:299</code></a>
         
         </p>
 
@@ -1299,6 +1310,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The type of event.</p>
+
     </div>
 
     
@@ -1346,7 +1358,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l65"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:65</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l65"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:65</code></a>
         
         </p>
 
@@ -1357,6 +1369,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.ACTIVATE constant defines the value of the type property of an activate event object.</p>
+
     </div>
 
     
@@ -1391,7 +1404,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l74"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:74</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l74"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:74</code></a>
         
         </p>
 
@@ -1402,6 +1415,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.ADDED constant defines the value of the type property of an added event object.</p>
+
     </div>
 
     
@@ -1436,7 +1450,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l83"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:83</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l83"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:83</code></a>
         
         </p>
 
@@ -1446,7 +1460,8 @@ This method can be called in any phase of</p>
     </div>
 
     <div class="description">
-        <p>The BaseEvent.ADDED<em>TO</em>STAGE constant defines the value of the type property of an addedToStage event object.</p>
+        <p>The BaseEvent.ADDED_TO_STAGE constant defines the value of the type property of an addedToStage event object.</p>
+
     </div>
 
     
@@ -1481,7 +1496,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l92"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:92</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l92"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:92</code></a>
         
         </p>
 
@@ -1492,6 +1507,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.CANCEL constant defines the value of the type property of a cancel event object.</p>
+
     </div>
 
     
@@ -1526,7 +1542,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l101"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:101</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l101"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:101</code></a>
         
         </p>
 
@@ -1537,6 +1553,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.CHANGE constant defines the value of the type property of a change event object.</p>
+
     </div>
 
     
@@ -1571,7 +1588,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l110"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:110</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l110"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:110</code></a>
         
         </p>
 
@@ -1582,6 +1599,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.CLEAR constant defines the value of the type property of a clear event object.</p>
+
     </div>
 
     
@@ -1616,7 +1634,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l119"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:119</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l119"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:119</code></a>
         
         </p>
 
@@ -1627,6 +1645,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.CLOSE constant defines the value of the type property of a close event object.</p>
+
     </div>
 
     
@@ -1661,7 +1680,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l128"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:128</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l128"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:128</code></a>
         
         </p>
 
@@ -1672,6 +1691,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.CLOSING constant defines the value of the type property of a closing event object.</p>
+
     </div>
 
     
@@ -1706,7 +1726,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l137"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:137</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l137"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:137</code></a>
         
         </p>
 
@@ -1717,6 +1737,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.COMPLETE constant defines the value of the type property of a complete event object.</p>
+
     </div>
 
     
@@ -1751,7 +1772,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l146"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:146</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l146"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:146</code></a>
         
         </p>
 
@@ -1762,6 +1783,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.CONNECT constant defines the value of the type property of a connect event object.</p>
+
     </div>
 
     
@@ -1796,7 +1818,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l155"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:155</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l155"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:155</code></a>
         
         </p>
 
@@ -1807,6 +1829,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>Defines the value of the type property of a copy event object.</p>
+
     </div>
 
     
@@ -1841,7 +1864,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l164"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:164</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l164"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:164</code></a>
         
         </p>
 
@@ -1852,6 +1875,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>Defines the value of the type property of a cut event object.</p>
+
     </div>
 
     
@@ -1886,7 +1910,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l173"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:173</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l173"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:173</code></a>
         
         </p>
 
@@ -1897,6 +1921,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.DEACTIVATE constant defines the value of the type property of a deactivate event object.</p>
+
     </div>
 
     
@@ -1931,7 +1956,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l182"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:182</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l182"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:182</code></a>
         
         </p>
 
@@ -1942,6 +1967,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.DISPLAYING constant defines the value of the type property of a displaying event object.</p>
+
     </div>
 
     
@@ -1976,7 +2002,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l191"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:191</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l191"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:191</code></a>
         
         </p>
 
@@ -1987,6 +2013,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.ENTER_FRAME constant defines the value of the type property of an enterFrame event object.</p>
+
     </div>
 
     
@@ -2021,7 +2048,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l200"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:200</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l200"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:200</code></a>
         
         </p>
 
@@ -2032,6 +2059,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.EXIT_FRAME constant defines the value of the type property of an exitFrame event object.</p>
+
     </div>
 
     
@@ -2066,7 +2094,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l209"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:209</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l209"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:209</code></a>
         
         </p>
 
@@ -2077,6 +2105,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.EXITING constant defines the value of the type property of an exiting event object.</p>
+
     </div>
 
     
@@ -2111,7 +2140,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l218"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:218</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l218"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:218</code></a>
         
         </p>
 
@@ -2122,6 +2151,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.FULL_SCREEN constant defines the value of the type property of a fullScreen event object.</p>
+
     </div>
 
     
@@ -2156,7 +2186,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l227"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:227</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l227"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:227</code></a>
         
         </p>
 
@@ -2167,6 +2197,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.INIT constant defines the value of the type property of an init event object.</p>
+
     </div>
 
     
@@ -2201,7 +2232,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l236"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:236</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l236"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:236</code></a>
         
         </p>
 
@@ -2212,6 +2243,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.NETWORK_CHANGE constant defines the value of the type property of a networkChange event object.</p>
+
     </div>
 
     
@@ -2246,7 +2278,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l245"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:245</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l245"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:245</code></a>
         
         </p>
 
@@ -2257,6 +2289,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.OPEN constant defines the value of the type property of an open event object.</p>
+
     </div>
 
     
@@ -2291,7 +2324,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l254"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:254</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l254"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:254</code></a>
         
         </p>
 
@@ -2302,6 +2335,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.PASTE constant defines the value of the type property of a paste event object.</p>
+
     </div>
 
     
@@ -2336,7 +2370,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l263"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:263</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l263"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:263</code></a>
         
         </p>
 
@@ -2347,6 +2381,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.PREPARING constant defines the value of the type property of a preparing event object.</p>
+
     </div>
 
     
@@ -2381,7 +2416,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l272"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:272</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l272"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:272</code></a>
         
         </p>
 
@@ -2392,6 +2427,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.REMOVED constant defines the value of the type property of a removed event object.</p>
+
     </div>
 
     
@@ -2426,7 +2462,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l281"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:281</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l281"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:281</code></a>
         
         </p>
 
@@ -2437,6 +2473,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.RENDER constant defines the value of the type property of a render event object.</p>
+
     </div>
 
     
@@ -2471,7 +2508,7 @@ This method can be called in any phase of</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l290"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;BaseEvent.ts:290</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_BaseEvent.ts.html#l290"><code>..\src\com\codebelt\structurets\events\BaseEvent.ts:290</code></a>
         
         </p>
 
@@ -2482,6 +2519,7 @@ This method can be called in any phase of</p>
 
     <div class="description">
         <p>The BaseEvent.RESIZE constant defines the value of the type property of a resize event object.</p>
+
     </div>
 
     

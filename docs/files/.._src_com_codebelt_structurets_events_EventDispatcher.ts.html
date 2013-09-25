@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>../src/com/codebelt/structurets/events/EventDispatcher.ts - StructureTS-Project</title>
+    <title>..\src\com\codebelt\structurets\events\EventDispatcher.ts - StructureTS-Project</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -246,7 +246,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/events/EventDispatcher.ts</h1>
+                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\events\EventDispatcher.ts</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -278,10 +278,7 @@
 ///&lt;reference path=&#x27;BaseEvent.ts&#x27;/&gt;
 
 /**
- * The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the DisplayObjectContainer class.
- * The EventDispatcher class allows any object on the display list to be an event target.
- * The EventDispatcher provides methods for managing prioritized queues of event listeners and dispatching events.
- * {{#crossLink &quot;DisplayObjectContainer&quot;}}{{/crossLink}} classes dispatch events.
+ * &lt;p&gt;The &lt;strong&gt;EventDispatcher&lt;/strong&gt; class is the base class for the {{#crossLink &quot;DisplayObjectContainer&quot;}}{{/crossLink}} class and for all classes that need dispatch events. The &lt;strong&gt;EventDispatcher&lt;/strong&gt; class handles bubbling event(s) thoughtout the display list.&lt;/p&gt;
  *
  * @class EventDispatcher
  * @extends BaseObject
@@ -312,6 +309,7 @@ class EventDispatcher extends BaseObject
      *
      * @property parent
      * @type {any}
+     * @public
      */
     public parent:any = null;
 
@@ -341,8 +339,9 @@ class EventDispatcher extends BaseObject
      *      }
      * @method addEventListener
      * @param type {String} The type of event.
-     * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void
-     * @param scope {any} Binds the scope to a particular object (scope is basically what &quot;this&quot; refers to in your function). This can be very useful in JavaScript because scope isn&#x27;t generally maintained.
+     * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @
+     * example function(event:Event):void
+     * @param scope {Object} Binds the scope to a particular object (scope is basically what &quot;this&quot; refers to in your function). This can be very useful in JavaScript because scope isn&#x27;t generally maintained.
      * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
      * @chainable
      */
@@ -387,7 +386,7 @@ class EventDispatcher extends BaseObject
      * @method removeEventListener
      * @param type {String} The type of event.
      * @param callback {Function} The listener object to remove.
-     * @param scope {any} The scope of the listener object to be removed.
+     * @param scope {Object} The scope of the listener object to be removed.
      * @hide This was added because it was need for the {{#crossLink &quot;EventBroker&quot;}}{{/crossLink}} class. To keep things consistent this parameter is required.
      * @chainable
      */

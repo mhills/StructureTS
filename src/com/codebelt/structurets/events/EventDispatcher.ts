@@ -26,10 +26,7 @@
 ///<reference path='BaseEvent.ts'/>
 
 /**
- * The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the DisplayObjectContainer class.
- * The EventDispatcher class allows any object on the display list to be an event target.
- * The EventDispatcher provides methods for managing prioritized queues of event listeners and dispatching events.
- * {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} classes dispatch events.
+ * <p>The <strong>EventDispatcher</strong> class is the base class for the {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} class and for all classes that need dispatch events. The <strong>EventDispatcher</strong> class handles bubbling event(s) thoughtout the display list.</p>
  *
  * @class EventDispatcher
  * @extends BaseObject
@@ -60,6 +57,7 @@ class EventDispatcher extends BaseObject
      *
      * @property parent
      * @type {any}
+     * @public
      */
     public parent:any = null;
 
@@ -89,8 +87,9 @@ class EventDispatcher extends BaseObject
      *      }
      * @method addEventListener
      * @param type {String} The type of event.
-     * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void
-     * @param scope {any} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
+     * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @
+     * example function(event:Event):void
+     * @param scope {Object} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
      * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
      * @chainable
      */
@@ -135,7 +134,7 @@ class EventDispatcher extends BaseObject
      * @method removeEventListener
      * @param type {String} The type of event.
      * @param callback {Function} The listener object to remove.
-     * @param scope {any} The scope of the listener object to be removed.
+     * @param scope {Object} The scope of the listener object to be removed.
      * @hide This was added because it was need for the {{#crossLink "EventBroker"}}{{/crossLink}} class. To keep things consistent this parameter is required.
      * @chainable
      */
