@@ -37,7 +37,7 @@
 ///<reference path='utils/Util.ts'/>
 
 /**
- * The {{#crossLink "BaseObject"}}{{/crossLink}} class is an abstract class that provides common properties and functionality for all StructureTS classes.
+ * The BaseObject class is an abstract class that provides common properties and functionality for all StructureTS classes.
  *
  * @class BaseObject
  * @module StructureTS
@@ -77,7 +77,7 @@ class BaseObject
      * @example
      *      instance.getQualifiedClassName();
      * @method getQualifiedClassName
-     * @returns {string} Returns the class name.
+     * @returns {string} Returns the class name of the object.
      * @public
      */
     public getQualifiedClassName():string
@@ -93,7 +93,9 @@ class BaseObject
      * listeners and take any other steps necessary to make an object eligible for garbage collection.
      * It is critical that all subclasses call the super for this function in their overridden methods.
      *
-     * Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs. The {{#crossLink "BaseObject/destroy:method"}}{{/crossLink}} method also calls the {{#crossLink "InteractiveObject/disabled:method"}}{{/crossLink}} method on all classes that extend {{#crossLink "InteractiveObject"}}{{/crossLink}}.
+     * Note: super.destroy(); should be called first before you clean up any other objects/items in the current class.
+     * The {{#crossLink "BaseObject/destroy:method"}}{{/crossLink}} method also calls the {{#crossLink "EventDispatcher/disable:method"}}{{/crossLink}}
+     * method on all classes that extend {{#crossLink "EventDispatcher"}}{{/crossLink}}.
      * @example
      *      public destroy():void {
      *          super.destroy();

@@ -1279,7 +1279,9 @@ function to stop all running Timers, all running Sounds, remove any event
 listeners and take any other steps necessary to make an object eligible for garbage collection.
 It is critical that all subclasses call the super for this function in their overridden methods.</p>
 
-<p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs. The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the InteractiveObject/disabled:method method on all classes that extend InteractiveObject.</p>
+<p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current class.
+The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the <a href="../classes/EventDispatcher.html#method_disable" class="crosslink">disable</a>
+method on all classes that extend <a href="../classes/EventDispatcher.html" class="crosslink">EventDispatcher</a>.</p>
     </div>
 
     
@@ -2127,7 +2129,7 @@ If the 'data-cid' property exists is on an HTML element a DOMElement will not be
                     
                         <span class="type">String</span>:
                     
-                    Returns the class name.
+                    Returns the class name of the object.
                 
             </div>
         </div>
