@@ -759,58 +759,1136 @@ var BrowserUtils = (function () {
     BrowserUtils.CLASS_NAME = 'BrowserUtils';
     return BrowserUtils;
 })();
+var millermedeiros;
+(function (millermedeiros) {
+    var SignalBinding = (function () {
+        function SignalBinding(signal, listener, isOnce, listenerContext, priority) {
+            if (typeof listenerContext === "undefined") { listenerContext = null; }
+            if (typeof priority === "undefined") { priority = 0; }
+            this._isOnce = false;
+            this._signal = null;
+            this.listener = null;
+            this.context = null;
+            this.priority = 0;
+            this.active = true;
+            this.params = null;
+            this.listener = listener;
+            this._isOnce = isOnce;
+            this.context = listenerContext;
+            this._signal = signal;
+            this.priority = priority;
+        }
+        SignalBinding.prototype.execute = function (paramsArr) {
+            if (typeof paramsArr === "undefined") { paramsArr = []; }
+            var handlerReturn = null;
+            var params = null;
+
+            if (this.active && !!this.listener) {
+                params = this.params ? this.params.concat(paramsArr) : paramsArr;
+                handlerReturn = this.listener.apply(this.context, params);
+                if (this._isOnce) {
+                    this.detach();
+                }
+            }
+            return handlerReturn;
+        };
+
+        SignalBinding.prototype.detach = function () {
+            return this.isBound() ? this._signal.remove(this.listener, this.context) : null;
+        };
+
+        SignalBinding.prototype.isBound = function () {
+            return (!!this._signal && !!this.listener);
+        };
+
+        SignalBinding.prototype.isOnce = function () {
+            return this._isOnce;
+        };
+
+        SignalBinding.prototype.getListener = function () {
+            return this.listener;
+        };
+
+        SignalBinding.prototype.getSignal = function () {
+            return this._signal;
+        };
+
+        SignalBinding.prototype.destroy = function () {
+            this._signal = null;
+            this.listener = null;
+            this.context = null;
+        };
+
+        SignalBinding.prototype.toString = function () {
+            return '[SignalBinding isOnce:' + this._isOnce + ', isBound:' + this.isBound() + ', active:' + this.active + ']';
+        };
+        return SignalBinding;
+    })();
+    millermedeiros.SignalBinding = SignalBinding;
+})(millermedeiros || (millermedeiros = {}));
+var millermedeiros;
+(function (millermedeiros) {
+    var Signal = (function () {
+        function Signal() {
+            this._bindings = [];
+            this._prevParams = [];
+            this._shouldPropagate = true;
+            this.memorize = false;
+            this.active = true;
+        }
+        Signal.prototype.has = function (listener, context) {
+            if (typeof context === "undefined") { context = null; }
+            return this._indexOfListener(listener, context) !== -1;
+        };
+
+        Signal.prototype.add = function (listener, listenerContext, priority) {
+            if (typeof listenerContext === "undefined") { listenerContext = null; }
+            if (typeof priority === "undefined") { priority = 0; }
+            this._validateListener(listener, 'add');
+            return this._registerListener(listener, false, listenerContext, priority);
+        };
+
+        Signal.prototype.addOnce = function (listener, listenerContext, priority) {
+            if (typeof listenerContext === "undefined") { listenerContext = null; }
+            if (typeof priority === "undefined") { priority = 0; }
+            this._validateListener(listener, 'addOnce');
+            return this._registerListener(listener, true, listenerContext, priority);
+        };
+
+        Signal.prototype.remove = function (listener, context) {
+            if (typeof context === "undefined") { context = null; }
+            this._validateListener(listener, 'remove');
+
+            var i = this._indexOfListener(listener, context);
+            if (i !== -1) {
+                this._bindings[i].destroy();
+                this._bindings.splice(i, 1);
+            }
+            return listener;
+        };
+
+        Signal.prototype.removeAll = function () {
+            var n = this._bindings.length;
+            while (n--) {
+                this._bindings[n].destroy();
+            }
+            this._bindings.length = 0;
+        };
+
+        Signal.prototype.getNumListeners = function () {
+            return this._bindings.length;
+        };
+
+        Signal.prototype.halt = function () {
+            this._shouldPropagate = false;
+        };
+
+        Signal.prototype.dispatch = function () {
+            var params = [];
+            for (var _i = 0; _i < (arguments.length - 0); _i++) {
+                params[_i] = arguments[_i + 0];
+            }
+            if (!this.active) {
+                return;
+            }
+
+            var n = this._bindings.length;
+            var bindings = null;
+
+            if (this.memorize) {
+                this._prevParams = params;
+            }
+
+            if (!n) {
+                return;
+            }
+
+            bindings = this._bindings.slice(0);
+            this._shouldPropagate = true;
+
+            do {
+                n--;
+            } while(bindings[n] && this._shouldPropagate && bindings[n].execute(params) !== false);
+        };
+
+        Signal.prototype.forget = function () {
+            this._prevParams = null;
+        };
+
+        Signal.prototype.dispose = function () {
+            this.removeAll();
+            this._bindings = null;
+            this._prevParams = null;
+        };
+
+        Signal.prototype.toString = function () {
+            return '[Signal active:' + this.active + ' numListeners:' + this.getNumListeners() + ']';
+        };
+
+        Signal.prototype._registerListener = function (listener, isOnce, listenerContext, priority) {
+            if (typeof listenerContext === "undefined") { listenerContext = null; }
+            if (typeof priority === "undefined") { priority = 0; }
+            var prevIndex = this._indexOfListener(listener, listenerContext);
+            var binding = null;
+
+            if (prevIndex !== -1) {
+                binding = this._bindings[prevIndex];
+                if (binding.isOnce() !== isOnce) {
+                    throw new Error('You cannot add' + (isOnce ? '' : 'Once') + '() then add' + (!isOnce ? '' : 'Once') + '() the same listener without removing the relationship first.');
+                }
+            } else {
+                binding = new millermedeiros.SignalBinding(this, listener, isOnce, listenerContext, priority);
+                this._addBinding(binding);
+            }
+
+            if (this.memorize && this._prevParams) {
+                binding.execute(this._prevParams);
+            }
+
+            return binding;
+        };
+
+        Signal.prototype._addBinding = function (binding) {
+            var n = this._bindings.length;
+            do {
+                --n;
+            } while(this._bindings[n] && binding.priority <= this._bindings[n].priority);
+            this._bindings.splice(n + 1, 0, binding);
+        };
+
+        Signal.prototype._indexOfListener = function (listener, context) {
+            var n = this._bindings.length;
+            var cur = null;
+            while (n--) {
+                cur = this._bindings[n];
+                if (cur.listener === listener && cur.context === context) {
+                    return n;
+                }
+            }
+            return -1;
+        };
+
+        Signal.prototype._validateListener = function (listener, fnName) {
+            if (typeof listener !== 'function') {
+                throw new Error('listener is a required param of {fn}() and should be a Function.'.replace('{fn}', fnName));
+            }
+        };
+        Signal.VERSION = '1.0.0';
+        return Signal;
+    })();
+    millermedeiros.Signal = Signal;
+})(millermedeiros || (millermedeiros = {}));
+var millermedeiros;
+(function (millermedeiros) {
+    var Hasher = (function () {
+        function Hasher() {
+        }
+        Hasher.init = function () {
+            if (this._isActive)
+                return;
+
+            Hasher._isHashChangeSupported = ('onhashchange' in window) && Hasher._document.documentMode !== 7;
+            Hasher._isLegacyIE = Hasher._isIE && !Hasher._isHashChangeSupported;
+            Hasher._hash = Hasher._getWindowHash();
+
+            if (Hasher._isHashChangeSupported) {
+                Hasher._addListener(window, 'hashchange', Hasher._checkHistory.bind(this));
+            } else {
+                if (Hasher._isLegacyIE) {
+                    if (!Hasher._frame) {
+                        Hasher._createFrame();
+                    }
+                    Hasher._updateFrame();
+                }
+                Hasher._checkInterval = setInterval(Hasher._checkHistory.bind(this), Hasher.POOL_INTERVAL);
+            }
+
+            Hasher._isActive = true;
+
+            Hasher.initialized.dispatch(Hasher._trimHash(Hasher._hash));
+        };
+
+        Hasher.stop = function () {
+            if (!Hasher._isActive)
+                return;
+
+            if (Hasher._isHashChangeSupported) {
+                Hasher._removeListener(window, 'hashchange', Hasher._checkHistory.bind(this));
+            } else {
+                clearInterval(Hasher._checkInterval);
+                Hasher._checkInterval = null;
+            }
+
+            Hasher._isActive = false;
+
+            Hasher.stopped.dispatch(Hasher._trimHash(Hasher._hash));
+        };
+
+        Hasher.isActive = function () {
+            return Hasher._isActive;
+        };
+
+        Hasher.getURL = function () {
+            return window.location.href;
+        };
+
+        Hasher.getBaseURL = function () {
+            return Hasher.getURL().replace(Hasher._baseUrlRegexp, '');
+        };
+
+        Hasher.setHash = function () {
+            var path = [];
+            for (var _i = 0; _i < (arguments.length - 0); _i++) {
+                path[_i] = arguments[_i + 0];
+            }
+            var pathString = Hasher._makePath(path);
+            if (pathString !== Hasher._hash) {
+                Hasher._registerChange(pathString);
+                if (pathString === Hasher._hash) {
+                    window.location.hash = '#' + Hasher._encodePath(pathString);
+                }
+            }
+        };
+
+        Hasher.replaceHash = function () {
+            var path = [];
+            for (var _i = 0; _i < (arguments.length - 0); _i++) {
+                path[_i] = arguments[_i + 0];
+            }
+            var stringPath = Hasher._makePath(path);
+            if (stringPath !== Hasher._hash) {
+                Hasher._registerChange(stringPath, true);
+                if (stringPath === Hasher._hash) {
+                    window.location.replace('#' + Hasher._encodePath(stringPath));
+                }
+            }
+        };
+
+        Hasher.getHash = function () {
+            return Hasher._trimHash(Hasher._hash);
+        };
+
+        Hasher.getHashAsArray = function () {
+            return Hasher.getHash().split(Hasher.separator);
+        };
+
+        Hasher.dispose = function () {
+            Hasher.stop();
+            Hasher.initialized.dispose();
+            Hasher.initialized = null;
+            Hasher.stopped.dispose();
+            Hasher.stopped = null;
+            Hasher.changed.dispose();
+            Hasher.changed = null;
+            Hasher._frame = window['Hasher'] = null;
+        };
+
+        Hasher.toString = function () {
+            return '[Hasher version="' + Hasher.VERSION + '" hash="' + Hasher.getHash() + '"]';
+        };
+
+        Hasher._escapeRegExp = function (str) {
+            return String(str || '').replace(/[\\.+*?\^$\[\](){}\/'#]/g, "\\$&");
+        };
+
+        Hasher._trimHash = function (hash) {
+            if (!hash)
+                return '';
+            var regexp = new RegExp('^' + Hasher._escapeRegExp(Hasher.prependHash) + '|' + Hasher._escapeRegExp(Hasher.appendHash) + '$', 'g');
+            return hash.replace(regexp, '');
+        };
+
+        Hasher._getWindowHash = function () {
+            var result = Hasher._hashValRegexp.exec(Hasher.getURL());
+            return (result && result[1]) ? decodeURIComponent(result[1]) : '';
+        };
+
+        Hasher._getFrameHash = function () {
+            return (Hasher._frame) ? (Hasher._frame.contentWindow).frameHash : null;
+        };
+
+        Hasher._createFrame = function () {
+            Hasher._frame = Hasher._document.createElement('iframe');
+            Hasher._frame.src = 'about:blank';
+            Hasher._frame.style.display = 'none';
+            Hasher._document.body.appendChild(Hasher._frame);
+        };
+
+        Hasher._updateFrame = function () {
+            if (Hasher._frame && Hasher._hash !== Hasher._getFrameHash()) {
+                var frameDoc = Hasher._frame.contentWindow.document;
+                frameDoc.open();
+
+                frameDoc.write('<html><head><title>' + Hasher._document.title + '</title><script type="text/javascript">var frameHash="' + Hasher._hash + '";</script></head><body>&nbsp;</body></html>');
+                frameDoc.close();
+            }
+        };
+
+        Hasher._registerChange = function (newHash, isReplace) {
+            if (typeof isReplace === "undefined") { isReplace = false; }
+            if (Hasher._hash !== newHash) {
+                var oldHash = Hasher._hash;
+                Hasher._hash = newHash;
+                if (Hasher._isLegacyIE) {
+                    if (!isReplace) {
+                        Hasher._updateFrame();
+                    } else {
+                        (Hasher._frame.contentWindow).frameHash = newHash;
+                    }
+                }
+
+                Hasher.changed.dispatch(Hasher._trimHash(newHash), Hasher._trimHash(oldHash));
+            }
+        };
+
+        Hasher._checkHistory = function () {
+            var windowHash = Hasher._getWindowHash();
+            if (Hasher._isLegacyIE) {
+                var frameHash = Hasher._getFrameHash();
+                if (frameHash !== Hasher._hash && frameHash !== windowHash) {
+                    Hasher.setHash(Hasher._trimHash(frameHash));
+                } else if (windowHash !== Hasher._hash) {
+                    Hasher._registerChange(windowHash);
+                }
+            } else {
+                if (windowHash !== Hasher._hash) {
+                    Hasher._registerChange(windowHash);
+                }
+            }
+        };
+
+        Hasher._addListener = function (elm, eType, fn) {
+            if (elm.addEventListener) {
+                elm.addEventListener(eType, fn, false);
+            } else if (elm.attachEvent) {
+                elm.attachEvent('on' + eType, fn);
+            }
+        };
+
+        Hasher._removeListener = function (elm, eType, fn) {
+            if (elm.removeEventListener) {
+                elm.removeEventListener(eType, fn, false);
+            } else if (elm.detachEvent) {
+                elm.detachEvent('on' + eType, fn);
+            }
+        };
+
+        Hasher._makePath = function (paths) {
+            var path = paths.join(Hasher.separator);
+            path = path ? Hasher.prependHash + path.replace(Hasher._hashRegexp, '') + Hasher.appendHash : path;
+            return path;
+        };
+
+        Hasher._encodePath = function (path) {
+            path = encodeURI(path);
+            if (Hasher._isIE && Hasher._isLocal) {
+                path = path.replace(/\?/, '%3F');
+            }
+            return path;
+        };
+        Hasher.VERSION = '1.1.4';
+
+        Hasher.POOL_INTERVAL = 25;
+
+        Hasher._document = window.document;
+
+        Hasher._history = window.history;
+
+        Hasher._hash = '';
+
+        Hasher._checkInterval = null;
+
+        Hasher._isActive = false;
+
+        Hasher._frame = null;
+
+        Hasher._hashValRegexp = /#(.*)$/;
+
+        Hasher._baseUrlRegexp = /(\?.*)|(\#.*)/;
+
+        Hasher._hashRegexp = /^\#/;
+
+        Hasher._isIE = (!+"\v1");
+
+        Hasher._isHashChangeSupported = true;
+
+        Hasher._isLegacyIE = false;
+
+        Hasher._isLocal = (location.protocol === 'file:');
+
+        Hasher.appendHash = '';
+
+        Hasher.prependHash = '/';
+
+        Hasher.separator = '/';
+
+        Hasher.changed = new millermedeiros.Signal();
+
+        Hasher.stopped = new millermedeiros.Signal();
+
+        Hasher.initialized = new millermedeiros.Signal();
+        return Hasher;
+    })();
+    millermedeiros.Hasher = Hasher;
+})(millermedeiros || (millermedeiros = {}));
+var millermedeiros;
+(function (millermedeiros) {
+    var PatternLexer = (function () {
+        function PatternLexer() {
+            this.LOOSE_SLASH = 1;
+            this.STRICT_SLASH = 2;
+            this.LEGACY_SLASH = 3;
+            this._slashMode = null;
+            this.UNDEF = null;
+            this.ESCAPE_CHARS_REGEXP = /[\\.+*?\^$\[\](){}\/'#]/g;
+            this.LOOSE_SLASHES_REGEXP = /^\/|\/$/g;
+            this.LEGACY_SLASHES_REGEXP = /\/$/g;
+            this.PARAMS_REGEXP = /(?:\{|:)([^}:]+)(?:\}|:)/g;
+            this.TOKENS = {
+                'OS': {
+                    rgx: /([:}]|\w(?=\/))\/?(:|(?:\{\?))/g,
+                    save: '$1{{id}}$2',
+                    res: '\\/?'
+                },
+                'RS': {
+                    rgx: /([:}])\/?(\{)/g,
+                    save: '$1{{id}}$2',
+                    res: '\\/'
+                },
+                'RQ': {
+                    rgx: /\{\?([^}]+)\}/g,
+                    res: '\\?([^#]+)'
+                },
+                'OQ': {
+                    rgx: /:\?([^:]+):/g,
+                    res: '(?:\\?([^#]*))?'
+                },
+                'OR': {
+                    rgx: /:([^:]+)\*:/g,
+                    res: '(.*)?'
+                },
+                'RR': {
+                    rgx: /\{([^}]+)\*\}/g,
+                    res: '(.+)'
+                },
+                'RP': {
+                    rgx: /\{([^}]+)\}/g,
+                    res: '([^\\/?]+)'
+                },
+                'OP': {
+                    rgx: /:([^:]+):/g,
+                    res: '([^\\/?]+)?\/?'
+                }
+            };
+            this._slashMode = this.LOOSE_SLASH;
+            this.precompileTokens();
+        }
+        PatternLexer.prototype.precompileTokens = function () {
+            var key = null;
+            var cur = null;
+            for (key in this.TOKENS) {
+                if (this.TOKENS.hasOwnProperty(key)) {
+                    cur = this.TOKENS[key];
+                    cur.id = '__CR_' + key + '__';
+                    cur.save = ('save' in cur) ? cur.save.replace('{{id}}', cur.id) : cur.id;
+                    cur.rRestore = new RegExp(cur.id, 'g');
+                }
+            }
+        };
+
+        PatternLexer.prototype.captureVals = function (regex, pattern) {
+            var vals = [], match;
+
+            regex.lastIndex = 0;
+            while (match = regex.exec(pattern)) {
+                vals.push(match[1]);
+            }
+            return vals;
+        };
+
+        PatternLexer.prototype.getParamIds = function (pattern) {
+            return this.captureVals(this.PARAMS_REGEXP, pattern);
+        };
+
+        PatternLexer.prototype.getOptionalParamsIds = function (pattern) {
+            return this.captureVals(this.TOKENS.OP.rgx, pattern);
+        };
+
+        PatternLexer.prototype.compilePattern = function (pattern, ignoreCase) {
+            pattern = pattern || '';
+
+            if (pattern) {
+                if (this._slashMode === this.LOOSE_SLASH) {
+                    pattern = pattern.replace(this.LOOSE_SLASHES_REGEXP, '');
+                } else if (this._slashMode === this.LEGACY_SLASH) {
+                    pattern = pattern.replace(this.LEGACY_SLASHES_REGEXP, '');
+                }
+
+                pattern = this.replaceTokens(pattern, 'rgx', 'save');
+
+                pattern = pattern.replace(this.ESCAPE_CHARS_REGEXP, '\\$&');
+
+                pattern = this.replaceTokens(pattern, 'rRestore', 'res');
+
+                if (this._slashMode === this.LOOSE_SLASH) {
+                    pattern = '\\/?' + pattern;
+                }
+            }
+
+            if (this._slashMode !== this.STRICT_SLASH) {
+                pattern += '\\/?';
+            }
+            return new RegExp('^' + pattern + '$', ignoreCase ? 'i' : '');
+        };
+
+        PatternLexer.prototype.replaceTokens = function (pattern, regexpName, replaceName) {
+            var cur, key;
+            for (key in this.TOKENS) {
+                if (this.TOKENS.hasOwnProperty(key)) {
+                    cur = this.TOKENS[key];
+                    pattern = pattern.replace(cur[regexpName], cur[replaceName]);
+                }
+            }
+            return pattern;
+        };
+
+        PatternLexer.prototype.getParamValues = function (request, regexp, shouldTypecast) {
+            var vals = regexp.exec(request);
+            if (vals) {
+                vals.shift();
+                if (shouldTypecast) {
+                    vals = this.typecastArrayValues(vals);
+                }
+            }
+            return vals;
+        };
+
+        PatternLexer.prototype.typecastArrayValues = function (values) {
+            var n = values.length, result = [];
+            while (n--) {
+                result[n] = this.typecastValue(values[n]);
+            }
+            return result;
+        };
+
+        PatternLexer.prototype.typecastValue = function (val) {
+            var r;
+            if (val === null || val === 'null') {
+                r = null;
+            } else if (val === 'true') {
+                r = true;
+            } else if (val === 'false') {
+                r = false;
+            } else if (val === this.UNDEF || val === 'undefined') {
+                r = this.UNDEF;
+            } else if (val === '' || isNaN(val)) {
+                r = val;
+            } else {
+                r = parseFloat(val);
+            }
+            return r;
+        };
+
+        PatternLexer.prototype.interpolate = function (pattern, replacements) {
+            if (typeof pattern !== 'string') {
+                throw new Error('Route pattern should be a string.');
+            }
+
+            var replaceFn = function (match, prop) {
+                var val;
+                prop = (prop.substr(0, 1) === '?') ? prop.substr(1) : prop;
+                if (replacements[prop] != null) {
+                    if (typeof replacements[prop] === 'object') {
+                        var queryParts = [];
+                        for (var key in replacements[prop]) {
+                            queryParts.push(encodeURI(key + '=' + replacements[prop][key]));
+                        }
+                        val = '?' + queryParts.join('&');
+                    } else {
+                        val = String(replacements[prop]);
+                    }
+
+                    if (match.indexOf('*') === -1 && val.indexOf('/') !== -1) {
+                        throw new Error('Invalid value "' + val + '" for segment "' + match + '".');
+                    }
+                } else if (match.indexOf('{') !== -1) {
+                    throw new Error('The segment ' + match + ' is required.');
+                } else {
+                    val = '';
+                }
+                return val;
+            };
+
+            if (!this.TOKENS.OS.trail) {
+                this.TOKENS.OS.trail = new RegExp('(?:' + this.TOKENS.OS.id + ')+$');
+            }
+
+            return pattern.replace(this.TOKENS.OS.rgx, this.TOKENS.OS.save).replace(this.PARAMS_REGEXP, replaceFn).replace(this.TOKENS.OS.trail, '').replace(this.TOKENS.OS.rRestore, '/');
+        };
+
+        PatternLexer.prototype.strict = function () {
+            this._slashMode = this.STRICT_SLASH;
+        };
+
+        PatternLexer.prototype.loose = function () {
+            this._slashMode = this.LOOSE_SLASH;
+        };
+
+        PatternLexer.prototype.legacy = function () {
+            this._slashMode = this.LEGACY_SLASH;
+        };
+        return PatternLexer;
+    })();
+    millermedeiros.PatternLexer = PatternLexer;
+})(millermedeiros || (millermedeiros = {}));
+var millermedeiros;
+(function (millermedeiros) {
+    var Route = (function () {
+        function Route(pattern, callback, priority, router) {
+            if (typeof priority === "undefined") { priority = 0; }
+            if (typeof router === "undefined") { router = null; }
+            this._router = null;
+            this._pattern = null;
+            this._paramsIds = null;
+            this._optionalParamsIds = null;
+            this._matchRegexp = null;
+            this.priority = 0;
+            this.matched = null;
+            this.switched = null;
+            this.greedy = false;
+            this.rules = null;
+            this._hasOptionalGroupBug = (/t(.+)?/).exec('t')[1] === '';
+            this.UNDEF = null;
+            var isRegexPattern = this.isRegExp(pattern);
+            var patternLexer = router.patternLexer;
+
+            this._router = router;
+            this._pattern = pattern;
+            this._paramsIds = isRegexPattern ? null : patternLexer.getParamIds(pattern);
+            this._optionalParamsIds = isRegexPattern ? null : patternLexer.getOptionalParamsIds(pattern);
+            this._matchRegexp = isRegexPattern ? pattern : patternLexer.compilePattern(pattern, router.ignoreCase);
+            this.matched = new millermedeiros.Signal();
+            this.switched = new millermedeiros.Signal();
+            if (callback) {
+                this.matched.add(callback);
+            }
+        }
+        Route.prototype.match = function (request) {
+            if (typeof request === "undefined") { request = ''; }
+            return this._matchRegexp.test(request) && this._validateParams(request);
+        };
+
+        Route.prototype._validateParams = function (request) {
+            var rules = this.rules, values = this._getParamsObject(request), key;
+            for (key in rules) {
+                if (key !== 'normalize_' && rules.hasOwnProperty(key) && !this._isValidParam(request, key, values)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        Route.prototype._isValidParam = function (request, prop, values) {
+            var validationRule = this.rules[prop], val = values[prop], isValid = false, isQuery = (prop.indexOf('?') === 0);
+
+            if (val == null && this._optionalParamsIds && this.arrayIndexOf(this._optionalParamsIds, prop) !== -1) {
+                isValid = true;
+            } else if (this.isRegExp(validationRule)) {
+                if (isQuery) {
+                    val = values[prop + '_'];
+                }
+                isValid = validationRule.test(val);
+            } else if (this.isArray(validationRule)) {
+                if (isQuery) {
+                    val = values[prop + '_'];
+                }
+                isValid = this._isValidArrayRule(validationRule, val);
+            } else if (this.isFunction(validationRule)) {
+                isValid = validationRule(val, request, values);
+            }
+
+            return isValid;
+        };
+
+        Route.prototype._isValidArrayRule = function (arr, val) {
+            if (!this._router.ignoreCase) {
+                return this.arrayIndexOf(arr, val) !== -1;
+            }
+
+            if (typeof val === 'string') {
+                val = val.toLowerCase();
+            }
+
+            var n = arr.length, item, compareVal;
+
+            while (n--) {
+                item = arr[n];
+                compareVal = (typeof item === 'string') ? item.toLowerCase() : item;
+                if (compareVal === val) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+        Route.prototype._getParamsObject = function (request) {
+            var shouldTypecast = this._router.shouldTypecast, values = this._router.patternLexer.getParamValues(request, this._matchRegexp, shouldTypecast), o = {}, n = values.length, param, val;
+            while (n--) {
+                val = values[n];
+                if (this._paramsIds) {
+                    param = this._paramsIds[n];
+                    if (param.indexOf('?') === 0 && val) {
+                        o[param + '_'] = val;
+
+                        val = this.decodeQueryString(val, shouldTypecast);
+                        values[n] = val;
+                    }
+
+                    if (this._hasOptionalGroupBug && val === '' && this.arrayIndexOf(this._optionalParamsIds, param) !== -1) {
+                        val = void (0);
+                        values[n] = val;
+                    }
+                    o[param] = val;
+                }
+
+                o[n] = val;
+            }
+            o.request_ = shouldTypecast ? this.typecastValue(request) : request;
+            o.vals_ = values;
+            return o;
+        };
+
+        Route.prototype.decodeQueryString = function (str, shouldTypecast) {
+            var queryArr = (str || '').replace('?', '').split('&'), n = queryArr.length, obj = {}, item, val;
+            while (n--) {
+                item = queryArr[n].split('=');
+                val = shouldTypecast ? this.typecastValue(item[1]) : item[1];
+                obj[item[0]] = (typeof val === 'string') ? decodeURIComponent(val) : val;
+            }
+            return obj;
+        };
+
+        Route.prototype.arrayIndexOf = function (arr, val) {
+            if (arr.indexOf) {
+                return arr.indexOf(val);
+            } else {
+                var n = arr.length;
+                while (n--) {
+                    if (arr[n] === val) {
+                        return n;
+                    }
+                }
+                return -1;
+            }
+        };
+
+        Route.prototype.isKind = function (val, kind) {
+            return '[object ' + kind + ']' === Object.prototype.toString.call(val);
+        };
+
+        Route.prototype.isRegExp = function (val) {
+            return this.isKind(val, 'RegExp');
+        };
+
+        Route.prototype.isArray = function (val) {
+            return this.isKind(val, 'Array');
+        };
+
+        Route.prototype.isFunction = function (val) {
+            return typeof val === 'function';
+        };
+
+        Route.prototype.typecastValue = function (val) {
+            var r;
+            if (val === null || val === 'null') {
+                r = null;
+            } else if (val === 'true') {
+                r = true;
+            } else if (val === 'false') {
+                r = false;
+            } else if (val === this.UNDEF || val === 'undefined') {
+                r = this.UNDEF;
+            } else if (val === '' || isNaN(val)) {
+                r = val;
+            } else {
+                r = parseFloat(val);
+            }
+            return r;
+        };
+
+        Route.prototype._getParamsArray = function (request) {
+            var norm = this.rules ? this.rules.normalize_ : null, params;
+            norm = norm || this._router.normalizeFn;
+            if (norm && this.isFunction(norm)) {
+                params = norm(request, this._getParamsObject(request));
+            } else {
+                params = this._getParamsObject(request).vals_;
+            }
+            return params;
+        };
+
+        Route.prototype.interpolate = function (replacements) {
+            var str = this._router.patternLexer.interpolate(this._pattern, replacements);
+            if (!this._validateParams(str)) {
+                throw new Error('Generated string doesn\'t validate against `Route.rules`.');
+            }
+            return str;
+        };
+
+        Route.prototype.dispose = function () {
+            this._router.removeRoute(this);
+        };
+
+        Route.prototype.destroy = function () {
+            this.matched.dispose();
+            this.switched.dispose();
+            this.matched = this.switched = this._pattern = this._matchRegexp = null;
+        };
+
+        Route.prototype.toString = function () {
+            return '[Route pattern:"' + this._pattern + '", numListeners:' + this.matched.getNumListeners() + ']';
+        };
+        return Route;
+    })();
+    millermedeiros.Route = Route;
+})(millermedeiros || (millermedeiros = {}));
+var millermedeiros;
+(function (millermedeiros) {
+    var Crossroads = (function () {
+        function Crossroads() {
+            this._routes = [];
+            this._prevRoutes = [];
+            this._piped = [];
+            this._prevMatchedRequest = null;
+            this._prevBypassedRequest = null;
+            this.normalizeFn = null;
+            this.greedy = false;
+            this.greedyEnabled = true;
+            this.ignoreCase = true;
+            this.ignoreState = false;
+            this.shouldTypecast = false;
+            this.bypassed = new millermedeiros.Signal();
+            this.routed = new millermedeiros.Signal();
+            this.patternLexer = new millermedeiros.PatternLexer();
+        }
+        Crossroads.prototype.resetState = function () {
+            this._prevRoutes.length = 0;
+            this._prevMatchedRequest = null;
+            this._prevBypassedRequest = null;
+        };
+
+        Crossroads.prototype.create = function () {
+            return new Crossroads();
+        };
+
+        Crossroads.prototype.addRoute = function (pattern, callback, priority) {
+            if (typeof priority === "undefined") { priority = 0; }
+            var route = new millermedeiros.Route(pattern, callback, priority, this);
+            this._sortedInsert(route);
+            return route;
+        };
+
+        Crossroads.prototype.removeRoute = function (route) {
+            this.arrayRemove(this._routes, route);
+            route.destroy();
+        };
+
+        Crossroads.prototype.arrayRemove = function (arr, item) {
+            var i = this.arrayIndexOf(arr, item);
+            if (i !== -1) {
+                arr.splice(i, 1);
+            }
+        };
+
+        Crossroads.prototype.arrayIndexOf = function (arr, val) {
+            if (arr.indexOf) {
+                return arr.indexOf(val);
+            } else {
+                var n = arr.length;
+                while (n--) {
+                    if (arr[n] === val) {
+                        return n;
+                    }
+                }
+                return -1;
+            }
+        };
+
+        Crossroads.prototype.removeAllRoutes = function () {
+            var n = this.getNumRoutes();
+            while (n--) {
+                this._routes[n].destroy();
+            }
+            this._routes.length = 0;
+        };
+
+        Crossroads.prototype.parse = function (request, defaultArgs) {
+            if (typeof request === "undefined") { request = ''; }
+            if (typeof defaultArgs === "undefined") { defaultArgs = []; }
+            if (!this.ignoreState && (request === this._prevMatchedRequest || request === this._prevBypassedRequest)) {
+                return;
+            }
+
+            var routes = this._getMatchedRoutes(request);
+            var i = 0;
+            var n = routes.length;
+            var cur = null;
+
+            if (n) {
+                this._prevMatchedRequest = request;
+
+                this._notifyPrevRoutes(routes, request);
+                this._prevRoutes = routes;
+
+                while (i < n) {
+                    cur = routes[i];
+                    cur.route.matched.dispatch.apply(cur.route.matched, defaultArgs.concat(cur.params));
+                    cur.isFirst = !i;
+                    this.routed.dispatch.apply(this.routed, defaultArgs.concat([request, cur]));
+                    i += 1;
+                }
+            } else {
+                this._prevBypassedRequest = request;
+                this.bypassed.dispatch.apply(this.bypassed, defaultArgs.concat([request]));
+            }
+
+            this._pipeParse(request, defaultArgs);
+        };
+
+        Crossroads.prototype._notifyPrevRoutes = function (matchedRoutes, request) {
+            var i = 0, prev;
+            while (prev = this._prevRoutes[i++]) {
+                if (prev.route.switched && this._didSwitch(prev.route, matchedRoutes)) {
+                    prev.route.switched.dispatch(request);
+                }
+            }
+        };
+
+        Crossroads.prototype._didSwitch = function (route, matchedRoutes) {
+            var matched, i = 0;
+            while (matched = matchedRoutes[i++]) {
+                if (matched.route === route) {
+                    return false;
+                }
+            }
+            return true;
+        };
+
+        Crossroads.prototype._pipeParse = function (request, defaultArgs) {
+            var i = 0, route;
+            while (route = this._piped[i++]) {
+                route.parse(request, defaultArgs);
+            }
+        };
+
+        Crossroads.prototype.getNumRoutes = function () {
+            return this._routes.length;
+        };
+
+        Crossroads.prototype._sortedInsert = function (route) {
+            var routes = this._routes, n = routes.length;
+            do {
+                --n;
+            } while(routes[n] && route.priority <= routes[n].priority);
+            routes.splice(n + 1, 0, route);
+        };
+
+        Crossroads.prototype._getMatchedRoutes = function (request) {
+            var res = [], routes = this._routes, n = routes.length, route;
+
+            while (route = routes[--n]) {
+                if ((!res.length || this.greedy || route.greedy) && route.match(request)) {
+                    res.push({
+                        route: route,
+                        params: route._getParamsArray(request)
+                    });
+                }
+                if (!this.greedyEnabled && res.length) {
+                    break;
+                }
+            }
+            return res;
+        };
+
+        Crossroads.prototype.pipe = function (otherRouter) {
+            this._piped.push(otherRouter);
+        };
+
+        Crossroads.prototype.unpipe = function (otherRouter) {
+            this.arrayRemove(this._piped, otherRouter);
+        };
+
+        Crossroads.prototype.toString = function () {
+            return '[crossroads numRoutes:' + this.getNumRoutes() + ']';
+        };
+        Crossroads.VERSION = '0.12.0';
+
+        Crossroads.NORM_AS_ARRAY = function (req, vals) {
+            return [vals.vals_];
+        };
+
+        Crossroads.NORM_AS_OBJECT = function (req, vals) {
+            return [vals];
+        };
+        return Crossroads;
+    })();
+    millermedeiros.Crossroads = Crossroads;
+})(millermedeiros || (millermedeiros = {}));
+var Hasher = millermedeiros.Hasher;
+var Crossroads = millermedeiros.Crossroads;
+
 var RouterController = (function (_super) {
     __extends(RouterController, _super);
     function RouterController() {
         _super.call(this);
         this.CLASS_NAME = 'RouterController';
-        this._active = false;
+        this._crossroads = null;
+
+        this._crossroads = new Crossroads();
     }
     RouterController.prototype.addRoute = function (pattern, handler, scope, priority) {
-        crossroads.addRoute(pattern, handler.bind(scope), priority);
+        this._crossroads.addRoute(pattern, handler.bind(scope), priority);
     };
 
     RouterController.prototype.start = function () {
-        if (this._active)
+        if (Hasher.isActive())
             return;
 
-        hasher.initialized.add(this.parseHash);
-        hasher.changed.add(this.parseHash);
-        hasher.init();
-
-        this._active = true;
+        Hasher.initialized.add(this.parseHash.bind(this));
+        Hasher.changed.add(this.parseHash.bind(this));
+        Hasher.init();
     };
 
     RouterController.prototype.parseHash = function (newHash, oldHash) {
-        crossroads.parse(newHash);
+        this._crossroads.parse(newHash);
     };
 
     RouterController.prototype.navigateTo = function (hash, silently) {
         if (typeof silently === "undefined") { silently = false; }
         hash = hash.replace('#/', '');
         if (silently) {
-            hasher.changed.active = false;
-            hasher.setHash(hash);
-            hasher.changed.active = true;
+            Hasher.changed.active = false;
+            Hasher.setHash(hash);
+            Hasher.changed.active = true;
         } else {
-            hasher.setHash(hash);
+            Hasher.setHash(hash);
         }
     };
 
     RouterController.prototype.getHash = function () {
-        return hasher.getHash();
+        return Hasher.getHash();
     };
 
     RouterController.prototype.getHashAsArray = function () {
-        return hasher.getHashAsArray();
+        return Hasher.getHashAsArray();
     };
 
     RouterController.prototype.getURL = function () {
-        return hasher.getURL();
+        return Hasher.getURL();
     };
 
     RouterController.prototype.getBaseURL = function () {
-        return hasher.getBaseURL();
+        return Hasher.getBaseURL();
     };
     return RouterController;
 })(BaseController);
@@ -1609,9 +2687,6 @@ var ArtistsView = (function (_super) {
         for (var i = 0; i < len; i++) {
             this._artistVOList.push(new ArtistVO(parsedData[i]));
         }
-
-        var hasherData = hasher.getHashAsArray();
-        this.update(hasherData[1], hasherData[2]);
     };
 
     ArtistsView.prototype.update = function (artist, album) {

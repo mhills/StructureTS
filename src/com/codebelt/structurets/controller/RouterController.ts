@@ -25,6 +25,11 @@
 ///<reference path='BaseController.ts'/>
 ///<reference path='../utils/BrowserUtils.ts'/>
 
+///<reference path='../../../millermedeiros/hasher/Hasher.ts'/>
+///<reference path='../../../millermedeiros/crossroads/Crossroads.ts' />
+import Hasher = millermedeiros.Hasher;
+import Crossroads = millermedeiros.Crossroads;
+
 /**
  * The RouterController...
  *
@@ -43,20 +48,23 @@ class RouterController extends BaseController
     /**
      * YUIDoc_comment
      *
-     * @property _active
-     * @type {boolean}
+     * @property _crossroads
+     * @type {Crossroads}
      * @private
      */
-    private _active:boolean = false;
+    private _crossroads:Crossroads = null;
 
     constructor()
     {
         super();
+
+        this._crossroads = new Crossroads();
+
     }
 
     public addRoute(pattern:string, handler:Function, scope:any, priority?:number):void
     {
-        crossroads.addRoute(pattern, handler.bind(scope), priority);
+        this._crossroads.addRoute(pattern, handler.bind(scope), priority);
     }
 
     /**
@@ -65,15 +73,12 @@ class RouterController extends BaseController
      */
     public start():void
     {
-        if (this._active) return;
+        if (Hasher.isActive()) return;
 
-//        crossroads.routed.add(console.log, console); //log all routes
-//        hasher.prependHash = '!/'; //default value is "/"
-        hasher.initialized.add(this.parseHash); //parse initial hash
-        hasher.changed.add(this.parseHash); //parse hash changes
-        hasher.init(); //start listening for hash changes
-
-        this._active = true;
+//        Hasher.prependHash = '!';
+        Hasher.initialized.add(this.parseHash.bind(this)); //parse initial hash
+        Hasher.changed.add(this.parseHash.bind(this)); //parse hash changes
+        Hasher.init(); //start listening for hash changes
     }
 
     /**
@@ -84,7 +89,7 @@ class RouterController extends BaseController
      */
     public parseHash(newHash, oldHash):void
     {
-        crossroads.parse(newHash);
+        this._crossroads.parse(newHash);
     }
 
     /**
@@ -97,12 +102,13 @@ class RouterController extends BaseController
     {
         hash = hash.replace('#/', '');
         if (silently) {
-            hasher.changed.active = false;
-            hasher.setHash(hash);
-            hasher.changed.active = true;
+            Hasher.changed.active = false;
+            Hasher.setHash(hash);
+            Hasher.changed.active = true;
         } else {
-            hasher.setHash(hash);
+            Hasher.setHash(hash);
         }
+
     }
 
     /**
@@ -112,7 +118,7 @@ class RouterController extends BaseController
      */
     public getHash():string
     {
-        return hasher.getHash();
+        return Hasher.getHash();
     }
 
     /**
@@ -122,7 +128,7 @@ class RouterController extends BaseController
      */
     public getHashAsArray():any[]
     {
-        return hasher.getHashAsArray();
+        return Hasher.getHashAsArray();
     }
 
     /**
@@ -132,7 +138,7 @@ class RouterController extends BaseController
      */
     public getURL():string
     {
-        return hasher.getURL();
+        return Hasher.getURL();
     }
 
     /**
@@ -142,7 +148,7 @@ class RouterController extends BaseController
      */
     public getBaseURL():string
     {
-        return hasher.getBaseURL();
+        return Hasher.getBaseURL();
     }
 
 }

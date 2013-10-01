@@ -57,43 +57,6 @@ var BaseObject = (function () {
     };
     return BaseObject;
 })();
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
-var CollectiveObject = (function (_super) {
-    __extends(CollectiveObject, _super);
-    function CollectiveObject() {
-        _super.call(this);
-        this.CLASS_NAME = 'CollectiveObject';
-        this.isEnabled = false;
-    }
-    CollectiveObject.prototype.enable = function () {
-        if (this.isEnabled === true)
-            return this;
-
-        this.isEnabled = true;
-        return this;
-    };
-
-    CollectiveObject.prototype.disable = function () {
-        if (this.isEnabled === false)
-            return this;
-
-        this.isEnabled = false;
-        return this;
-    };
-
-    CollectiveObject.prototype.destroy = function () {
-        _super.prototype.destroy.call(this);
-
-        this.disable();
-        this.isEnabled = false;
-    };
-    return CollectiveObject;
-})(BaseObject);
 var BaseEvent = (function () {
     function BaseEvent(type, bubbles, cancelable, data) {
         if (typeof bubbles === "undefined") { bubbles = false; }
@@ -174,6 +137,12 @@ var BaseEvent = (function () {
     BaseEvent.RESIZE = 'BaseEvent.resize';
     return BaseEvent;
 })();
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 var EventDispatcher = (function (_super) {
     __extends(EventDispatcher, _super);
     function EventDispatcher() {
@@ -181,6 +150,7 @@ var EventDispatcher = (function (_super) {
         this.CLASS_NAME = 'EventDispatcher';
         this._listeners = null;
         this.parent = null;
+        this.isEnabled = false;
 
         this._listeners = [];
     }
@@ -255,11 +225,30 @@ var EventDispatcher = (function (_super) {
     EventDispatcher.prototype.destroy = function () {
         _super.prototype.destroy.call(this);
 
+        this.disable();
+        this.isEnabled = false;
+
         this.parent = null;
         this._listeners = null;
     };
+
+    EventDispatcher.prototype.enable = function () {
+        if (this.isEnabled === true)
+            return this;
+
+        this.isEnabled = true;
+        return this;
+    };
+
+    EventDispatcher.prototype.disable = function () {
+        if (this.isEnabled === false)
+            return this;
+
+        this.isEnabled = false;
+        return this;
+    };
     return EventDispatcher;
-})(CollectiveObject);
+})(BaseObject);
 var DisplayObjectContainer = (function (_super) {
     __extends(DisplayObjectContainer, _super);
     function DisplayObjectContainer() {
@@ -542,13 +531,19 @@ var DOMElement = (function (_super) {
 
         child.$element.attr('data-cid', child.cid);
 
+        child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
         this.$element.append(child.$element);
 
         child.layoutChildren();
 
-        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
-
         return this;
+    };
+
+    DOMElement.prototype.onAddedToDom = function (event) {
+        var child = event.data;
+        child.$element.removeEventListener('DOMNodeInsertedIntoDocument', this.onAddedToDom, this);
+        child.layoutChildren();
+        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
     };
 
     DOMElement.prototype.addChildAt = function (child, index) {
@@ -562,6 +557,7 @@ var DOMElement = (function (_super) {
                 child.createChildren();
                 child.isCreated = true;
             }
+            child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
             child.layoutChildren();
 
             _super.prototype.addChildAt.call(this, child, index);
@@ -586,10 +582,18 @@ var DOMElement = (function (_super) {
         return _super.prototype.getChildAt.call(this, index);
     };
 
+    DOMElement.prototype.getChildByCid = function (cid) {
+        var domElement = _.find(this.children, function (child) {
+            return child.cid == cid;
+        });
+
+        return domElement || null;
+    };
+
     DOMElement.prototype.getChild = function (selector) {
         var jQueryElement = this.$element.find(selector).first();
         if (jQueryElement.length == 0) {
-            throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $el');
+            throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $element');
         }
 
         var cid = jQueryElement.data('cid');

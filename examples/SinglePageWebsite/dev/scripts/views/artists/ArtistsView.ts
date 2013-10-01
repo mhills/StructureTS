@@ -67,8 +67,8 @@ class ArtistsView extends DOMElement
             this._artistVOList.push( new ArtistVO(parsedData[i]) );
         }
 
-        var hasherData = hasher.getHashAsArray();//TODO: remove this and make the Router Controller a Singleton.
-        this.update(hasherData[1], hasherData[2])
+//        var hasherData = hasher.getHashAsArray();//TODO: remove this and make the Router Controller a Singleton.
+//        this.update(hasherData[1], hasherData[2])
     }
 
     public update(artist?:number, album?:number):void

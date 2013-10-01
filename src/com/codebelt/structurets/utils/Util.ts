@@ -129,7 +129,6 @@ class Util
 
     /**
      * Generates a random boolean.
-     *
      * @example
      *      Util.getRandomBoolean();
      * @method getRandomBoolean
