@@ -29,27 +29,6 @@
             "fors": {},
             "namespaces": {}
         },
-        "..\\src\\com\\codebelt\\structurets\\components\\Cursor.ts": {
-            "name": "..\\src\\com\\codebelt\\structurets\\components\\Cursor.ts",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
-        "..\\src\\com\\codebelt\\structurets\\components\\DragDealer.ts": {
-            "name": "..\\src\\com\\codebelt\\structurets\\components\\DragDealer.ts",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
-        "..\\src\\com\\codebelt\\structurets\\components\\PositionUtil.ts": {
-            "name": "..\\src\\com\\codebelt\\structurets\\components\\PositionUtil.ts",
-            "modules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
         "..\\src\\com\\codebelt\\structurets\\components\\TabComponent.ts": {
             "name": "..\\src\\com\\codebelt\\structurets\\components\\TabComponent.ts",
             "modules": {},
@@ -681,15 +660,6 @@
             "fors": {},
             "namespaces": {}
         },
-        "..\\src\\com\\codebelt\\structurets\\utils\\TimeUtil.ts": {
-            "name": "..\\src\\com\\codebelt\\structurets\\utils\\TimeUtil.ts",
-            "modules": {},
-            "classes": {
-                "TimeUtil": 1
-            },
-            "fors": {},
-            "namespaces": {}
-        },
         "..\\src\\com\\codebelt\\structurets\\utils\\Timer.ts": {
             "name": "..\\src\\com\\codebelt\\structurets\\utils\\Timer.ts",
             "modules": {},
@@ -817,7 +787,6 @@
                 "NumberUtil": 1,
                 "StringUtil": 1,
                 "TemplateFactory": 1,
-                "TimeUtil": 1,
                 "Timer": 1,
                 "TransitionFactory": 1,
                 "Util": 1,
@@ -826,7 +795,7 @@
             "fors": {},
             "namespaces": {},
             "file": "..\\src\\com\\codebelt\\structurets\\BaseObject.ts",
-            "line": 39
+            "line": 35
         },
         "controller": {
             "name": "controller",
@@ -853,7 +822,7 @@
             "namespace": "",
             "description": "YUIDoc_comment",
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 28
+            "line": 33
         },
         "view": {
             "name": "view",
@@ -991,7 +960,6 @@
                 "NumberUtil": 1,
                 "StringUtil": 1,
                 "TemplateFactory": 1,
-                "TimeUtil": 1,
                 "Timer": 1,
                 "TransitionFactory": 1,
                 "Util": 1
@@ -1016,9 +984,9 @@
             "namespaces": {},
             "module": "StructureTS",
             "namespace": "",
-            "description": "The BaseObject class is an abstract class that provides common properties and functionality for all StructureTS classes.",
+            "description": "The {{#crossLink \"BaseObject\"}}{{/crossLink}} class is an abstract class that provides common properties and functionality for all StructureTS classes.",
             "file": "..\\src\\com\\codebelt\\structurets\\BaseObject.ts",
-            "line": 39
+            "line": 35
         }
     },
     "classes": {
@@ -1278,7 +1246,7 @@
             "module": "StructureTS",
             "namespace": "",
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 28,
+            "line": 33,
             "description": "The RouterController...",
             "submodule": "controller",
             "is_constructor": 1
@@ -1330,7 +1298,7 @@
             "line": 28,
             "description": "The Canvas...",
             "submodule": "view",
-            "extends": "CanvasElement",
+            "extends": "DOMElement",
             "is_constructor": 1
         },
         "CanvasElement": {
@@ -1617,7 +1585,7 @@
             "namespace": "",
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
             "line": 28,
-            "description": "<p>The <strong>EventDispatcher</strong> class is the base class for the {{#crossLink \"DisplayObjectContainer\"}}{{/crossLink}} class and for all classes that need dispatch events. The <strong>EventDispatcher</strong> class handles bubbling event(s) thoughtout the display list.</p>",
+            "description": "The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the DisplayObjectContainer class.\nThe EventDispatcher class allows any object on the display list to be an event target.\nThe EventDispatcher provides methods for managing prioritized queues of event listeners and dispatching events.\n{{#crossLink \"DisplayObjectContainer\"}}{{/crossLink}} classes dispatch events.",
             "submodule": "event",
             "extends": "BaseObject",
             "is_constructor": 1
@@ -2493,7 +2461,8 @@
             "line": 27,
             "description": "The StringUtil...",
             "submodule": "util",
-            "is_constructor": 1
+            "is_constructor": 1,
+            "static": 1
         },
         "TemplateFactory": {
             "name": "TemplateFactory",
@@ -2507,22 +2476,6 @@
             "namespace": "",
             "file": "..\\src\\com\\codebelt\\structurets\\utils\\TemplateFactory.ts",
             "line": 28,
-            "description": "YUIDoc_comment",
-            "submodule": "util",
-            "is_constructor": 1
-        },
-        "TimeUtil": {
-            "name": "TimeUtil",
-            "shortname": "TimeUtil",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "StructureTS",
-            "namespace": "",
-            "file": "..\\src\\com\\codebelt\\structurets\\utils\\TimeUtil.ts",
-            "line": 27,
             "description": "YUIDoc_comment",
             "submodule": "util",
             "is_constructor": 1
@@ -2588,8 +2541,8 @@
             "module": "StructureTS",
             "namespace": "",
             "file": "..\\src\\com\\codebelt\\structurets\\BaseObject.ts",
-            "line": 39,
-            "description": "The BaseObject class is an abstract class that provides common properties and functionality for all StructureTS classes.",
+            "line": 35,
+            "description": "The {{#crossLink \"BaseObject\"}}{{/crossLink}} class is an abstract class that provides common properties and functionality for all StructureTS classes.",
             "submodule": "core",
             "is_constructor": 1
         }
@@ -2805,24 +2758,6 @@
             "itemtype": "method",
             "name": "transitionTo",
             "class": "CarouselComponent"
-        },
-        {
-            "file": "..\\src\\com\\codebelt\\structurets\\components\\Cursor.ts",
-            "line": 29,
-            "copy": "BaseObject.CLASS_NAME",
-            "class": "TabComponent"
-        },
-        {
-            "file": "..\\src\\com\\codebelt\\structurets\\components\\DragDealer.ts",
-            "line": 30,
-            "copy": "BaseObject.CLASS_NAME",
-            "class": "TabComponent"
-        },
-        {
-            "file": "..\\src\\com\\codebelt\\structurets\\components\\PositionUtil.ts",
-            "line": 29,
-            "copy": "BaseObject.CLASS_NAME",
-            "class": "TabComponent"
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\components\\TabComponent.ts",
@@ -3701,7 +3636,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 38,
+            "line": 43,
             "copy": "BaseObject.CLASS_NAME",
             "class": "RouterController",
             "module": "StructureTS",
@@ -3709,11 +3644,11 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 43,
+            "line": 48,
             "description": "YUIDoc_comment",
             "itemtype": "property",
-            "name": "_active",
-            "type": "{boolean}",
+            "name": "_crossroads",
+            "type": "{Crossroads}",
             "access": "private",
             "tagname": "",
             "class": "RouterController",
@@ -3722,7 +3657,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 62,
+            "line": 70,
             "itemtype": "method",
             "name": "start",
             "class": "RouterController",
@@ -3731,7 +3666,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 79,
+            "line": 84,
             "itemtype": "method",
             "name": "parseHash",
             "params": [
@@ -3752,7 +3687,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 90,
+            "line": 95,
             "itemtype": "method",
             "name": "navigateTo",
             "params": [
@@ -3775,7 +3710,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 108,
+            "line": 114,
             "itemtype": "method",
             "name": "getHash",
             "return": {
@@ -3788,7 +3723,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 118,
+            "line": 124,
             "itemtype": "method",
             "name": "getHashAsArray",
             "return": {
@@ -3801,7 +3736,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 128,
+            "line": 134,
             "itemtype": "method",
             "name": "getURL",
             "return": {
@@ -3814,7 +3749,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts",
-            "line": 138,
+            "line": 144,
             "itemtype": "method",
             "name": "getBaseURL",
             "return": {
@@ -3851,7 +3786,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\display\\Canvas.ts",
-            "line": 77,
+            "line": 69,
             "override": "",
             "class": "Canvas",
             "module": "StructureTS",
@@ -5463,7 +5398,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 39,
+            "line": 42,
             "copy": "BaseObject.CLASS_NAME",
             "class": "EventDispatcher",
             "module": "StructureTS",
@@ -5471,7 +5406,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 44,
+            "line": 47,
             "description": "Holds a reference to added listeners.",
             "itemtype": "property",
             "name": "_listeners",
@@ -5484,20 +5419,18 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 53,
+            "line": 56,
             "description": "Indicates the object that contains child object. Use the parent property\nto specify a relative path to display objects that are above the current display object in the display\nlist hierarchy.",
             "itemtype": "property",
             "name": "parent",
             "type": "{any}",
-            "access": "public",
-            "tagname": "",
             "class": "EventDispatcher",
             "module": "StructureTS",
             "submodule": "event"
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 64,
+            "line": 66,
             "description": "The isEnabled property is used to keep track of the enabled state of the object.",
             "itemtype": "property",
             "name": "isEnabled",
@@ -5511,7 +5444,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 81,
+            "line": 83,
             "description": "Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.",
             "example": [
                 "\n     instance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);\n     private handlerMethod(event:BaseEvent):void {\n         console.log(event.target + \" sent the event.\");\n     }"
@@ -5526,13 +5459,13 @@
                 },
                 {
                     "name": "callback",
-                    "description": "The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @\nexample function(event:Event):void",
+                    "description": "The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void",
                     "type": "Function"
                 },
                 {
                     "name": "scope",
                     "description": "Binds the scope to a particular object (scope is basically what \"this\" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.",
-                    "type": "Object"
+                    "type": "Any"
                 },
                 {
                     "name": "priority",
@@ -5549,7 +5482,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 127,
+            "line": 128,
             "description": "Removes a specified listener from the EventDispatcher object.",
             "example": [
                 "\n     instance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);\n     private handlerMethod(event:BaseEvent):void {\n         console.log(event.target + \" sent the event.\");\n     }"
@@ -5570,7 +5503,7 @@
                 {
                     "name": "scope",
                     "description": "The scope of the listener object to be removed.",
-                    "type": "Object"
+                    "type": "Any"
                 }
             ],
             "hide": "This was added because it was need for the {{#crossLink \"EventBroker\"}}{{/crossLink}} class. To keep things consistent this parameter is required.",
@@ -5581,7 +5514,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 162,
+            "line": 163,
             "description": "<p>Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the dispatchEvent() method is called.</p>",
             "example": [
                 "\n     var event:BaseEvent = new BaseEvent(BaseEvent.CHANGE);\n     instance.dispatchEvent(event);\n\n     // Here is a common inline event being dispatched\n     instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));"
@@ -5602,7 +5535,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 215,
+            "line": 216,
             "copy": "CollectiveObject.destroy",
             "overridden": "",
             "class": "EventDispatcher",
@@ -5611,7 +5544,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 230,
+            "line": 231,
             "description": "The enable method is responsible for enabling event listeners and/or children of the containing objects.",
             "example": [
                 "\n     public enable():void {\n         if (this.isEnabled === true) return;\n\n         this._childInstance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);\n         this._childInstance.enable();\n\n         super.enable();\n     }"
@@ -5627,7 +5560,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts",
-            "line": 253,
+            "line": 254,
             "description": "The disable method is responsible for disabling event listeners and/or children of the containing objects.",
             "example": [
                 "\n     public disable():void {\n         if (this.isEnabled === false) return;\n\n         this._childInstance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);\n         this._childInstance.disable();\n\n         super.enable();\n     }"
@@ -7479,8 +7412,59 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts",
-            "line": 37,
+            "line": 35,
             "copy": "BaseObject.CLASS_NAME",
+            "class": "BrowserUtils",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts",
+            "line": 44,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "hasBrowserHistory",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "BrowserUtils",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts",
+            "line": 57,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "hasLocalStorage",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "BrowserUtils",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts",
+            "line": 76,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "hasSessionStorage",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
             "class": "BrowserUtils",
             "module": "StructureTS",
             "submodule": "util"
@@ -7535,7 +7519,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
-            "line": 37,
+            "line": 38,
             "copy": "BaseObject.CLASS_NAME",
             "class": "StringUtil",
             "module": "StructureTS",
@@ -7543,7 +7527,168 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
-            "line": 111,
+            "line": 47,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "stringToBoolean",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "StringUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
+            "line": 61,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "getExtension",
+            "params": [
+                {
+                    "name": "filename",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "StringUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
+            "line": 75,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "hyphenToCamelCase",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "StringUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
+            "line": 92,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "hyphenToPascalCase",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "StringUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
+            "line": 109,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "camelCaseToHyphen",
+            "params": [
+                {
+                    "name": "str",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "StringUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
+            "line": 126,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "createUUID",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "StringUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
+            "line": 146,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "queryStringToObject",
+            "params": [
+                {
+                    "name": "queryString",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "StringUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
+            "line": 174,
             "description": "Remove all whitespace from the string passed in.",
             "example": [
                 "\n     var str = \"   a b    c d e f g \";\n     StringUtil.removeAllWhitespace(str);\n     // \"abcdefg\""
@@ -7567,7 +7712,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts",
-            "line": 127,
+            "line": 190,
             "description": "Remove leading and trailing whitespace.",
             "example": [
                 "\n     var str = \"   a b    c d e f g \";\n     StringUtil.removeLeadingTrailingWhitespace(str);\n     // \"a b c d e f g\""
@@ -7594,14 +7739,6 @@
             "line": 38,
             "copy": "BaseObject.CLASS_NAME",
             "class": "TemplateFactory",
-            "module": "StructureTS",
-            "submodule": "util"
-        },
-        {
-            "file": "..\\src\\com\\codebelt\\structurets\\utils\\TimeUtil.ts",
-            "line": 37,
-            "copy": "BaseObject.CLASS_NAME",
-            "class": "TimeUtil",
             "module": "StructureTS",
             "submodule": "util"
         },
@@ -7976,26 +8113,6 @@
             "submodule": "util"
         },
         {
-            "file": "..\\src\\com\\codebelt\\structurets\\utils\\Util.ts",
-            "line": 130,
-            "description": "Generates a random boolean.",
-            "example": [
-                "\n     Util.getRandomBoolean();"
-            ],
-            "itemtype": "method",
-            "name": "getRandomBoolean",
-            "return": {
-                "description": "Returns a random boolean.",
-                "type": "Boolean"
-            },
-            "access": "public",
-            "tagname": "",
-            "static": 1,
-            "class": "Util",
-            "module": "StructureTS",
-            "submodule": "util"
-        },
-        {
             "file": "..\\src\\com\\codebelt\\structurets\\utils\\XML.ts",
             "line": 5,
             "copy": "BaseObject.CLASS_NAME",
@@ -8004,7 +8121,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\BaseObject.ts",
-            "line": 49,
+            "line": 45,
             "description": "The fully qualified class name of the object. Use {{#crossLink \"BaseObject/getQualifiedClassName:method\"}}{{/crossLink}} method to retrieve the class name of a StructureTS object.",
             "itemtype": "property",
             "name": "CLASS_NAME",
@@ -8018,7 +8135,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\BaseObject.ts",
-            "line": 59,
+            "line": 55,
             "description": "The cid or client id is a unique identifier automatically assigned to most StructureTS objects upon instantiation.",
             "itemtype": "property",
             "name": "cid",
@@ -8033,7 +8150,7 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\BaseObject.ts",
-            "line": 75,
+            "line": 71,
             "description": "Returns the fully qualified class name of an object.",
             "example": [
                 "\n     instance.getQualifiedClassName();"
@@ -8041,7 +8158,7 @@
             "itemtype": "method",
             "name": "getQualifiedClassName",
             "return": {
-                "description": "Returns the class name of the object.",
+                "description": "Returns the class name.",
                 "type": "String"
             },
             "access": "public",
@@ -8052,8 +8169,8 @@
         },
         {
             "file": "..\\src\\com\\codebelt\\structurets\\BaseObject.ts",
-            "line": 88,
-            "description": "The purpose of the destroy method is to make an object ready for garbage collection. This\nshould be thought of as a one way function. Once destroy is called no further methods should be\ncalled on the object or properties accessed. It is the responsibility of those who implement this\nfunction to stop all running Timers, all running Sounds, remove any event\nlisteners and take any other steps necessary to make an object eligible for garbage collection.\nIt is critical that all subclasses call the super for this function in their overridden methods.\n\nNote: super.destroy(); should be called first before you clean up any other objects/items in the current class.\nThe {{#crossLink \"BaseObject/destroy:method\"}}{{/crossLink}} method also calls the {{#crossLink \"EventDispatcher/disable:method\"}}{{/crossLink}}\nmethod on all classes that extend {{#crossLink \"EventDispatcher\"}}{{/crossLink}}.",
+            "line": 84,
+            "description": "The purpose of the destroy method is to make an object ready for garbage collection. This\nshould be thought of as a one way function. Once destroy is called no further methods should be\ncalled on the object or properties accessed. It is the responsibility of those who implement this\nfunction to stop all running Timers, all running Sounds, remove any event\nlisteners and take any other steps necessary to make an object eligible for garbage collection.\nIt is critical that all subclasses call the super for this function in their overridden methods.\n\nNote: super.destroy(); should be called first before you clean up any other objects/items in the current classs. The {{#crossLink \"BaseObject/destroy:method\"}}{{/crossLink}} method also calls the {{#crossLink \"InteractiveObject/disabled:method\"}}{{/crossLink}} method on all classes that extend {{#crossLink \"InteractiveObject\"}}{{/crossLink}}.",
             "example": [
                 "\n     public destroy():void {\n         super.destroy();\n\n         this._childInstance.destroy();\n         this._childInstance = null;\n     }"
             ],
@@ -8074,18 +8191,6 @@
         {
             "message": "replacing incorrect tag: params with param",
             "line": " ..\\src\\com\\codebelt\\structurets\\components\\CarouselComponent.ts:285"
-        },
-        {
-            "message": "unknown tag: copy",
-            "line": " ..\\src\\com\\codebelt\\structurets\\components\\Cursor.ts:29"
-        },
-        {
-            "message": "unknown tag: copy",
-            "line": " ..\\src\\com\\codebelt\\structurets\\components\\DragDealer.ts:30"
-        },
-        {
-            "message": "unknown tag: copy",
-            "line": " ..\\src\\com\\codebelt\\structurets\\components\\PositionUtil.ts:29"
         },
         {
             "message": "unknown tag: copy",
@@ -8285,23 +8390,23 @@
         },
         {
             "message": "unknown tag: copy",
-            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:38"
+            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:43"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:108"
+            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:114"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:118"
+            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:124"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:128"
+            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:134"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:138"
+            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:144"
         },
         {
             "message": "unknown tag: copy",
@@ -8321,7 +8426,7 @@
         },
         {
             "message": "unknown tag: override",
-            "line": " ..\\src\\com\\codebelt\\structurets\\display\\Canvas.ts:77"
+            "line": " ..\\src\\com\\codebelt\\structurets\\display\\Canvas.ts:69"
         },
         {
             "message": "unknown tag: copy",
@@ -8521,19 +8626,19 @@
         },
         {
             "message": "unknown tag: copy",
-            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:39"
+            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:42"
         },
         {
             "message": "unknown tag: hide",
-            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:127"
+            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:128"
         },
         {
             "message": "unknown tag: copy",
-            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:215"
+            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:216"
         },
         {
             "message": "unknown tag: overridden",
-            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:215"
+            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:216"
         },
         {
             "message": "unknown tag: copy",
@@ -8701,7 +8806,19 @@
         },
         {
             "message": "unknown tag: copy",
-            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts:37"
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts:35"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts:44"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts:57"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts:76"
         },
         {
             "message": "unknown tag: copy",
@@ -8729,23 +8846,47 @@
         },
         {
             "message": "unknown tag: copy",
-            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:37"
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:38"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:111"
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:47"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:127"
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:61"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:75"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:92"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:109"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:126"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:146"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:174"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:190"
         },
         {
             "message": "unknown tag: copy",
             "line": " ..\\src\\com\\codebelt\\structurets\\utils\\TemplateFactory.ts:38"
-        },
-        {
-            "message": "unknown tag: copy",
-            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\TimeUtil.ts:37"
         },
         {
             "message": "unknown tag: copy",
@@ -8800,16 +8941,12 @@
             "line": " ..\\src\\com\\codebelt\\structurets\\utils\\Util.ts:82"
         },
         {
-            "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\Util.ts:130"
-        },
-        {
             "message": "unknown tag: copy",
             "line": " ..\\src\\com\\codebelt\\structurets\\utils\\XML.ts:5"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ..\\src\\com\\codebelt\\structurets\\BaseObject.ts:75"
+            "line": " ..\\src\\com\\codebelt\\structurets\\BaseObject.ts:71"
         },
         {
             "message": "Missing item type\nAJAX",
@@ -8866,18 +9003,6 @@
         {
             "message": "Missing item type",
             "line": " ..\\src\\com\\codebelt\\structurets\\components\\CarouselComponent.ts:38"
-        },
-        {
-            "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\components\\Cursor.ts:29"
-        },
-        {
-            "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\components\\DragDealer.ts:30"
-        },
-        {
-            "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\components\\PositionUtil.ts:29"
         },
         {
             "message": "Missing item type",
@@ -8985,7 +9110,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:38"
+            "line": " ..\\src\\com\\codebelt\\structurets\\controller\\RouterController.ts:43"
         },
         {
             "message": "Missing item type",
@@ -9001,7 +9126,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\display\\Canvas.ts:77"
+            "line": " ..\\src\\com\\codebelt\\structurets\\display\\Canvas.ts:69"
         },
         {
             "message": "Missing item type",
@@ -9081,11 +9206,11 @@
         },
         {
             "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:39"
+            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:42"
         },
         {
             "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:215"
+            "line": " ..\\src\\com\\codebelt\\structurets\\events\\EventDispatcher.ts:216"
         },
         {
             "message": "Missing item type",
@@ -9185,7 +9310,7 @@
         },
         {
             "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts:37"
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\BrowserUtils.ts:35"
         },
         {
             "message": "Missing item type",
@@ -9213,15 +9338,11 @@
         },
         {
             "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:37"
+            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\StringUtil.ts:38"
         },
         {
             "message": "Missing item type",
             "line": " ..\\src\\com\\codebelt\\structurets\\utils\\TemplateFactory.ts:38"
-        },
-        {
-            "message": "Missing item type",
-            "line": " ..\\src\\com\\codebelt\\structurets\\utils\\TimeUtil.ts:37"
         },
         {
             "message": "Missing item type",

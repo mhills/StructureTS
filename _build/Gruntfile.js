@@ -222,7 +222,7 @@ module.exports = function(grunt) {
                 url: '<%= pkg.homepage %>',
                 options: {
                     extension: '.ts',
-                    paths: '<%= SRC_PATH %>' + 'com/',
+                    paths: '<%= SRC_PATH %>' + 'com/codebelt/',
                     outdir: '<%= BASE_PATH %>' + 'docs/',
                     themedir: '',
                     exclude: ''

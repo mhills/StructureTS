@@ -32,8 +32,6 @@
  **/
 class BrowserUtils
 {
-    //http://css-tricks.com/snippets/javascript/
-
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -43,11 +41,27 @@ class BrowserUtils
     {
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method hasBrowserHistory
+     * @returns {boolean}
+     * @public
+     * @static
+     */
     public static hasBrowserHistory():boolean
     {
         return !!(window.history && history.pushState);
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method hasLocalStorage
+     * @returns {boolean}
+     * @public
+     * @static
+     */
     public static hasLocalStorage():boolean
     {
         try
@@ -59,6 +73,14 @@ class BrowserUtils
         }
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method hasSessionStorage
+     * @returns {boolean}
+     * @public
+     * @static
+     */
     public static hasSessionStorage():boolean
     {
         try

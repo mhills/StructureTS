@@ -127,18 +127,4 @@ class Util
         return object;
     }
 
-    /**
-     * Generates a random boolean.
-     * @example
-     *      Util.getRandomBoolean();
-     * @method getRandomBoolean
-     * @returns {boolean} Returns a random boolean.
-     * @public
-     * @static
-     */
-    public static getRandomBoolean():boolean
-    {
-        return (Math.random() > .5) ? true : false;
-    }
-
 }

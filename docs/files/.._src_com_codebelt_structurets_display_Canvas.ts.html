@@ -145,8 +145,6 @@
             
                 <li><a href="../classes/TimerEvent.html">TimerEvent</a></li>
             
-                <li><a href="../classes/TimeUtil.html">TimeUtil</a></li>
-            
                 <li><a href="../classes/TransitionCrossFade.html">TransitionCrossFade</a></li>
             
                 <li><a href="../classes/TransitionFactory.html">TransitionFactory</a></li>
@@ -281,12 +279,12 @@
  * The Canvas...
  *
  * @class Canvas
- * @extends CanvasElement
+ * @extends DOMElement
  * @module StructureTS
  * @submodule view
  * @constructor
  **/
-class Canvas extends CanvasElement
+class Canvas extends DOMElement, CanvasElement
 {
     /**
      * @copy DOMElement.CLASS_NAME
@@ -299,29 +297,21 @@ class Canvas extends CanvasElement
     {
         super();
 
-        this.stage = this;
+//        &lt;canvas id=&quot;stage&quot; width=&quot;738&quot; height=&quot;90&quot; onclick=&quot;onBannerClick();&quot; style=&quot;background-color: #FFFFFF;&quot;&gt;Your browser is unsupported&lt;/canvas&gt;
+
+
     }
 
-    //TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the &#x27;#&#x27;.
-    public appendTo(type:string, enabled:boolean = true):any
+    public createChildren():any
     {
-//        this.element = canvas.element[0];
+        super.createChildren(&#x27;canvas&#x27;, {width: 738, height: 90});
+        this.stage = this;
+        //        this.element = canvas.element[0];
         this.element = document.getElementById(type);
         this.context = this.element.getContext(&quot;2d&quot;);
 
         this.width = this.element.width;
         this.height = this.element.height;
-
-        if (!this.isCreated)
-        {
-            this.createChildren();
-            this.isCreated = true;
-        }
-
-        if (enabled)
-        {
-            this.enable();
-        }
 
         return this;
     }

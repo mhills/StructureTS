@@ -145,8 +145,6 @@
             
                 <li><a href="../classes/TimerEvent.html">TimerEvent</a></li>
             
-                <li><a href="../classes/TimeUtil.html">TimeUtil</a></li>
-            
                 <li><a href="../classes/TransitionCrossFade.html">TransitionCrossFade</a></li>
             
                 <li><a href="../classes/TransitionFactory.html">TransitionFactory</a></li>
@@ -490,7 +488,7 @@
                                 
                             </li>
                         
-                            <li class="index-item property public inherited">
+                            <li class="index-item property inherited">
                                 <a href="#property_parent">parent</a>
 
                                 
@@ -570,7 +568,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l81"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:81</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l83"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:83</code></a>
         
         </p>
 
@@ -616,8 +614,7 @@
                     
 
                     <div class="param-description">
-                        <p>The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @
-example function(event:Event):void</p>
+                        <p>The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void</p>
 
                     </div>
 
@@ -627,7 +624,7 @@ example function(event:Event):void</p>
                 <li class="param">
                     
                         <code class="param-name">scope</code>
-                        <span class="type">Object</span>
+                        <span class="type">Any</span>
                     
 
                     
@@ -710,7 +707,7 @@ example function(event:Event):void</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l88"><code>..\src\com\codebelt\structurets\BaseObject.ts:88</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l84"><code>..\src\com\codebelt\structurets\BaseObject.ts:84</code></a>
         
         </p>
 
@@ -727,9 +724,7 @@ called on the object or properties accessed. It is the responsibility of those w
 function to stop all running Timers, all running Sounds, remove any event
 listeners and take any other steps necessary to make an object eligible for garbage collection.
 It is critical that all subclasses call the super for this function in their overridden methods.</p>
-<p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current class.
-The <a href="..\classes\BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the <a href="..\classes\EventDispatcher.html#method_disable" class="crosslink">disable</a>
-method on all classes that extend <a href="..\classes\EventDispatcher.html" class="crosslink">EventDispatcher</a>.</p>
+<p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs. The <a href="..\classes\BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the InteractiveObject/disabled:method method on all classes that extend InteractiveObject.</p>
 
     </div>
 
@@ -788,7 +783,7 @@ method on all classes that extend <a href="..\classes\EventDispatcher.html" clas
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l253"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:253</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l254"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:254</code></a>
         
         </p>
 
@@ -868,7 +863,7 @@ method on all classes that extend <a href="..\classes\EventDispatcher.html" clas
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l162"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:162</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l163"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:163</code></a>
         
         </p>
 
@@ -961,7 +956,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l230"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:230</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l231"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:231</code></a>
         
         </p>
 
@@ -1035,7 +1030,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l75"><code>..\src\com\codebelt\structurets\BaseObject.ts:75</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l71"><code>..\src\com\codebelt\structurets\BaseObject.ts:71</code></a>
         
         </p>
 
@@ -1061,7 +1056,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
                     
                         <span class="type">String</span>:
                     
-                    <p>Returns the class name of the object.</p>
+                    <p>Returns the class name.</p>
 
                 
             </div>
@@ -1134,7 +1129,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l127"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:127</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l128"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:128</code></a>
         
         </p>
 
@@ -1190,7 +1185,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
                 <li class="param">
                     
                         <code class="param-name">scope</code>
-                        <span class="type">Object</span>
+                        <span class="type">Any</span>
                     
 
                     
@@ -1396,7 +1391,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l44"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:44</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l47"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:47</code></a>
         
         </p>
 
@@ -1581,7 +1576,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l59"><code>..\src\com\codebelt\structurets\BaseObject.ts:59</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l55"><code>..\src\com\codebelt\structurets\BaseObject.ts:55</code></a>
         
         </p>
 
@@ -1629,7 +1624,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l49"><code>..\src\com\codebelt\structurets\BaseObject.ts:49</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l45"><code>..\src\com\codebelt\structurets\BaseObject.ts:45</code></a>
         
         </p>
 
@@ -1673,7 +1668,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l64"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:64</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l66"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:66</code></a>
         
         </p>
 
@@ -1697,14 +1692,12 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 </div>
 
                 
-                    <div id="property_parent" class="property item public inherited">
+                    <div id="property_parent" class="property item inherited">
     <h3 class="name"><code>parent</code></h3>
     <span class="type">Any</span>
 
     
 
-    
-        <span class="flag public">public</span>
     
 
     
@@ -1719,7 +1712,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l53"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:53</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l56"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:56</code></a>
         
         </p>
 

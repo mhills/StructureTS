@@ -51,7 +51,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "StringUtil",
         "TabComponent",
         "TemplateFactory",
-        "TimeUtil",
         "Timer",
         "TimerEvent",
         "TransitionCrossFade",
@@ -96,7 +95,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "core",
             "name": "core",
-            "description": "The BaseObject class is an abstract class that provides common properties and functionality for all StructureTS classes."
+            "description": "The {{#crossLink \"BaseObject\"}}{{/crossLink}} class is an abstract class that provides common properties and functionality for all StructureTS classes."
         },
         {
             "displayName": "event",

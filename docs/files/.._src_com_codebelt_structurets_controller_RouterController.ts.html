@@ -145,8 +145,6 @@
             
                 <li><a href="../classes/TimerEvent.html">TimerEvent</a></li>
             
-                <li><a href="../classes/TimeUtil.html">TimeUtil</a></li>
-            
                 <li><a href="../classes/TransitionCrossFade.html">TransitionCrossFade</a></li>
             
                 <li><a href="../classes/TransitionFactory.html">TransitionFactory</a></li>
@@ -277,6 +275,11 @@
 ///&lt;reference path=&#x27;BaseController.ts&#x27;/&gt;
 ///&lt;reference path=&#x27;../utils/BrowserUtils.ts&#x27;/&gt;
 
+///&lt;reference path=&#x27;../../../millermedeiros/hasher/Hasher.ts&#x27;/&gt;
+///&lt;reference path=&#x27;../../../millermedeiros/crossroads/Crossroads.ts&#x27; /&gt;
+import Hasher = millermedeiros.Hasher;
+import Crossroads = millermedeiros.Crossroads;
+
 /**
  * The RouterController...
  *
@@ -295,20 +298,23 @@ class RouterController extends BaseController
     /**
      * YUIDoc_comment
      *
-     * @property _active
-     * @type {boolean}
+     * @property _crossroads
+     * @type {Crossroads}
      * @private
      */
-    private _active:boolean = false;
+    private _crossroads:Crossroads = null;
 
     constructor()
     {
         super();
+
+        this._crossroads = new Crossroads();
+
     }
 
     public addRoute(pattern:string, handler:Function, scope:any, priority?:number):void
     {
-        crossroads.addRoute(pattern, handler.bind(scope), priority);
+        this._crossroads.addRoute(pattern, handler.bind(scope), priority);
     }
 
     /**
@@ -317,15 +323,12 @@ class RouterController extends BaseController
      */
     public start():void
     {
-        if (this._active) return;
+        if (Hasher.isActive()) return;
 
-//        crossroads.routed.add(console.log, console); //log all routes
-//        hasher.prependHash = &#x27;!/&#x27;; //default value is &quot;/&quot;
-        hasher.initialized.add(this.parseHash); //parse initial hash
-        hasher.changed.add(this.parseHash); //parse hash changes
-        hasher.init(); //start listening for hash changes
-
-        this._active = true;
+//        Hasher.prependHash = &#x27;!&#x27;;
+        Hasher.initialized.add(this.parseHash.bind(this)); //parse initial hash
+        Hasher.changed.add(this.parseHash.bind(this)); //parse hash changes
+        Hasher.init(); //start listening for hash changes
     }
 
     /**
@@ -336,7 +339,7 @@ class RouterController extends BaseController
      */
     public parseHash(newHash, oldHash):void
     {
-        crossroads.parse(newHash);
+        this._crossroads.parse(newHash);
     }
 
     /**
@@ -349,12 +352,13 @@ class RouterController extends BaseController
     {
         hash = hash.replace(&#x27;#/&#x27;, &#x27;&#x27;);
         if (silently) {
-            hasher.changed.active = false;
-            hasher.setHash(hash);
-            hasher.changed.active = true;
+            Hasher.changed.active = false;
+            Hasher.setHash(hash);
+            Hasher.changed.active = true;
         } else {
-            hasher.setHash(hash);
+            Hasher.setHash(hash);
         }
+
     }
 
     /**
@@ -364,7 +368,7 @@ class RouterController extends BaseController
      */
     public getHash():string
     {
-        return hasher.getHash();
+        return Hasher.getHash();
     }
 
     /**
@@ -374,7 +378,7 @@ class RouterController extends BaseController
      */
     public getHashAsArray():any[]
     {
-        return hasher.getHashAsArray();
+        return Hasher.getHashAsArray();
     }
 
     /**
@@ -384,7 +388,7 @@ class RouterController extends BaseController
      */
     public getURL():string
     {
-        return hasher.getURL();
+        return Hasher.getURL();
     }
 
     /**
@@ -394,7 +398,7 @@ class RouterController extends BaseController
      */
     public getBaseURL():string
     {
-        return hasher.getBaseURL();
+        return Hasher.getBaseURL();
     }
 
 }

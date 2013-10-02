@@ -31,6 +31,7 @@
  * @module StructureTS
  * @submodule util
  * @constructor
+ * @static
  **/
 class StringUtil
 {
@@ -43,16 +44,43 @@ class StringUtil
     {
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method stringToBoolean
+     * @param str {string}
+     * @returns {boolean}
+     * @public
+     * @static
+     */
     public static stringToBoolean(str:string):boolean
     {
         return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method getExtension
+     * @param filename {string}
+     * @returns {string}
+     * @public
+     * @static
+     */
     public static getExtension(filename:string):string
     {
         return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method hyphenToCamelCase
+     * @param str {string}
+     * @returns {string}
+     * @public
+     * @static
+     */
     public static hyphenToCamelCase(str:string):string
     {
         return str.replace(/-([a-z])/g, function (g)
@@ -61,6 +89,15 @@ class StringUtil
         });
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method hyphenToPascalCase
+     * @param str {string}
+     * @returns {string}
+     * @public
+     * @static
+     */
     public static hyphenToPascalCase(str:string):string
     {
         return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
@@ -69,6 +106,15 @@ class StringUtil
         });
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method camelCaseToHyphen
+     * @param str {string}
+     * @returns {string}
+     * @public
+     * @static
+     */
     public static camelCaseToHyphen(str:string):string
     {
         return str.replace(/([a-z][A-Z])/g, function (g)
@@ -77,6 +123,14 @@ class StringUtil
         });
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method createUUID
+     * @returns {string}
+     * @public
+     * @static
+     */
     public static createUUID():string
     {
         var uuid = ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx').replace(/[xy]/g, function (c)
@@ -89,6 +143,15 @@ class StringUtil
         return uuid;
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method queryStringToObject
+     * @param queryString {string}
+     * @returns {Object}
+     * @public
+     * @static
+     */
     public static queryStringToObject(queryString:string):Object
     {
         var params = {};

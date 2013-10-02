@@ -145,8 +145,6 @@
             
                 <li><a href="../classes/TimerEvent.html">TimerEvent</a></li>
             
-                <li><a href="../classes/TimeUtil.html">TimeUtil</a></li>
-            
                 <li><a href="../classes/TransitionCrossFade.html">TransitionCrossFade</a></li>
             
                 <li><a href="../classes/TransitionFactory.html">TransitionFactory</a></li>
@@ -284,8 +282,6 @@
  **/
 class BrowserUtils
 {
-    //http://css-tricks.com/snippets/javascript/
-
     /**
      * @copy BaseObject.CLASS_NAME
      */
@@ -295,11 +291,27 @@ class BrowserUtils
     {
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method hasBrowserHistory
+     * @returns {boolean}
+     * @public
+     * @static
+     */
     public static hasBrowserHistory():boolean
     {
         return !!(window.history &amp;&amp; history.pushState);
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method hasLocalStorage
+     * @returns {boolean}
+     * @public
+     * @static
+     */
     public static hasLocalStorage():boolean
     {
         try
@@ -311,6 +323,14 @@ class BrowserUtils
         }
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method hasSessionStorage
+     * @returns {boolean}
+     * @public
+     * @static
+     */
     public static hasSessionStorage():boolean
     {
         try
