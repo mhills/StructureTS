@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>..\src\com\codebelt\structurets\components\CarouselComponent.ts - StructureTS-Project</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="StructureTS-Project"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.1.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/ApplicationCacheController.html">ApplicationCacheController</a></li>
+            
+                <li><a href="../classes/ApplicationCacheEvent.html">ApplicationCacheEvent</a></li>
+            
+                <li><a href="../classes/BaseController.html">BaseController</a></li>
+            
+                <li><a href="../classes/BaseEvent.html">BaseEvent</a></li>
+            
+                <li><a href="../classes/BaseObject.html">BaseObject</a></li>
+            
+                <li><a href="../classes/BaseRequest.html">BaseRequest</a></li>
+            
+                <li><a href="../classes/BaseTransition.html">BaseTransition</a></li>
+            
+                <li><a href="../classes/BaseViewController.html">BaseViewController</a></li>
+            
+                <li><a href="../classes/Bitmap.html">Bitmap</a></li>
+            
+                <li><a href="../classes/BrowserUtils.html">BrowserUtils</a></li>
+            
+                <li><a href="../classes/BulkLoader.html">BulkLoader</a></li>
+            
+                <li><a href="../classes/Canvas.html">Canvas</a></li>
+            
+                <li><a href="../classes/CanvasElement.html">CanvasElement</a></li>
+            
+                <li><a href="../classes/CarouselComponent.html">CarouselComponent</a></li>
+            
+                <li><a href="../classes/CarouselEvent.html">CarouselEvent</a></li>
+            
+                <li><a href="../classes/Collection.html">Collection</a></li>
+            
+                <li><a href="../classes/DataLoader.html">DataLoader</a></li>
+            
+                <li><a href="../classes/DisplayObjectContainer.html">DisplayObjectContainer</a></li>
+            
+                <li><a href="../classes/DOMElement.html">DOMElement</a></li>
+            
+                <li><a href="../classes/EventBroker.html">EventBroker</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/HtmlLoader.html">HtmlLoader</a></li>
+            
+                <li><a href="../classes/ICollection.html">ICollection</a></li>
+            
+                <li><a href="../classes/ICore.html">ICore</a></li>
+            
+                <li><a href="../classes/IDataStore.html">IDataStore</a></li>
+            
+                <li><a href="../classes/IDisplayObject.html">IDisplayObject</a></li>
+            
+                <li><a href="../classes/IDOMElement.html">IDOMElement</a></li>
+            
+                <li><a href="../classes/ImageLoader.html">ImageLoader</a></li>
+            
+                <li><a href="../classes/ITransition.html">ITransition</a></li>
+            
+                <li><a href="../classes/IValueObject.html">IValueObject</a></li>
+            
+                <li><a href="../classes/IViewController.html">IViewController</a></li>
+            
+                <li><a href="../classes/LanguageConfigVO.html">LanguageConfigVO</a></li>
+            
+                <li><a href="../classes/LanguageEvent.html">LanguageEvent</a></li>
+            
+                <li><a href="../classes/LanguageModel.html">LanguageModel</a></li>
+            
+                <li><a href="../classes/LoaderEvent.html">LoaderEvent</a></li>
+            
+                <li><a href="../classes/LocalStorageController.html">LocalStorageController</a></li>
+            
+                <li><a href="../classes/LocalStorageEvent.html">LocalStorageEvent</a></li>
+            
+                <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
+            
+                <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
+            
+                <li><a href="../classes/NavigatorEvents.html">NavigatorEvents</a></li>
+            
+                <li><a href="../classes/NetworkMonitor.html">NetworkMonitor</a></li>
+            
+                <li><a href="../classes/NetworkMonitorEvent.html">NetworkMonitorEvent</a></li>
+            
+                <li><a href="../classes/NumberUtil.html">NumberUtil</a></li>
+            
+                <li><a href="../classes/RequestEvent.html">RequestEvent</a></li>
+            
+                <li><a href="../classes/RouterController.html">RouterController</a></li>
+            
+                <li><a href="../classes/RouterEvent.html">RouterEvent</a></li>
+            
+                <li><a href="../classes/Stage.html">Stage</a></li>
+            
+                <li><a href="../classes/StringUtil.html">StringUtil</a></li>
+            
+                <li><a href="../classes/TabComponent.html">TabComponent</a></li>
+            
+                <li><a href="../classes/TemplateFactory.html">TemplateFactory</a></li>
+            
+                <li><a href="../classes/Timer.html">Timer</a></li>
+            
+                <li><a href="../classes/TimerEvent.html">TimerEvent</a></li>
+            
+                <li><a href="../classes/TimeUtil.html">TimeUtil</a></li>
+            
+                <li><a href="../classes/TransitionCrossFade.html">TransitionCrossFade</a></li>
+            
+                <li><a href="../classes/TransitionFactory.html">TransitionFactory</a></li>
+            
+                <li><a href="../classes/TransitionFadeOutAndIn.html">TransitionFadeOutAndIn</a></li>
+            
+                <li><a href="../classes/TransitionManager.html">TransitionManager</a></li>
+            
+                <li><a href="../classes/TransitionManagerEvent.html">TransitionManagerEvent</a></li>
+            
+                <li><a href="../classes/TransitionNone.html">TransitionNone</a></li>
+            
+                <li><a href="../classes/TransitionPushDown.html">TransitionPushDown</a></li>
+            
+                <li><a href="../classes/TransitionPushLeft.html">TransitionPushLeft</a></li>
+            
+                <li><a href="../classes/TransitionPushRight.html">TransitionPushRight</a></li>
+            
+                <li><a href="../classes/TransitionPushUp.html">TransitionPushUp</a></li>
+            
+                <li><a href="../classes/TransitionType.html">TransitionType</a></li>
+            
+                <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
+            
+                <li><a href="../classes/URLContentType.html">URLContentType</a></li>
+            
+                <li><a href="../classes/URLLoader.html">URLLoader</a></li>
+            
+                <li><a href="../classes/URLLoaderDataFormat.html">URLLoaderDataFormat</a></li>
+            
+                <li><a href="../classes/URLRequest.html">URLRequest</a></li>
+            
+                <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
+            
+                <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValueObject.html">ValueObject</a></li>
+            
+                <li><a href="../classes/WindowEvents.html">WindowEvents</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/controller.html">controller</a></li>
+            
+                <li><a href="../modules/core.html">core</a></li>
+            
+                <li><a href="../modules/event.html">event</a></li>
+            
+                <li><a href="../modules/interface.html">interface</a></li>
+            
+                <li><a href="../modules/model.html">model</a></li>
+            
+                <li><a href="../modules/nativeEvent.html">nativeEvent</a></li>
+            
+                <li><a href="../modules/net.html">net</a></li>
+            
+                <li><a href="../modules/StructureTS.html">StructureTS</a></li>
+            
+                <li><a href="../modules/util.html">util</a></li>
+            
+                <li><a href="../modules/view.html">view</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\components\CarouselComponent.ts</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+ * Copyright (c) 2013 Robert S. https://github.com/codeBelt/StructureTS
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the &quot;Software&quot;), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge,
+ * publish, distribute, sublicense, and/or sell copies of the Software,
+ * and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+
+///&lt;reference path=&#x27;../events/EventDispatcher.ts&#x27;/&gt;
+///&lt;reference path=&#x27;../events/CarouselEvent.ts&#x27;/&gt;
+///&lt;reference path=&#x27;../display/DOMElement.ts&#x27;/&gt;
+
+/**
+ * YUIDoc_comment
+ *
+ * @class CarouselComponent
+ * @extends EventDispatcher
+ * @constructor
+ **/
+class CarouselComponent extends EventDispatcher {
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = &#x27;CarouselComponent&#x27;;
+
+    public static DIRECTION_LEFT:string = &#x27;directionLeft&#x27;;
+    public static DIRECTION_RIGHT:string = &#x27;directionRight&#x27;;
+
+    private _numberOfItems:number = -1;
+    private _widthOfItem:number = -1;
+    private _heightOfItem:number = -1;
+    private _itemsVisible:number = -1;
+
+    private _container:DOMElement;
+
+    private _leftOffset:number = 0;
+
+    private _currentIndex:number = 0;
+    private _maxIndex:number = 0;
+    private _isMoving:boolean = false;
+    private _direction:string = null;
+
+    public timelineMax:TimelineMax = null;
+
+    public loop:boolean = false;
+    public crazy:boolean = false;
+
+    constructor(itemWidth, itemHeight, totalItemsVisible, container)
+    {
+        super();
+
+        this._widthOfItem = itemWidth;
+        this._heightOfItem = itemHeight;
+        this._itemsVisible = totalItemsVisible;
+        this._container = container;
+
+        this.update();
+    }
+
+    /**
+     * YUIDoc_comment
+     *
+     * @method update
+     */
+    public update() {
+        this._container.getChildren();
+        this._numberOfItems = this._container.numChildren;
+        this._maxIndex = Math.floor((this._numberOfItems - 1) / this._itemsVisible);
+        this._container.$element.width(this._numberOfItems * this._widthOfItem);
+    }
+
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private transitionTo(index):void
+    {
+        this._currentIndex = index;
+        this.transition();
+
+        if (this._currentIndex == 0)
+        {
+            this.dispatchEvent(new CarouselEvent(CarouselEvent.BEGIN));
+            //console.log(&#x27;CarouselEvent.START&#x27;);
+        }
+        if (this._currentIndex == this._maxIndex)
+        {
+            this.dispatchEvent(new CarouselEvent(CarouselEvent.END));
+            //console.log(&#x27;CarouselEvent.END&#x27;);
+        }
+    }
+
+    /**
+     *
+     * @method transition
+     * @protected
+     */
+    public transition():void
+    {
+        var position:number;
+
+        this._isMoving = true;
+
+        if (this.loop)
+        {
+            var slideWidth:number = this._widthOfItem * this._itemsVisible;
+            if (this._direction == CarouselComponent.DIRECTION_RIGHT)
+            {
+                (&lt;HTMLScriptElement&gt;this._container.element).style.left = -slideWidth + &#x27;px&#x27;;
+                for (var i:number = 0; i &lt; this._itemsVisible; i++)
+                {
+                    this._container.addChildAt(this._container.getChildAt(this._container.numChildren - 1), 0);
+                }
+                position = 0;
+            }
+            else
+            {
+                position = -(slideWidth);
+            }
+        }
+        else
+        {
+            var numberOfFullTransitions:number = Math.floor(this._numberOfItems / this._itemsVisible);
+            var itemsLeftOver:number = this._numberOfItems - (numberOfFullTransitions * this._itemsVisible);
+            var numOfSlidesLeft:number = this._maxIndex - this._currentIndex;
+            var slideWidth:number = this._widthOfItem * this._itemsVisible;
+            var removeAmount:number = (numOfSlidesLeft === 0) ? slideWidth - (this._widthOfItem * itemsLeftOver) : 0;
+            position = -(slideWidth * this._currentIndex - removeAmount);
+        }
+
+        var varsObject = {
+            onStart: this.onTweenStart,
+            onStartScope: this,
+            onUpdate: this.onTweenProgress,
+            onUpdateScope: this,
+            onComplete: this.onTweenComplete,
+            onCompleteScope: this
+        }
+        this.timelineMax = new TimelineMax(varsObject);
+        this.timelineMax.to(this._container.$element, 0.6, {left: position, ease: Cubic.easeOut});
+
+        this.dispatchEvent(new CarouselEvent(CarouselEvent.CHANGE));
+        //console.log(&#x27;CarouselEvent.CHANGE&#x27;);
+    }
+
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private moveNext():void
+    {
+        var totalMoves = Math.floor(this._numberOfItems / this._itemsVisible);
+
+        if (!this.crazy)
+        {
+            if (this._currentIndex == totalMoves &amp;&amp; !this.loop || this._isMoving &amp;&amp; this.loop) return;
+        }
+
+        this._currentIndex++;
+        if (this._currentIndex &gt; totalMoves)
+        {
+            this._currentIndex = 0;
+        }
+
+        this._direction = CarouselComponent.DIRECTION_LEFT;
+        this.transitionTo(this._currentIndex);
+        this.dispatchEvent(new CarouselEvent(CarouselEvent.NEXT));
+        //console.log(&#x27;CarouselEvent.NEXT&#x27;);
+    }
+
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private movePrevious():void
+    {
+        if (!this.crazy)
+        {
+            if (this._currentIndex == 0 &amp;&amp; !this.loop || this._isMoving &amp;&amp; this.loop) return;
+        }
+
+        this._currentIndex--;
+        if (this._currentIndex &lt; 0)
+        {
+            this._currentIndex = this._maxIndex;
+        }
+
+        this._direction = CarouselComponent.DIRECTION_RIGHT;
+        this.transitionTo(this._currentIndex);
+        this.dispatchEvent(new CarouselEvent(CarouselEvent.PREVIOUS));
+        //console.log(&#x27;CarouselEvent.PREVIOUS&#x27;);
+    }
+
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private onTweenStart():void
+    {
+//        this.tweenProgressTimer = this.onTweenProgress.periodical(10, this);
+//        this.dispatchEvent(new CarouselEvent(CarouselEvent.START));
+//        //console.log(&#x27;CarouselEvent.START&#x27;);
+
+    }
+
+    /**
+     *
+     * @method transitionTo
+     * @private
+     */
+    private onTweenComplete():void
+    {
+//        clearInterval(this.tweenProgressTimer);
+//
+        this._isMoving = false;
+
+        if (this.loop &amp;&amp; this._direction == CarouselComponent.DIRECTION_LEFT)
+        {
+            (&lt;HTMLScriptElement&gt;this._container.element).style.left = &#x27;0&#x27;;
+            for (var i:number = 0; i &lt; this._itemsVisible; i++)
+            {
+                this._container.addChild(this._container.getChildAt(0));
+            }
+        }
+
+        //console.log(&#x27;CarouselEvent.COMPLETE&#x27;);
+        this.dispatchEvent(new CarouselEvent(CarouselEvent.COMPLETE));
+    }
+
+    /**
+     *
+     * @method onTweenProgress
+     * @private
+     */
+    private onTweenProgress():void
+    {
+        this.dispatchEvent(new CarouselEvent(CarouselEvent.PROGRESS, false, false, this.getPercent()));
+    }
+
+    /**
+     *
+     * @method prev
+     */
+    public prev():any
+    {
+        this.stop();
+        this.movePrevious();
+
+        return this;
+    }
+
+    /**
+     *
+     * @method next
+     */
+    public next():any
+    {
+        this.stop();
+        this.moveNext();
+
+        return this;
+    }
+
+    /**
+     *
+     * @method moveTo
+     * @params index {number}
+     */
+    public moveTo(index:number):any
+    {
+        this.stop();
+        this.transitionTo(index);
+
+        return this;
+    }
+
+    /**
+     *
+     * @method play
+     */
+    public play():any
+    {
+        this.stop();
+//        this.autoSlideTimer = this.moveNext.periodical(this.options.speed, this);
+        return this;
+    }
+
+    /**
+     *
+     * @method transitionTo
+     */
+    public stop():any
+    {
+//        clearInterval(this.autoSlideTimer);
+        return this;
+    }
+
+    public setPercent(value):any
+    {
+//        this.movedPercent = value;
+//
+//        var maskWidth = this.width();
+//        var distance = (this.movedPercent / 100) * (maskWidth - this.carouselWidth);
+//        this.carouselWrapper.style(&quot;left&quot;, distance);
+
+        return this;
+    }
+
+    getPercent()
+    {
+//        var maskX = this.mainElement.getPosition(&quot;left&quot;).x;
+//        var maskWidth = this.width();
+//        var leftMargin = 80;
+//        var carouselX = (this.carouselWrapper.getPosition(&quot;left&quot;).x - leftMargin) - maskX;
+//        this.movedPercent = (carouselX / (maskWidth - this.carouselWidth)) * 100;
+//
+//        return Math.round(this.movedPercent);
+    }
+
+    getDropTargets()
+    {
+//        return this.getChild(&quot;ul&quot;).getChildren(&quot;.drop-target&quot;)
+    }
+
+}
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

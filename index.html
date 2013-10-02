@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-US" class=""><!--<![endif]-->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>TypeScript Framework | StructureTS</title>
+    <link rel="stylesheet" id="twentytwelve-fonts-css" href="zweb/assets/css(1).css" type="text/css" media="all">
+    <link rel="stylesheet" id="twentytwelve-style-css" href="zweb/assets/style.css" type="text/css" media="all">
+    <link rel="stylesheet" id="twentytwelve-bootstrap-css" href="zweb/assets/bootstrap.css" type="text/css" media="all">
+    <link rel="stylesheet" id="twentytwelve-select2-css" href="zweb/assets/select2.css" type="text/css" media="all">
+    <link rel="stylesheet" type="text/css" href="zweb/assets/common.css">
+</head>
+
+<body class="single single-articles postid-285 custom-font-enabled single-author" data-gclp-initialized="true"
+      data-gistbox-initialized="true">
+
+<div class="content-wrapper">
+<header class="masthead clearfix">
+    <div class="masthead-bd clearfix">
+        <h1 class="logo left">
+            <!--<a href="#" title="JavaScript Portal" rel="home"> <img src="./assets/images/logo.png"> </a>-->
+        </h1>
+
+        <!--<form class="search-form right" action="#/">
+            <input type="text" placeholder="Search" name="s" id="s" value="">
+            <input type="submit">
+        </form>-->
+    </div>
+
+    <div class="masthead-hd">
+        <nav class="nav-main right" role="navigation">
+            <!-- <h3 class="menu-toggle">Menu</h3> -->
+            <a class="assistive-text"
+               href="#/best-practices/model-objects-in-javascript/#content"
+               title="Skip to content"></a>
+
+            <div class="hidden-phone">
+                <ul id="menu-main_nav" class="nav-menu">
+                    <li id="menu-item-10" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10">
+                        <a href="#/">Home</a></li>
+                    <li id="menu-item-24"
+                        class="menu-item menu-item-type-knowledgebases menu-item-object-cpt-archive menu-item-24"><a
+                            href="#/blog/">Blog</a></li>
+                    <li id="menu-item-41"
+                        class="menu-item menu-item-type-libraries menu-item-object-cpt-archive contains-sub-menu menu-item-41">
+                        <a href="#/js-libraries/">JS Libraries</a>
+                        <ul class="sub-menu">
+                            <li id="menu-item-42"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-libraries-list menu-item-42">
+                                <a href="#/js-libraries/list/recommended/">Recommended</a></li>
+                            <li id="menu-item-205"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-libraries-list menu-item-205">
+                                <a href="#/js-libraries/list/under-review/">Under Review</a>
+                            </li>
+                            <li id="menu-item-207"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-libraries-list menu-item-207">
+                                <a href="#/js-libraries/list/caution/">Caution</a></li>
+                            <li id="menu-item-43"
+                                class="menu-item menu-item-type-taxonomy menu-item-object-libraries-list menu-item-43">
+                                <a href="#/js-libraries/list/avoid/">Avoid</a></li>
+                            <li id="menu-item-219"
+                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a
+                                    href="#/js-libraries-new/">Submit a JS Library</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-menu-mobile visible-phone"><select onchange="window.location.href=this.value;">
+                <option value="/" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10">Home
+                </option>
+                <option value="#/standards/"
+                        class="menu-item menu-item-type-post_type menu-item-object-page contains-sub-menu menu-item-8">
+                    Standards
+                </option>
+                <option value="#/standards/"
+                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-178">— Changelog
+                </option>
+
+                <option value="#/best-practices/" selected="selected"
+                        class="current-menu-item menu-item menu-item-type-articles menu-item-object-cpt-archive menu-item-9">
+                    Best Practices
+                </option>
+                <option value="#/blog/"
+                        class="menu-item menu-item-type-knowledgebases menu-item-object-cpt-archive menu-item-24">Blog
+                </option>
+                <option value="#/js-libraries/"
+                        class="menu-item menu-item-type-libraries menu-item-object-cpt-archive contains-sub-menu menu-item-41">
+                    JS Libraries
+                </option>
+                <option value="#/js-libraries/list/recommended/"
+                        class="menu-item menu-item-type-taxonomy menu-item-object-libraries-list menu-item-42">—
+                    Recommended
+                </option>
+                <option value="#/js-libraries/list/under-review/"
+                        class="menu-item menu-item-type-taxonomy menu-item-object-libraries-list menu-item-205">— Under
+                    Review
+                </option>
+                <option value="#/js-libraries/list/caution/"
+                        class="menu-item menu-item-type-taxonomy menu-item-object-libraries-list menu-item-207">—
+                    Caution
+                </option>
+                <option value="#/js-libraries/list/avoid/"
+                        class="menu-item menu-item-type-taxonomy menu-item-object-libraries-list menu-item-43">— Avoid
+                </option>
+                <option value="#/js-libraries-new/"
+                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219">— Submit a JS
+                    Library
+                </option>
+
+                <option value="#"
+                        class="menu-item menu-item-type-custom menu-item-object-custom contains-sub-menu menu-item-260">
+                    Resources
+                </option>
+                <option value="#/getting-started/"
+                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-279">— Getting Started
+                </option>
+                <option value="#/boilerplates/"
+                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-245">— Boilerplates
+                </option>
+                <option value="#/call-stack/"
+                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-259">— JavaScript Call
+                    Stack
+                </option>
+                <option value="#/skill-levels/"
+                        class="menu-item menu-item-type-post_type menu-item-object-page menu-item-258">— JavaScript
+                    Skill Levels (Working Draft)
+                </option>
+
+            </select></div>
+        </nav>
+    </div>
+</header>
+<!--.masthead-->
+
+<div id="content" class="content-main">
+    <div id="primary" class="site-content">
+        <div id="content" role="main">
+
+
+            <article id="post-285" class="post-285 articles type-articles status-publish hentry">
+                <header class="entry-header">
+                    <h1 class="entry-title">StructureTS</h1>
+                    <h2>An Event Driven TypeScript Framework</h2>
+                </header>
+                <!-- .entry-header -->
+
+                <div class="entry-content">
+                    <p>For this discussion, we will discuss a User object which could represent a user in a company
+                        intranet. <a href="#">Value Object</a></p>
+
+                    <h4><code>User</code> Object</h4>
+
+                    <ul>
+                        <li><code>id</code></li>
+                        <li><code>serverId</code></li>
+                        <li><code>firstName</code></li>
+                        <li><code>lastName</code></li>
+                        <li><code>position</code></li>
+                        <li><code>profileThumbnailPath</code></li>
+                        <li><code>profileImagePath</code></li>
+                    </ul>
+
+                    <p>These would be created and defaulted in the init function:</p>
+
+<pre class="javascript" data-initialized="true" data-gclp-id="0">
+<code> User.prototype.init = function(userOrUndefined) { this.id = _getId(); this.serverId = ''; this.firstName = '';
+    this.lastName = ''; this.position = ''; this.profileThumbnailPath = ''; this.profileImagePath = '';
+
+    if (userOrUndefined instanceof User) { this.copy(userOrUndefined); } else if (typeof userOrUndefined === 'object') {
+    this.fromJSON(userOrUndefined); }
+
+    return this; }; </code>
+</pre>
+
+                </div>
+                <!-- .entry-content -->
+
+                <!-- .entry-meta -->
+            </article>
+
+
+        </div>
+        <!-- #content -->
+    </div>
+    <!-- #primary -->
+
+
+    <div id="secondary" class="widget-area" role="complementary">
+        <aside id="tm_latest_cp_widget-2" class="widget tm_latest_cp_widget"><h3 class="widget-title">Latest Announcements</h3>
+            <ul class="tm-latest-updates textwidget">
+                <li><a href="#">JS Libraries updated</a></li>
+            </ul>
+        </aside>
+        <aside id="nav_menu-2" class="widget widget_nav_menu"><h3 class="widget-title">Resources</h3>
+            <div class="menu-resource_nav-container">
+                <ul id="menu-resource_nav" class="menu">
+                    <li><a href="#/getting-started/">Getting Started</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+    <!-- #secondary -->
+</div>
+<!-- #main .wrapper -->
+<footer id="colophon" class="clearfix" role="contentinfo">
+    <div class="menu-footer_nav-container">
+        <ul id="menu-footer_nav" class="footer-nav-menu">
+            <li class="current-menu-item menu-item menu-item-type-articles menu-item-object-cpt-archive menu-item-109">
+                <a href="#">Tutorials</a>
+            </li>
+            <li class="menu-item menu-item-type-knowledgebases menu-item-object-cpt-archive menu-item-110">
+                <a href="#">Docs</a>
+            </li>
+        </ul>
+    </div>
+    <div class="site-info">
+        © 2012 - 2013 - codeBelt StructureTS
+    </div>
+    <!-- .site-info -->
+</footer>
+<!-- #colophon -->
+</div>
+<!-- #page -->
+
+</body>
+</html>

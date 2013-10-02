@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>..\src\com\codebelt\structurets\events\EventDispatcher.ts - StructureTS-Project</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="StructureTS-Project"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.1.0</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/ApplicationCacheController.html">ApplicationCacheController</a></li>
+            
+                <li><a href="../classes/ApplicationCacheEvent.html">ApplicationCacheEvent</a></li>
+            
+                <li><a href="../classes/BaseController.html">BaseController</a></li>
+            
+                <li><a href="../classes/BaseEvent.html">BaseEvent</a></li>
+            
+                <li><a href="../classes/BaseObject.html">BaseObject</a></li>
+            
+                <li><a href="../classes/BaseRequest.html">BaseRequest</a></li>
+            
+                <li><a href="../classes/BaseTransition.html">BaseTransition</a></li>
+            
+                <li><a href="../classes/BaseViewController.html">BaseViewController</a></li>
+            
+                <li><a href="../classes/Bitmap.html">Bitmap</a></li>
+            
+                <li><a href="../classes/BrowserUtils.html">BrowserUtils</a></li>
+            
+                <li><a href="../classes/BulkLoader.html">BulkLoader</a></li>
+            
+                <li><a href="../classes/Canvas.html">Canvas</a></li>
+            
+                <li><a href="../classes/CanvasElement.html">CanvasElement</a></li>
+            
+                <li><a href="../classes/CarouselComponent.html">CarouselComponent</a></li>
+            
+                <li><a href="../classes/CarouselEvent.html">CarouselEvent</a></li>
+            
+                <li><a href="../classes/Collection.html">Collection</a></li>
+            
+                <li><a href="../classes/DataLoader.html">DataLoader</a></li>
+            
+                <li><a href="../classes/DisplayObjectContainer.html">DisplayObjectContainer</a></li>
+            
+                <li><a href="../classes/DOMElement.html">DOMElement</a></li>
+            
+                <li><a href="../classes/EventBroker.html">EventBroker</a></li>
+            
+                <li><a href="../classes/EventDispatcher.html">EventDispatcher</a></li>
+            
+                <li><a href="../classes/HtmlLoader.html">HtmlLoader</a></li>
+            
+                <li><a href="../classes/ICollection.html">ICollection</a></li>
+            
+                <li><a href="../classes/ICore.html">ICore</a></li>
+            
+                <li><a href="../classes/IDataStore.html">IDataStore</a></li>
+            
+                <li><a href="../classes/IDisplayObject.html">IDisplayObject</a></li>
+            
+                <li><a href="../classes/IDOMElement.html">IDOMElement</a></li>
+            
+                <li><a href="../classes/ImageLoader.html">ImageLoader</a></li>
+            
+                <li><a href="../classes/ITransition.html">ITransition</a></li>
+            
+                <li><a href="../classes/IValueObject.html">IValueObject</a></li>
+            
+                <li><a href="../classes/IViewController.html">IViewController</a></li>
+            
+                <li><a href="../classes/LanguageConfigVO.html">LanguageConfigVO</a></li>
+            
+                <li><a href="../classes/LanguageEvent.html">LanguageEvent</a></li>
+            
+                <li><a href="../classes/LanguageModel.html">LanguageModel</a></li>
+            
+                <li><a href="../classes/LoaderEvent.html">LoaderEvent</a></li>
+            
+                <li><a href="../classes/LocalStorageController.html">LocalStorageController</a></li>
+            
+                <li><a href="../classes/LocalStorageEvent.html">LocalStorageEvent</a></li>
+            
+                <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
+            
+                <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
+            
+                <li><a href="../classes/NavigatorEvents.html">NavigatorEvents</a></li>
+            
+                <li><a href="../classes/NetworkMonitor.html">NetworkMonitor</a></li>
+            
+                <li><a href="../classes/NetworkMonitorEvent.html">NetworkMonitorEvent</a></li>
+            
+                <li><a href="../classes/NumberUtil.html">NumberUtil</a></li>
+            
+                <li><a href="../classes/RequestEvent.html">RequestEvent</a></li>
+            
+                <li><a href="../classes/RouterController.html">RouterController</a></li>
+            
+                <li><a href="../classes/RouterEvent.html">RouterEvent</a></li>
+            
+                <li><a href="../classes/Stage.html">Stage</a></li>
+            
+                <li><a href="../classes/StringUtil.html">StringUtil</a></li>
+            
+                <li><a href="../classes/TabComponent.html">TabComponent</a></li>
+            
+                <li><a href="../classes/TemplateFactory.html">TemplateFactory</a></li>
+            
+                <li><a href="../classes/Timer.html">Timer</a></li>
+            
+                <li><a href="../classes/TimerEvent.html">TimerEvent</a></li>
+            
+                <li><a href="../classes/TimeUtil.html">TimeUtil</a></li>
+            
+                <li><a href="../classes/TransitionCrossFade.html">TransitionCrossFade</a></li>
+            
+                <li><a href="../classes/TransitionFactory.html">TransitionFactory</a></li>
+            
+                <li><a href="../classes/TransitionFadeOutAndIn.html">TransitionFadeOutAndIn</a></li>
+            
+                <li><a href="../classes/TransitionManager.html">TransitionManager</a></li>
+            
+                <li><a href="../classes/TransitionManagerEvent.html">TransitionManagerEvent</a></li>
+            
+                <li><a href="../classes/TransitionNone.html">TransitionNone</a></li>
+            
+                <li><a href="../classes/TransitionPushDown.html">TransitionPushDown</a></li>
+            
+                <li><a href="../classes/TransitionPushLeft.html">TransitionPushLeft</a></li>
+            
+                <li><a href="../classes/TransitionPushRight.html">TransitionPushRight</a></li>
+            
+                <li><a href="../classes/TransitionPushUp.html">TransitionPushUp</a></li>
+            
+                <li><a href="../classes/TransitionType.html">TransitionType</a></li>
+            
+                <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
+            
+                <li><a href="../classes/URLContentType.html">URLContentType</a></li>
+            
+                <li><a href="../classes/URLLoader.html">URLLoader</a></li>
+            
+                <li><a href="../classes/URLLoaderDataFormat.html">URLLoaderDataFormat</a></li>
+            
+                <li><a href="../classes/URLRequest.html">URLRequest</a></li>
+            
+                <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
+            
+                <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValueObject.html">ValueObject</a></li>
+            
+                <li><a href="../classes/WindowEvents.html">WindowEvents</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/controller.html">controller</a></li>
+            
+                <li><a href="../modules/core.html">core</a></li>
+            
+                <li><a href="../modules/event.html">event</a></li>
+            
+                <li><a href="../modules/interface.html">interface</a></li>
+            
+                <li><a href="../modules/model.html">model</a></li>
+            
+                <li><a href="../modules/nativeEvent.html">nativeEvent</a></li>
+            
+                <li><a href="../modules/net.html">net</a></li>
+            
+                <li><a href="../modules/StructureTS.html">StructureTS</a></li>
+            
+                <li><a href="../modules/util.html">util</a></li>
+            
+                <li><a href="../modules/view.html">view</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\events\EventDispatcher.ts</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+ * Copyright (c) 2013 Robert S. https://github.com/codeBelt/StructureTS
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the &quot;Software&quot;), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge,
+ * publish, distribute, sublicense, and/or sell copies of the Software,
+ * and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+ * OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+///&lt;reference path=&#x27;../BaseObject.ts&#x27;/&gt;
+///&lt;reference path=&#x27;BaseEvent.ts&#x27;/&gt;
+
+/**
+ * &lt;p&gt;The &lt;strong&gt;EventDispatcher&lt;/strong&gt; class is the base class for the {{#crossLink &quot;DisplayObjectContainer&quot;}}{{/crossLink}} class and for all classes that need dispatch events. The &lt;strong&gt;EventDispatcher&lt;/strong&gt; class handles bubbling event(s) thoughtout the display list.&lt;/p&gt;
+ *
+ * @class EventDispatcher
+ * @extends BaseObject
+ * @module StructureTS
+ * @submodule event
+ * @constructor
+ **/
+class EventDispatcher extends BaseObject
+{
+    /**
+     * @copy BaseObject.CLASS_NAME
+     */
+    public CLASS_NAME:string = &#x27;EventDispatcher&#x27;;
+
+    /**
+     * Holds a reference to added listeners.
+     *
+     * @property _listeners
+     * @type {array}
+     * @private
+     */
+    private _listeners:any[] = null;
+
+    /**
+     * Indicates the object that contains child object. Use the parent property
+     * to specify a relative path to display objects that are above the current display object in the display
+     * list hierarchy.
+     *
+     * @property parent
+     * @type {any}
+     * @public
+     */
+    public parent:any = null;
+
+    /**
+     * The isEnabled property is used to keep track of the enabled state of the object.
+     *
+     * @property isEnabled
+     * @type {boolean}
+     * @default false
+     * @protected
+     */
+    public isEnabled:boolean = false;
+
+    constructor()
+    {
+        super();
+
+        this._listeners = [];
+    }
+
+    /**
+     * Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.
+     * @example
+     *      instance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+     *      private handlerMethod(event:BaseEvent):void {
+     *          console.log(event.target + &quot; sent the event.&quot;);
+     *      }
+     * @method addEventListener
+     * @param type {String} The type of event.
+     * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @
+     * example function(event:Event):void
+     * @param scope {Object} Binds the scope to a particular object (scope is basically what &quot;this&quot; refers to in your function). This can be very useful in JavaScript because scope isn&#x27;t generally maintained.
+     * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
+     * @chainable
+     */
+    public addEventListener(type:string, callback:Function, scope:any, priority:number = 0):EventDispatcher
+    {
+        // Get the list of event listener(s) by the associated type value that is passed in.
+        var list = this._listeners[type];
+        if (list == null)
+        {
+            // If a list of event listener(s) do not exist for the type value passed in then create a new empty array.
+            this._listeners[type] = list = [];
+        }
+        var index:number = 0;
+        var listener;
+        var i:number = list.length;
+        while (--i &gt; -1)
+        {
+            listener = list[i];
+            if (listener.c === callback &amp;&amp; listener.s === scope)
+            {
+                // If same callback and scope is found then remove it. Then add the current one below.
+                list.splice(i, 1);
+            }
+            else if (index === 0 &amp;&amp; listener.pr &lt; priority)
+            {
+                index = i + 1;
+            }
+        }
+        // Add the event listener to the list array at the index value.
+        list.splice(index, 0, {c: callback, s: scope, pr: priority});
+
+        return this;
+    }
+
+    /**
+     * Removes a specified listener from the EventDispatcher object.
+     * @example
+     *      instance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+     *      private handlerMethod(event:BaseEvent):void {
+     *          console.log(event.target + &quot; sent the event.&quot;);
+     *      }
+     * @method removeEventListener
+     * @param type {String} The type of event.
+     * @param callback {Function} The listener object to remove.
+     * @param scope {Object} The scope of the listener object to be removed.
+     * @hide This was added because it was need for the {{#crossLink &quot;EventBroker&quot;}}{{/crossLink}} class. To keep things consistent this parameter is required.
+     * @chainable
+     */
+    public removeEventListener(type:string, callback:Function, scope:any):EventDispatcher
+    {
+        // Get the list of event listener(s) by the associated type value that is passed in.
+        var list = this._listeners[type];
+        if (list)
+        {
+            var i = list.length;
+            while (--i &gt; -1)
+            {
+                // If the callback and the scope are the same then remove the event listener.
+                if (list[i].c === callback &amp;&amp; list[i].s === scope)
+                {
+                    list.splice(i, 1);
+                    break;
+                }
+            }
+        }
+
+        return this;
+    }
+
+    /**
+     * &lt;p&gt;Dispatches an event into the event flow. The event target is the EventDispatcher object upon which the dispatchEvent() method is called.&lt;/p&gt;
+     * @example
+     *      var event:BaseEvent = new BaseEvent(BaseEvent.CHANGE);
+     *      instance.dispatchEvent(event);
+     *
+     *      // Here is a common inline event being dispatched
+     *      instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
+     * @method dispatchEvent
+     * @param event {BaseEvent} The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
+     * extend the {{#crossLink &quot;BaseEvent&quot;}}{{/crossLink}}.
+     * @chainable
+     */
+    public dispatchEvent(event:BaseEvent):EventDispatcher
+    {
+        // If target is null then set it to the object that dispatched the event.
+        if (event.target == null)
+        {
+            event.target = this;
+        }
+
+        // Assign the current object that is currently processing the event (i.e. bubbling at) in the display list hierarchy.
+        event.currentTarget = this;
+
+        // Get the list of event listener(s) by the associated type value.
+        var list = this._listeners[event.type];
+        if (list)
+        {
+            var i:number = list.length;
+            var listener:any;
+            while (--i &gt; -1)
+            {
+                // If cancelable and isImmediatePropagationStopped are true then break out of the while loop.
+                if (event.cancelable &amp;&amp; event.isImmediatePropagationStopped) break;
+
+                listener = list[i];
+                listener.c.call(listener.s, event);
+            }
+        }
+
+        //Dispatches up the chain of classes that have a parent.
+        if (this.parent &amp;&amp; event.bubble)
+        {
+            // If cancelable and isPropagationStopped are true then don&#x27;t dispatch the event on the parent object.
+            if (event.cancelable &amp;&amp; event.isPropagationStopped) return this;
+
+            // Pass the event to the parent (event bubbling).
+            this.parent.dispatchEvent(event);
+        }
+
+        return this;
+    }
+
+    /**
+     * @copy CollectiveObject.destroy
+     * @overridden
+     */
+    public destroy():void
+    {
+        super.destroy();
+
+        this.disable();
+        this.isEnabled = false;
+
+        this.parent = null;
+        this._listeners = null;
+    }
+
+    /**
+     * The enable method is responsible for enabling event listeners and/or children of the containing objects.
+     * @example
+     *      public enable():void {
+     *          if (this.isEnabled === true) return;
+     *
+     *          this._childInstance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+     *          this._childInstance.enable();
+     *
+     *          super.enable();
+     *      }
+     * @method enable
+     * @chainable
+     * @public
+     */
+    public enable():any
+    {
+        if (this.isEnabled === true) return this;
+
+        this.isEnabled = true;
+        return this;
+    }
+
+    /**
+     * The disable method is responsible for disabling event listeners and/or children of the containing objects.
+     * @example
+     *      public disable():void {
+     *          if (this.isEnabled === false) return;
+     *
+     *          this._childInstance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+     *          this._childInstance.disable();
+     *
+     *          super.enable();
+     *      }
+     * @method disable
+     * @chainable
+     * @public
+     */
+    public disable():any
+    {
+        if (this.isEnabled === false) return this;
+
+        this.isEnabled = false;
+        return this;
+    }
+
+}
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

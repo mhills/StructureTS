@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Event Bubbling with StructureTS</title>
+
+        <link rel="stylesheet" href="css/style.css" media="screen" type="text/css"/>
+
+        <script type="text/javascript" src="../../libs/handlebars/handlebars.js"></script>
+        <script type="text/javascript" src="../../libs/lodash/lodash.compat.js"></script>
+        <script type="text/javascript" src="../../libs/jquery/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="../../libs/jquery/plugins/jquery.addEventListener.js"></script>
+        <script type="text/javascript" src="scripts/eventBubblingApp.js"></script>
+
+        <script id="containerTemplate" type="text/template">
+            <div class="container">
+                <div class="container-hd">
+                    <p>{{title}}</p>
+                </div>
+                <div class="container-bd js-childrenArea">
+                    <div class="splitPair">
+                        <span class="message js-message">Event bubbled by.</span>
+                        <input type="checkbox" class="splitPair-input"/>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script>
+            window.onload = function(event) {
+                var app = new EventBubblingApp();
+                app.appendTo('.wrapper');
+            }
+        </script>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="splitPair">
+                <span class="message message_stage js-message">Stage has received the event</span>
+                <button id="js-clearButton" type="button">Clear</button>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+{
+    "mainTitle": "Green Solutions",
+    "mainNavigation": {
+        "home": "Home",
+        "aboutUs": "About Us",
+        "artists": "Artists",
+        "reservations": "Reservations",
+        "contact": "Contact"
+    },
+    "homePage": {
+        "subNav": [
+            {
+                "title": "OUR BLOG",
+                "subTitle": "Desktop publishing"
+            },
+            {
+                "title": "POSSIBILITIES",
+                "subTitle": "Desktop publishing"
+            },
+            {
+                "title": "SOLUTIONS",
+                "subTitle": "Desktop publishing"
+            }
+        ]
+
+    }
+}
