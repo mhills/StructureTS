@@ -39,7 +39,7 @@
 class TransitionCrossFade extends BaseTransition
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'TransitionCrossFade';
 
@@ -66,8 +66,7 @@ class TransitionCrossFade extends BaseTransition
     }
 
     /**
-     * @copy EventDispatcher.destroy
-     * @overridden
+     * @overridden EventDispatcher.destroy
      */
     public destroy():void
     {

@@ -103,8 +103,7 @@ class TransitionManager extends BaseController
     }
 
     /**
-     * @copy BaseController.destroy
-     * @overridden
+     * @overridden BaseController.destroy
      */
     public destroy():void
     {

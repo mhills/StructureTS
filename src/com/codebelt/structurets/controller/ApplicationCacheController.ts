@@ -36,7 +36,7 @@
 class ApplicationCacheController
 {
     /**
-     * @copy EventDispatcher.CLASS_NAME
+     * @overridden EventDispatcher.CLASS_NAME
      */
     public static CLASS_NAME:string = 'ApplicationCacheController';
 
@@ -74,8 +74,7 @@ class ApplicationCacheController
     }
 
     /**
-     * @copy BaseObject.enable
-     * @overridden
+     * @overridden BaseObject.enable
      */
     public static enable():void
     {
@@ -95,8 +94,7 @@ class ApplicationCacheController
     }
 
     /**
-     * @copy BaseObject.disable
-     * @overridden
+     * @overridden BaseObject.disable
      */
     public static disable():void
     {

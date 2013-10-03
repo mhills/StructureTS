@@ -39,7 +39,7 @@
 class TransitionNone extends BaseTransition
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'TransitionNone';
 
@@ -49,8 +49,7 @@ class TransitionNone extends BaseTransition
     }
 
     /**
-     * @copy BaseTransition.createTransition
-     * @overridden
+     * @overridden BaseTransition.createTransition
      */
     public createTransition(transitionType:string, viewContainer:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = 0):ITransition
     {
@@ -67,8 +66,7 @@ class TransitionNone extends BaseTransition
     }
 
     /**
-     * @copy BaseTransition.destroy
-     * @overridden
+     * @overridden BaseTransition.destroy
      */
     public destroy():void
     {

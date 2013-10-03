@@ -40,7 +40,7 @@
 class EventDispatcher extends BaseObject
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'EventDispatcher';
 
@@ -214,8 +214,7 @@ class EventDispatcher extends BaseObject
     }
 
     /**
-     * @copy CollectiveObject.destroy
-     * @overridden
+     * @overridden CollectiveObject.destroy
      */
     public destroy():void
     {

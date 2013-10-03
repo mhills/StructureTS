@@ -36,7 +36,7 @@
 class DisplayObjectContainer extends EventDispatcher
 {
     /**
-     * @copy EventDispatcher.CLASS_NAME
+     * @overridden EventDispatcher.CLASS_NAME
      */
     public CLASS_NAME:string = 'DisplayObjectContainer';
 
@@ -184,8 +184,7 @@ class DisplayObjectContainer extends EventDispatcher
     }
 
     /**
-     * @copy DisplayObjectContainer.swapChildrenAt
-     * @overridden
+     * @overridden DisplayObjectContainer.swapChildrenAt
      */
     public swapChildrenAt(index1:number, index2:number):any
     {
@@ -307,8 +306,7 @@ class DisplayObjectContainer extends EventDispatcher
     }
 
     /**
-     * @copy EventDispatcher.destroy
-     * @overridden
+     * @overridden EventDispatcher.destroy
      */
     public destroy():void
     {

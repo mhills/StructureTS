@@ -34,7 +34,7 @@
 class LanguageConfigVO extends ValueObject
 {
     /**
-     * @copy ValueObject.CLASS_NAME
+     * @overridden ValueObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'LanguageConfigVO';
 
@@ -54,8 +54,7 @@ class LanguageConfigVO extends ValueObject
     }
 
     /**
-     * @copy ValueObject.update
-     * @overridden
+     * @overridden ValueObject.update
      */
     public update(data:any):any
     {
@@ -68,8 +67,7 @@ class LanguageConfigVO extends ValueObject
     }
 
     /**
-     * @copy ValueObject.copy
-     * @overridden
+     * @overridden ValueObject.copy
      */
     public copy():LanguageConfigVO
     {

@@ -39,7 +39,7 @@
 class BaseRequest extends EventDispatcher implements IDataStore
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'BaseRequest';
 

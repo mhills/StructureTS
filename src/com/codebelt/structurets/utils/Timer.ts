@@ -37,7 +37,7 @@
 class Timer extends EventDispatcher {
 
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'Timer';
 
@@ -231,8 +231,7 @@ class Timer extends EventDispatcher {
     }
 
     /**
-     * @copy EventDispatcher.destroy
-     * @overridden
+     * @overridden EventDispatcher.destroy
      */
     public destroy():void
     {

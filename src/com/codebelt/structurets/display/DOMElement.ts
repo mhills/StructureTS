@@ -38,7 +38,7 @@
 class DOMElement extends DisplayObjectContainer
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'DOMElement';
 
@@ -100,8 +100,7 @@ class DOMElement extends DisplayObjectContainer
     }
 
     /**
-     * @copy DisplayObjectContainer.createChildren
-     * @overridden
+     * @overridden DisplayObjectContainer.createChildren
      */
     public createChildren(type:any = 'div', params:any = null):any
     {
@@ -134,13 +133,12 @@ class DOMElement extends DisplayObjectContainer
     }
 
     /**
-     * @copy DisplayObjectContainer.addChild
+     * @overridden DisplayObjectContainer.addChild
      * @example
      *      container.addChild(domElementInstance);
      * @method addChild
      * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
      * @returns {DOMElement} Returns an instance of itself.
-     * @overridden
      * @chainable
      */
     public addChild(child:DOMElement):any
@@ -180,8 +178,7 @@ class DOMElement extends DisplayObjectContainer
     }
 
     /**
-     * @copy DisplayObjectContainer.addChildAt
-     * @overridden
+     * @overridden DisplayObjectContainer.addChildAt
      */
     public addChildAt(child:DOMElement, index:number):any
     {
@@ -217,8 +214,7 @@ class DOMElement extends DisplayObjectContainer
     }
 
     /**
-     * @copy DisplayObjectContainer.swapChildren
-     * @overridden
+     * @overridden DisplayObjectContainer.swapChildren
      */
     public swapChildren(child1:DOMElement, child2:DOMElement):any
     {
@@ -384,7 +380,7 @@ class DOMElement extends DisplayObjectContainer
     }
 
     /**
-     * @copy BaseObject.enable
+     * @overridden BaseObject.enable
      */
     public enable():any
     {
@@ -395,7 +391,7 @@ class DOMElement extends DisplayObjectContainer
     }
 
     /**
-     * @copy BaseObject.disable
+     * @overridden BaseObject.disable
      */
     public disable():any
     {
@@ -406,7 +402,7 @@ class DOMElement extends DisplayObjectContainer
     }
 
     /**
-     * @copy DisplayObjectContainer.layoutChildren
+     * @overridden DisplayObjectContainer.layoutChildren
      */
     public layoutChildren():any
     {
@@ -456,8 +452,7 @@ class DOMElement extends DisplayObjectContainer
     }
 
     /**
-     * @copy DisplayObjectContainer.destroy
-     * @overridden
+     * @overridden DisplayObjectContainer.destroy
      */
     public destroy():void
     {

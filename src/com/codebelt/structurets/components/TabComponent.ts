@@ -105,8 +105,7 @@ class TabComponent extends EventDispatcher {
     }
 
     /**
-     * @copy BaseObject.enable
-     * @overridden
+     * @overridden BaseObject.enable
      */
     public enable():void {
         if (this.isEnabled === true) return;
@@ -117,8 +116,7 @@ class TabComponent extends EventDispatcher {
     }
 
     /**
-     * @copy BaseObject.disable
-     * @overridden
+     * @overridden BaseObject.disable
      */
     public disable():void {
         if (this.isEnabled === false) return;
@@ -129,8 +127,7 @@ class TabComponent extends EventDispatcher {
     }
 
     /**
-     * @copy EventDispatcher.destroy
-     * @overridden
+     * @overridden EventDispatcher.destroy
      */
     public destroy():void {
         super.destroy();

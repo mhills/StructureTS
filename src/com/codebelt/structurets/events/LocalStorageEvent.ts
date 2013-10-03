@@ -43,7 +43,7 @@
 class LocalStorageEvent extends BaseEvent
 {
     /**
-     * @copy ValueObject.CLASS_NAME
+     * @overridden ValueObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'LocalStorageEvent';
 

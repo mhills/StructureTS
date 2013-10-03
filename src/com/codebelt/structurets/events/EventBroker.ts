@@ -36,7 +36,7 @@
 class EventBroker
 {
     /**
-     * @copy EventDispatcher.CLASS_NAME
+     * @overridden EventDispatcher.CLASS_NAME
      */
     public static CLASS_NAME:string = 'EventBroker';
 

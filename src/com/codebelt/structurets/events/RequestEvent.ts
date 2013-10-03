@@ -42,7 +42,7 @@
 class RequestEvent extends BaseEvent
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'RequestEvent';
 

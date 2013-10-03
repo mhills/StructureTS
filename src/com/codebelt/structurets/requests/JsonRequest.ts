@@ -27,7 +27,7 @@
 class JsonRequest extends BaseRequest
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'JsonRequest';
 

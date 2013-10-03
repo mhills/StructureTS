@@ -39,7 +39,7 @@
 class TransitionPushUp extends BaseTransition
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'TransitionPushUp';
 
@@ -66,8 +66,7 @@ class TransitionPushUp extends BaseTransition
     }
 
     /**
-     * @copy EventDispatcher.destroy
-     * @overridden
+     * @overridden EventDispatcher.destroy
      */
     public destroy():void
     {

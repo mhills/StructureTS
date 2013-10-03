@@ -47,7 +47,7 @@
 class TransitionFactory extends BaseObject
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'TransitionFactory';
 
@@ -123,8 +123,7 @@ class TransitionFactory extends BaseObject
     }
 
     /**
-     * @copy BaseObject.destroy
-     * @overridden
+     * @overridden BaseObject.destroy
      */
     public destroy():void
     {

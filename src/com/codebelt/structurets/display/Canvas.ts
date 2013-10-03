@@ -37,7 +37,7 @@
 class Canvas extends CanvasElement
 {
     /**
-     * @copy DOMElement.CLASS_NAME
+     * @overridden DOMElement.CLASS_NAME
      */
     public CLASS_NAME:string = 'Canvas';
 

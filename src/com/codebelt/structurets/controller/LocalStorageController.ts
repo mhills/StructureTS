@@ -37,7 +37,7 @@
 class LocalStorageController extends BaseController
 {
     /**
-     * @copy EventDispatcher.CLASS_NAME
+     * @overridden EventDispatcher.CLASS_NAME
      */
     public CLASS_NAME:string = 'LocalStorageController';
 

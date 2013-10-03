@@ -39,7 +39,7 @@
 class Collection extends EventDispatcher implements ICollection
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'Collection';
 
@@ -417,8 +417,7 @@ class Collection extends EventDispatcher implements ICollection
     }
 
     /**
-     * @copy BaseObject.destroy
-     * @overridden
+     * @overridden BaseObject.destroy
      */
     public destroy():void
     {

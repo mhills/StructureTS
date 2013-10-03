@@ -41,7 +41,7 @@
 class BaseTransition extends EventDispatcher implements ITransition
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = 'BaseTransition';
 
@@ -135,8 +135,7 @@ class BaseTransition extends EventDispatcher implements ITransition
     }
 
     /**
-     * @copy EventDispatcher.destroy
-     * @overridden
+     * @overridden EventDispatcher.destroy
      */
     public destroy():void
     {

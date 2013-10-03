@@ -36,7 +36,7 @@
 class StringUtil
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public static CLASS_NAME:string = 'StringUtil';
 

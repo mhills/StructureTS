@@ -37,7 +37,7 @@ class URLContentType
 //http://www.freeformatter.com/mime-types-list.html
 
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public static CLASS_NAME:string = 'URLContentType';
 
