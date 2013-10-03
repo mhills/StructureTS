@@ -34,10 +34,6 @@ var Util = (function () {
 
         return object;
     };
-
-    Util.getRandomBoolean = function () {
-        return (Math.random() > .5) ? true : false;
-    };
     Util.CLASS_NAME = 'Util';
 
     Util._idCounter = 0;
@@ -1906,42 +1902,42 @@ var LoaderEvent = (function (_super) {
     LoaderEvent.LOAD_COMPLETE = "LoaderEvent.loadComplete";
     return LoaderEvent;
 })(BaseEvent);
-var BulkLoader = (function (_super) {
-    __extends(BulkLoader, _super);
-    function BulkLoader() {
+var AssetLoader = (function (_super) {
+    __extends(AssetLoader, _super);
+    function AssetLoader() {
         _super.call(this);
-        this.CLASS_NAME = 'BulkLoader';
+        this.CLASS_NAME = 'AssetLoader';
         this._dataStores = [];
 
         this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
     }
-    BulkLoader.getInstance = function () {
+    AssetLoader.getInstance = function () {
         if (this._instance == null) {
-            this._instance = new BulkLoader();
+            this._instance = new AssetLoader();
         }
         return this._instance;
     };
 
-    BulkLoader.prototype.addFile = function (dataStore, key) {
+    AssetLoader.prototype.addFile = function (dataStore, key) {
         this._dataStores[key] = dataStore;
         return this;
     };
 
-    BulkLoader.prototype.getFile = function (key) {
+    AssetLoader.prototype.getFile = function (key) {
         return this._dataStores[key];
     };
 
-    BulkLoader.prototype.getImage = function (key) {
+    AssetLoader.prototype.getImage = function (key) {
         return this._dataStores[key].data;
     };
 
-    BulkLoader.prototype.getHtmlTemplate = function (key, templateId) {
+    AssetLoader.prototype.getHtmlTemplate = function (key, templateId) {
         console.log(this.getQualifiedClassName(), 'TODO: check if you need to change this to user the TemplateFactory');
         var rawHtml = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
         return rawHtml;
     };
 
-    BulkLoader.prototype.load = function () {
+    AssetLoader.prototype.load = function () {
         for (var key in this._dataStores) {
             var dataStore = this._dataStores[key];
             dataStore.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
@@ -1951,7 +1947,7 @@ var BulkLoader = (function (_super) {
         return this;
     };
 
-    BulkLoader.prototype.onLoadComplete = function (event) {
+    AssetLoader.prototype.onLoadComplete = function (event) {
         event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
 
         for (var key in this._dataStores) {
@@ -1963,7 +1959,7 @@ var BulkLoader = (function (_super) {
 
         this.dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_COMPLETE));
     };
-    return BulkLoader;
+    return AssetLoader;
 })(EventDispatcher);
 var URLRequestMethod = (function () {
     function URLRequestMethod() {

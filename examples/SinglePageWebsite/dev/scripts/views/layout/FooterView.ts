@@ -1,5 +1,5 @@
 ///<reference path='../../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../../../../src/com/codebelt/structurets/utils/BulkLoader.ts'/>
+///<reference path='../../../../../../src/com/codebelt/structurets/utils/AssetLoader.ts'/>
 ///<reference path='../../../../../../src/com/codebelt/structurets/utils/TemplateFactory.ts'/>
 
 ///<reference path='LanguageSelect.ts'/>

@@ -1,4 +1,4 @@
-///<reference path='../../../../../../src/com/codebelt/structurets/utils/BulkLoader.ts'/>
+///<reference path='../../../../../../src/com/codebelt/structurets/utils/AssetLoader.ts'/>
 ///<reference path='../../../../../../src/com/codebelt/structurets/utils/ImageLoader.ts'/>
 ///<reference path='../../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../../../../src/com/codebelt/structurets/display/Canvas.ts'/>
@@ -8,7 +8,7 @@
 
 class BannerAd extends DOMElement {
 
-    private _bulkLoader:BulkLoader = null;
+    private _assetLoader:AssetLoader = null;
 
     private _canvas:Canvas = null;
     private _cherry:Bitmap = null;
@@ -45,38 +45,38 @@ class BannerAd extends DOMElement {
 
     public loadBannerImages():void
     {
-        this._bulkLoader = BulkLoader.getInstance();
-        this._bulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.onLoadComplete, this);
-        this._bulkLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "cherry.png"), "cherry");
-        this._bulkLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
-        this._bulkLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "logo.png"), "logo");
-        this._bulkLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "box.png"), "box");
-        this._bulkLoader.load();
+        this._assetLoader = AssetLoader.getInstance();
+        this._assetLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.onLoadComplete, this);
+        this._assetLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "cherry.png"), "cherry");
+        this._assetLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
+        this._assetLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "logo.png"), "logo");
+        this._assetLoader.addFile(new ImageLoader(WebsiteApp.BASE_PATH + "box.png"), "box");
+        this._assetLoader.load();
     }
 
     public onLoadComplete():void
     {
-        this._bulkLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.onLoadComplete);
+        this._assetLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.onLoadComplete);
 
         this._canvas = new Canvas(this);//TODO:Come up with a better way to have Canvas objects
 
-        this._cherry = new Bitmap( this._bulkLoader.getImage("cherry") );
+        this._cherry = new Bitmap( this._assetLoader.getImage("cherry") );
         this._cherry.x = 83;
         this._cherry.y = 3;
         this._canvas.addChild(this._cherry);
 
-        this._cherryDipped = new Bitmap( this._bulkLoader.getImage("cherry-dipped") );
+        this._cherryDipped = new Bitmap( this._assetLoader.getImage("cherry-dipped") );
         this._cherryDipped.x = 83;
         this._cherryDipped.y = 37;
         this._cherryDipped.visible = false;
         this._canvas.addChild(this._cherryDipped);
 
-        this._logo = new Bitmap( this._bulkLoader.getImage("logo") );
+        this._logo = new Bitmap( this._assetLoader.getImage("logo") );
         this._logo.x = 222;
         this._logo.y = 27;
         this._canvas.addChild(this._logo);
 
-        this._boxOfCandy = new Bitmap( this._bulkLoader.getImage("box") );
+        this._boxOfCandy = new Bitmap( this._assetLoader.getImage("box") );
         this._boxOfCandy.x = 598;
         this._boxOfCandy.y = 2;
         this._boxOfCandy.alpha = 0;

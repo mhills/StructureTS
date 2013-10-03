@@ -27,21 +27,21 @@
 ///<reference path='../events/LoaderEvent.ts'/>
 
 /**
- * The BulkLoader...
+ * The AssetLoader...
  *
- * @class BulkLoader
+ * @class AssetLoader
  * @module StructureTS
  * @submodule util
  * @constructor
  **/
-class BulkLoader extends EventDispatcher
+class AssetLoader extends EventDispatcher
 {
     /**
      * @overridden BaseObject.CLASS_NAME
      */
-    public CLASS_NAME:string = 'BulkLoader';
+    public CLASS_NAME:string = 'AssetLoader';
 
-    private static _instance:BulkLoader;
+    private static _instance:AssetLoader;
     public _dataStores:IDataStore[] = [];
 
     constructor()
@@ -51,11 +51,11 @@ class BulkLoader extends EventDispatcher
         this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
     }
 
-    public static getInstance():BulkLoader
+    public static getInstance():AssetLoader
     {
         if (this._instance == null)
         {
-            this._instance = new BulkLoader();
+            this._instance = new AssetLoader();
         }
         return this._instance;
     }

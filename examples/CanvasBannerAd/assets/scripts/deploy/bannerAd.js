@@ -912,42 +912,42 @@ var LoaderEvent = (function (_super) {
     LoaderEvent.LOAD_COMPLETE = "LoaderEvent.loadComplete";
     return LoaderEvent;
 })(BaseEvent);
-var BulkLoader = (function (_super) {
-    __extends(BulkLoader, _super);
-    function BulkLoader() {
+var AssetLoader = (function (_super) {
+    __extends(AssetLoader, _super);
+    function AssetLoader() {
         _super.call(this);
-        this.CLASS_NAME = 'BulkLoader';
+        this.CLASS_NAME = 'AssetLoader';
         this._dataStores = [];
 
         this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
     }
-    BulkLoader.getInstance = function () {
+    AssetLoader.getInstance = function () {
         if (this._instance == null) {
-            this._instance = new BulkLoader();
+            this._instance = new AssetLoader();
         }
         return this._instance;
     };
 
-    BulkLoader.prototype.addFile = function (dataStore, key) {
+    AssetLoader.prototype.addFile = function (dataStore, key) {
         this._dataStores[key] = dataStore;
         return this;
     };
 
-    BulkLoader.prototype.getFile = function (key) {
+    AssetLoader.prototype.getFile = function (key) {
         return this._dataStores[key];
     };
 
-    BulkLoader.prototype.getImage = function (key) {
+    AssetLoader.prototype.getImage = function (key) {
         return this._dataStores[key].data;
     };
 
-    BulkLoader.prototype.getHtmlTemplate = function (key, templateId) {
+    AssetLoader.prototype.getHtmlTemplate = function (key, templateId) {
         console.log(this.getQualifiedClassName(), 'TODO: check if you need to change this to user the TemplateFactory');
         var rawHtml = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
         return rawHtml;
     };
 
-    BulkLoader.prototype.load = function () {
+    AssetLoader.prototype.load = function () {
         for (var key in this._dataStores) {
             var dataStore = this._dataStores[key];
             dataStore.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
@@ -957,7 +957,7 @@ var BulkLoader = (function (_super) {
         return this;
     };
 
-    BulkLoader.prototype.onLoadComplete = function (event) {
+    AssetLoader.prototype.onLoadComplete = function (event) {
         event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
 
         for (var key in this._dataStores) {
@@ -969,7 +969,7 @@ var BulkLoader = (function (_super) {
 
         this.dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_COMPLETE));
     };
-    return BulkLoader;
+    return AssetLoader;
 })(EventDispatcher);
 var ImageLoader = (function (_super) {
     __extends(ImageLoader, _super);
@@ -1009,15 +1009,15 @@ var BannerAd = (function (_super) {
         this._cherryDipped = null;
         this._logo = null;
         this._boxOfCandy = null;
-        this._bulkLoader = null;
+        this._assetLoader = null;
 
-        this._bulkLoader = new BulkLoader();
-        this._bulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
-        this._bulkLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry.png"), "cherry");
-        this._bulkLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
-        this._bulkLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "logo.png"), "logo");
-        this._bulkLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "box.png"), "box");
-        this._bulkLoader.load();
+        this._assetLoader = new AssetLoader();
+        this._assetLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
+        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry.png"), "cherry");
+        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
+        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "logo.png"), "logo");
+        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "box.png"), "box");
+        this._assetLoader.load();
     }
     BannerAd.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);
@@ -1038,25 +1038,25 @@ var BannerAd = (function (_super) {
     };
 
     BannerAd.prototype.init = function (event) {
-        this._bulkLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
+        this._assetLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
 
-        this._cherry = new Bitmap(this._bulkLoader.getImage("cherry"));
+        this._cherry = new Bitmap(this._assetLoader.getImage("cherry"));
         this._cherry.x = 83;
         this._cherry.y = 3;
         this.addChild(this._cherry);
 
-        this._cherryDipped = new Bitmap(this._bulkLoader.getImage("cherry-dipped"));
+        this._cherryDipped = new Bitmap(this._assetLoader.getImage("cherry-dipped"));
         this._cherryDipped.x = 83;
         this._cherryDipped.y = 37;
         this._cherryDipped.visible = false;
         this.addChild(this._cherryDipped);
 
-        this._logo = new Bitmap(this._bulkLoader.getImage("logo"));
+        this._logo = new Bitmap(this._assetLoader.getImage("logo"));
         this._logo.x = 222;
         this._logo.y = 27;
         this.addChild(this._logo);
 
-        this._boxOfCandy = new Bitmap(this._bulkLoader.getImage("box"));
+        this._boxOfCandy = new Bitmap(this._assetLoader.getImage("box"));
         this._boxOfCandy.x = 598;
         this._boxOfCandy.y = 2;
         this._boxOfCandy.alpha = 0;

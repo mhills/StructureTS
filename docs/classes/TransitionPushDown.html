@@ -45,6 +45,8 @@
             
                 <li><a href="../classes/ApplicationCacheEvent.html">ApplicationCacheEvent</a></li>
             
+                <li><a href="../classes/AssetLoader.html">AssetLoader</a></li>
+            
                 <li><a href="../classes/BaseController.html">BaseController</a></li>
             
                 <li><a href="../classes/BaseEvent.html">BaseEvent</a></li>
@@ -60,8 +62,6 @@
                 <li><a href="../classes/Bitmap.html">Bitmap</a></li>
             
                 <li><a href="../classes/BrowserUtils.html">BrowserUtils</a></li>
-            
-                <li><a href="../classes/BulkLoader.html">BulkLoader</a></li>
             
                 <li><a href="../classes/Canvas.html">Canvas</a></li>
             
@@ -250,13 +250,13 @@
 
     
         <div class="extends">
-            Extends <a href="..\classes\BaseTransition.html" class="crosslink">BaseTransition</a>
+            Extends <a href="../classes/BaseTransition.html" class="crosslink">BaseTransition</a>
         </div>
     
 
     
         <div class="foundat">
-            Defined in: <a href="../files/.._src_com_codebelt_structurets_controller_transitions_TransitionPushDown.ts.html#l30"><code>..\src\com\codebelt\structurets\controller\transitions\TransitionPushDown.ts:30</code></a>
+            Defined in: <a href="../files/.._src_com_codebelt_structurets_controller_transitions_TransitionPushDown.ts.html#l30"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;transitions&#x2F;TransitionPushDown.ts:30</code></a>
         </div>
     
 
@@ -274,7 +274,6 @@
 
 <div class="box intro">
     <p>YUIDoc_comment</p>
-
 </div>
 
 
@@ -312,7 +311,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_TransitionPushDown.ts.html#l30"><code>..\src\com\codebelt\structurets\controller\transitions\TransitionPushDown.ts:30</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_TransitionPushDown.ts.html#l30"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;transitions&#x2F;TransitionPushDown.ts:30</code></a>
         
         </p>
 
@@ -565,11 +564,11 @@
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_addEventListener">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_addEventListener">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l83"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:83</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l83"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:83</code></a>
         
         </p>
 
@@ -581,7 +580,6 @@
 
     <div class="description">
         <p>Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.</p>
-
     </div>
 
     
@@ -600,7 +598,6 @@
 
                     <div class="param-description">
                         <p>The type of event.</p>
-
                     </div>
 
                     
@@ -616,7 +613,6 @@
 
                     <div class="param-description">
                         <p>The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void</p>
-
                     </div>
 
                     
@@ -631,8 +627,7 @@
                     
 
                     <div class="param-description">
-                        <p>Binds the scope to a particular object (scope is basically what &quot;this&quot; refers to in your function). This can be very useful in JavaScript because scope isn&#39;t generally maintained.</p>
-
+                        <p>Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.</p>
                     </div>
 
                     
@@ -649,7 +644,6 @@
 
                     <div class="param-description">
                         <p>Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.</p>
-
                     </div>
 
                     
@@ -668,9 +662,9 @@
             <div class="example-content">
                 <pre class="code prettyprint"><code> instance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
  private handlerMethod(event:BaseEvent):void {
-     console.log(event.target + &quot; sent the event.&quot;);
- }</code></pre>
-
+     console.log(event.target + " sent the event.");
+ }
+</code></pre>
             </div>
         </div>
     
@@ -686,7 +680,7 @@
 
     
         <span class="returns-inline">
-            <span class="type"><a href="..\classes\BaseTransition.html" class="crosslink">BaseTransition</a></span>
+            <span class="type"><a href="../classes/BaseTransition.html" class="crosslink">BaseTransition</a></span>
         </span>
     
 
@@ -708,11 +702,11 @@
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseTransition.html#method_complete">BaseTransition</a>:
+                <a href="../classes/BaseTransition.html#method_complete">BaseTransition</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l123"><code>..\src\com\codebelt\structurets\controller\transitions\BaseTransition.ts:123</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l123"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;transitions&#x2F;BaseTransition.ts:123</code></a>
         
         </p>
 
@@ -724,7 +718,6 @@
 
     <div class="description">
         <p>Tells TimelineMax to finishes/complete the transition right away.</p>
-
     </div>
 
     
@@ -736,7 +729,7 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="..\classes\BaseTransition.html" class="crosslink">BaseTransition</a></span>:
+                        <span class="type"><a href="../classes/BaseTransition.html" class="crosslink">BaseTransition</a></span>:
                     
                 
             </div>
@@ -790,7 +783,7 @@
 
     
         <span class="returns-inline">
-            <span class="type"><a href="..\classes\ITransition.html" class="crosslink">ITransition</a></span>
+            <span class="type"><a href="../classes/ITransition.html" class="crosslink">ITransition</a></span>
         </span>
     
 
@@ -810,11 +803,11 @@
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseTransition.html#method_createTransition">BaseTransition</a>:
+                <a href="../classes/BaseTransition.html#method_createTransition">BaseTransition</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l62"><code>..\src\com\codebelt\structurets\controller\transitions\BaseTransition.ts:62</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l62"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;transitions&#x2F;BaseTransition.ts:62</code></a>
         
         </p>
 
@@ -826,7 +819,6 @@
 
     <div class="description">
         <p>Creates and starts the transition for the specific transition type.</p>
-
     </div>
 
     
@@ -845,7 +837,6 @@
 
                     <div class="param-description">
                         <p>{string)</p>
-
                     </div>
 
                     
@@ -861,7 +852,6 @@
 
                     <div class="param-description">
                         <p>{DisplayObjectContainer)</p>
-
                     </div>
 
                     
@@ -877,7 +867,6 @@
 
                     <div class="param-description">
                         <p>{DOMElement)</p>
-
                     </div>
 
                     
@@ -893,7 +882,6 @@
 
                     <div class="param-description">
                         <p>{DOMElement)</p>
-
                     </div>
 
                     
@@ -910,7 +898,6 @@
 
                     <div class="param-description">
                         <p>{number)</p>
-
                     </div>
 
                     
@@ -927,7 +914,7 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="..\classes\ITransition.html" class="crosslink">ITransition</a></span>:
+                        <span class="type"><a href="../classes/ITransition.html" class="crosslink">ITransition</a></span>:
                     
                 
             </div>
@@ -965,11 +952,11 @@
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseObject.html#method_destroy">BaseObject</a>:
+                <a href="../classes/BaseObject.html#method_destroy">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l84"><code>..\src\com\codebelt\structurets\BaseObject.ts:84</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l84"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:84</code></a>
         
         </p>
 
@@ -986,8 +973,8 @@ called on the object or properties accessed. It is the responsibility of those w
 function to stop all running Timers, all running Sounds, remove any event
 listeners and take any other steps necessary to make an object eligible for garbage collection.
 It is critical that all subclasses call the super for this function in their overridden methods.</p>
-<p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs. The <a href="..\classes\BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the InteractiveObject/disabled:method method on all classes that extend InteractiveObject.</p>
 
+<p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs. The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the InteractiveObject/disabled:method method on all classes that extend InteractiveObject.</p>
     </div>
 
     
@@ -1004,8 +991,8 @@ It is critical that all subclasses call the super for this function in their ove
 
      this._childInstance.destroy();
      this._childInstance = null;
- }</code></pre>
-
+ }
+</code></pre>
             </div>
         </div>
     
@@ -1041,11 +1028,11 @@ It is critical that all subclasses call the super for this function in their ove
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_disable">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_disable">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l254"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:254</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l253"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:253</code></a>
         
         </p>
 
@@ -1057,7 +1044,6 @@ It is critical that all subclasses call the super for this function in their ove
 
     <div class="description">
         <p>The disable method is responsible for disabling event listeners and/or children of the containing objects.</p>
-
     </div>
 
     
@@ -1076,8 +1062,8 @@ It is critical that all subclasses call the super for this function in their ove
      this._childInstance.disable();
 
      super.enable();
- }</code></pre>
-
+ }
+</code></pre>
             </div>
         </div>
     
@@ -1121,11 +1107,11 @@ It is critical that all subclasses call the super for this function in their ove
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_dispatchEvent">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_dispatchEvent">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l163"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:163</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l163"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:163</code></a>
         
         </p>
 
@@ -1148,15 +1134,14 @@ It is critical that all subclasses call the super for this function in their ove
                 <li class="param">
                     
                         <code class="param-name">event</code>
-                        <span class="type"><a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a></span>
+                        <span class="type"><a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
-extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.</p>
-
+extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.</p>
                     </div>
 
                     
@@ -1177,8 +1162,8 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
  instance.dispatchEvent(event);
 
  // Here is a common inline event being dispatched
- instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));</code></pre>
-
+ instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
+</code></pre>
             </div>
         </div>
     
@@ -1214,11 +1199,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_enable">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_enable">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l231"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:231</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l230"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:230</code></a>
         
         </p>
 
@@ -1230,7 +1215,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The enable method is responsible for enabling event listeners and/or children of the containing objects.</p>
-
     </div>
 
     
@@ -1249,8 +1233,8 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
      this._childInstance.enable();
 
      super.enable();
- }</code></pre>
-
+ }
+</code></pre>
             </div>
         </div>
     
@@ -1288,11 +1272,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseObject.html#method_getQualifiedClassName">BaseObject</a>:
+                <a href="../classes/BaseObject.html#method_getQualifiedClassName">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l71"><code>..\src\com\codebelt\structurets\BaseObject.ts:71</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l71"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:71</code></a>
         
         </p>
 
@@ -1304,7 +1288,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Returns the fully qualified class name of an object.</p>
-
     </div>
 
     
@@ -1318,8 +1301,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
                     
                         <span class="type">String</span>:
                     
-                    <p>Returns the class name.</p>
-
+                    Returns the class name.
                 
             </div>
         </div>
@@ -1330,8 +1312,8 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code> instance.getQualifiedClassName();</code></pre>
-
+                <pre class="code prettyprint"><code> instance.getQualifiedClassName();
+</code></pre>
             </div>
         </div>
     
@@ -1347,7 +1329,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     
         <span class="returns-inline">
-            <span class="type"><a href="..\classes\BaseTransition.html" class="crosslink">BaseTransition</a></span>
+            <span class="type"><a href="../classes/BaseTransition.html" class="crosslink">BaseTransition</a></span>
         </span>
     
 
@@ -1371,11 +1353,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseTransition.html#method_onTweenComplete">BaseTransition</a>:
+                <a href="../classes/BaseTransition.html#method_onTweenComplete">BaseTransition</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l108"><code>..\src\com\codebelt\structurets\controller\transitions\BaseTransition.ts:108</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l108"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;transitions&#x2F;BaseTransition.ts:108</code></a>
         
         </p>
 
@@ -1387,7 +1369,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Gets called by the TimelineMax object when the transition completes. Dispatches the TweenEvent.COMPLETE event. The data value of the TweenEvent event is set to the TimelineMax object.</p>
-
     </div>
 
     
@@ -1399,7 +1380,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="..\classes\BaseTransition.html" class="crosslink">BaseTransition</a></span>:
+                        <span class="type"><a href="../classes/BaseTransition.html" class="crosslink">BaseTransition</a></span>:
                     
                 
             </div>
@@ -1419,7 +1400,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     
         <span class="returns-inline">
-            <span class="type"><a href="..\classes\BaseTransition.html" class="crosslink">BaseTransition</a></span>
+            <span class="type"><a href="../classes/BaseTransition.html" class="crosslink">BaseTransition</a></span>
         </span>
     
 
@@ -1443,11 +1424,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseTransition.html#method_onTweenStart">BaseTransition</a>:
+                <a href="../classes/BaseTransition.html#method_onTweenStart">BaseTransition</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l78"><code>..\src\com\codebelt\structurets\controller\transitions\BaseTransition.ts:78</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l78"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;transitions&#x2F;BaseTransition.ts:78</code></a>
         
         </p>
 
@@ -1459,7 +1440,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Gets called by the TimelineMax object when the transition starts. Dispatches the TweenEvent.START event. The data value of the TweenEvent event is set to the TimelineMax object.</p>
-
     </div>
 
     
@@ -1471,7 +1451,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="..\classes\BaseTransition.html" class="crosslink">BaseTransition</a></span>:
+                        <span class="type"><a href="../classes/BaseTransition.html" class="crosslink">BaseTransition</a></span>:
                     
                 
             </div>
@@ -1491,7 +1471,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     
         <span class="returns-inline">
-            <span class="type"><a href="..\classes\BaseTransition.html" class="crosslink">BaseTransition</a></span>
+            <span class="type"><a href="../classes/BaseTransition.html" class="crosslink">BaseTransition</a></span>
         </span>
     
 
@@ -1515,11 +1495,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseTransition.html#method_onTweenUpdate">BaseTransition</a>:
+                <a href="../classes/BaseTransition.html#method_onTweenUpdate">BaseTransition</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l93"><code>..\src\com\codebelt\structurets\controller\transitions\BaseTransition.ts:93</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l93"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;transitions&#x2F;BaseTransition.ts:93</code></a>
         
         </p>
 
@@ -1531,7 +1511,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Gets called by the TimelineMax object every time the timeline updates (on every frame while the timeline is active). Dispatches the TweenEvent.START event. The data value of the TweenEvent event is set to the TimelineMax object.</p>
-
     </div>
 
     
@@ -1543,7 +1522,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="..\classes\BaseTransition.html" class="crosslink">BaseTransition</a></span>:
+                        <span class="type"><a href="../classes/BaseTransition.html" class="crosslink">BaseTransition</a></span>:
                     
                 
             </div>
@@ -1603,11 +1582,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_removeEventListener">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_removeEventListener">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l128"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:128</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l128"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:128</code></a>
         
         </p>
 
@@ -1619,7 +1598,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Removes a specified listener from the EventDispatcher object.</p>
-
     </div>
 
     
@@ -1638,7 +1616,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>The type of event.</p>
-
                     </div>
 
                     
@@ -1654,7 +1631,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>The listener object to remove.</p>
-
                     </div>
 
                     
@@ -1670,7 +1646,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>The scope of the listener object to be removed.</p>
-
                     </div>
 
                     
@@ -1689,9 +1664,9 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             <div class="example-content">
                 <pre class="code prettyprint"><code> instance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
  private handlerMethod(event:BaseEvent):void {
-     console.log(event.target + &quot; sent the event.&quot;);
- }</code></pre>
-
+     console.log(event.target + " sent the event.");
+ }
+</code></pre>
             </div>
         </div>
     
@@ -1724,11 +1699,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#property__listeners">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#property__listeners">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l47"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:47</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l47"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:47</code></a>
         
         </p>
 
@@ -1739,7 +1714,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Holds a reference to added listeners.</p>
-
     </div>
 
     
@@ -1768,11 +1742,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseObject.html#property_cid">BaseObject</a>:
+                <a href="../classes/BaseObject.html#property_cid">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l55"><code>..\src\com\codebelt\structurets\BaseObject.ts:55</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l55"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:55</code></a>
         
         </p>
 
@@ -1783,7 +1757,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The cid or client id is a unique identifier automatically assigned to most StructureTS objects upon instantiation.</p>
-
     </div>
 
     
@@ -1816,11 +1789,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseObject.html#property_CLASS_NAME">BaseObject</a>:
+                <a href="../classes/BaseObject.html#property_CLASS_NAME">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l45"><code>..\src\com\codebelt\structurets\BaseObject.ts:45</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l45"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:45</code></a>
         
         </p>
 
@@ -1830,8 +1803,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
     </div>
 
     <div class="description">
-        <p>The fully qualified class name of the object. Use <a href="..\classes\BaseObject.html#method_getQualifiedClassName" class="crosslink">getQualifiedClassName</a> method to retrieve the class name of a StructureTS object.</p>
-
+        <p>The fully qualified class name of the object. Use <a href="../classes/BaseObject.html#method_getQualifiedClassName" class="crosslink">getQualifiedClassName</a> method to retrieve the class name of a StructureTS object.</p>
     </div>
 
     
@@ -1860,11 +1832,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#property_isEnabled">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#property_isEnabled">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l66"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:66</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l66"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:66</code></a>
         
         </p>
 
@@ -1875,7 +1847,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The isEnabled property is used to keep track of the enabled state of the object.</p>
-
     </div>
 
     
@@ -1904,11 +1875,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#property_parent">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#property_parent">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l56"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:56</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l56"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:56</code></a>
         
         </p>
 
@@ -1921,7 +1892,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         <p>Indicates the object that contains child object. Use the parent property
 to specify a relative path to display objects that are above the current display object in the display
 list hierarchy.</p>
-
     </div>
 
     
@@ -1948,11 +1918,11 @@ list hierarchy.</p>
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseTransition.html#property_transition">BaseTransition</a>:
+                <a href="../classes/BaseTransition.html#property_transition">BaseTransition</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l48"><code>..\src\com\codebelt\structurets\controller\transitions\BaseTransition.ts:48</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_transitions_BaseTransition.ts.html#l48"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;transitions&#x2F;BaseTransition.ts:48</code></a>
         
         </p>
 
@@ -1963,7 +1933,6 @@ list hierarchy.</p>
 
     <div class="description">
         <p>Property of the TimelineMax object.</p>
-
     </div>
 
     

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\src\com\codebelt\structurets\display\Canvas.ts - StructureTS-Project</title>
+    <title>../src/com/codebelt/structurets/display/Canvas.ts - StructureTS-Project</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -45,6 +45,8 @@
             
                 <li><a href="../classes/ApplicationCacheEvent.html">ApplicationCacheEvent</a></li>
             
+                <li><a href="../classes/AssetLoader.html">AssetLoader</a></li>
+            
                 <li><a href="../classes/BaseController.html">BaseController</a></li>
             
                 <li><a href="../classes/BaseEvent.html">BaseEvent</a></li>
@@ -60,8 +62,6 @@
                 <li><a href="../classes/Bitmap.html">Bitmap</a></li>
             
                 <li><a href="../classes/BrowserUtils.html">BrowserUtils</a></li>
-            
-                <li><a href="../classes/BulkLoader.html">BulkLoader</a></li>
             
                 <li><a href="../classes/Canvas.html">Canvas</a></li>
             
@@ -244,7 +244,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\display\Canvas.ts</h1>
+                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/display/Canvas.ts</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -279,15 +279,15 @@
  * The Canvas...
  *
  * @class Canvas
- * @extends DOMElement
+ * @extends CanvasElement
  * @module StructureTS
  * @submodule view
  * @constructor
  **/
-class Canvas extends DOMElement, CanvasElement
+class Canvas extends CanvasElement
 {
     /**
-     * @copy DOMElement.CLASS_NAME
+     * @overridden DOMElement.CLASS_NAME
      */
     public CLASS_NAME:string = &#x27;Canvas&#x27;;
 
@@ -297,21 +297,29 @@ class Canvas extends DOMElement, CanvasElement
     {
         super();
 
-//        &lt;canvas id=&quot;stage&quot; width=&quot;738&quot; height=&quot;90&quot; onclick=&quot;onBannerClick();&quot; style=&quot;background-color: #FFFFFF;&quot;&gt;Your browser is unsupported&lt;/canvas&gt;
-
-
+        this.stage = this;
     }
 
-    public createChildren():any
+    //TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the &#x27;#&#x27;.
+    public appendTo(type:string, enabled:boolean = true):any
     {
-        super.createChildren(&#x27;canvas&#x27;, {width: 738, height: 90});
-        this.stage = this;
-        //        this.element = canvas.element[0];
+//        this.element = canvas.element[0];
         this.element = document.getElementById(type);
         this.context = this.element.getContext(&quot;2d&quot;);
 
         this.width = this.element.width;
         this.height = this.element.height;
+
+        if (!this.isCreated)
+        {
+            this.createChildren();
+            this.isCreated = true;
+        }
+
+        if (enabled)
+        {
+            this.enable();
+        }
 
         return this;
     }

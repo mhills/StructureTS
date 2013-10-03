@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\src\com\codebelt\structurets\models\Collection.ts - StructureTS-Project</title>
+    <title>../src/com/codebelt/structurets/models/Collection.ts - StructureTS-Project</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -45,6 +45,8 @@
             
                 <li><a href="../classes/ApplicationCacheEvent.html">ApplicationCacheEvent</a></li>
             
+                <li><a href="../classes/AssetLoader.html">AssetLoader</a></li>
+            
                 <li><a href="../classes/BaseController.html">BaseController</a></li>
             
                 <li><a href="../classes/BaseEvent.html">BaseEvent</a></li>
@@ -60,8 +62,6 @@
                 <li><a href="../classes/Bitmap.html">Bitmap</a></li>
             
                 <li><a href="../classes/BrowserUtils.html">BrowserUtils</a></li>
-            
-                <li><a href="../classes/BulkLoader.html">BulkLoader</a></li>
             
                 <li><a href="../classes/Canvas.html">Canvas</a></li>
             
@@ -244,7 +244,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\models\Collection.ts</h1>
+                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/models/Collection.ts</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -289,7 +289,7 @@
 class Collection extends EventDispatcher implements ICollection
 {
     /**
-     * @copy BaseObject.CLASS_NAME
+     * @overridden BaseObject.CLASS_NAME
      */
     public CLASS_NAME:string = &#x27;Collection&#x27;;
 
@@ -667,8 +667,7 @@ class Collection extends EventDispatcher implements ICollection
     }
 
     /**
-     * @copy BaseObject.destroy
-     * @overridden
+     * @overridden BaseObject.destroy
      */
     public destroy():void
     {

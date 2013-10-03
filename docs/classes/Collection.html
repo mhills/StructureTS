@@ -45,6 +45,8 @@
             
                 <li><a href="../classes/ApplicationCacheEvent.html">ApplicationCacheEvent</a></li>
             
+                <li><a href="../classes/AssetLoader.html">AssetLoader</a></li>
+            
                 <li><a href="../classes/BaseController.html">BaseController</a></li>
             
                 <li><a href="../classes/BaseEvent.html">BaseEvent</a></li>
@@ -60,8 +62,6 @@
                 <li><a href="../classes/Bitmap.html">Bitmap</a></li>
             
                 <li><a href="../classes/BrowserUtils.html">BrowserUtils</a></li>
-            
-                <li><a href="../classes/BulkLoader.html">BulkLoader</a></li>
             
                 <li><a href="../classes/Canvas.html">Canvas</a></li>
             
@@ -250,13 +250,13 @@
 
     
         <div class="extends">
-            Extends <a href="..\classes\EventDispatcher.html" class="crosslink">EventDispatcher</a>
+            Extends <a href="../classes/EventDispatcher.html" class="crosslink">EventDispatcher</a>
         </div>
     
 
     
         <div class="foundat">
-            Defined in: <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l30"><code>..\src\com\codebelt\structurets\models\Collection.ts:30</code></a>
+            Defined in: <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l30"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:30</code></a>
         </div>
     
 
@@ -274,7 +274,6 @@
 
 <div class="box intro">
     <p>YUIDoc_comment</p>
-
 </div>
 
 
@@ -312,7 +311,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l30"><code>..\src\com\codebelt\structurets\models\Collection.ts:30</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l30"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:30</code></a>
         
         </p>
 
@@ -642,11 +641,11 @@
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_addEventListener">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_addEventListener">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l83"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:83</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l83"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:83</code></a>
         
         </p>
 
@@ -658,7 +657,6 @@
 
     <div class="description">
         <p>Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.</p>
-
     </div>
 
     
@@ -677,7 +675,6 @@
 
                     <div class="param-description">
                         <p>The type of event.</p>
-
                     </div>
 
                     
@@ -693,7 +690,6 @@
 
                     <div class="param-description">
                         <p>The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void</p>
-
                     </div>
 
                     
@@ -708,8 +704,7 @@
                     
 
                     <div class="param-description">
-                        <p>Binds the scope to a particular object (scope is basically what &quot;this&quot; refers to in your function). This can be very useful in JavaScript because scope isn&#39;t generally maintained.</p>
-
+                        <p>Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.</p>
                     </div>
 
                     
@@ -726,7 +721,6 @@
 
                     <div class="param-description">
                         <p>Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.</p>
-
                     </div>
 
                     
@@ -745,9 +739,9 @@
             <div class="example-content">
                 <pre class="code prettyprint"><code> instance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
  private handlerMethod(event:BaseEvent):void {
-     console.log(event.target + &quot; sent the event.&quot;);
- }</code></pre>
-
+     console.log(event.target + " sent the event.");
+ }
+</code></pre>
             </div>
         </div>
     
@@ -804,7 +798,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l71"><code>..\src\com\codebelt\structurets\models\Collection.ts:71</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l71"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:71</code></a>
         
         </p>
 
@@ -816,8 +810,7 @@
 
     <div class="description">
         <p>Add an item to the current collection
-Requires that the item must be an instance of <a href="..\classes\IValueObject.html" class="crosslink">IValueObject</a> or extends the <a href="..\classes\ValueObject.html" class="crosslink">ValueObject</a> class.</p>
-
+Requires that the item must be an instance of <a href="../classes/IValueObject.html" class="crosslink">IValueObject</a> or extends the <a href="../classes/ValueObject.html" class="crosslink">ValueObject</a> class.</p>
     </div>
 
     
@@ -829,14 +822,13 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
                 <li class="param">
                     
                         <code class="param-name">item</code>
-                        <span class="type"><a href="..\classes\IValueObject.html" class="crosslink">IValueObject</a></span>
+                        <span class="type"><a href="../classes/IValueObject.html" class="crosslink">IValueObject</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The item or <a href="..\classes\ValueObject.html" class="crosslink">ValueObject</a> to add.</p>
-
+                        <p>The item or <a href="../classes/ValueObject.html" class="crosslink">ValueObject</a> to add.</p>
                     </div>
 
                     
@@ -852,8 +844,7 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
                     
 
                     <div class="param-description">
-                        <p>If you&#39;d like to prevent the event from being dispatched.</p>
-
+                        <p>If you'd like to prevent the event from being dispatched.</p>
                     </div>
 
                     
@@ -917,7 +908,7 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l178"><code>..\src\com\codebelt\structurets\models\Collection.ts:178</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l178"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:178</code></a>
         
         </p>
 
@@ -929,7 +920,6 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
 
     <div class="description">
         <p>Adds an array of items to the collection</p>
-
     </div>
 
     
@@ -941,14 +931,13 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
                 <li class="param">
                     
                         <code class="param-name">items</code>
-                        <span class="type"><a href="..\classes\IValueObject.html" class="crosslink">IValueObject[]</a></span>
+                        <span class="type"><a href="../classes/IValueObject.html" class="crosslink">IValueObject[]</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>List of items to add to the current collection.</p>
-
                     </div>
 
                     
@@ -964,8 +953,7 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
                     
 
                     <div class="param-description">
-                        <p>If you&#39;d like to prevent the event from being dispatched.</p>
-
+                        <p>If you'd like to prevent the event from being dispatched.</p>
                     </div>
 
                     
@@ -1025,7 +1013,7 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l401"><code>..\src\com\codebelt\structurets\models\Collection.ts:401</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l401"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:401</code></a>
         
         </p>
 
@@ -1037,7 +1025,6 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
 
     <div class="description">
         <p>YUIDoc_comment</p>
-
     </div>
 
     
@@ -1056,8 +1043,7 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
                     
 
                     <div class="param-description">
-                        <p>If you&#39;d like to prevent the event from being dispatched.</p>
-
+                        <p>If you'd like to prevent the event from being dispatched.</p>
                     </div>
 
                     
@@ -1107,7 +1093,7 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l388"><code>..\src\com\codebelt\structurets\models\Collection.ts:388</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l388"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:388</code></a>
         
         </p>
 
@@ -1119,7 +1105,6 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
 
     <div class="description">
         <p>YUIDoc_comment</p>
-
     </div>
 
     
@@ -1157,11 +1142,11 @@ Requires that the item must be an instance of <a href="..\classes\IValueObject.h
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseObject.html#method_destroy">BaseObject</a>:
+                <a href="../classes/BaseObject.html#method_destroy">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l84"><code>..\src\com\codebelt\structurets\BaseObject.ts:84</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l84"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:84</code></a>
         
         </p>
 
@@ -1178,8 +1163,8 @@ called on the object or properties accessed. It is the responsibility of those w
 function to stop all running Timers, all running Sounds, remove any event
 listeners and take any other steps necessary to make an object eligible for garbage collection.
 It is critical that all subclasses call the super for this function in their overridden methods.</p>
-<p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs. The <a href="..\classes\BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the InteractiveObject/disabled:method method on all classes that extend InteractiveObject.</p>
 
+<p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs. The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the InteractiveObject/disabled:method method on all classes that extend InteractiveObject.</p>
     </div>
 
     
@@ -1196,8 +1181,8 @@ It is critical that all subclasses call the super for this function in their ove
 
      this._childInstance.destroy();
      this._childInstance = null;
- }</code></pre>
-
+ }
+</code></pre>
             </div>
         </div>
     
@@ -1233,11 +1218,11 @@ It is critical that all subclasses call the super for this function in their ove
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_disable">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_disable">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l254"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:254</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l253"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:253</code></a>
         
         </p>
 
@@ -1249,7 +1234,6 @@ It is critical that all subclasses call the super for this function in their ove
 
     <div class="description">
         <p>The disable method is responsible for disabling event listeners and/or children of the containing objects.</p>
-
     </div>
 
     
@@ -1268,8 +1252,8 @@ It is critical that all subclasses call the super for this function in their ove
      this._childInstance.disable();
 
      super.enable();
- }</code></pre>
-
+ }
+</code></pre>
             </div>
         </div>
     
@@ -1313,11 +1297,11 @@ It is critical that all subclasses call the super for this function in their ove
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_dispatchEvent">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_dispatchEvent">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l163"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:163</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l163"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:163</code></a>
         
         </p>
 
@@ -1340,15 +1324,14 @@ It is critical that all subclasses call the super for this function in their ove
                 <li class="param">
                     
                         <code class="param-name">event</code>
-                        <span class="type"><a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a></span>
+                        <span class="type"><a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
-extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.</p>
-
+extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.</p>
                     </div>
 
                     
@@ -1369,8 +1352,8 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
  instance.dispatchEvent(event);
 
  // Here is a common inline event being dispatched
- instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));</code></pre>
-
+ instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
+</code></pre>
             </div>
         </div>
     
@@ -1406,11 +1389,11 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_enable">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_enable">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l231"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:231</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l230"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:230</code></a>
         
         </p>
 
@@ -1422,7 +1405,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The enable method is responsible for enabling event listeners and/or children of the containing objects.</p>
-
     </div>
 
     
@@ -1441,8 +1423,8 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
      this._childInstance.enable();
 
      super.enable();
- }</code></pre>
-
+ }
+</code></pre>
             </div>
         </div>
     
@@ -1493,7 +1475,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l340"><code>..\src\com\codebelt\structurets\models\Collection.ts:340</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l340"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:340</code></a>
         
         </p>
 
@@ -1505,7 +1487,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Filters the collection based on the filter test operation provided</p>
-
     </div>
 
     
@@ -1524,7 +1505,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>Operation to perform, provides 2 parameters element, and index</p>
-
                     </div>
 
                     
@@ -1588,7 +1568,7 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l237"><code>..\src\com\codebelt\structurets\models\Collection.ts:237</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l237"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:237</code></a>
         
         </p>
 
@@ -1601,7 +1581,6 @@ extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.<
     <div class="description">
         <p>Examines each element in a collection, returning an array of all elements that have the given properties.
 When checking properties, this method performs a deep comparison between values to determine if they are equivalent to each other.</p>
-
     </div>
 
     
@@ -1638,8 +1617,7 @@ When checking properties, this method performs a deep comparison between values 
                     
                         <span class="type">Array</span>:
                     
-                    <p>Returns a list of found IValueObject&#39;s.</p>
-
+                    Returns a list of found IValueObject's.
                 
             </div>
         </div>
@@ -1650,15 +1628,15 @@ When checking properties, this method performs a deep comparison between values 
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code> // Finds all value object that has &#39;Robert&#39; in it.
- this._collection.find(&quot;Robert&quot;);
- // Finds any value object that has &#39;Robert&#39; or &#39;Heater&#39; or 23 in it.
- this._collection.find([&quot;Robert&quot;, &quot;Heather&quot;, 32]);
+                <pre class="code prettyprint"><code> // Finds all value object that has 'Robert' in it.
+ this._collection.find("Robert");
+ // Finds any value object that has 'Robert' or 'Heater' or 23 in it.
+ this._collection.find(["Robert", "Heather", 32]);
 
  // Finds all value objects that same key and value you are searching for.
- this._collection.find({ name: &#39;apple&#39;, organic: false, type: &#39;fruit&#39; });
- this._collection.find([{ type: &#39;vegetable&#39; }, { name: &#39;apple&#39;, &#39;organic: false, type&#39;: &#39;fruit&#39; }]);</code></pre>
-
+ this._collection.find({ name: 'apple', organic: false, type: 'fruit' });
+ this._collection.find([{ type: 'vegetable' }, { name: 'apple', 'organic: false, type': 'fruit' }]);
+</code></pre>
             </div>
         </div>
     
@@ -1713,7 +1691,7 @@ When checking properties, this method performs a deep comparison between values 
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l283"><code>..\src\com\codebelt\structurets\models\Collection.ts:283</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l283"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:283</code></a>
         
         </p>
 
@@ -1725,7 +1703,6 @@ When checking properties, this method performs a deep comparison between values 
 
     <div class="description">
         <p>Loops through all properties of an object and check to see if the value matches the argument passed in.</p>
-
     </div>
 
     
@@ -1762,8 +1739,7 @@ When checking properties, this method performs a deep comparison between values 
                     
                         <span class="type">Array</span>:
                     
-                    <p>Returns a list of found IValueObject&#39;s.</p>
-
+                    Returns a list of found IValueObject's.
                 
             </div>
         </div>
@@ -1817,7 +1793,7 @@ When checking properties, this method performs a deep comparison between values 
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l225"><code>..\src\com\codebelt\structurets\models\Collection.ts:225</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l225"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:225</code></a>
         
         </p>
 
@@ -1829,7 +1805,6 @@ When checking properties, this method performs a deep comparison between values 
 
     <div class="description">
         <p>Loops through each object in the collection and performs some function from it</p>
-
     </div>
 
     
@@ -1848,7 +1823,6 @@ When checking properties, this method performs a deep comparison between values 
 
                     <div class="param-description">
                         <p>Operation to perform, provides 2 parameters element, and index</p>
-
                     </div>
 
                     
@@ -1883,7 +1857,7 @@ When checking properties, this method performs a deep comparison between values 
 
     
         <span class="returns-inline">
-            <span class="type"><a href="..\classes\IValueObject.html" class="crosslink">IValueObject</a></span>
+            <span class="type"><a href="../classes/IValueObject.html" class="crosslink">IValueObject</a></span>
         </span>
     
 
@@ -1912,7 +1886,7 @@ When checking properties, this method performs a deep comparison between values 
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l199"><code>..\src\com\codebelt\structurets\models\Collection.ts:199</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l199"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:199</code></a>
         
         </p>
 
@@ -1925,7 +1899,6 @@ When checking properties, this method performs a deep comparison between values 
     <div class="description">
         <p>Finds an object by an index value.
 If the index is out of bounds, the collection will clamp it.</p>
-
     </div>
 
     
@@ -1944,7 +1917,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
                     <div class="param-description">
                         <p>The index integer of the item to get</p>
-
                     </div>
 
                     
@@ -1961,10 +1933,9 @@ If the index is out of bounds, the collection will clamp it.</p>
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="..\classes\IValueObject.html" class="crosslink">IValueObject</a></span>:
+                        <span class="type"><a href="../classes/IValueObject.html" class="crosslink">IValueObject</a></span>:
                     
-                    <p>item to find</p>
-
+                    item to find
                 
             </div>
         </div>
@@ -2005,11 +1976,11 @@ If the index is out of bounds, the collection will clamp it.</p>
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseObject.html#method_getQualifiedClassName">BaseObject</a>:
+                <a href="../classes/BaseObject.html#method_getQualifiedClassName">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l71"><code>..\src\com\codebelt\structurets\BaseObject.ts:71</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l71"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:71</code></a>
         
         </p>
 
@@ -2021,7 +1992,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
     <div class="description">
         <p>Returns the fully qualified class name of an object.</p>
-
     </div>
 
     
@@ -2035,8 +2005,7 @@ If the index is out of bounds, the collection will clamp it.</p>
                     
                         <span class="type">String</span>:
                     
-                    <p>Returns the class name.</p>
-
+                    Returns the class name.
                 
             </div>
         </div>
@@ -2047,8 +2016,8 @@ If the index is out of bounds, the collection will clamp it.</p>
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code> instance.getQualifiedClassName();</code></pre>
-
+                <pre class="code prettyprint"><code> instance.getQualifiedClassName();
+</code></pre>
             </div>
         </div>
     
@@ -2103,7 +2072,7 @@ If the index is out of bounds, the collection will clamp it.</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l152"><code>..\src\com\codebelt\structurets\models\Collection.ts:152</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l152"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:152</code></a>
         
         </p>
 
@@ -2115,7 +2084,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
     <div class="description">
         <p>Checks if a collection has an item.</p>
-
     </div>
 
     
@@ -2127,14 +2095,13 @@ If the index is out of bounds, the collection will clamp it.</p>
                 <li class="param">
                     
                         <code class="param-name">item</code>
-                        <span class="type"><a href="..\classes\IValueObject.html" class="crosslink">IValueObject</a></span>
+                        <span class="type"><a href="../classes/IValueObject.html" class="crosslink">IValueObject</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>Item to check</p>
-
                     </div>
 
                     
@@ -2210,7 +2177,7 @@ If the index is out of bounds, the collection will clamp it.</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l165"><code>..\src\com\codebelt\structurets\models\Collection.ts:165</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l165"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:165</code></a>
         
         </p>
 
@@ -2222,7 +2189,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
     <div class="description">
         <p>Returns the array index position of the value object.</p>
-
     </div>
 
     
@@ -2234,14 +2200,13 @@ If the index is out of bounds, the collection will clamp it.</p>
                 <li class="param">
                     
                         <code class="param-name">item</code>
-                        <span class="type"><a href="..\classes\IValueObject.html" class="crosslink">IValueObject</a></span>
+                        <span class="type"><a href="../classes/IValueObject.html" class="crosslink">IValueObject</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>IValueObject get the index of.</p>
-
                     </div>
 
                     
@@ -2311,7 +2276,7 @@ If the index is out of bounds, the collection will clamp it.</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l367"><code>..\src\com\codebelt\structurets\models\Collection.ts:367</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l367"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:367</code></a>
         
         </p>
 
@@ -2323,7 +2288,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
     <div class="description">
         <p>Applies a function to each of the items in the list</p>
-
     </div>
 
     
@@ -2342,7 +2306,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
                     <div class="param-description">
                         <p>Operation to perform, provides 2 parameters element, and index</p>
-
                     </div>
 
                     
@@ -2407,11 +2370,11 @@ If the index is out of bounds, the collection will clamp it.</p>
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#method_removeEventListener">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#method_removeEventListener">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l128"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:128</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l128"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:128</code></a>
         
         </p>
 
@@ -2423,7 +2386,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
     <div class="description">
         <p>Removes a specified listener from the EventDispatcher object.</p>
-
     </div>
 
     
@@ -2442,7 +2404,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
                     <div class="param-description">
                         <p>The type of event.</p>
-
                     </div>
 
                     
@@ -2458,7 +2419,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
                     <div class="param-description">
                         <p>The listener object to remove.</p>
-
                     </div>
 
                     
@@ -2474,7 +2434,6 @@ If the index is out of bounds, the collection will clamp it.</p>
 
                     <div class="param-description">
                         <p>The scope of the listener object to be removed.</p>
-
                     </div>
 
                     
@@ -2493,9 +2452,9 @@ If the index is out of bounds, the collection will clamp it.</p>
             <div class="example-content">
                 <pre class="code prettyprint"><code> instance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
  private handlerMethod(event:BaseEvent):void {
-     console.log(event.target + &quot; sent the event.&quot;);
- }</code></pre>
-
+     console.log(event.target + " sent the event.");
+ }
+</code></pre>
             </div>
         </div>
     
@@ -2552,7 +2511,7 @@ If the index is out of bounds, the collection will clamp it.</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l99"><code>..\src\com\codebelt\structurets\models\Collection.ts:99</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l99"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:99</code></a>
         
         </p>
 
@@ -2564,8 +2523,7 @@ If the index is out of bounds, the collection will clamp it.</p>
 
     <div class="description">
         <p>Removes an item from the collection, maintaining its current sort
-If the collection doesn&#39;t have the item, it throws an error</p>
-
+If the collection doesn't have the item, it throws an error</p>
     </div>
 
     
@@ -2577,14 +2535,13 @@ If the collection doesn&#39;t have the item, it throws an error</p>
                 <li class="param">
                     
                         <code class="param-name">item</code>
-                        <span class="type"><a href="..\classes\IValueObject.html" class="crosslink">IValueObject</a></span>
+                        <span class="type"><a href="../classes/IValueObject.html" class="crosslink">IValueObject</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>Item to remove</p>
-
                     </div>
 
                     
@@ -2600,8 +2557,7 @@ If the collection doesn&#39;t have the item, it throws an error</p>
                     
 
                     <div class="param-description">
-                        <p>If you&#39;d like to prevent the event from being dispatched.</p>
-
+                        <p>If you'd like to prevent the event from being dispatched.</p>
                     </div>
 
                     
@@ -2667,7 +2623,7 @@ If the collection doesn&#39;t have the item, it throws an error</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l130"><code>..\src\com\codebelt\structurets\models\Collection.ts:130</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l130"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:130</code></a>
         
         </p>
 
@@ -2679,7 +2635,6 @@ If the collection doesn&#39;t have the item, it throws an error</p>
 
     <div class="description">
         <p>Removes an array of items from the collection</p>
-
     </div>
 
     
@@ -2691,14 +2646,13 @@ If the collection doesn&#39;t have the item, it throws an error</p>
                 <li class="param">
                     
                         <code class="param-name">items</code>
-                        <span class="type"><a href="..\classes\IValueObject.html" class="crosslink">IValueObject[]</a></span>
+                        <span class="type"><a href="../classes/IValueObject.html" class="crosslink">IValueObject[]</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>List of items to add to the current collection</p>
-
                     </div>
 
                     
@@ -2714,8 +2668,7 @@ If the collection doesn&#39;t have the item, it throws an error</p>
                     
 
                     <div class="param-description">
-                        <p>If you&#39;d like to prevent the event from being dispatched.</p>
-
+                        <p>If you'd like to prevent the event from being dispatched.</p>
                     </div>
 
                     
@@ -2775,7 +2728,7 @@ If the collection doesn&#39;t have the item, it throws an error</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l327"><code>..\src\com\codebelt\structurets\models\Collection.ts:327</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l327"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:327</code></a>
         
         </p>
 
@@ -2787,7 +2740,6 @@ If the collection doesn&#39;t have the item, it throws an error</p>
 
     <div class="description">
         <p>Sorts the collection based on the sort function provided</p>
-
     </div>
 
     
@@ -2806,7 +2758,6 @@ If the collection doesn&#39;t have the item, it throws an error</p>
 
                     <div class="param-description">
                         <p>Sort to use, provides 2 users</p>
-
                     </div>
 
                     
@@ -2848,11 +2799,11 @@ If the collection doesn&#39;t have the item, it throws an error</p>
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#property__listeners">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#property__listeners">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l47"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:47</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l47"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:47</code></a>
         
         </p>
 
@@ -2863,7 +2814,6 @@ If the collection doesn&#39;t have the item, it throws an error</p>
 
     <div class="description">
         <p>Holds a reference to added listeners.</p>
-
     </div>
 
     
@@ -2892,11 +2842,11 @@ If the collection doesn&#39;t have the item, it throws an error</p>
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseObject.html#property_cid">BaseObject</a>:
+                <a href="../classes/BaseObject.html#property_cid">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l55"><code>..\src\com\codebelt\structurets\BaseObject.ts:55</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l55"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:55</code></a>
         
         </p>
 
@@ -2907,7 +2857,6 @@ If the collection doesn&#39;t have the item, it throws an error</p>
 
     <div class="description">
         <p>The cid or client id is a unique identifier automatically assigned to most StructureTS objects upon instantiation.</p>
-
     </div>
 
     
@@ -2940,11 +2889,11 @@ If the collection doesn&#39;t have the item, it throws an error</p>
         
             
                 <p>Inherited from
-                <a href="..\classes\BaseObject.html#property_CLASS_NAME">BaseObject</a>:
+                <a href="../classes/BaseObject.html#property_CLASS_NAME">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l45"><code>..\src\com\codebelt\structurets\BaseObject.ts:45</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l45"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:45</code></a>
         
         </p>
 
@@ -2954,8 +2903,7 @@ If the collection doesn&#39;t have the item, it throws an error</p>
     </div>
 
     <div class="description">
-        <p>The fully qualified class name of the object. Use <a href="..\classes\BaseObject.html#method_getQualifiedClassName" class="crosslink">getQualifiedClassName</a> method to retrieve the class name of a StructureTS object.</p>
-
+        <p>The fully qualified class name of the object. Use <a href="../classes/BaseObject.html#method_getQualifiedClassName" class="crosslink">getQualifiedClassName</a> method to retrieve the class name of a StructureTS object.</p>
     </div>
 
     
@@ -2984,11 +2932,11 @@ If the collection doesn&#39;t have the item, it throws an error</p>
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#property_isEnabled">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#property_isEnabled">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l66"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:66</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l66"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:66</code></a>
         
         </p>
 
@@ -2999,7 +2947,6 @@ If the collection doesn&#39;t have the item, it throws an error</p>
 
     <div class="description">
         <p>The isEnabled property is used to keep track of the enabled state of the object.</p>
-
     </div>
 
     
@@ -3035,7 +2982,7 @@ If the collection doesn&#39;t have the item, it throws an error</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l46"><code>..\src\com\codebelt\structurets\models\Collection.ts:46</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l46"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:46</code></a>
         
         </p>
 
@@ -3046,7 +2993,6 @@ If the collection doesn&#39;t have the item, it throws an error</p>
 
     <div class="description">
         <p>YUIDoc_comment</p>
-
     </div>
 
     
@@ -3082,7 +3028,7 @@ If the collection doesn&#39;t have the item, it throws an error</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l55"><code>..\src\com\codebelt\structurets\models\Collection.ts:55</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_models_Collection.ts.html#l55"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;models&#x2F;Collection.ts:55</code></a>
         
         </p>
 
@@ -3093,7 +3039,6 @@ If the collection doesn&#39;t have the item, it throws an error</p>
 
     <div class="description">
         <p>YUIDoc_comment</p>
-
     </div>
 
     
@@ -3122,11 +3067,11 @@ If the collection doesn&#39;t have the item, it throws an error</p>
         
             
                 <p>Inherited from
-                <a href="..\classes\EventDispatcher.html#property_parent">EventDispatcher</a>:
+                <a href="../classes/EventDispatcher.html#property_parent">EventDispatcher</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l56"><code>..\src\com\codebelt\structurets\events\EventDispatcher.ts:56</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_events_EventDispatcher.ts.html#l56"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;events&#x2F;EventDispatcher.ts:56</code></a>
         
         </p>
 
@@ -3139,7 +3084,6 @@ If the collection doesn&#39;t have the item, it throws an error</p>
         <p>Indicates the object that contains child object. Use the parent property
 to specify a relative path to display objects that are above the current display object in the display
 list hierarchy.</p>
-
     </div>
 
     

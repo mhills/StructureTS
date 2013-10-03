@@ -34,10 +34,6 @@ var Util = (function () {
 
         return object;
     };
-
-    Util.getRandomBoolean = function () {
-        return (Math.random() > .5) ? true : false;
-    };
     Util.CLASS_NAME = 'Util';
 
     Util._idCounter = 0;

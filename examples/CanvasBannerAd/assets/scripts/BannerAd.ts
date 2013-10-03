@@ -1,7 +1,7 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/Canvas.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Bitmap.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/utils/BulkLoader.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/utils/AssetLoader.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/utils/ImageLoader.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/events/LoaderEvent.ts'/>
 
@@ -20,7 +20,7 @@ class BannerAd extends Canvas
     private _logo:Bitmap = null;
     private _boxOfCandy:Bitmap = null;
 
-    private _bulkLoader:BulkLoader = null;
+    private _assetLoader:AssetLoader = null;
 
     constructor()
     {
@@ -28,13 +28,13 @@ class BannerAd extends Canvas
 
         // TODO: extend Stage and not Canvas.
 
-        this._bulkLoader = new BulkLoader();
-        this._bulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
-        this._bulkLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry.png"), "cherry");
-        this._bulkLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
-        this._bulkLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "logo.png"), "logo");
-        this._bulkLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "box.png"), "box");
-        this._bulkLoader.load();
+        this._assetLoader = new AssetLoader();
+        this._assetLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
+        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry.png"), "cherry");
+        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
+        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "logo.png"), "logo");
+        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "box.png"), "box");
+        this._assetLoader.load();
     }
 
     /**
@@ -68,25 +68,25 @@ class BannerAd extends Canvas
 
     private init(event:LoaderEvent):void
     {
-        this._bulkLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
+        this._assetLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
 
-        this._cherry = new Bitmap( this._bulkLoader.getImage("cherry") );
+        this._cherry = new Bitmap( this._assetLoader.getImage("cherry") );
         this._cherry.x = 83;
         this._cherry.y = 3;
         this.addChild(this._cherry);
 
-        this._cherryDipped = new Bitmap( this._bulkLoader.getImage("cherry-dipped") );
+        this._cherryDipped = new Bitmap( this._assetLoader.getImage("cherry-dipped") );
         this._cherryDipped.x = 83;
         this._cherryDipped.y = 37;
         this._cherryDipped.visible = false;
         this.addChild(this._cherryDipped);
 
-        this._logo = new Bitmap( this._bulkLoader.getImage("logo") );
+        this._logo = new Bitmap( this._assetLoader.getImage("logo") );
         this._logo.x = 222;
         this._logo.y = 27;
         this.addChild(this._logo);
 
-        this._boxOfCandy = new Bitmap( this._bulkLoader.getImage("box") );
+        this._boxOfCandy = new Bitmap( this._assetLoader.getImage("box") );
         this._boxOfCandy.x = 598;
         this._boxOfCandy.y = 2;
         this._boxOfCandy.alpha = 0;

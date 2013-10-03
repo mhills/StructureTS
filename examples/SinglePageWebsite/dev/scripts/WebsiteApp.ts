@@ -3,7 +3,7 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/controller/RouterController.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/utils/BulkLoader.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/utils/AssetLoader.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/requests/JsonRequest.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/models/LanguageModel.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/controller/LocalStorageController.ts'/>

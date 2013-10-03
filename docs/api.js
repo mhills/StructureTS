@@ -3,6 +3,7 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "ApplicationCacheController",
         "ApplicationCacheEvent",
+        "AssetLoader",
         "BaseController",
         "BaseEvent",
         "BaseObject",
@@ -11,7 +12,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "BaseViewController",
         "Bitmap",
         "BrowserUtils",
-        "BulkLoader",
         "Canvas",
         "CanvasElement",
         "CarouselComponent",
@@ -129,7 +129,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "util",
             "name": "util",
-            "description": "The BrowserUtils..."
+            "description": "The AssetLoader..."
         },
         {
             "displayName": "view",
