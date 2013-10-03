@@ -1,3 +1,43 @@
+(function ($, window, document) {
+    $.fn.addEventListener = function (type, selector, data, callback, scope) {
+        var _callback;
+        var _scope;
+        switch (arguments.length) {
+            case 3:
+                _callback = selector;
+                _scope = data;
+                this.on(type, $.proxy(_callback, _scope));
+                break;
+            case 4:
+                _callback = data;
+                _scope = callback;
+                this.on(type, selector, $.proxy(_callback, _scope));
+                break;
+            case 5:
+                this.on(type, selector, data, $.proxy(callback, scope));
+                break;
+            default:
+                throw new Error('jQuery addEventListener plugin requires at least 3 arguments.');
+        }
+        return this;
+    };
+
+    $.fn.removeEventListener = function (type, selector, callback, scope) {
+        switch (arguments.length) {
+            case 3:
+                var _callback = selector;
+                var _scope = callback;
+                this.off(type, $.proxy(_callback, _scope));
+                break;
+            case 4:
+                this.off(type, selector, $.proxy(callback, scope));
+                break;
+            default:
+                throw new Error('jQuery removeEventListener plugin requires at least 3 arguments.');
+        }
+        return this;
+    };
+})(jQuery, window, document);
 var Util = (function () {
     function Util() {
     }
@@ -1888,79 +1928,6 @@ var RouterController = (function (_super) {
     };
     return RouterController;
 })(BaseController);
-var LoaderEvent = (function (_super) {
-    __extends(LoaderEvent, _super);
-    function LoaderEvent(type, bubbles, cancelable, data) {
-        if (typeof bubbles === "undefined") { bubbles = false; }
-        if (typeof cancelable === "undefined") { cancelable = false; }
-        if (typeof data === "undefined") { data = null; }
-        _super.call(this, type, bubbles, cancelable, data);
-        this.CLASS_NAME = 'LoaderEvent';
-    }
-    LoaderEvent.COMPLETE = "LoaderEvent.complete";
-
-    LoaderEvent.LOAD_COMPLETE = "LoaderEvent.loadComplete";
-    return LoaderEvent;
-})(BaseEvent);
-var AssetLoader = (function (_super) {
-    __extends(AssetLoader, _super);
-    function AssetLoader() {
-        _super.call(this);
-        this.CLASS_NAME = 'AssetLoader';
-        this._dataStores = [];
-
-        this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
-    }
-    AssetLoader.getInstance = function () {
-        if (this._instance == null) {
-            this._instance = new AssetLoader();
-        }
-        return this._instance;
-    };
-
-    AssetLoader.prototype.addFile = function (dataStore, key) {
-        this._dataStores[key] = dataStore;
-        return this;
-    };
-
-    AssetLoader.prototype.getFile = function (key) {
-        return this._dataStores[key];
-    };
-
-    AssetLoader.prototype.getImage = function (key) {
-        return this._dataStores[key].data;
-    };
-
-    AssetLoader.prototype.getHtmlTemplate = function (key, templateId) {
-        console.log(this.getQualifiedClassName(), 'TODO: check if you need to change this to user the TemplateFactory');
-        var rawHtml = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
-        return rawHtml;
-    };
-
-    AssetLoader.prototype.load = function () {
-        for (var key in this._dataStores) {
-            var dataStore = this._dataStores[key];
-            dataStore.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
-            dataStore.load();
-        }
-
-        return this;
-    };
-
-    AssetLoader.prototype.onLoadComplete = function (event) {
-        event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
-
-        for (var key in this._dataStores) {
-            var dataStore = this._dataStores[key];
-            if (!dataStore.complete) {
-                return;
-            }
-        }
-
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_COMPLETE));
-    };
-    return AssetLoader;
-})(EventDispatcher);
 var URLRequestMethod = (function () {
     function URLRequestMethod() {
     }
@@ -2019,6 +1986,20 @@ var URLRequest = (function (_super) {
     }
     return URLRequest;
 })(BaseObject);
+var LoaderEvent = (function (_super) {
+    __extends(LoaderEvent, _super);
+    function LoaderEvent(type, bubbles, cancelable, data) {
+        if (typeof bubbles === "undefined") { bubbles = false; }
+        if (typeof cancelable === "undefined") { cancelable = false; }
+        if (typeof data === "undefined") { data = null; }
+        _super.call(this, type, bubbles, cancelable, data);
+        this.CLASS_NAME = 'LoaderEvent';
+    }
+    LoaderEvent.COMPLETE = "LoaderEvent.complete";
+
+    LoaderEvent.LOAD_COMPLETE = "LoaderEvent.loadComplete";
+    return LoaderEvent;
+})(BaseEvent);
 var URLLoaderDataFormat = (function () {
     function URLLoaderDataFormat() {
     }

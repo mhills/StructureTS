@@ -22,6 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+///<reference path='../plugins/jquery.addEventListener.ts'/>
 ///<reference path='DisplayObjectContainer.ts'/>
 ///<reference path='../events/BaseEvent.ts'/>
 ///<reference path='../utils/TemplateFactory.ts'/>

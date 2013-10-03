@@ -124,8 +124,8 @@ module millermedeiros
                 console.log('lorem '+ query.lorem +' dolor sit '+ query.dolor);
             });
          * @method addRoute
-         * @param pattern {String|RegExp}
-         * @param [priority=0] {number}
+         * @param pattern {String|RegExp} String pattern or Regular Expression that should be used to match against requests.
+         * @param [priority=0] {number} Route execution priority.
          * @param [callback=null] {Function} Function that should be executed when a request matches the Route pattern.
          * (This is just a convenient way to attach a handler to the {{#crossLink "Route/matched:property"}}Route.matched{{/crossLink}} Signal)
          * @returns {Route} Returns a Route object.
@@ -137,6 +137,11 @@ module millermedeiros
             return route;
         }
 
+        /**
+         * Remove a single route from crossroads collection.
+         *
+         * @param route {Route} Reference to the Route object returned by crossroads.addRoute().
+         */
         public removeRoute(route:Route)
         {
             this.arrayRemove(this._routes, route);
@@ -173,7 +178,10 @@ module millermedeiros
             }
         }
 
-        public removeAllRoutes()
+        /**
+         * Remove all routes from crossroads collection.
+         */
+        public removeAllRoutes():void
         {
             var n = this.getNumRoutes();
             while (n--)
