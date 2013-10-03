@@ -70,13 +70,13 @@ class LanguageModel extends EventDispatcher
      *       {
      *           "data": [
      *               {
-     *                   "id": "en",
+     *                   "id": "en-US",
      *                   "lang": "English",
      *                   "text": "English",
      *                   "path": "data/languages/main.en.json"
      *               },
      *               {
-     *                   "id": "sp",
+     *                   "id": "es-ES",
      *                   "lang": "Spanish",
      *                   "text": "Español",
      *                   "path": "data/languages/main.sp.json"
@@ -160,7 +160,7 @@ class LanguageModel extends EventDispatcher
     {
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
 
-        var firstLanguageId:string;
+        var firstLanguageId:string = null;
         var jsonData:any = JSON.parse(event.target.data);
         var vo:LanguageConfigVO;
         var len:number = jsonData.data.length
@@ -170,14 +170,17 @@ class LanguageModel extends EventDispatcher
             this._availableLanguagesDictionary[vo.id] = vo;
 
             // Save a reference to the first vo id so we can set that as the default language.
-            if (!firstLanguageId)
+            if (firstLanguageId == null)
             {
                 firstLanguageId = vo.id;
             }
         }
 
-        // If there is no default language set then use the first one in the _availableLanguagesDictionary.
-        this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
+        // Checks if the language id that exists in LocalStorage is found in the _availableLanguagesDictionary.
+        var languageIdFound:boolean = this.hasLanguage(this.currentLanguage);
+
+        // If there is no default language set in LocalStorage then use the first one in the _availableLanguagesDictionary.
+        this.currentLanguage = (languageIdFound) ? this.currentLanguage : firstLanguageId;
 
         this.dispatchEvent(new LoaderEvent(LanguageEvent.CONFIG_LOADED, false, false, this.data));
 
@@ -199,6 +202,18 @@ class LanguageModel extends EventDispatcher
         this._request = null
 
         this.dispatchEvent(new LoaderEvent(LanguageEvent.LANGUAGE_LOADED, false, false, this.data));
+    }
+
+    /**
+     * We need to check if the language id that exists in LocalStorage matches an id in the _availableLanguagesDictionary.
+     * If the application was updated and the language id's changed it would break the application.
+     *
+     * @method hasLanguage
+     * @private
+     */
+    private hasLanguage(languageId:string):boolean
+    {
+        return !!this._availableLanguagesDictionary[languageId];
     }
 
 }
