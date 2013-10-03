@@ -163,7 +163,7 @@ class LanguageModel extends EventDispatcher
         var firstLanguageId:string = null;
         var jsonData:any = JSON.parse(event.target.data);
         var vo:LanguageConfigVO;
-        var len:number = jsonData.data.length
+        var len:number = jsonData.data.length;
         for (var i:number = 0; i < len; i++)
         {
             vo = new LanguageConfigVO(jsonData.data[i]);
@@ -199,7 +199,7 @@ class LanguageModel extends EventDispatcher
     {
         this.data = JSON.parse(event.target.data);
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
-        this._request = null
+        this._request = null;
 
         this.dispatchEvent(new LoaderEvent(LanguageEvent.LANGUAGE_LOADED, false, false, this.data));
     }
