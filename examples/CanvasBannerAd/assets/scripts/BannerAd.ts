@@ -38,8 +38,7 @@ class BannerAd extends Canvas
     }
 
     /**
-     * @copy CanvasElement.createChildren
-     * @overridden
+     * @overridden CanvasElement.createChildren
      */
     public createChildren():void
     {
@@ -47,8 +46,7 @@ class BannerAd extends Canvas
     }
 
     /**
-     * @copy DisplayObject.enable
-     * @overridden
+     * @overridden DisplayObject.enable
      */
     public enable():void {
         if (this.isEnabled === true) return;
@@ -57,8 +55,7 @@ class BannerAd extends Canvas
     }
 
     /**
-     * @copy DisplayObject.disable
-     * @overridden
+     * @overridden DisplayObject.disable
      */
     public disable():any {
         if (this.isEnabled === false) return;

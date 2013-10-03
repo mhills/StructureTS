@@ -21,8 +21,7 @@ class DadView extends DOMElement {
     }
 
     /**
-     * @copy DisplayObject.createChildren
-     * @overridden
+     * @overridden DisplayObject.createChildren
      */
     public createChildren():void {
         super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
@@ -36,8 +35,7 @@ class DadView extends DOMElement {
     }
 
     /**
-     * @copy DisplayObject.layoutChildren
-     * @overridden
+     * @overridden DisplayObject.layoutChildren
      */
     public layoutChildren():void {
         this._dadMessage.$element.css('opacity', 0);
@@ -45,8 +43,7 @@ class DadView extends DOMElement {
     }
 
     /**
-     * @copy DisplayObject.enable
-     * @overridden
+     * @overridden DisplayObject.enable
      */
     public enable():void {
         if (this.isEnabled === true) return;
@@ -59,8 +56,7 @@ class DadView extends DOMElement {
     }
 
     /**
-     * @copy DisplayObject.disable
-     * @overridden
+     * @overridden DisplayObject.disable
      */
     public disable():void {
         if (this.isEnabled === false) return;
@@ -73,8 +69,7 @@ class DadView extends DOMElement {
     }
 
     /**
-     * @copy DisplayObject.destroy
-     * @overridden
+     * @overridden DisplayObject.destroy
      */
     public destroy():void {
         this._sonView.destroy();

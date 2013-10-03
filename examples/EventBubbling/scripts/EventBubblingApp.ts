@@ -20,8 +20,7 @@ class EventBubblingApp extends Stage {
     }
 
     /**
-     * @copy DOMElement.createChildren
-     * @overridden
+     * @overridden DOMElement.createChildren
      */
     public createChildren():void {
         super.createChildren();
@@ -34,8 +33,7 @@ class EventBubblingApp extends Stage {
     }
 
     /**
-     * @copy DisplayObject.layoutChildren
-     * @overridden
+     * @overridden DisplayObject.layoutChildren
      */
     public layoutChildren():void {
         this._stageMessage.$element.css('opacity', 0);
@@ -43,8 +41,7 @@ class EventBubblingApp extends Stage {
     }
 
     /**
-     * @copy DisplayObject.enable
-     * @overridden
+     * @overridden DisplayObject.enable
      */
     public enable():void {
         if (this.isEnabled === true) return;
@@ -58,8 +55,7 @@ class EventBubblingApp extends Stage {
     }
 
     /**
-     * @copy DisplayObject.disable
-     * @overridden
+     * @overridden DisplayObject.disable
      */
     public disable():void {
         if (this.isEnabled === false) return;

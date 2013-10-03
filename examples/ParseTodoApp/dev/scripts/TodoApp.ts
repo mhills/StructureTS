@@ -31,8 +31,7 @@ class TodoApp extends Stage
     }
 
     /**
-     * @copy DOMElement.createChildren
-     * @overridden
+     * @overridden DOMElement.createChildren
      */
     public createChildren():void
     {
@@ -51,8 +50,7 @@ class TodoApp extends Stage
     }
 
     /**
-     * @copy DisplayObject.enable
-     * @overridden
+     * @overridden DisplayObject.enable
      */
     public enable():void {
         if (this.isEnabled === true) return;
@@ -68,8 +66,7 @@ class TodoApp extends Stage
     }
 
     /**
-     * @copy DisplayObject.disable
-     * @overridden
+     * @overridden DisplayObject.disable
      */
     public disable():void {
         if (this.isEnabled === false) return;

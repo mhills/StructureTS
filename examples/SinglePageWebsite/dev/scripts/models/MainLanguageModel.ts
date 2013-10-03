@@ -29,8 +29,7 @@ class MainLanguageModel extends LanguageModel {
     }
 
     /**
-     * @copy LanguageModel.onLanguageDataLoad
-     * @overridden
+     * @overridden LanguageModel.onLanguageDataLoad
      */
     public onLanguageDataLoad(event:LoaderEvent):void {
         var data = JSON.parse(event.target.data);

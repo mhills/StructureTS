@@ -56,7 +56,7 @@ class NavigationView extends DOMElement
     }
 
     /**
-     * @copy DisplayObject.enable
+     * @overridden DisplayObject.enable
      */
     public enable():DOMElement {
         if (this.isEnabled === true) return this;
@@ -66,7 +66,7 @@ class NavigationView extends DOMElement
     }
 
     /**
-     * @copy DisplayObject.disable
+     * @overridden DisplayObject.disable
      */
     public disable():DOMElement {
         if (this.isEnabled === false) return this;

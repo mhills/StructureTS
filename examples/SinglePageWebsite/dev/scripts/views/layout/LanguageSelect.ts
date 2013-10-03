@@ -28,7 +28,7 @@ class LanguageSelect extends DOMElement {
     }
 
     /**
-     * @copy DOMElement.enable
+     * @overridden DOMElement.enable
      */
     public enable():DOMElement {
         if (this.isEnabled === true) return this;
@@ -40,7 +40,7 @@ class LanguageSelect extends DOMElement {
     }
 
     /**
-     * @copy DOMElement.disable
+     * @overridden DOMElement.disable
      */
     public disable():DOMElement {
         if (this.isEnabled === false) return this;

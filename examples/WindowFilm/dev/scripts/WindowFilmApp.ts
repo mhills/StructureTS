@@ -39,7 +39,7 @@ class WindowFilmApp extends Stage {
     }
 
     /**
-     * @copy DisplayObject.enable
+     * @overridden DisplayObject.enable
      */
     public enable():DOMElement {
         if (this.isEnabled === true) return this;
@@ -51,7 +51,7 @@ class WindowFilmApp extends Stage {
     }
 
     /**
-     * @copy DisplayObject.disable
+     * @overridden DisplayObject.disable
      */
     public disable():DOMElement {
         if (this.isEnabled === false) return this;
