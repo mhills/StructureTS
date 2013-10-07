@@ -39,7 +39,7 @@
 class DOMElement extends DisplayObjectContainer
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
+     * @overridden DisplayObjectContainer.CLASS_NAME
      */
     public CLASS_NAME:string = 'DOMElement';
 

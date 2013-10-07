@@ -181,6 +181,8 @@ class StringUtil
      * @method removeAllWhitespace
      * @param str {string}
      * @returns {string}
+     * @public
+     * @static
      */
     public static removeAllWhitespace(str:string):string
     {
@@ -197,10 +199,30 @@ class StringUtil
      * @method removeLeadingTrailingWhitespace
      * @param str {string}
      * @returns {string}
+     * @public
+     * @static
      */
     public static removeLeadingTrailingWhitespace(str:string):string
     {
         return str.replace(/(^\s+|\s+$)/g,'');
+    }
+
+    /**
+     *
+     * @method truncate
+     * @param text {string}
+     * @param length {int}
+     * @returns {string}
+     * @public
+     * @static
+     */
+    public static truncate(text:string, length:number):string
+    {
+        if (text.length <= length) {
+            return text;
+        } else {
+            return text.substr(0, length) + "...";
+        }
     }
 
 }

@@ -73,6 +73,30 @@ class NumberUtil
         return feet / 3.2808;
     }
 
+    public static convertToHHMMSS(seconds:number):string
+    {
+        var sec:number = isNaN(seconds) ? 0 : seconds;//Changes NaN to 0
+
+        var s:number = sec % 60;
+        var m:number = Math.floor((sec % 3600 ) / 60);
+        var h:number = Math.floor(sec / (60 * 60));
+
+        var hourStr:string = (h == 0) ? "" : NumberUtil.doubleDigitFormat(h) + ":";
+        var minuteStr:string = NumberUtil.doubleDigitFormat(m) + ":";
+        var secondsStr:string = NumberUtil.doubleDigitFormat(s);
+
+        return hourStr + minuteStr + secondsStr;
+    }
+
+    public static doubleDigitFormat(num:number):string
+    {
+        if (num < 10)
+        {
+            return ("0" + num);
+        }
+        return String(num);
+    }
+
     //http://www.metric-conversions.org/length/inches-conversion.htm
 
 //    public static formatUnit(number:number, decimalPlacement:number = 2, decimalSeparator:string = '.', thousandsSeparator:string = ''):number
