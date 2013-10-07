@@ -2667,6 +2667,7 @@ var TemplateFactory = (function () {
     };
 
     TemplateFactory.create = function (templatePath, data) {
+        if (typeof data === "undefined") { data = null; }
         var regex = /^([.#])(.+)/;
         var template;
         var isClassOrIdName = regex.test(templatePath);

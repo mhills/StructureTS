@@ -22,8 +22,8 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../events/EventDispatcher.ts'/>
-///<reference path='../events/LoaderEvent.ts'/>
+///<reference path='../event/EventDispatcher.ts'/>
+///<reference path='../event/LoaderEvent.ts'/>
 ///<reference path='URLRequest.ts'/>
 ///<reference path='URLLoaderDataFormat.ts'/>
 

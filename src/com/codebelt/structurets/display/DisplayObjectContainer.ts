@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../events/EventDispatcher.ts'/>
+///<reference path='../event/EventDispatcher.ts'/>
 
 /**
  * The {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} class is the base class for all objects that can be placed on the display list.

@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../events/EventDispatcher.ts'/>
+///<reference path='../event/EventDispatcher.ts'/>
 
 /**
  * The BaseController...

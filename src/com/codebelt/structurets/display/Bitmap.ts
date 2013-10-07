@@ -23,7 +23,7 @@
  */
 
 ///<reference path='CanvasElement.ts'/>
-///<reference path='../utils/NumberUtil.ts'/>
+///<reference path='../util/NumberUtil.ts'/>
 
 /**
  * The Bitmap...

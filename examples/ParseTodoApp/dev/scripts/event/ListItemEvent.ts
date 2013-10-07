@@ -1,4 +1,4 @@
-///<reference path='../../../../../src/com/codebelt/structurets/events/BaseEvent.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/event/BaseEvent.ts'/>
 
 /**
  * YUIDoc_comment

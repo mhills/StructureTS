@@ -1,12 +1,12 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/events/native/MouseEvents.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/events/RequestEvent.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/utils/TemplateFactory.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/event/native/MouseEvents.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/event/RequestEvent.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/util/TemplateFactory.ts'/>
 
-///<reference path='views/topbar/TopNavigationView.ts'/>
-///<reference path='views/login/LoginView.ts'/>
-///<reference path='views/SelectBoxTemp.ts'/>
+///<reference path='view/topbar/TopNavigationView.ts'/>
+///<reference path='view/login/LoginView.ts'/>
+///<reference path='view/SelectBoxTemp.ts'/>
 
 class WindowFilmApp extends Stage {
 

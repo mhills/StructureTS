@@ -1,7 +1,7 @@
 ///<reference path='../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../src/com/codebelt/structurets/display/Stage.ts'/>
 
-///<reference path='views/family/GrandpaView.ts'/>
+///<reference path='view/family/GrandpaView.ts'/>
 
 /**
  *

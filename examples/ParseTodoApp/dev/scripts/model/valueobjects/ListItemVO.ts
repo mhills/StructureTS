@@ -1,4 +1,4 @@
-///<reference path='../../../../../../src/com/codebelt/structurets/models/ValueObject.ts'/>
+///<reference path='../../../../../../src/com/codebelt/structurets/model/ValueObject.ts'/>
 
 /**
  * YUIDoc_comment

@@ -1,5 +1,5 @@
-///<reference path='../../../../../src/com/codebelt/structurets/events/EventDispatcher.ts'/>
-///<reference path='../../../../../src/com/codebelt/structurets/events/RequestEvent.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/event/EventDispatcher.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/event/RequestEvent.ts'/>
 ///<reference path='../event/ListItemEvent.ts'/>
 ///<reference path='valueobjects/ListItemVO.ts'/>
 

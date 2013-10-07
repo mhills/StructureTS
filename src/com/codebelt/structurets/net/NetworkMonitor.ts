@@ -1,6 +1,6 @@
-///<reference path='../events/EventDispatcher.ts'/>
-///<reference path='../events/native/NavigatorEvents.ts'/>
-///<reference path='../events/NetworkMonitorEvent.ts'/>
+///<reference path='../event/EventDispatcher.ts'/>
+///<reference path='../event/native/NavigatorEvents.ts'/>
+///<reference path='../event/NetworkMonitorEvent.ts'/>
 
 /**
  * YUIDoc_comment

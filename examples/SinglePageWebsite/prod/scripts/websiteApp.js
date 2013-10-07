@@ -476,6 +476,7 @@ var TemplateFactory = (function () {
     };
 
     TemplateFactory.create = function (templatePath, data) {
+        if (typeof data === "undefined") { data = null; }
         var regex = /^([.#])(.+)/;
         var template;
         var isClassOrIdName = regex.test(templatePath);
@@ -2338,7 +2339,7 @@ var LanguageModel = (function (_super) {
     LanguageModel.prototype.onConfigLoaded = function (event) {
         this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
 
-        var firstLanguageId;
+        var firstLanguageId = null;
         var jsonData = JSON.parse(event.target.data);
         var vo;
         var len = jsonData.data.length;
@@ -2346,12 +2347,14 @@ var LanguageModel = (function (_super) {
             vo = new LanguageConfigVO(jsonData.data[i]);
             this._availableLanguagesDictionary[vo.id] = vo;
 
-            if (!firstLanguageId) {
+            if (firstLanguageId == null) {
                 firstLanguageId = vo.id;
             }
         }
 
-        this.currentLanguage = (this.currentLanguage) ? this.currentLanguage : firstLanguageId;
+        var languageIdFound = this.hasLanguage(this.currentLanguage);
+
+        this.currentLanguage = (languageIdFound) ? this.currentLanguage : firstLanguageId;
 
         this.dispatchEvent(new LoaderEvent(LanguageEvent.CONFIG_LOADED, false, false, this.data));
 
@@ -2365,6 +2368,10 @@ var LanguageModel = (function (_super) {
         this._request = null;
 
         this.dispatchEvent(new LoaderEvent(LanguageEvent.LANGUAGE_LOADED, false, false, this.data));
+    };
+
+    LanguageModel.prototype.hasLanguage = function (languageId) {
+        return !!this._availableLanguagesDictionary[languageId];
     };
     return LanguageModel;
 })(EventDispatcher);

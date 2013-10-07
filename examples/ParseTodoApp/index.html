@@ -5,8 +5,9 @@
     <link rel="stylesheet" href="dev/styles/reset.css">
     <link rel="stylesheet" href="dev/styles/styles.css">
     <script type="text/javascript" src="../../libs/polyfill/polyfill.addEventListener.js"></script>
-    <script type="text/javascript" src="../../libs/lodash.v1.3.1.min.js"></script>
-    <script type="text/javascript" src="../../libs/jquery/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="../../libs/handlebars/handlebars.js"></script>
+    <script type="text/javascript" src="../../libs/lodash/lodash.compat.js"></script>
+    <script type="text/javascript" src="../../libs/jquery/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../../libs/parse-1.2.8.js"></script>
     <script type="text/javascript" src="prod/scripts/todoApp.js"></script>
 </head>
@@ -28,7 +29,7 @@
 </div>
 
 <script id="todoItemsTemplate" type="text/template">
-    <li class="list-item"><input type="checkbox" data-id="<%= id %>"><%= content %></li>
+    <li class="list-item"><input type="checkbox" data-id="{{ id }}">{{content}}</li>
 </script>
 
 <script id="noTodoItemsTemplate" type="text/template">

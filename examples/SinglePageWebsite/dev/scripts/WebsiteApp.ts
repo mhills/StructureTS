@@ -3,14 +3,14 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/controller/RouterController.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/requests/JsonRequest.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/models/LanguageModel.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/request/JsonRequest.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/model/LanguageModel.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/controller/LocalStorageController.ts'/>
 
-///<reference path='views/layout/NavigationView.ts'/>
-///<reference path='views/layout/FooterView.ts'/>
-///<reference path='views/MainView.ts'/>
-///<reference path='models/MainLanguageModel.ts'/>
+///<reference path='view/layout/NavigationView.ts'/>
+///<reference path='view/layout/FooterView.ts'/>
+///<reference path='view/MainView.ts'/>
+///<reference path='model/MainLanguageModel.ts'/>
 
 class WebsiteApp extends Stage
 {

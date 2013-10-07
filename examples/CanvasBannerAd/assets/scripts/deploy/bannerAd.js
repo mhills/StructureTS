@@ -421,6 +421,58 @@ var CanvasElement = (function (_super) {
     };
     return CanvasElement;
 })(DisplayObjectContainer);
+var Canvas = (function (_super) {
+    __extends(Canvas, _super);
+    function Canvas() {
+        _super.call(this);
+        this.CLASS_NAME = 'Canvas';
+        this.element = null;
+
+        this.stage = this;
+    }
+    Canvas.prototype.appendTo = function (type, enabled) {
+        if (typeof enabled === "undefined") { enabled = true; }
+        this.element = document.getElementById(type);
+        this.context = this.element.getContext("2d");
+
+        this.width = this.element.width;
+        this.height = this.element.height;
+
+        if (!this.isCreated) {
+            this.createChildren();
+            this.isCreated = true;
+        }
+
+        if (enabled) {
+            this.enable();
+        }
+
+        return this;
+    };
+
+    Canvas.prototype.addChild = function (child) {
+        child.parent = this.stage;
+        child.stage = this.stage;
+        child.context = this.context;
+        child.createChildren();
+
+        return this;
+    };
+
+    Canvas.prototype.removeChild = function (child) {
+        child.stage = null;
+        child.context = null;
+
+        return this;
+    };
+
+    Canvas.prototype.render = function () {
+        this.context.clearRect(0, 0, this.width, this.height);
+
+        return this;
+    };
+    return Canvas;
+})(CanvasElement);
 (function ($, window, document) {
     $.fn.addEventListener = function (type, selector, data, callback, scope) {
         var _callback;
@@ -541,6 +593,7 @@ var TemplateFactory = (function () {
     };
 
     TemplateFactory.create = function (templatePath, data) {
+        if (typeof data === "undefined") { data = null; }
         var regex = /^([.#])(.+)/;
         var template;
         var isClassOrIdName = regex.test(templatePath);
@@ -802,58 +855,6 @@ var DOMElement = (function (_super) {
     };
     return DOMElement;
 })(DisplayObjectContainer);
-var Canvas = (function (_super) {
-    __extends(Canvas, _super);
-    function Canvas() {
-        _super.call(this);
-        this.CLASS_NAME = 'Canvas';
-        this.element = null;
-
-        this.stage = this;
-    }
-    Canvas.prototype.appendTo = function (type, enabled) {
-        if (typeof enabled === "undefined") { enabled = true; }
-        this.element = document.getElementById(type);
-        this.context = this.element.getContext("2d");
-
-        this.width = this.element.width;
-        this.height = this.element.height;
-
-        if (!this.isCreated) {
-            this.createChildren();
-            this.isCreated = true;
-        }
-
-        if (enabled) {
-            this.enable();
-        }
-
-        return this;
-    };
-
-    Canvas.prototype.addChild = function (child) {
-        child.parent = this.stage;
-        child.stage = this.stage;
-        child.context = this.context;
-        child.createChildren();
-
-        return this;
-    };
-
-    Canvas.prototype.removeChild = function (child) {
-        child.stage = null;
-        child.context = null;
-
-        return this;
-    };
-
-    Canvas.prototype.render = function () {
-        this.context.clearRect(0, 0, this.width, this.height);
-
-        return this;
-    };
-    return Canvas;
-})(CanvasElement);
 var Stage = (function (_super) {
     __extends(Stage, _super);
     function Stage() {

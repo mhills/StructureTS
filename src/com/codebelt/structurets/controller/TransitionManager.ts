@@ -24,11 +24,11 @@
 
 ///<reference path='BaseController.ts'/>
 ///<reference path='../display/DOMElement.ts'/>
-///<reference path='../utils/TransitionFactory.ts'/>
-///<reference path='../interfaces/ITransition.ts'/>
-///<reference path='../constants/TransitionType.ts'/>
-///<reference path='../events/TransitionManagerEvent.ts'/>
-///<reference path='../events/TweenEvent.ts'/>
+///<reference path='../util/TransitionFactory.ts'/>
+///<reference path='../interface/ITransition.ts'/>
+///<reference path='../constant/TransitionType.ts'/>
+///<reference path='../event/TransitionManagerEvent.ts'/>
+///<reference path='../event/TweenEvent.ts'/>
 
 /**
  * YUIDoc_comment

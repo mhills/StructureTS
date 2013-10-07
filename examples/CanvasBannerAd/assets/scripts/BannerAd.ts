@@ -1,9 +1,9 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/Canvas.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Bitmap.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/utils/AssetLoader.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/utils/ImageLoader.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/events/LoaderEvent.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/util/AssetLoader.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/util/ImageLoader.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/event/LoaderEvent.ts'/>
 
 /**
  *

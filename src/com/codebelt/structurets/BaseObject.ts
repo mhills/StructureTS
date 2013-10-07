@@ -30,7 +30,7 @@
 ///<reference path='_declare/jquery.addEventListener.d.ts'/>
 ///<reference path='_declare/log.d.ts'/>
 
-///<reference path='utils/Util.ts'/>
+///<reference path='util/Util.ts'/>
 
 /**
  * The {{#crossLink "BaseObject"}}{{/crossLink}} class is an abstract class that provides common properties and functionality for all StructureTS classes.

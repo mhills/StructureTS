@@ -23,7 +23,6 @@
  */
 
 ///<reference path='CanvasElement.ts'/>
-///<reference path='DOMElement.ts'/>
 
 /**
  * The Canvas...
@@ -37,7 +36,7 @@
 class Canvas extends CanvasElement
 {
     /**
-     * @overridden DOMElement.CLASS_NAME
+     * @overridden CanvasElement.CLASS_NAME
      */
     public CLASS_NAME:string = 'Canvas';
 

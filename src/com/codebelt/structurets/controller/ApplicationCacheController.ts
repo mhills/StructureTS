@@ -23,7 +23,7 @@
  */
 
 ///<reference path='BaseController.ts'/>
-///<reference path='../events/ApplicationCacheEvent.ts'/>
+///<reference path='../event/ApplicationCacheEvent.ts'/>
 
 /**
  * The ApplicationCacheController...

@@ -22,10 +22,10 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../plugins/jquery.addEventListener.ts'/>
+///<reference path='../plugin/jquery.addEventListener.ts'/>
 ///<reference path='DisplayObjectContainer.ts'/>
-///<reference path='../events/BaseEvent.ts'/>
-///<reference path='../utils/TemplateFactory.ts'/>
+///<reference path='../event/BaseEvent.ts'/>
+///<reference path='../util/TemplateFactory.ts'/>
 
 /**
  * The {{#crossLink "DOMElement"}}{{/crossLink}} class is the base class for all objects that can be placed into the HTML DOM.

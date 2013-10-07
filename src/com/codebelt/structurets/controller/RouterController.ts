@@ -23,7 +23,7 @@
  */
 
 ///<reference path='BaseController.ts'/>
-///<reference path='../utils/BrowserUtils.ts'/>
+///<reference path='../util/BrowserUtils.ts'/>
 
 ///<reference path='../../../millermedeiros/hasher/Hasher.ts'/>
 ///<reference path='../../../millermedeiros/crossroads/Crossroads.ts' />

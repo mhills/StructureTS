@@ -23,8 +23,8 @@
  */
 
 ///<reference path='BaseController'/>
-///<reference path='../events/LocalStorageEvent.ts'/>
-///<reference path='../models/ValueObject.ts'/>
+///<reference path='../event/LocalStorageEvent.ts'/>
+///<reference path='../model/ValueObject.ts'/>
 
 /**
  * The LocalStorageController...
