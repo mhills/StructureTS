@@ -116,7 +116,7 @@ class Util
                         if (key === list[listIndex])
                         {
                             // Delete the property from the object.
-                            delete value;
+                            delete object[key];
                         }
                     }
 
