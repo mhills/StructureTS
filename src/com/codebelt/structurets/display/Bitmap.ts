@@ -23,7 +23,7 @@
  */
 
 ///<reference path='CanvasElement.ts'/>
-///<reference path='../util/NumberUtil.ts'/>
+///<reference path='../util/MathUtil.ts'/>
 
 /**
  * The Bitmap...
@@ -65,7 +65,7 @@ class Bitmap extends CanvasElement
     {
         this.context.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
         this.context.scale(this.scaleX, this.scaleY);
-        this.context.rotate(NumberUtil.degreesToRadians(this.rotation));
+        this.context.rotate(MathUtil.degreesToRadians(this.rotation));
         this.context.translate(-this.width * 0.5, -this.height * 0.5);
 
         this.context.drawImage(this._image, 0, 0);

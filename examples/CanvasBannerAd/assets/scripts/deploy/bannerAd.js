@@ -574,6 +574,14 @@ var StringUtil = (function () {
     StringUtil.removeLeadingTrailingWhitespace = function (str) {
         return str.replace(/(^\s+|\s+$)/g, '');
     };
+
+    StringUtil.truncate = function (text, length) {
+        if (text.length <= length) {
+            return text;
+        } else {
+            return text.substr(0, length) + "...";
+        }
+    };
     StringUtil.CLASS_NAME = 'StringUtil';
     return StringUtil;
 })();
@@ -880,34 +888,176 @@ var Stage = (function (_super) {
     };
     return Stage;
 })(DOMElement);
-var NumberUtil = (function () {
-    function NumberUtil() {
+var MathUtil = (function () {
+    function MathUtil() {
     }
-    NumberUtil.degreesToRadians = function (degrees) {
-        return degrees * Math.PI / 180;
+    MathUtil.constrain = function (num, min, max) {
+        if (typeof min === "undefined") { min = 0; }
+        if (typeof max === "undefined") { max = 1; }
+        if (num < min) {
+            return min;
+        }
+        if (num > max) {
+            return max;
+        }
+        return num;
     };
 
-    NumberUtil.radiansToDegrees = function (radians) {
-        return radians * 180 / Math.PI;
+    MathUtil.randomRange = function (min, max, round) {
+        if (typeof round === "undefined") { round = false; }
+        var num = (min + Math.random() * (max - min));
+
+        if (round) {
+            return Math.round(num);
+        }
+        return num;
     };
 
-    NumberUtil.bytesToMegabytes = function (bytes) {
-        return bytes / 1048576;
+    MathUtil.rangeToPercent = function (num, min, max, constrainMin, constrainMax) {
+        if (typeof constrainMin === "undefined") { constrainMin = false; }
+        if (typeof constrainMax === "undefined") { constrainMax = false; }
+        if (constrainMin && num < min) {
+            return 0;
+        }
+        if (constrainMax && num > max) {
+            return 1;
+        }
+        return (num - min) / (max - min);
     };
 
-    NumberUtil.centimeterToInch = function (cm) {
-        return cm * 0.39370;
+    MathUtil.percentToRange = function (percent, min, max) {
+        return (percent * (max - min)) + min;
     };
 
-    NumberUtil.inchToCentimeter = function (inch) {
-        return inch * 2.54;
+    MathUtil.map = function (num, min1, max1, min2, max2, round, constrainMin, constrainMax) {
+        if (typeof round === "undefined") { round = true; }
+        if (typeof constrainMin === "undefined") { constrainMin = true; }
+        if (typeof constrainMax === "undefined") { constrainMax = true; }
+        if (constrainMin && num < min1) {
+            return min2;
+        }
+        if (constrainMax && num > max1) {
+            return max2;
+        }
+
+        var num1 = (num - min1) / (max1 - min1);
+        var num2 = (num1 * (max2 - min2)) + min2;
+        if (round) {
+            return Math.round(num2);
+        }
+        return num2;
     };
 
-    NumberUtil.feetToMeter = function (feet) {
-        return feet / 3.2808;
+    MathUtil.radiansToDegrees = function (radians) {
+        return (radians * 180 / Math.PI);
     };
-    NumberUtil.CLASS_NAME = 'NumberUtil';
-    return NumberUtil;
+
+    MathUtil.degreesToRadians = function (degrees) {
+        return (degrees * Math.PI / 180);
+    };
+
+    MathUtil.sign = function (num) {
+        if (num < 0) {
+            return -1;
+        }
+        return 1;
+    };
+
+    MathUtil.isPositive = function (num) {
+        return (num >= 0);
+    };
+
+    MathUtil.isNegative = function (num) {
+        return (num < 0);
+    };
+
+    MathUtil.isOdd = function (num) {
+        var i = num;
+        var e = 2;
+        return Boolean(i % e);
+    };
+
+    MathUtil.isEven = function (num) {
+        var int = num;
+        var e = 2;
+        return (int % e == 0);
+    };
+
+    MathUtil.isPrime = function (num) {
+        if (num > 2 && num % 2 == 0) {
+            return false;
+        }
+        var l = Math.sqrt(num);
+        var i = 3;
+        for (i; i <= l; i += 2)
+            if (num % i == 0) {
+                return false;
+            }
+        return true;
+    };
+
+    MathUtil.factorial = function (num) {
+        if (num == 0) {
+            return 1;
+        }
+        var d = num.valueOf();
+        var i = d - 1;
+        while (i) {
+            d = d * i;
+            i--;
+        }
+        return d;
+    };
+
+    MathUtil.getDivisors = function (num) {
+        var r = [];
+        for (var i = 1, e = num / 2; i <= e; i++)
+            if (num % i == 0) {
+                r.push(i);
+            }
+        if (num != 0) {
+            r.push(num.valueOf());
+        }
+        return r;
+    };
+
+    MathUtil.toCelsius = function (fahrenheit, decimals) {
+        if (typeof decimals === "undefined") { decimals = 2; }
+        var d = '';
+        var r = (5 / 9) * (fahrenheit - 32);
+        var s = r.toString().split(".");
+        if (s[1] != undefined) {
+            d = s[1].substr(0, decimals);
+        } else {
+            var i = decimals;
+            while (i > 0) {
+                d += "0";
+                i--;
+            }
+        }
+        var c = s[0] + "." + d;
+        return Number(c);
+    };
+
+    MathUtil.toFahrenheit = function (celsius, decimals) {
+        if (typeof decimals === "undefined") { decimals = 2; }
+        var d = '';
+        var r = (celsius / (5 / 9)) + 32;
+        var s = r.toString().split(".");
+        if (s[1] != undefined) {
+            d = s[1].substr(0, decimals);
+        } else {
+            var i = decimals;
+            while (i > 0) {
+                d += "0";
+                i--;
+            }
+        }
+        var f = s[0] + "." + d;
+        return Number(f);
+    };
+    MathUtil.CLASS_NAME = 'MathUtil';
+    return MathUtil;
 })();
 var Bitmap = (function (_super) {
     __extends(Bitmap, _super);
@@ -930,7 +1080,7 @@ var Bitmap = (function (_super) {
     Bitmap.prototype.render = function () {
         this.context.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
         this.context.scale(this.scaleX, this.scaleY);
-        this.context.rotate(NumberUtil.degreesToRadians(this.rotation));
+        this.context.rotate(MathUtil.degreesToRadians(this.rotation));
         this.context.translate(-this.width * 0.5, -this.height * 0.5);
 
         this.context.drawImage(this._image, 0, 0);
@@ -1059,6 +1209,18 @@ var BannerAd = (function (_super) {
         this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "logo.png"), "logo");
         this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "box.png"), "box");
         this._assetLoader.load();
+
+        console.log("constrain", MathUtil.constrain(23, 2, 4));
+        console.log("degreesToRadians", MathUtil.degreesToRadians(360));
+        console.log("factorial", MathUtil.factorial(23));
+        console.log("getDivisors", MathUtil.getDivisors(23));
+        console.log("isEven", MathUtil.isEven(2));
+        console.log("isOdd", MathUtil.isOdd(1));
+        console.log("isNegative", MathUtil.isNegative(-1));
+        console.log("isPositive", MathUtil.isPositive(2));
+        console.log("isPrime", MathUtil.isPrime(22));
+        console.log("toCelsius", MathUtil.toCelsius(0));
+        console.log("toFahrenheit", MathUtil.toFahrenheit(100));
     }
     BannerAd.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);

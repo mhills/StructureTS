@@ -3,6 +3,7 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/Bitmap.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/util/AssetLoader.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/util/ImageLoader.ts'/>
+///<reference path='../../../../src/com/codebelt/structurets/util/MathUtil.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/event/LoaderEvent.ts'/>
 
 /**
@@ -35,6 +36,7 @@ class BannerAd extends Canvas
         this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "logo.png"), "logo");
         this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "box.png"), "box");
         this._assetLoader.load();
+
     }
 
     /**

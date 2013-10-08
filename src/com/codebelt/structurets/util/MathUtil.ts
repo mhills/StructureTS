@@ -210,7 +210,7 @@ class MathUtil {
      * @param num {number} The number.
      * @return {boolean}
      */
-    public isPositive(num:number):boolean
+    public static isPositive(num:number):boolean
     {
         return (num >= 0);
     }
@@ -222,7 +222,7 @@ class MathUtil {
      * @param num {number} The
      * @return {boolean}
      */
-    public isNegative(num:number):boolean
+    public static isNegative(num:number):boolean
     {
         return (num < 0);
     }
@@ -234,10 +234,10 @@ class MathUtil {
      * @param num {number} The number.
      * @return {boolean}
      */
-    public isOdd(num:number):boolean
+    public static isOdd(num:number):boolean
     {
-        var i:number = new Number(num);
-        var e:number = new Number(2);
+        var i:number = num;
+        var e:number = 2;
         return Boolean(i % e);
     }
 
@@ -248,10 +248,10 @@ class MathUtil {
      * @param num {number} The number.
      * @return {boolean}
      */
-    public isEven(num:number):boolean
+    public static isEven(num:number):boolean
     {
-        var int:number = new Number(num);
-        var e:number = new Number(2);
+        var int:number = num;
+        var e:number = 2;
         return (int % e == 0);
     }
 
@@ -262,7 +262,7 @@ class MathUtil {
      * @param num {number} The number.
      * @return {boolean}
      */
-    public isPrime(num:number):boolean
+    public static isPrime(num:number):boolean
     {
         if (num > 2 && num % 2 == 0)
         {
@@ -284,13 +284,13 @@ class MathUtil {
      * @param num {number} The number.
      * @return {number}
      */
-    public factorial(num:number):number
+    public static factorial(num:number):number
     {
         if (num == 0)
         {
             return 1;
         }
-        var d:number = num.valueOf();
+        var d:number = <number>num.valueOf();
         var i:number = d - 1;
         while (i)
         {
@@ -307,7 +307,7 @@ class MathUtil {
      * @param num {number} The number.
      * @return {Array.<number>}
      */
-    public getDivisors(num:number):number[]
+    public static getDivisors(num:number):number[]
     {
         var r:number[] = [];
         for (var i:number = 1, e:number = num / 2; i <= e; i++) if (num % i == 0)
@@ -316,7 +316,7 @@ class MathUtil {
         }
         if (num != 0)
         {
-            r.push(num.valueOf());
+            r.push(<number>num.valueOf());
         }
         return r;
     }
@@ -329,11 +329,11 @@ class MathUtil {
      * @param decimals {number} The number of decimals.
      * @return {number}
      */
-    public toCelsius(fahrenheit:number, decimals:number = 2):number
+    public static toCelsius(fahrenheit:number, decimals:number = 2):number
     {
-        var d:String;
+        var d:String = '';
         var r:number = (5 / 9) * (fahrenheit - 32);
-        var s:number[] = r.toString().split(".");
+        var s:string[] = r.toString().split(".");
         if (s[1] != undefined)
         {
             d = s[1].substr(0, decimals);
@@ -348,7 +348,7 @@ class MathUtil {
             }
         }
         var c:String = s[0] + "." + d;
-        return number(c);
+        return Number(c);
     }
 
     /**
@@ -359,11 +359,11 @@ class MathUtil {
      * @param decimals {number} The number of decimals.
      * @return {number}
      */
-    public toFahrenheit(celsius:number, decimals:number = 2):number
+    public static toFahrenheit(celsius:number, decimals:number = 2):number
     {
-        var d:String;
+        var d:String = '';
         var r:number = (celsius / (5 / 9)) + 32;
-        var s:number[] = r.toString().split(".");
+        var s:string[] = r.toString().split(".");
         if (s[1] != undefined)
         {
             d = s[1].substr(0, decimals);
@@ -378,7 +378,7 @@ class MathUtil {
             }
         }
         var f:String = s[0] + "." + d;
-        return number(f);
+        return Number(f);
     }
 
 }

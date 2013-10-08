@@ -457,6 +457,14 @@ var StringUtil = (function () {
     StringUtil.removeLeadingTrailingWhitespace = function (str) {
         return str.replace(/(^\s+|\s+$)/g, '');
     };
+
+    StringUtil.truncate = function (text, length) {
+        if (text.length <= length) {
+            return text;
+        } else {
+            return text.substr(0, length) + "...";
+        }
+    };
     StringUtil.CLASS_NAME = 'StringUtil';
     return StringUtil;
 })();
