@@ -37,6 +37,7 @@
  * @module StructureTS
  * @submodule model
  * @constructor
+ * @version 0.1.0
  **/
 class LanguageModel extends EventDispatcher
 {
@@ -109,7 +110,7 @@ class LanguageModel extends EventDispatcher
      */
     public loadLanguageData(vo:LanguageConfigVO):void
     {
-        this._localStorageController.setItem('language', vo.id, true);
+        this._localStorageController.addItem('language', vo.id, true);
 
         this._request = new BaseRequest(vo.path);
         this._request.addEventListener(LoaderEvent.COMPLETE, this.onLanguageDataLoad, this);

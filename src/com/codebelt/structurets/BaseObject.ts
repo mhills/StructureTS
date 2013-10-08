@@ -39,6 +39,7 @@
  * @module StructureTS
  * @submodule core
  * @constructor
+ * @version 0.1.0
  **/
 class BaseObject
 {

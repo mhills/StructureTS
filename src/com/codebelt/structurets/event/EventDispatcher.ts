@@ -36,6 +36,7 @@
  * @module StructureTS
  * @submodule event
  * @constructor
+ * @version 0.1.0
  **/
 class EventDispatcher extends BaseObject
 {

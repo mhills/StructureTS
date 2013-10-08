@@ -78,7 +78,7 @@ class NavigationView extends DOMElement
     public onLanguageChange(event):void
     {
         var ls = new LocalStorageController();
-        ls.setItem('language', event.data);
+        ls.addItem('language', event.data);
 
         document.location.reload(false);
     }

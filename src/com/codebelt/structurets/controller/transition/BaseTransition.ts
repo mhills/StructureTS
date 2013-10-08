@@ -37,6 +37,7 @@
  * @module StructureTS
  * @submodule controller
  * @constructor
+ * @version 0.1.0
  **/
 class BaseTransition extends EventDispatcher implements ITransition
 {

@@ -33,6 +33,7 @@
  * @class CarouselComponent
  * @extends EventDispatcher
  * @constructor
+ * @version 0.1.0
  **/
 class CarouselComponent extends EventDispatcher {
     /**

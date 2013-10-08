@@ -32,6 +32,7 @@
  * @module StructureTS
  * @submodule event
  * @static
+ * @version 0.1.0
  **/
 class EventBroker
 {

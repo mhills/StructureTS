@@ -34,6 +34,7 @@
  * @module StructureTS
  * @submodule model
  * @constructor
+ * @version 0.1.0
  **/
 class ValueObject extends BaseObject implements IValueObject
 {

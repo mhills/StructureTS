@@ -25,7 +25,7 @@ var Util = (function () {
                 } else {
                     for (var listIndex in list) {
                         if (key === list[listIndex]) {
-                            delete value;
+                            delete object[key];
                         }
                     }
                 }
@@ -1209,18 +1209,6 @@ var BannerAd = (function (_super) {
         this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "logo.png"), "logo");
         this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "box.png"), "box");
         this._assetLoader.load();
-
-        console.log("constrain", MathUtil.constrain(23, 2, 4));
-        console.log("degreesToRadians", MathUtil.degreesToRadians(360));
-        console.log("factorial", MathUtil.factorial(23));
-        console.log("getDivisors", MathUtil.getDivisors(23));
-        console.log("isEven", MathUtil.isEven(2));
-        console.log("isOdd", MathUtil.isOdd(1));
-        console.log("isNegative", MathUtil.isNegative(-1));
-        console.log("isPositive", MathUtil.isPositive(2));
-        console.log("isPrime", MathUtil.isPrime(22));
-        console.log("toCelsius", MathUtil.toCelsius(0));
-        console.log("toFahrenheit", MathUtil.toFahrenheit(100));
     }
     BannerAd.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);

@@ -43,6 +43,7 @@
  * @module StructureTS
  * @submodule util
  * @constructor
+ * @version 0.1.0
  **/
 class TransitionFactory extends BaseObject
 {

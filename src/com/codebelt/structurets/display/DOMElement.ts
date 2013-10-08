@@ -35,6 +35,7 @@
  * @module StructureTS
  * @submodule view
  * @constructor
+ * @version 0.1.0
  **/
 class DOMElement extends DisplayObjectContainer
 {

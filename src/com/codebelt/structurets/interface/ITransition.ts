@@ -31,6 +31,7 @@
  *
  * @class ITransition
  * @constructor
+ * @version 0.1.0
  **/
 interface ITransition extends IEventDispatcher {
 

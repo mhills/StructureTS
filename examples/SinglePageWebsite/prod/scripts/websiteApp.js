@@ -65,7 +65,7 @@ var Util = (function () {
                 } else {
                     for (var listIndex in list) {
                         if (key === list[listIndex]) {
-                            delete value;
+                            delete object[key];
                         }
                     }
                 }
@@ -2189,7 +2189,7 @@ var LocalStorageController = (function (_super) {
     function LocalStorageController() {
         _super.call(this);
         this.CLASS_NAME = 'LocalStorageController';
-        this._namespace = '';
+        this._namespace = 'defaultNamespace';
 
         window.addEventListener('storage', this.onLocalStorageEvent.bind(this));
     }
@@ -2201,7 +2201,7 @@ var LocalStorageController = (function (_super) {
         return this._namespace;
     };
 
-    LocalStorageController.prototype.setItem = function (key, data, useNamespace) {
+    LocalStorageController.prototype.addItem = function (key, data, useNamespace) {
         if (typeof useNamespace === "undefined") { useNamespace = false; }
         if (useNamespace) {
             key += this.getNamespace();
@@ -2209,9 +2209,9 @@ var LocalStorageController = (function (_super) {
 
         if (data instanceof ValueObject) {
             data = data.toJSON();
-        } else {
-            data = JSON.stringify(data);
         }
+
+        data = JSON.stringify(data);
 
         localStorage.setItem(key, data);
     };
@@ -2320,7 +2320,7 @@ var LanguageModel = (function (_super) {
     };
 
     LanguageModel.prototype.loadLanguageData = function (vo) {
-        this._localStorageController.setItem('language', vo.id, true);
+        this._localStorageController.addItem('language', vo.id, true);
 
         this._request = new BaseRequest(vo.path);
         this._request.addEventListener(LoaderEvent.COMPLETE, this.onLanguageDataLoad, this);
@@ -2502,7 +2502,7 @@ var NavigationView = (function (_super) {
 
     NavigationView.prototype.onLanguageChange = function (event) {
         var ls = new LocalStorageController();
-        ls.setItem('language', event.data);
+        ls.addItem('language', event.data);
 
         document.location.reload(false);
     };

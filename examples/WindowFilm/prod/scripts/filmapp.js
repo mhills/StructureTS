@@ -2256,7 +2256,7 @@ var Util = (function () {
                 } else {
                     for (var listIndex in list) {
                         if (key === list[listIndex]) {
-                            delete value;
+                            delete object[key];
                         }
                     }
                 }

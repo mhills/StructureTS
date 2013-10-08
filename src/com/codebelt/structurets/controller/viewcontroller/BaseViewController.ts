@@ -33,6 +33,7 @@
  * @module StructureTS
  * @submodule controller
  * @constructor
+ * @version 0.1.0
  **/
 class BaseViewController extends DOMElement implements IViewController
 {

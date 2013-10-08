@@ -30,6 +30,7 @@
  * @class LanguageConfigVO
  * @param [data] {any} Provide a way to update the value object upon initialization.
  * @constructor
+ * @version 0.1.0
  **/
 class LanguageConfigVO extends ValueObject
 {

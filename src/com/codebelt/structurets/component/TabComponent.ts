@@ -34,6 +34,7 @@
  * @class TabComponent
  * @extends EventDispatcher
  * @constructor
+ * @version 0.1.0
  **/
 class TabComponent extends EventDispatcher {
 

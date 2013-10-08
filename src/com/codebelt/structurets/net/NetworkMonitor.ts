@@ -8,6 +8,7 @@
  * @class NetworkMonitor
  * @constructor
  * @static
+ * @version 0.1.0
  **/
 class NetworkMonitor {
 

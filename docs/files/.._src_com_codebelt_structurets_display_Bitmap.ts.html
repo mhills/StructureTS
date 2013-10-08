@@ -277,7 +277,7 @@
  */
 
 ///&lt;reference path=&#x27;CanvasElement.ts&#x27;/&gt;
-///&lt;reference path=&#x27;../util/NumberUtil.ts&#x27;/&gt;
+///&lt;reference path=&#x27;../util/MathUtil.ts&#x27;/&gt;
 
 /**
  * The Bitmap...
@@ -287,6 +287,7 @@
  * @module StructureTS
  * @submodule view
  * @constructor
+ * @version 0.1.0
  **/
 class Bitmap extends CanvasElement
 {
@@ -319,7 +320,7 @@ class Bitmap extends CanvasElement
     {
         this.context.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
         this.context.scale(this.scaleX, this.scaleY);
-        this.context.rotate(NumberUtil.degreesToRadians(this.rotation));
+        this.context.rotate(MathUtil.degreesToRadians(this.rotation));
         this.context.translate(-this.width * 0.5, -this.height * 0.5);
 
         this.context.drawImage(this._image, 0, 0);

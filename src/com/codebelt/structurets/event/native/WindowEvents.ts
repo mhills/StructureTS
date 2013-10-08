@@ -29,6 +29,7 @@
  * @module StructureTS
  * @submodule nativeEvent
  * @static
+ * @version 0.1.0
  **/
 class WindowEvents
 {

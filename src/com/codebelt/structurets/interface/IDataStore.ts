@@ -32,6 +32,7 @@
  * @module StructureTS
  * @submodule interface
  * @interface
+ * @version 0.1.0
  **/
 interface IDataStore extends IEventDispatcher
 {

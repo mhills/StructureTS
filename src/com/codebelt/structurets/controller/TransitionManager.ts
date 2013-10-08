@@ -36,6 +36,7 @@
  * @class TransitionManager
  * @extends BaseController
  * @constructor
+ * @version 0.1.0
  **/
 class TransitionManager extends BaseController
 {

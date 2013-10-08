@@ -36,6 +36,7 @@
  * @module StructureTS
  * @submodule net
  * @constructor
+ * @version 0.1.0
  **/
 class URLRequest extends BaseObject
 {

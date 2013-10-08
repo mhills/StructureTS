@@ -35,6 +35,7 @@
  * @module StructureTS
  * @submodule model
  * @constructor
+ * @version 0.1.0
  **/
 class Collection extends EventDispatcher implements ICollection
 {

@@ -35,6 +35,7 @@
  * @module StructureTS
  * @submodule net
  * @constructor
+ * @version 0.1.0
  **/
 class BaseRequest extends EventDispatcher implements IDataStore
 {
