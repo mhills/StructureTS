@@ -43,36 +43,61 @@ class NumberUtil
     {
     }
 
-    public static degreesToRadians(degrees:number):number
-    {
-        return degrees * Math.PI / 180;
-    }
-
-    public static radiansToDegrees(radians:number):number
-    {
-        return radians * 180 / Math.PI;
-    }
-
+    /**
+     * YUIDoc_comment
+     *
+     * @method bytesToMegabytes
+     * @param bytes {number}
+     * @returns {number}
+     */
     public static bytesToMegabytes(bytes:number):number
     {
         return bytes / 1048576;
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method centimeterToInch
+     * @param cm {number}
+     * @returns {number}
+     */
     public static centimeterToInch(cm:number):number
     {
         return cm * 0.39370;
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method inchToCentimeter
+     * @param inch {number}
+     * @returns {number}
+     */
     public static inchToCentimeter(inch:number):number
     {
         return inch * 2.54;
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method feetToMeter
+     * @param feet {number}
+     * @returns {number}
+     */
     public static feetToMeter(feet:number):number
     {
         return feet / 3.2808;
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method convertToHHMMSS
+     * @param seconds {number}
+     * @returns {string}
+     */
     public static convertToHHMMSS(seconds:number):string
     {
         var sec:number = isNaN(seconds) ? 0 : seconds;//Changes NaN to 0
@@ -88,6 +113,13 @@ class NumberUtil
         return hourStr + minuteStr + secondsStr;
     }
 
+    /**
+     * YUIDoc_comment
+     *
+     * @method doubleDigitFormat
+     * @param num {number}
+     * @returns {string}
+     */
     public static doubleDigitFormat(num:number):string
     {
         if (num < 10)

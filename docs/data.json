@@ -606,6 +606,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "../src/com/codebelt/structurets/util/DateUtil.ts": {
+            "name": "../src/com/codebelt/structurets/util/DateUtil.ts",
+            "modules": {},
+            "classes": {
+                "DateUtil": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "../src/com/codebelt/structurets/util/HtmlLoader.ts": {
             "name": "../src/com/codebelt/structurets/util/HtmlLoader.ts",
             "modules": {},
@@ -620,6 +629,15 @@
             "modules": {},
             "classes": {
                 "ImageLoader": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "../src/com/codebelt/structurets/util/MathUtil.ts": {
+            "name": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "modules": {},
+            "classes": {
+                "MathUtil": 1
             },
             "fors": {},
             "namespaces": {}
@@ -781,8 +799,10 @@
                 "AssetLoader": 1,
                 "BrowserUtils": 1,
                 "DataLoader": 1,
+                "DateUtil": 1,
                 "HtmlLoader": 1,
                 "ImageLoader": 1,
+                "MathUtil": 1,
                 "MobileUtil": 1,
                 "NumberUtil": 1,
                 "StringUtil": 1,
@@ -954,8 +974,10 @@
                 "AssetLoader": 1,
                 "BrowserUtils": 1,
                 "DataLoader": 1,
+                "DateUtil": 1,
                 "HtmlLoader": 1,
                 "ImageLoader": 1,
+                "MathUtil": 1,
                 "MobileUtil": 1,
                 "NumberUtil": 1,
                 "StringUtil": 1,
@@ -2383,6 +2405,22 @@
             "submodule": "util",
             "is_constructor": 1
         },
+        "DateUtil": {
+            "name": "DateUtil",
+            "shortname": "DateUtil",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "StructureTS",
+            "namespace": "",
+            "file": "../src/com/codebelt/structurets/util/DateUtil.ts",
+            "line": 27,
+            "description": "The DateUtil...",
+            "submodule": "util",
+            "is_constructor": 1
+        },
         "HtmlLoader": {
             "name": "HtmlLoader",
             "shortname": "HtmlLoader",
@@ -2414,6 +2452,23 @@
             "description": "The ImageLoader...",
             "submodule": "util",
             "is_constructor": 1
+        },
+        "MathUtil": {
+            "name": "MathUtil",
+            "shortname": "MathUtil",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "StructureTS",
+            "namespace": "",
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 27,
+            "description": "The MathUtil...",
+            "submodule": "util",
+            "is_constructor": 1,
+            "static": 1
         },
         "MobileUtil": {
             "name": "MobileUtil",
@@ -3788,7 +3843,7 @@
         {
             "file": "../src/com/codebelt/structurets/display/DOMElement.ts",
             "line": 41,
-            "overridden": "BaseObject.CLASS_NAME",
+            "overridden": "DisplayObjectContainer.CLASS_NAME",
             "class": "DOMElement",
             "module": "StructureTS",
             "submodule": "view"
@@ -7472,6 +7527,95 @@
             "submodule": "util"
         },
         {
+            "file": "../src/com/codebelt/structurets/util/DateUtil.ts",
+            "line": 37,
+            "overridden": "BaseObject.CLASS_NAME",
+            "class": "DateUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/DateUtil.ts",
+            "line": 42,
+            "description": "YUIDoc_comment",
+            "itemtype": "property",
+            "name": "LONG_DAY_LABELS",
+            "type": "{array}",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "final": 1,
+            "class": "DateUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/DateUtil.ts",
+            "line": 53,
+            "description": "YUIDoc_comment",
+            "itemtype": "property",
+            "name": "SHORT_DAY_LABELS",
+            "type": "{array}",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "final": 1,
+            "class": "DateUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/DateUtil.ts",
+            "line": 64,
+            "description": "YUIDoc_comment",
+            "itemtype": "property",
+            "name": "LONG_MONTH_LABELS",
+            "type": "{array}",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "final": 1,
+            "class": "DateUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/DateUtil.ts",
+            "line": 75,
+            "description": "YUIDoc_comment",
+            "itemtype": "property",
+            "name": "SHORT_MONTH_LABELS",
+            "type": "{array}",
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "final": 1,
+            "class": "DateUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/DateUtil.ts",
+            "line": 90,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "getDaySuffix",
+            "params": [
+                {
+                    "name": "today",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "DateUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
             "file": "../src/com/codebelt/structurets/util/HtmlLoader.ts",
             "line": 42,
             "overridden": "BaseObject.CLASS_NAME",
@@ -7488,6 +7632,446 @@
             "submodule": "util"
         },
         {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 37,
+            "overridden": "BaseObject.CLASS_NAME",
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 46,
+            "description": "Returns a number constrained between min and max.",
+            "itemtype": "method",
+            "name": "constrain",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 69,
+            "description": "Returns a random number between min and max.",
+            "itemtype": "method",
+            "name": "randomRange",
+            "params": [
+                {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 89,
+            "description": "Returns the percentage of a number in a given range.\nExample: num = 15 range 10 to 20 // outputs 0.5",
+            "itemtype": "method",
+            "name": "rangeToPercent",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "constrainMin",
+                    "description": "Returns 0 if num < min.",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "constrainMax",
+                    "description": "Returns 1 if num > max.",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 115,
+            "description": "Returns the number that corresponds to the percentage in a given range.\nExample: percent = 0.5 range 10 to 20 // outputs 15",
+            "itemtype": "method",
+            "name": "percentToRange",
+            "params": [
+                {
+                    "name": "percent",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "min",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 131,
+            "description": "Re-maps a number from one range to another. The output is the same as inputing the result of rangeToPercent() numbero percentToRange().\nExample: num = 10, min1 = 0, max1 = 100, min2 = 0, max2 = 50 // outputs 5",
+            "itemtype": "method",
+            "name": "map",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "min1",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "max1",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "min2",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "max2",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 164,
+            "description": "Converts radians to degrees.",
+            "itemtype": "method",
+            "name": "radiansToDegrees",
+            "params": [
+                {
+                    "name": "radians",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 177,
+            "description": "Converts degrees to radians.",
+            "itemtype": "method",
+            "name": "degreesToRadians",
+            "params": [
+                {
+                    "name": "degrees",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 190,
+            "description": "Returns 1 if the value is >= 0. Returns -1 if the value is < 0.",
+            "itemtype": "method",
+            "name": "sign",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 206,
+            "description": "Check if number is positive (zero is positive).",
+            "itemtype": "method",
+            "name": "isPositive",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "The number.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 218,
+            "description": "Check if number is negative.",
+            "itemtype": "method",
+            "name": "isNegative",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "The",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 230,
+            "description": "Check if number is odd (convert to Integer if necessary).",
+            "itemtype": "method",
+            "name": "isOdd",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "The number.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 244,
+            "description": "Check if number is even (convert to Integer if necessary).",
+            "itemtype": "method",
+            "name": "isEven",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "The number.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 258,
+            "description": "Check if number is Prime (divisible only by itself and one).",
+            "itemtype": "method",
+            "name": "isPrime",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "The number.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 280,
+            "description": "Calculate the factorial of the integer.",
+            "itemtype": "method",
+            "name": "factorial",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "The number.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 303,
+            "description": "Return an array of divisors of the integer.",
+            "itemtype": "method",
+            "name": "getDivisors",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "The number.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array.<number>"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 324,
+            "description": "Convert Fahrenheit to Celsius.",
+            "itemtype": "method",
+            "name": "toCelsius",
+            "params": [
+                {
+                    "name": "fahrenheit",
+                    "description": "The fahrenheit value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "decimals",
+                    "description": "The number of decimals.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/MathUtil.ts",
+            "line": 354,
+            "description": "Convert Celsius to Fahrenheit.",
+            "itemtype": "method",
+            "name": "toFahrenheit",
+            "params": [
+                {
+                    "name": "celsius",
+                    "description": "The celsius value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "decimals",
+                    "description": "The number of decimals.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "MathUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
             "file": "../src/com/codebelt/structurets/util/MobileUtil.ts",
             "line": 36,
             "overridden": "BaseObject.CLASS_NAME",
@@ -7499,6 +8083,132 @@
             "file": "../src/com/codebelt/structurets/util/NumberUtil.ts",
             "line": 37,
             "overridden": "BaseObject.CLASS_NAME",
+            "class": "NumberUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/NumberUtil.ts",
+            "line": 46,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "bytesToMegabytes",
+            "params": [
+                {
+                    "name": "bytes",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "NumberUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/NumberUtil.ts",
+            "line": 58,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "centimeterToInch",
+            "params": [
+                {
+                    "name": "cm",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "NumberUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/NumberUtil.ts",
+            "line": 70,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "inchToCentimeter",
+            "params": [
+                {
+                    "name": "inch",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "NumberUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/NumberUtil.ts",
+            "line": 82,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "feetToMeter",
+            "params": [
+                {
+                    "name": "feet",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "NumberUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/NumberUtil.ts",
+            "line": 94,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "convertToHHMMSS",
+            "params": [
+                {
+                    "name": "seconds",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "NumberUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/NumberUtil.ts",
+            "line": 116,
+            "description": "YUIDoc_comment",
+            "itemtype": "method",
+            "name": "doubleDigitFormat",
+            "params": [
+                {
+                    "name": "num",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
             "class": "NumberUtil",
             "module": "StructureTS",
             "submodule": "util"
@@ -7692,13 +8402,16 @@
                 "description": "",
                 "type": "String"
             },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
             "class": "StringUtil",
             "module": "StructureTS",
             "submodule": "util"
         },
         {
             "file": "../src/com/codebelt/structurets/util/StringUtil.ts",
-            "line": 190,
+            "line": 192,
             "description": "Remove leading and trailing whitespace.",
             "example": [
                 "\n     var str = \"   a b    c d e f g \";\n     StringUtil.removeLeadingTrailingWhitespace(str);\n     // \"a b c d e f g\""
@@ -7716,6 +8429,37 @@
                 "description": "",
                 "type": "String"
             },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
+            "class": "StringUtil",
+            "module": "StructureTS",
+            "submodule": "util"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/util/StringUtil.ts",
+            "line": 210,
+            "itemtype": "method",
+            "name": "truncate",
+            "params": [
+                {
+                    "name": "text",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "length",
+                    "description": "",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "access": "public",
+            "tagname": "",
+            "static": 1,
             "class": "StringUtil",
             "module": "StructureTS",
             "submodule": "util"
@@ -8710,6 +9454,14 @@
         },
         {
             "message": "unknown tag: overridden",
+            "line": " ../src/com/codebelt/structurets/util/DateUtil.ts:37"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ../src/com/codebelt/structurets/util/DateUtil.ts:90"
+        },
+        {
+            "message": "unknown tag: overridden",
             "line": " ../src/com/codebelt/structurets/util/HtmlLoader.ts:42"
         },
         {
@@ -8718,11 +9470,39 @@
         },
         {
             "message": "unknown tag: overridden",
+            "line": " ../src/com/codebelt/structurets/util/MathUtil.ts:37"
+        },
+        {
+            "message": "unknown tag: overridden",
             "line": " ../src/com/codebelt/structurets/util/MobileUtil.ts:36"
         },
         {
             "message": "unknown tag: overridden",
             "line": " ../src/com/codebelt/structurets/util/NumberUtil.ts:37"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ../src/com/codebelt/structurets/util/NumberUtil.ts:46"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ../src/com/codebelt/structurets/util/NumberUtil.ts:58"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ../src/com/codebelt/structurets/util/NumberUtil.ts:70"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ../src/com/codebelt/structurets/util/NumberUtil.ts:82"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ../src/com/codebelt/structurets/util/NumberUtil.ts:94"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ../src/com/codebelt/structurets/util/NumberUtil.ts:116"
         },
         {
             "message": "unknown tag: overridden",
@@ -8762,7 +9542,11 @@
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ../src/com/codebelt/structurets/util/StringUtil.ts:190"
+            "line": " ../src/com/codebelt/structurets/util/StringUtil.ts:192"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ../src/com/codebelt/structurets/util/StringUtil.ts:210"
         },
         {
             "message": "unknown tag: overridden",
@@ -9194,11 +9978,19 @@
         },
         {
             "message": "Missing item type",
+            "line": " ../src/com/codebelt/structurets/util/DateUtil.ts:37"
+        },
+        {
+            "message": "Missing item type",
             "line": " ../src/com/codebelt/structurets/util/HtmlLoader.ts:42"
         },
         {
             "message": "Missing item type",
             "line": " ../src/com/codebelt/structurets/util/ImageLoader.ts:39"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../src/com/codebelt/structurets/util/MathUtil.ts:37"
         },
         {
             "message": "Missing item type",

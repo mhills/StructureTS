@@ -75,6 +75,8 @@
             
                 <li><a href="../classes/DataLoader.html">DataLoader</a></li>
             
+                <li><a href="../classes/DateUtil.html">DateUtil</a></li>
+            
                 <li><a href="../classes/DisplayObjectContainer.html">DisplayObjectContainer</a></li>
             
                 <li><a href="../classes/DOMElement.html">DOMElement</a></li>
@@ -114,6 +116,8 @@
                 <li><a href="../classes/LocalStorageController.html">LocalStorageController</a></li>
             
                 <li><a href="../classes/LocalStorageEvent.html">LocalStorageEvent</a></li>
+            
+                <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
@@ -431,6 +435,8 @@ class StringUtil
      * @method removeAllWhitespace
      * @param str {string}
      * @returns {string}
+     * @public
+     * @static
      */
     public static removeAllWhitespace(str:string):string
     {
@@ -447,10 +453,30 @@ class StringUtil
      * @method removeLeadingTrailingWhitespace
      * @param str {string}
      * @returns {string}
+     * @public
+     * @static
      */
     public static removeLeadingTrailingWhitespace(str:string):string
     {
         return str.replace(/(^\s+|\s+$)/g,&#x27;&#x27;);
+    }
+
+    /**
+     *
+     * @method truncate
+     * @param text {string}
+     * @param length {int}
+     * @returns {string}
+     * @public
+     * @static
+     */
+    public static truncate(text:string, length:number):string
+    {
+        if (text.length &lt;= length) {
+            return text;
+        } else {
+            return text.substr(0, length) + &quot;...&quot;;
+        }
     }
 
 }
