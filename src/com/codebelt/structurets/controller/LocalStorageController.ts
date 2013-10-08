@@ -33,6 +33,7 @@
  * @module StructureTS
  * @submodule controller
  * @constructor
+ * @version 0.1.0
  **/
 class LocalStorageController extends BaseController
 {
@@ -46,10 +47,11 @@ class LocalStorageController extends BaseController
      *
      * @property _namespace
      * @type {string}
+     * @default defaultNamespace
      * @optional
      * @private
      */
-    private _namespace:string = '';
+    private _namespace:string = 'defaultNamespace';
 
     constructor()
     {
@@ -82,14 +84,14 @@ class LocalStorageController extends BaseController
     }
 
     /**
-     * Sets a key/value pair.
+     * Add a key/value pair to localStorage.
      *
-     * @method setItem
+     * @method addItem
      * @param key {string}
      * @param data {Object}
      * @param useNamespace {boolean}
      */
-    public setItem(key:string, data:any, useNamespace:boolean = false):void
+    public addItem(key:string, data:any, useNamespace:boolean = false):void
     {
         if (useNamespace)
         {
@@ -100,10 +102,8 @@ class LocalStorageController extends BaseController
         {
             data = <ValueObject>data.toJSON();
         }
-        else
-        {
-            data = JSON.stringify(data);
-        }
+
+        data = JSON.stringify(data);
 
         localStorage.setItem(key, data);
     }
