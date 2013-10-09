@@ -1,0 +1,177 @@
+﻿.flyout p {
+    margin-left: 120px;
+}
+
+.win-settingsflyout {
+    z-index: 1004; /* above appbar and below flyouts */
+    border-left: 1px solid;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 426px; /* 346px - border (1px) */
+    -ms-touch-select: none;
+}
+
+.MainDiv {
+    width: 426px;
+    height: 100%;
+    float: left;
+    background: black;
+}
+
+    .MainDiv .FOtitle {
+        width: 426px;
+        height: 108px;
+    }
+
+        .MainDiv .FOtitle .titleimg {
+            margin: 50px 0 0 30px;
+        }
+
+    .MainDiv .FOmenu {
+        width: 426px;
+        height: 30px;
+        -ms-grid-columns: 30px 226px 92px 1fr;
+        display: -ms-grid;
+        margin-top: 20px;
+    }
+
+        .MainDiv .FOmenu .FOitemname {
+            -ms-grid-column: 2;
+            font-size: 19px;
+            line-height: 30px;
+            color: White;
+        }
+
+        .MainDiv .FOmenu .FOqty {
+            -ms-grid-column: 3;
+            font-size: 19px;
+            line-height: 30px;
+            color: White;
+        }
+
+
+        .MainDiv .FOmenu .FOprice {
+            -ms-grid-column: 4;
+            font-size: 19px;
+            line-height: 30px;
+            color: White;
+        }
+
+
+
+
+    .MainDiv .FOmenudetail {
+        width: 426px;
+        height: 57px;
+        -ms-grid-columns: 30px 226px 92px 1fr;
+        display: -ms-grid;
+    }
+
+        .MainDiv .FOmenudetail .FOnames {
+            -ms-grid-column: 2;
+            font-size: 19px;
+            line-height: 57px;
+            color: #9b9b9b;
+        }
+
+        .MainDiv .FOmenudetail .FOqtyDD {
+            -ms-grid-column: 3;
+            font-size: 15px;
+            line-height: 57px;
+            color: #9b9b9b;
+        }
+
+
+        .MainDiv .FOmenudetail .FOpriceamount {
+            -ms-grid-column: 4;
+            font-size: 19px;
+            line-height: 57px;
+            color: #9b9b9b;
+            text-align: right;
+            margin-right: 10px;
+        }
+
+    .MainDiv .FOtotal {
+        width: 426px;
+        height: 57px;
+        -ms-grid-columns: 30px 226px 92px 1fr;
+        display: -ms-grid;
+    }
+
+        .MainDiv .FOtotal .FOtotaltxt {
+            font-size: 21px;
+            line-height: 57px;
+            color: white;
+            -ms-grid-column: 2;
+        }
+
+        .MainDiv .FOtotal .FOtotalqty {
+            font-size: 21px;
+            line-height: 57px;
+            color: white;
+            -ms-grid-column: 3;
+        }
+
+        .MainDiv .FOtotal .FOtotalamount {
+            font-size: 21px;
+            line-height: 57px;
+            color: white;
+            float: right;
+            text-align: right;
+            margin-right: 20px;
+            -ms-grid-column: 4;
+        }
+
+
+    .MainDiv .FObtns {
+        width: 426px;
+        height: 46px;
+        -ms-grid-columns: 30px 130px 16px 145px 1fr;
+        display: -ms-grid;
+        margin-top: 43px;
+    }
+
+        .MainDiv .FObtns .FOpaynowBtn {
+            -ms-grid-column: 2;
+            height: 46px;
+            background: url(/images/Assets/paynowNor.jpg) no-repeat;
+        }
+
+            .MainDiv .FObtns .FOpaynowBtn:active {
+                -ms-grid-column: 2;
+                height: 46px;
+                background: url(/images/Assets/paynowOvr.jpg) no-repeat;
+            }
+
+        .MainDiv .FObtns .FOshopmoreBtn {
+            -ms-grid-column: 4;
+            height: 46px;
+            background: url(/images/Assets/shopmoreNor.jpg) no-repeat;
+        }
+
+            .MainDiv .FObtns .FOshopmoreBtn:active {
+                -ms-grid-column: 4;
+                height: 46px;
+                background: url(/images/Assets/shopmoreOvr.jpg) no-repeat;
+            }
+
+.styled-select select {
+    background: transparent;
+    height: 60px;
+    font-size: 20px;
+    height: 30px;
+    color: white;
+}
+
+.styled-select {
+    width: 53px;
+    height: 60px;
+    overflow: hidden;
+    background: url(/images/Assets/ddImg.jpg) no-repeat right;
+}
+
+option {
+    color: black;
+}

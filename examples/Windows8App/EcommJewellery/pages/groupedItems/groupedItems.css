@@ -1,0 +1,474 @@
+﻿.groupeditemspage section[role=main] {
+    height: 100%;
+    width: 100%;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+    -ms-grid-columns: 680px auto;
+    -ms-grid-rows: 1fr;
+    display: -ms-grid;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.groupeditemspage .groupeditemslist {
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: 0;
+    -ms-grid-column: 2;
+    overflow-x: hidden;
+}
+
+.groupeditemspage .firstImage {
+    -ms-grid-column: 1;
+    width: 100%;
+    height: 100%;
+    background: white;
+    -ms-grid-rows: 115px 488px 1fr;
+    display: -ms-grid;
+}
+
+    .groupeditemspage .firstImage .imageTitle {
+        -ms-grid-row: 1;
+        line-height: 115px;
+        vertical-align: bottom;
+        font-size: 50px;
+        color: #251337;
+        margin-left: 120px;
+    }
+
+    .groupeditemspage .firstImage .imagDiv {
+        -ms-grid-row: 2;
+        width: 100%;
+        height: 100%;
+        margin-left: 110px;
+    }
+
+        .groupeditemspage .firstImage .imagDiv .image {
+            width: 100%;
+            height: 100%;
+        }
+
+    .groupeditemspage .firstImage .imageDet {
+        -ms-grid-row: 3;
+        font-size: 42px;
+        line-height: 44px;
+        color: #818181;
+        padding-left: 120px;
+    }
+
+/* This selector is used to prevent ui-dark/light.css from overwriting changes
+       to .win-surface. */
+.groupeditemspage .groupeditemslist .win-horizontal.win-viewport .win-surface {
+    margin-bottom: 60px;
+    margin-left: 15px;
+    margin-right: 20px;
+    margin-top: 128px;
+}
+
+.groupeditemspage .groupeditemslist .win-groupheader {
+    padding: 0;
+}
+
+/* Use grid and top level layout for truncation */
+.groupeditemspage .groupeditemslist .group-header {
+    -ms-grid-columns: minmax(0, max-content) 7px max-content;
+    -ms-grid-rows: max-content;
+    display: -ms-inline-grid;
+    line-height: 1.5;
+    color: white;
+}
+
+/* Override default button styles */
+.groupeditemspage .groupeditemslist .group-header, .group-header:hover, .group-header:hover:active {
+    background: transparent;
+    border: 0;
+    margin-bottom: 1px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 1px;
+    min-height: 0;
+    padding: 0;
+}
+
+    .groupeditemspage .groupeditemslist .group-header .group-title {
+        display: inline-block;
+    }
+
+    .groupeditemspage .groupeditemslist .group-header .group-chevron {
+        -ms-grid-column: 3;
+        display: inline-block;
+    }
+
+        .groupeditemspage .groupeditemslist .group-header .group-chevron::before {
+            content: "\E26B";
+            font-family: 'Segoe UI Symbol';
+        }
+
+.groupeditemspage .groupeditemslist .item {
+    -ms-grid-columns: 1fr;
+    -ms-grid-rows: 1fr 90px;
+    display: -ms-grid;
+}
+
+    .groupeditemspage .groupeditemslist .item .item-image {
+        -ms-grid-row-span: 2;
+    }
+
+    .groupeditemspage .groupeditemslist .item .item-overlay {
+        -ms-grid-row: 2;
+        -ms-grid-rows: 1fr 21px;
+        display: -ms-grid;
+        padding: 6px 15px 2px 15px;
+    }
+
+        .groupeditemspage .groupeditemslist .item .item-overlay .item-title {
+            -ms-grid-row: 1;
+            overflow: hidden;
+            width: 220px;
+        }
+
+        .groupeditemspage .groupeditemslist .item .item-overlay .item-subtitle {
+            -ms-grid-row: 2;
+            width: 220px;
+        }
+
+@media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
+    .groupeditemspage .groupeditemslist .item .item-overlay {
+        background: rgba(0,0,0,0.65);
+    }
+
+        .groupeditemspage .groupeditemslist .item .item-overlay .item-title {
+            color: rgba(255,255,255,0.87);
+        }
+
+        .groupeditemspage .groupeditemslist .item .item-overlay .item-subtitle {
+            color: rgba(255,255,255,0.6);
+        }
+}
+
+@media screen and (-ms-view-state: fullscreen-landscape) and (-ms-high-contrast), screen and (-ms-view-state: fullscreen-portrait) and (-ms-high-contrast), screen and (-ms-view-state: filled) and (-ms-high-contrast) {
+    .groupeditemspage .groupeditemslist .item .item-overlay {
+        color: WindowText;
+    }
+}
+
+@media screen and (-ms-view-state: snapped) {
+    .groupeditemspage header[role=banner] .win-backbutton {
+        width: 30px;
+        height: 30px;
+        font-size: 10pt;
+        line-height: 26px;
+        color: white;
+        -ms-grid-column: 1;
+        border-color: white;
+        padding-left: -39px;
+    }
+
+    .groupeditemspage header[role=banner] {
+        -ms-grid-columns: 5px 1fr 5px;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        left: 0px;
+    }
+
+        .groupeditemspage header[role=banner] .titlearea {
+            -ms-grid-column: 2;
+            margin: 50px 0 0 0;
+            color: white;
+        }
+
+            .groupeditemspage header[role=banner] .titlearea .pagetitle {
+                display: -ms-grid;
+                color: white;
+                margin-top: 15px;
+            }
+
+    .groupeditemspage section[role=main] {
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+    }
+
+    .groupeditemspage .firstImage {
+        display: none;
+    }
+
+    .groupeditemspage .groupeditemslist {
+        height: 100%;
+        position: relative;
+        z-index: 0;
+        width: 320px;
+        -ms-grid-column: 1;
+    }
+
+        .groupeditemspage .groupeditemslist .win-vertical.win-viewport .win-surface {
+            margin-bottom: 30px;
+            margin-top: 0;
+        }
+
+        .groupeditemspage .groupeditemslist .win-container {
+            margin-bottom: 15px;
+            margin-left: 13px;
+            margin-right: 35px;
+            padding: 7px;
+        }
+
+        .groupeditemspage .groupeditemslist .item {
+            -ms-grid-columns: 60px 1fr;
+            -ms-grid-rows: 1fr;
+            display: -ms-grid;
+            height: 60px;
+            width: 272px;
+            background-color: white;
+        }
+
+            .groupeditemspage .groupeditemslist .item .item-image {
+                -ms-grid-column: 1;
+                -ms-grid-row-span: 1;
+                height: 60px;
+                width: 60px;
+            }
+
+            .groupeditemspage .groupeditemslist .item .item-overlay {
+                -ms-grid-column: 2;
+                -ms-grid-row: 1;
+                -ms-grid-row-align: stretch;
+                background: transparent;
+                display: inline-block;
+                margin-left: 10px;
+                padding: 0;
+            }
+
+                .groupeditemspage .groupeditemslist .item .item-overlay .item-title {
+                    margin-top: 4px;
+                    max-height: 40px;
+                    width: 202px;
+                    color: black;
+                }
+
+                .groupeditemspage .groupeditemslist .item .item-overlay .item-subtitle {
+                    opacity: 0.6;
+                    width: 202px;
+                    color: black;
+                }
+}
+
+@media screen and (-ms-view-state: fullscreen-portrait) {
+    .groupeditemspage .groupeditemslist .win-horizontal.win-viewport .win-surface {
+        margin-left: 25px;
+    }
+}
+
+.groupeditemspage .BigTile {
+    width: 338px;
+    height: 338px;
+    display: -ms-grid;
+    -ms-grid-rows: 274px 1fr;
+    background: white;
+}
+
+    .groupeditemspage .BigTile .BigImage {
+        -ms-grid-row: 1;
+    }
+
+    .groupeditemspage .BigTile .BigtxtDiv {
+        -ms-grid-row: 2;
+    }
+
+        .groupeditemspage .BigTile .BigtxtDiv .Bigtxt1 {
+            font-size: 21px;
+            color: #808080;
+            line-height: 21px;
+            margin-left: 12px;
+            font-weight: 600;
+        }
+
+        .groupeditemspage .BigTile .BigtxtDiv .Bigtxt2 {
+            font-size: 25px;
+            color: #808080;
+            line-height: 25px;
+        }
+
+.groupeditemspage .SemiBigTile {
+    width: 248px;
+    height: 248px;
+    -ms-grid-rows: 179px 1fr;
+    display: -ms-grid;
+    background: white;
+}
+
+    .groupeditemspage .SemiBigTile .SemiBigImage {
+        -ms-grid-row: 1;
+    }
+
+    .groupeditemspage .SemiBigTile .SemiBigtxtDiv {
+        -ms-grid-row: 2;
+    }
+
+        .groupeditemspage .SemiBigTile .SemiBigtxtDiv .SemiBigtxt1 {
+            font-size: 15px;
+            color: #808080;
+            font-size: 15px;
+            margin-left: 12px;
+            font-weight: 600;
+        }
+
+        .groupeditemspage .SemiBigTile .SemiBigtxtDiv .SemiBigtxt2 {
+            font-size: 18px;
+            color: #808080;
+            line-height: 20px;
+        }
+
+.groupeditemspage .MediumTile {
+    width: 270px;
+    height: 162px;
+    -ms-grid-rows: 115px 1fr;
+    display: -ms-grid;
+    background: white;
+}
+
+    .groupeditemspage .MediumTile .MedImage {
+        -ms-grid-row: 1;
+    }
+
+    .groupeditemspage .MediumTile .MedtxtDiv {
+        -ms-grid-row: 2;
+    }
+
+        .groupeditemspage .MediumTile .MedtxtDiv .Medtxt1 {
+            font-size: 15px;
+            color: #808080;
+            font-size: 15px;
+            margin-left: 12px;
+            font-weight: 600;
+        }
+
+        .groupeditemspage .MediumTile .MedtxtDiv .Medtxt2 {
+            font-size: 18px;
+            color: #808080;
+            line-height: 20px;
+        }
+
+.groupeditemspage .SmallTile {
+    width: 163px;
+    height: 163px;
+    -ms-grid-rows: 116px 1fr;
+    display: -ms-grid;
+    background: white;
+}
+
+    .groupeditemspage .SmallTile .SmallImage {
+        -ms-grid-row: 1;
+    }
+
+    .groupeditemspage .SmallTile .txtDiv {
+        -ms-grid-row: 2;
+    }
+
+        .groupeditemspage .SmallTile .txtDiv .smalltxt1 {
+            font-size: 15px;
+            color: #808080;
+            font-size: 15px;
+            margin-left: 12px;
+            font-weight: 600;
+        }
+
+        .groupeditemspage .SmallTile .txtDiv .smalltxt2 {
+            font-size: 18px;
+            color: #808080;
+            line-height: 20px;
+        }
+
+.groupeditemspage .WideTile {
+    width: 337px;
+    height: 163px;
+    -ms-grid-rows: 115px 1fr;
+    display: -ms-grid;
+    background: white;
+}
+
+    .groupeditemspage .WideTile .WideImage {
+        -ms-grid-row: 1;
+    }
+
+    .groupeditemspage .WideTile .WidetxtDiv {
+        -ms-grid-row: 2;
+    }
+
+        .groupeditemspage .WideTile .WidetxtDiv .Widetxt1 {
+            font-size: 15px;
+            color: #808080;
+            font-size: 15px;
+            margin-left: 12px;
+            font-weight: 600;
+        }
+
+        .groupeditemspage .WideTile .WidetxtDiv .Widetxt2 {
+            font-size: 18px;
+            color: #808080;
+            line-height: 20px;
+        }
+
+
+.groupeditemspage .LengthTile {
+    width: 163px;
+    height: 337px;
+    -ms-grid-rows: 290px 1fr;
+    display: -ms-grid;
+    background: white;
+}
+
+    .groupeditemspage .LengthTile .LengthImage {
+        -ms-grid-row: 1;
+    }
+
+    .groupeditemspage .LengthTile .LengthtxtDiv {
+        -ms-grid-row: 2;
+    }
+
+        .groupeditemspage .LengthTile .LengthtxtDiv .Lengthtxt1 {
+            font-size: 15px;
+            color: #808080;
+            font-size: 15px;
+            margin-left: 12px;
+            font-weight: 600;
+        }
+
+        .groupeditemspage .LengthTile .LengthtxtDiv .Lengthtxt2 {
+            font-size: 18px;
+            color: #808080;
+            line-height: 20px;
+        }
+
+
+
+.win-commandring {
+    border-width: 0px;
+    border-style: none;
+    border-radius: 0%;
+    background-clip: border-box;
+}
+
+.win-commandring,
+button:hover .win-commandring,
+button:active .win-commandring,
+button.win-command:disabled .win-commandring,
+button.win-command:disabled:active .win-commandring {
+    border-width: 0px;
+    border-style: none;
+    border-radius: 50%;
+    background-clip: border-box;
+    background: none;
+}
+
+button:hover:active .win-commandring,
+button[aria-checked=true] .win-commandring,
+button[aria-checked=true]:active .win-commandring,
+button[aria-checked=true]:disabled .win-commandring,
+button[aria-checked=true]:disabled:active .win-commandring {
+    border-width: 0px;
+    border-style: none;
+    border-radius: 50%;
+    background-clip: border-box;
+    background: none;
+}

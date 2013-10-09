@@ -1,0 +1,200 @@
+﻿.SearchResult section[role=main] {
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+}
+
+.SearchResult header[role=banner] .win-backbutton {
+    color: white;
+    border-color: white;
+}
+
+    .SearchResult header[role=banner] .titlearea .pagetitle {
+        color: white;
+    }
+
+.SearchResult .groupeditemslist {
+    height: 100%;
+    position: relative;
+    width: 100%;
+    z-index: 0;
+}
+
+    /* This selector is used to prevent ui-dark/light.css from overwriting changes
+       to .win-surface. */
+    .SearchResult .groupeditemslist .win-horizontal.win-viewport .win-surface {
+        margin-bottom: 60px;
+        margin-left: 45px;
+        margin-right: 115px;
+        margin-top: 148px;
+    }
+
+    .SearchResult .groupeditemslist .win-groupheader {
+        padding: 0;
+    }
+
+    /* Use grid and top level layout for truncation */
+    .SearchResult .groupeditemslist .group-header {
+        -ms-grid-columns: minmax(0, max-content) 7px max-content;
+        -ms-grid-rows: max-content;
+        display: -ms-inline-grid;
+        line-height: 1.5;
+    }
+
+    /* Override default button styles */
+    .SearchResult .groupeditemslist .group-header, .group-header:hover, .group-header:hover:active {
+        background: transparent;
+        border: 0;
+        margin-bottom: 1px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 1px;
+        min-height: 0;
+        padding: 0;
+    }
+
+        .SearchResult .groupeditemslist .group-header .group-title {
+            display: inline-block;
+        }
+
+        .SearchResult .groupeditemslist .group-header .group-chevron {
+            -ms-grid-column: 3;
+            display: inline-block;
+        }
+
+            .SearchResult .groupeditemslist .group-header .group-chevron::before {
+                content: "\E26B";
+                font-family: 'Segoe UI Symbol';
+            }
+
+    .SearchResult .groupeditemslist .item {
+        -ms-grid-columns: 150px 150px;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        height: 150px;
+        width: 300px;
+    }
+
+        .SearchResult .groupeditemslist .item .item-image {
+            -ms-grid-column: 1;
+        }
+
+        .SearchResult .groupeditemslist .item .item-overlay {
+            -ms-grid-column: 2;
+            background: black;
+        }
+
+.SearchResult .column2Div {
+    -ms-grid-column: 2;
+    background: black;
+}
+
+.SearchResult .headingText {
+    font-size: 18px;
+    color: #77d2ff;
+    font-weight: 600;
+    font-family: 'Segoe UI';
+    margin: 7px 0px 0px 8px;
+}
+
+.SearchResult .smalltext1 {
+    font-size: 12px;
+    color: white;
+    font-weight: 400;
+    font-family: 'Segoe UI';
+    margin: 8px 0px 0px 8px;
+}
+
+.SearchResult .smalltext2 {
+    font-size: 12px;
+    color: white;
+    font-weight: 300;
+    font-family: 'Segoe UI';
+    margin: 9px 0px 0px 8px;
+}
+
+@media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
+    .SearchResult .groupeditemslist .item .item-overlay {
+        background: rgba(0,0,0,0.65);
+    }
+
+        .SearchResult .groupeditemslist .item .item-overlay .item-title {
+            color: rgba(255,255,255,0.87);
+        }
+
+        .SearchResult .groupeditemslist .item .item-overlay .item-subtitle {
+            color: rgba(255,255,255,0.6);
+        }
+}
+
+@media screen and (-ms-view-state: fullscreen-landscape) and (-ms-high-contrast), screen and (-ms-view-state: fullscreen-portrait) and (-ms-high-contrast), screen and (-ms-view-state: filled) and (-ms-high-contrast) {
+    .SearchResult .groupeditemslist .item .item-overlay {
+        color: WindowText;
+    }
+}
+
+@media screen and (-ms-view-state: snapped) {
+    .SearchResult section[role=main] {
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+    }
+
+    .SearchResult .groupeditemslist .win-vertical.win-viewport .win-surface {
+        margin-bottom: 30px;
+        margin-top: 0;
+    }
+
+    .SearchResult .groupeditemslist .win-container {
+        margin-bottom: 15px;
+        margin-left: 13px;
+        margin-right: 35px;
+        padding: 7px;
+    }
+
+    .SearchResult .groupeditemslist .item {
+        -ms-grid-columns: 60px 1fr;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        height: 60px;
+        width: 272px;
+    }
+
+        .SearchResult .groupeditemslist .item .item-image {
+            -ms-grid-column: 1;
+            -ms-grid-row-span: 1;
+            height: 60px;
+            width: 60px;
+        }
+
+        .SearchResult .groupeditemslist .item .item-overlay {
+            -ms-grid-column: 2;
+            -ms-grid-row: 1;
+            -ms-grid-row-align: stretch;
+            display: inline-block;
+            margin-left: 10px;
+            padding: 0;
+        }
+
+    .SearchResult .column2Div {
+        -ms-grid-column: 2;
+        background: White;
+    }
+
+    .SearchResult .groupeditemslist .item .item-overlay .item-title {
+        margin-top: 4px;
+        max-height: 40px;
+        width: 202px;
+        color: black;
+    }
+
+    .SearchResult .groupeditemslist .item .item-overlay .item-subtitle {
+        opacity: 0.6;
+        width: 202px;
+        color: black;
+    }
+}
+
+@media screen and (-ms-view-state: fullscreen-portrait) {
+    .SearchResult .groupeditemslist .win-horizontal.win-viewport .win-surface {
+        margin-left: 25px;
+    }
+}

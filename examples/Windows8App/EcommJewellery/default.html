@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>EcommJewellery</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <!-- EcommJewellery references -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/data.js"></script>
+    <script src="/js/navigator.js"></script>
+    <script src="/js/default.js"></script>
+    <script src="pages/SearchResult/SearchResult.js"></script>
+</head>
+<body>
+    <div id="contenthost" data-win-control="Application.PageControlNavigator" data-win-options="{home: '/pages/groupedItems/groupedItems.html'}"></div>
+    <div class="appbar" data-win-control="WinJS.UI.AppBar" data-win-options="{placement:'top'}" style="background: rgba(21,21,21,1); height: 110px;">
+        <button data-win-control="WinJS.UI.AppBarCommand" style="width: 84px; height: 84px; background: url(/images/Assets/appHome.png) no-repeat; margin: 8px 10px 0 0; float: left;"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" style="width: 84px; height: 84px; background: url(/images/Assets/appNecklaces.png) no-repeat; margin: 8px 10px 0 0; float: left;"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" style="width: 84px; height: 84px; background: url(/images/Assets/appBracelets.png) no-repeat; margin: 8px 10px 0 0; float: left;"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" style="width: 84px; height: 84px; background: url(/images/Assets/appRings.png) no-repeat; margin: 8px 10px 0 0; float: left;"></button>
+        <button data-win-control="WinJS.UI.AppBarCommand" style="width: 84px; height: 84px; background: url(/images/Assets/appEarings.png) no-repeat; margin: 8px 10px 0 0; float: left;"></button>
+
+    </div>
+    <div id="appbar" data-win-control="WinJS.UI.AppBar" style="background: rgba(21,21,21,1); height: 110px;">
+        <button id="addCart" data-win-control="WinJS.UI.AppBarCommand" style="background: url(/images/Assets/shopCart.png) no-repeat; text-align: center; width: 74px; margin: 8px 10px 0 0; color:white;" data-win-options="{id:'cmd', label:'my cart (3)', icon:''}" type="button"></button>
+    </div>
+</body>
+</html>

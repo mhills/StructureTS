@@ -1,0 +1,338 @@
+﻿.snapview {
+    display: none;
+}
+
+/*
+Back button.
+*/
+.detailPage .win-backbutton {
+    display: inline-block;
+    min-width: 0;
+    min-height: 0;
+    background-clip: border-box;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    padding: 0;
+    text-align: center;
+    /* Normal sizing. */
+    width: 41px;
+    height: 41px;
+    font-size: 14pt;
+    line-height: 37px; /* line-height must match the content box height. */
+    vertical-align: baseline;
+    border-color: black;
+    color: black;
+}
+
+    .detailPage .win-backbutton:hover, .win-backbutton:hover:active {
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 50%;
+        border-color: #25292a;
+    }
+
+    .detailPage .win-backbutton::before {
+        font-family: "Segoe UI Symbol";
+        font-weight: normal;
+        content: "\E0D5";
+        vertical-align: 50%;
+    }
+
+    .detailPage .win-backbutton:-ms-lang(ar, dv, fa, he, ku-Arab, pa-Arab, prs, ps, sd-Arab, syr, ug, ur, qps-plocm)::before {
+        content: "\E0AE";
+    }
+
+    .detailPage .win-backbutton:disabled, .win-backbutton:disabled:active {
+        visibility: hidden;
+    }
+
+.detailPage section[role=main] {
+    height: 100%;
+    width: 100%;
+    -ms-grid-row: 1;
+    -ms-grid-row-span: 2;
+    -ms-grid-columns: 675px 90px 1fr;
+    -ms-grid-rows: 1fr;
+    display: -ms-grid;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.detailPage .detImageDiv {
+    -ms-grid-column: 1;
+    -ms-grid-rows: 140px auto 1fr;
+    display: -ms-grid;
+    background: white;
+}
+
+    .detailPage .detImageDiv .imageTitle {
+        -ms-grid-row: 1;
+        font-size: 48px;
+        line-height: 140px;
+        padding: 3px 0 0 120px;
+        color: black;
+    }
+
+    .detailPage .detImageDiv .imageJewel {
+        -ms-grid-row: 2;
+        width: 675px;
+        -ms-grid-columns: 120px 1fr;
+        display: -ms-grid;
+    }
+
+        .detailPage .detImageDiv .imageJewel .img {
+            -ms-grid-column: 2;
+        }
+
+.imageSize {
+    width: 100%;
+    height: 100%;
+}
+
+.detailPage .detImageDiv .imageJewelTxt {
+    -ms-grid-row: 3;
+    width: 675px;
+    background: white;
+    font-size: 42px;
+    line-height: 44px;
+    color: #818181;
+}
+
+.detailPage .detImageDiv .spanTxt {
+    margin-left: 120px;
+}
+
+.detailPage .detJewels {
+    -ms-grid-column: 3;
+    -ms-grid-rows: 140px 1fr;
+    display: -ms-grid;
+}
+
+    .detailPage .detJewels .detJewelsCatagory {
+        -ms-grid-row: 2;
+        width: 567px;
+        -ms-grid-columns: 172px 38px 1fr;
+        display: -ms-grid;
+    }
+
+        .detailPage .detJewels .detJewelsCatagory .detJewelsThumb {
+            -ms-grid-column: 1;
+            width: 172px;
+            height: 100%;
+        }
+
+        .detailPage .detJewels .detJewelsCatagory .detJewelsDetails {
+            -ms-grid-column: 3;
+            height: 100%;
+            -ms-grid-rows: 1fr 58px;
+            display: -ms-grid;
+        }
+
+            .detailPage .detJewels .detJewelsCatagory .detJewelsDetails .jewelsTxtDet {
+                height: 100%;
+                font-size: 18px;
+                line-height: 20px;
+                -ms-grid-row: 1;
+                display: -ms-grid;
+                color: white;
+            }
+
+            .detailPage .detJewels .detJewelsCatagory .detJewelsDetails .iconsDiv {
+                -ms-grid-row: 2;
+                -ms-grid-columns: 50px 43px 40px 1fr;
+                display: -ms-grid;
+            }
+
+                .detailPage .detJewels .detJewelsCatagory .detJewelsDetails .iconsDiv .shopicon {
+                    -ms-grid-column: 1;
+                    height: 42px;
+                    background: url(../../images/Assets/shopIconNor.png) no-repeat;
+                }
+
+                    .detailPage .detJewels .detJewelsCatagory .detJewelsDetails .iconsDiv .shopicon:active {
+                        -ms-grid-column: 1;
+                        background: url(../../images/Assets/shopIconOvr.png) no-repeat;
+                        display: -ms-grid;
+                    }
+
+                .detailPage .detJewels .detJewelsCatagory .detJewelsDetails .iconsDiv .likeIcon {
+                    -ms-grid-column: 3;
+                    background: url(../../images/Assets/likeIconNor.png) no-repeat;
+                    display: -ms-grid;
+                }
+
+                    .detailPage .detJewels .detJewelsCatagory .detJewelsDetails .iconsDiv .likeIcon:active {
+                        -ms-grid-column: 3;
+                        background: url(../../images/Assets/likeIconOvr.png) no-repeat;
+                        display: -ms-grid;
+                    }
+
+            .detailPage .detJewels .detJewelsCatagory .detJewelsDetails .ImagePadding {
+                margin-top: 7px;
+            }
+
+
+@media screen and (-ms-view-state: fullscreen-landscape), screen and (-ms-view-state: fullscreen-portrait), screen and (-ms-view-state: filled) {
+    .detailPage .groupeditemslist .item .item-overlay {
+        background: none;
+    }
+
+        .detailPage .groupeditemslist .item .item-overlay .item-title {
+            color: rgba(255,255,255,0.87);
+        }
+
+        .detailPage .groupeditemslist .item .item-overlay .item-subtitle {
+            color: rgba(255,255,255,0.6);
+        }
+}
+
+@media screen and (-ms-view-state: fullscreen-landscape) and (-ms-high-contrast), screen and (-ms-view-state: fullscreen-portrait) and (-ms-high-contrast), screen and (-ms-view-state: filled) and (-ms-high-contrast) {
+    .detailPage .groupeditemslist .item .item-overlay {
+        color: WindowText;
+    }
+}
+
+@media screen and (-ms-view-state: snapped) {
+    .snapview {
+        display: -ms-grid;
+    }
+
+    .detailPage header[role=banner] .win-backbutton {
+        width: 30px;
+        height: 30px;
+        font-size: 10pt;
+        line-height: 26px;
+        color: white;
+        -ms-grid-column: 1;
+        border-color: white;
+        padding-left: -39px;
+    }
+
+    .detailPage header[role=banner] {
+        -ms-grid-columns: 5px 1fr 5px;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        left: 0px;
+    }
+
+        .detailPage header[role=banner] .titlearea {
+            -ms-grid-column: 2;
+            margin: 55px 0 0 40px;
+            color: white;
+        }
+
+            .detailPage header[role=banner] .titlearea .pagetitle {
+                display: -ms-grid;
+                color: white;
+                margin-top: 15px;
+            }
+
+    .detailPage .detImageDiv .imageJewel .detImageDiv {
+        display: none;
+    }
+
+    .detailPage .detJewels {
+        display: none;
+    }
+
+    .imageSize {
+        display: none;
+    }
+
+    .detailPage .detImageDiv .imageJewelTxt {
+        display: none;
+    }
+
+    .detailPage section[role=main] {
+        display: none;
+    }
+
+    .detailPage .snapDiv {
+        width: 100%;
+        height: 100%;
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        margin: auto;
+        z-index: 1500;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        position: absolute;
+        padding: 100% 0;
+        text-align: center;
+        /*background: url(/images/Assets/background.jpg) no-repeat;*/
+    }
+
+    .detailPage section[role=main] {
+        height: 100%;
+        width: 100%;
+        -ms-grid-row: 1;
+        -ms-grid-row-span: 2;
+        -ms-grid-columns: 0px auto;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+    .detailPage section[role=main] {
+        -ms-grid-row: 2;
+        -ms-grid-row-span: 1;
+    }
+
+    .detailPage .groupeditemslist .win-vertical.win-viewport .win-surface {
+        margin-bottom: 30px;
+        margin-top: 0;
+    }
+
+    .detailPage .groupeditemslist .win-container {
+        margin-bottom: 15px;
+        margin-left: 13px;
+        margin-right: 35px;
+        padding: 7px;
+    }
+
+    .detailPage .groupeditemslist .item {
+        -ms-grid-columns: 60px 1fr;
+        -ms-grid-rows: 1fr;
+        display: -ms-grid;
+        height: 60px;
+        width: 272px;
+    }
+
+        .detailPage .groupeditemslist .item .item-image {
+            -ms-grid-column: 1;
+            -ms-grid-row-span: 1;
+            height: 60px;
+            width: 60px;
+        }
+
+        .detailPage .groupeditemslist .item .item-overlay {
+            -ms-grid-column: 2;
+            -ms-grid-row: 1;
+            -ms-grid-row-align: stretch;
+            background: transparent;
+            display: inline-block;
+            margin-left: 10px;
+            padding: 0;
+        }
+
+            .detailPage .groupeditemslist .item .item-overlay .item-title {
+                margin-top: 4px;
+                max-height: 40px;
+                width: 202px;
+            }
+
+            .detailPage .groupeditemslist .item .item-overlay .item-subtitle {
+                opacity: 0.6;
+                width: 202px;
+            }
+}
+
+@media screen and (-ms-view-state: fullscreen-portrait) {
+    .detailPage .groupeditemslist .win-horizontal.win-viewport .win-surface {
+        margin-left: 25px;
+    }
+}

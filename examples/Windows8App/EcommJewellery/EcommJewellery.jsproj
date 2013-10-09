@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|AnyCPU">
+      <Configuration>Debug</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|AnyCPU">
+      <Configuration>Release</Configuration>
+      <Platform>AnyCPU</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>3896a64f-b1e9-4816-8601-0c8a18e3a632</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0'">
+    <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).Default.props" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).props" />
+  <PropertyGroup>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+    <TargetPlatformVersion>8.0</TargetPlatformVersion>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <PackageCertificateKeyFile>EcommJewellery_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>05B8030CDACEA95C31A694A689E5A51E5AFFBA2D</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+  </PropertyGroup>
+  <ItemGroup>
+    <AppxManifest Include="package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <Content Include="css\default.css" />
+    <Content Include="images\Assets\appBracelets.png" />
+    <Content Include="images\Assets\appEarings.png" />
+    <Content Include="images\Assets\appHome.png" />
+    <Content Include="images\Assets\appLogo.png" />
+    <Content Include="images\Assets\appNecklaces.png" />
+    <Content Include="images\Assets\appRings.png" />
+    <Content Include="images\Assets\background.jpg" />
+    <Content Include="images\Assets\big.jpg" />
+    <Content Include="images\Assets\big2.jpg" />
+    <Content Include="images\Assets\big3.jpg" />
+    <Content Include="images\Assets\big4.jpg" />
+    <Content Include="images\Assets\big5.jpg" />
+    <Content Include="images\Assets\big6.jpg" />
+    <Content Include="images\Assets\ddImg.jpg" />
+    <Content Include="images\Assets\ddImg.png" />
+    <Content Include="images\Assets\jewel1.jpg" />
+    <Content Include="images\Assets\jewel2.jpg" />
+    <Content Include="images\Assets\jewel3.jpg" />
+    <Content Include="images\Assets\length1.jpg" />
+    <Content Include="images\Assets\likeIconNor.png" />
+    <Content Include="images\Assets\likeIconOvr.png" />
+    <Content Include="images\Assets\med1.jpg" />
+    <Content Include="images\Assets\med2.jpg" />
+    <Content Include="images\Assets\med3.jpg" />
+    <Content Include="images\Assets\med4.jpg" />
+    <Content Include="images\Assets\med5.jpg" />
+    <Content Include="images\Assets\med6.jpg" />
+    <Content Include="images\Assets\myCartTitle.png" />
+    <Content Include="images\Assets\paynowNor.jpg" />
+    <Content Include="images\Assets\paynowOvr.jpg" />
+    <Content Include="images\Assets\rupees.jpg" />
+    <Content Include="images\Assets\rupeesBigIcon.jpg" />
+    <Content Include="images\Assets\rupeesSmallIcon.jpg" />
+    <Content Include="images\Assets\semiBig1.jpg" />
+    <Content Include="images\Assets\semiBig2.jpg" />
+    <Content Include="images\Assets\shopCart.png" />
+    <Content Include="images\Assets\shopIconNor.png" />
+    <Content Include="images\Assets\shopIconOvr.png" />
+    <Content Include="images\Assets\shopmoreNor.jpg" />
+    <Content Include="images\Assets\shopmoreOvr.jpg" />
+    <Content Include="images\Assets\small1.jpg" />
+    <Content Include="images\Assets\small10.jpg" />
+    <Content Include="images\Assets\small11.jpg" />
+    <Content Include="images\Assets\small12.jpg" />
+    <Content Include="images\Assets\small13.jpg" />
+    <Content Include="images\Assets\small14.jpg" />
+    <Content Include="images\Assets\small15.jpg" />
+    <Content Include="images\Assets\small16.jpg" />
+    <Content Include="images\Assets\small2.jpg" />
+    <Content Include="images\Assets\small3.jpg" />
+    <Content Include="images\Assets\small4.jpg" />
+    <Content Include="images\Assets\small5.jpg" />
+    <Content Include="images\Assets\small6.jpg" />
+    <Content Include="images\Assets\small7.jpg" />
+    <Content Include="images\Assets\small8.jpg" />
+    <Content Include="images\Assets\small9.jpg" />
+    <Content Include="images\Assets\thumb1.jpg" />
+    <Content Include="images\Assets\thumb2.jpg" />
+    <Content Include="images\Assets\thumb3.jpg" />
+    <Content Include="images\Assets\wide.jpg" />
+    <Content Include="images\BigLiveTile1.jpg" />
+    <Content Include="images\BigLiveTile2.jpg" />
+    <Content Include="images\DarkGray.png" />
+    <Content Include="images\LightGray.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\MediumGray.png" />
+    <Content Include="images\SmallLiveTile1.jpg" />
+    <Content Include="images\SmallLiveTile2.jpg" />
+    <Content Include="images\smalllogo.png" />
+    <Content Include="images\splashscreen.png" />
+    <Content Include="images\storelogo.png" />
+    <Content Include="images\widelogo.png" />
+    <Content Include="js\SearchData.js" />
+    <Content Include="js\spokePage2data.js" />
+    <Content Include="js\spokePagedata.js" />
+    <Content Include="js\data.js" />
+    <Content Include="js\default.js" />
+    <Content Include="js\navigator.js" />
+    <Content Include="pages\aboutUs\aboutUs.css" />
+    <Content Include="pages\aboutUs\aboutUs.html" />
+    <Content Include="pages\aboutUs\aboutUs.js" />
+    <Content Include="pages\contactus\contactus.css" />
+    <Content Include="pages\contactus\contactus.html" />
+    <Content Include="pages\contactus\contactus.js" />
+    <Content Include="pages\detailPage\detailPage.css" />
+    <Content Include="pages\detailPage\detailPage.html" />
+    <Content Include="pages\detailPage\detailPage.js" />
+    <Content Include="pages\flyout\flyout.css" />
+    <Content Include="pages\flyout\flyout.html" />
+    <Content Include="pages\flyout\flyout.js" />
+    <Content Include="pages\privacyPolicy\privacyPolicy.css" />
+    <Content Include="pages\privacyPolicy\privacyPolicy.html" />
+    <Content Include="pages\privacyPolicy\privacyPolicy.js" />
+    <Content Include="pages\SearchResult\SearchResult.css" />
+    <Content Include="pages\SearchResult\SearchResult.html" />
+    <Content Include="pages\SearchResult\SearchResult.js" />
+    <Content Include="pages\spokePage\spokePage.css" />
+    <Content Include="pages\spokePage\spokePage.html" />
+    <Content Include="pages\spokePage\spokePage.js" />
+    <Content Include="pages\groupedItems\groupedItems.css" />
+    <Content Include="pages\groupedItems\groupedItems.html" />
+    <Content Include="pages\groupedItems\groupedItems.js" />
+    <Content Include="default.html" />
+    <Content Include="pages\termsAndCondition\termsAndCondition.css" />
+    <Content Include="pages\termsAndCondition\termsAndCondition.html" />
+    <Content Include="pages\termsAndCondition\termsAndCondition.js" />
+    <None Include="EcommJewellery_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.WinJS.1.0, Version=1.0" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\$(WMSJSProjectDirectory)\Microsoft.VisualStudio.$(WMSJSProject).targets" />
+  <!-- To modify your build process, add your task inside one of the targets below then uncomment
+       that target and the DisableFastUpToDateCheck PropertyGroup. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <PropertyGroup>
+    <DisableFastUpToDateCheck>true</DisableFastUpToDateCheck>
+  </PropertyGroup>
+  -->
+</Project>

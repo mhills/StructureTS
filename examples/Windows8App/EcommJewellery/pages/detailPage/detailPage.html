@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>detailPage</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-light.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="detailPage.css" rel="stylesheet" />
+    <script src="detailPage.js"></script>
+</head>
+<body>
+    <div class="detailPage fragment">
+        <header aria-label="Header content" role="banner" style="z-index: 999;">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Page Heading</span>
+            </h1>
+            <div class="appLogo">
+                <img src="../../images/Assets/appLogo.png" />
+            </div>
+        </header>
+        <section aria-label="Main content" role="main">
+            <div class="detImageDiv">
+                <div class="imageTitle"></div>
+                <div class="imageJewel">
+                    <div class="img">
+                        <img class="imageSize" src="../../images/Assets/big6.jpg" />
+                    </div>
+                </div>
+                <div class="imageJewelTxt">
+                    <span class="spanTxt">Aztec Necklace Set</span><br />
+                    <img class="spanTxt" src="../../images/Assets/rupees.jpg" /><span> 1500.00</span>
+                </div>
+            </div>
+            <div class="detJewels">
+                <div class="detJewelsCatagory">
+                    <div class="detJewelsThumb">
+                        <img src="../../images/Assets/thumb1.jpg" />
+                        <img class="ImagePadding" src="../../images/Assets/thumb2.jpg" />
+                        <img class="ImagePadding" src="../../images/Assets/thumb3.jpg" />
+                    </div>
+                    <div class="detJewelsDetails">
+                        <div class="jewelsTxtDet">
+                            <span>Victorian style floral design necklace.<br />
+                                Carefully crafted to perfection</span><br />
+                            <br />
+                            <span style="font-weight: bold;">Material</span><br />
+                            <span>Brass Filigree</span>
+                            <br />
+                            <span>Copper Alloy</span><br />
+                            <br />
+                            <span style="font-weight: bold;">Size</span><br />
+                            <span>Length: 28.5 cms</span>
+                            <br />
+                            <span>Width: 30.5 cms</span><br />
+                            <br />
+                            <span style="font-weight: bold;">Colour</span><br />
+                            <span>Vintage Gold</span><br />
+                            <br />
+                            <span style="font-weight: bold;">Price </span><span>Rs.1259</span><br />
+                            <br />
+                        </div>
+                        <div class="iconsDiv">
+                            <div class="shopicon" id="addCart" onclick="detailPage.AddToCart();"></div>
+                            <div class="likeIcon"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="snapview">
+            <div class="snapDiv">Please switch to full screen to view the content</div>
+        </div>
+    </div>
+</body>
+</html>

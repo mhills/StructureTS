@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>groupedItemsPage</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.1.0/css/ui-light.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.1.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.1.0/js/ui.js"></script>
+
+    <link href="/css/default.css" rel="stylesheet" />
+    <link href="/pages/groupedItems/groupedItems.css" rel="stylesheet" />
+    <script src="/js/data.js"></script>
+    <script src="/pages/groupedItems/groupedItems.js"></script>
+</head>
+<body>
+    <!-- These templates are used to display each item in the ListView declared below. -->
+    <div class="headertemplate" data-win-control="WinJS.Binding.Template">
+        <button class="group-header win-type-x-large win-type-interactive" data-win-bind="groupKey: key"
+            onclick="Application.navigator.pageControl.navigateToGroup(event.srcElement.groupKey)" role="link" tabindex="-1" type="button">
+            <span class="group-title win-type-ellipsis" data-win-bind="textContent: title"></span>
+            <span class="group-chevron"></span>
+        </button>
+    </div>
+    <div class="itemtemplate" data-win-control="WinJS.Binding.Template">
+        <div class="item">
+            <img class="item-image" src="#" data-win-bind="src: backgroundImage; alt: title" />
+            <div class="item-overlay">
+                <h4 class="item-title" data-win-bind="textContent: title"></h4>
+                <h6 class="item-subtitle win-type-ellipsis" data-win-bind="textContent: subtitle"></h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="BigBoxTemplate" data-win-control="WinJS.Binding.Template">
+        <div class="BigTile">
+            <img class="BigImage" src="#" data-win-bind="src: backgroundImage; alt: title" />
+            <div class="BigtxtDiv">
+                <span class="Bigtxt1" data-win-bind="textContent: title"></span>
+                <br />
+                <img style="margin-left: 12px;" src="../../images/Assets/rupeesBigIcon.jpg" />
+                <span class="Bigtxt2" data-win-bind="textContent: subtitle"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="SemiBigBoxTemplate" data-win-control="WinJS.Binding.Template">
+        <div class="SemiBigTile">
+            <img class="SemiBigImage" src="#" data-win-bind="src: backgroundImage; alt: title" />
+            <div class="SemiBigtxtDiv">
+                <span class="SemiBigtxt1" data-win-bind="textContent: title"></span>
+                <br />
+                <img style="margin-left: 12px;" src="../../images/Assets/rupeesSmallIcon.jpg" />
+                <span class="SemiBigtxt2" data-win-bind="textContent: subtitle"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="MediumBoxTemplate" data-win-control="WinJS.Binding.Template">
+        <div class="MediumTile">
+            <img class="MedImage" src="#" data-win-bind="src: backgroundImage; alt: title" />
+            <div class="MedtxtDiv">
+                <span class="Medtxt1" data-win-bind="textContent: title"></span>
+                <br />
+                <img style="margin-left: 12px;" src="../../images/Assets/rupeesSmallIcon.jpg" />
+                <span class="Medtxt2" data-win-bind="textContent: subtitle"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="SmallBoxTemplate" data-win-control="WinJS.Binding.Template">
+        <div class="SmallTile">
+            <img class="SmallImage" src="#" data-win-bind="src: backgroundImage; alt: title" />
+            <div class="txtDiv">
+                <span class="smalltxt1" data-win-bind="textContent: title"></span>
+                <br />
+                <img style="margin-left: 12px;" src="../../images/Assets/rupeesSmallIcon.jpg" />
+                <span class="smalltxt2" data-win-bind="textContent: subtitle"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="WildBoxTemplate" data-win-control="WinJS.Binding.Template">
+        <div class="WideTile">
+            <img class="WideImage" src="#" data-win-bind="src: backgroundImage; alt: title" />
+            <div class="WidetxtDiv">
+                <span class="Widetxt1" data-win-bind="textContent: title"></span>
+                <br />
+                <img style="margin-left: 12px;" src="../../images/Assets/rupeesSmallIcon.jpg" />
+                <span class="Widetxt2" data-win-bind="textContent: subtitle"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="LengthBoxTemplate" data-win-control="WinJS.Binding.Template">
+        <div class="LengthTile">
+            <img class="LengthImage" src="#" data-win-bind="src: backgroundImage; alt: title" />
+            <div class="LengthtxtDiv">
+                <span class="Lengthtxt1" data-win-bind="textContent: title"></span>
+                <br />
+                <img style="margin-left: 12px;" src="../../images/Assets/rupeesSmallIcon.jpg" />
+                <span class="Lengthtxt2" data-win-bind="textContent: subtitle"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- The content that will be loaded and displayed. -->
+    <div class="fragment groupeditemspage">
+        <header aria-label="Header content" role="banner" style="z-index: 999;">
+            <button class="win-backbutton" aria-label="Back" disabled type="button"></button>
+            <h1 class="titlearea win-type-ellipsis">
+                <span class="pagetitle">Your App Slogan</span>
+            </h1>
+            <div class="appLogo">
+                <img src="../../images/Assets/appLogo.png" />
+            </div>
+        </header>
+        <section aria-label="Main content" role="main">
+            <div class="firstImage">
+                <div class="imageTitle"></div>
+                <div class="imagDiv">
+                    <img class="image" src="/images/Assets/jewel1.jpg" />
+                </div>
+                <div class="imageDet">
+                    <span>Aztec Necklace Set</span><br />
+                    <img src="../../images/Assets/rupees.jpg" /><span> 1500.00</span>
+                </div>
+            </div>
+            <div class="groupeditemslist win-selectionstylefilled" aria-label="List of groups" data-win-control="WinJS.UI.ListView" data-win-options="{ selectionMode: 'none' }"></div>
+        </section>
+    </div>
+</body>
+</html>
