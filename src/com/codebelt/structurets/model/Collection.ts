@@ -35,10 +35,9 @@
  * @module StructureTS
  * @submodule model
  * @constructor
- * @version 0.1.0
+ * @version 0.2.0
  **/
-class Collection extends EventDispatcher implements ICollection
-{
+class Collection extends EventDispatcher implements ICollection {
     /**
      * @overridden BaseObject.CLASS_NAME
      */
@@ -82,7 +81,7 @@ class Collection extends EventDispatcher implements ICollection
     {
         if (!(item instanceof ValueObject))
         {
-            throw new TypeError('['+this.getQualifiedClassName()+'] Item must be of the IValueObject type');
+            throw new TypeError('[' + this.getQualifiedClassName() + '] Item must be of the IValueObject type');
         }
 
         if (!this.hasItem(item))
@@ -111,15 +110,15 @@ class Collection extends EventDispatcher implements ICollection
     {
         if (!(item instanceof ValueObject))
         {
-            throw new TypeError('['+this.getQualifiedClassName()+'] Item must be of the IValueObject type');
+            throw new TypeError('[' + this.getQualifiedClassName() + '] Item must be of the IValueObject type');
         }
 
         if (!this.hasItem(item))
         {
-            throw new Error('['+this.getQualifiedClassName()+'] Collection does not have item ' + item);
+            throw new Error('[' + this.getQualifiedClassName() + '] Collection does not have item ' + item);
         }
 
-        this.items.splice(this.items.indexOf(item), 1);
+        this.items.splice(this.getIndexOfItem(item), 1);
         this.length = this.items.length;
 
         if (!silent)
@@ -158,22 +157,22 @@ class Collection extends EventDispatcher implements ICollection
      * @return {boolean}
      * @public
      */
-    public hasItem(items:IValueObject):boolean
+    public hasItem(item:IValueObject):boolean
     {
-        return !this.items.indexOf(items);
+        return this.getIndexOfItem(item) > -1;
     }
 
     /**
      * Returns the array index position of the value object.
      *
-     * @method indexOf
+     * @method getIndexOfItem
      * @param item {IValueObject} IValueObject get the index of.
      * @return {boolean}
      * @public
      */
-    public indexOf(items:IValueObject):number
+    public getIndexOfItem(item:IValueObject):number
     {
-        return this.items.indexOf(items);
+        return this.items.indexOf(item);
     }
 
     /**
@@ -265,7 +264,8 @@ class Collection extends EventDispatcher implements ICollection
         {
             prop = arg[i];
             // Adds found value object to the foundItems array.
-            if ((typeof prop === 'string') || (typeof prop === 'number') || (typeof prop === 'boolean')) {
+            if ((typeof prop === 'string') || (typeof prop === 'number') || (typeof prop === 'boolean'))
+            {
                 // If the item is not an object.
                 foundItems = foundItems.concat(this.findPropertyValue(prop));
             }
@@ -289,7 +289,8 @@ class Collection extends EventDispatcher implements ICollection
      * @return {array} Returns a list of found IValueObject's.
      * @private
      */
-    private findPropertyValue(arg:any) {
+    private findPropertyValue(arg:any)
+    {
         // If properties is not an array then make it an array object.
         arg = (arg instanceof Array) ? arg : [arg];
 

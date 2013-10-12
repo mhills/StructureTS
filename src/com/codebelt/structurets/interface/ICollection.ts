@@ -31,7 +31,7 @@
  * @module StructureTS
  * @submodule interface
  * @interface
- * @version 0.1.0
+ * @version 0.2.0
  **/
 interface ICollection
 {
@@ -77,7 +77,7 @@ interface ICollection
     hasItem(items:IValueObject):boolean
 
     /**
-     * @method indexOf
+     * @method getIndexOfItem
      */
     indexOf(items:IValueObject):number
 
