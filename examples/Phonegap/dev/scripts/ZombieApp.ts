@@ -64,7 +64,7 @@ class ZombieApp extends Stage {
         this._$removeTasksButton.addEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.addEventListener('click', 'input', this.todoItemHandler, this);
-        this._todoContainer.$element.addEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
+//        this._todoContainer.$element.addEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
 
         super.enable();
     }
@@ -79,7 +79,7 @@ class ZombieApp extends Stage {
         this._$removeTasksButton.removeEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.removeEventListener('click', 'input', this.todoItemHandler, this);
-        this._todoContainer.$element.removeEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
+//        this._todoContainer.$element.removeEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
 
         super.disable();
     }
@@ -163,8 +163,11 @@ class ZombieApp extends Stage {
         var $currentTarget:JQuery = $(event.currentTarget);
         var $parentContainer:JQuery = $currentTarget.parents('tr');
 
-        console.log($currentTarget)
+        var todoItemId:string = $parentContainer.data('id');
+        var todoItemCid:number = $parentContainer.data('cid');
+
         var className:string = $currentTarget.attr("class");
+        console.log("className", className);
         switch (className) {
             case 'checkbox':
                 $parentContainer.toggleClass('completed');
@@ -178,9 +181,19 @@ class ZombieApp extends Stage {
             case 'viewButton':
                 break;
             case 'deleteButton':
+
+                this.deleteTodo(todoItemId, todoItemCid);
                 break;
             default:
         }
+    }
+
+    private deleteTodo(voId:string, cid:number):void {
+        var child:DOMElement = this._todoContainer.getChildByCid(cid);
+//        var vo:TodoItemVO = this._todoCollection.find({id: voId})[0];
+
+        this._todoCollection.removeItem(vo);
+        this._todoContainer.removeChild(child);
     }
 
     private todoChangeHandler(event:JQueryEventObject) {

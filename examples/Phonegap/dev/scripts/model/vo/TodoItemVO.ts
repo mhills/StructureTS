@@ -23,6 +23,7 @@ class TodoItemVO extends ValueObject {
      * @overridden ValueObject.update
      */
     public update(data:any):void {
+        this.id = data.id;
         this.completed = data.completed;
         this.text = data.text;
     }

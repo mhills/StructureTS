@@ -18608,6 +18608,7 @@ var TodoItemVO = (function (_super) {
         }
     }
     TodoItemVO.prototype.update = function (data) {
+        this.id = data.id;
         this.completed = data.completed;
         this.text = data.text;
     };
@@ -19015,7 +19016,6 @@ var ZombieApp = (function (_super) {
         this._$removeTasksButton.addEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.addEventListener('click', 'input', this.todoItemHandler, this);
-        this._todoContainer.$element.addEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
 
         _super.prototype.enable.call(this);
     };
@@ -19028,7 +19028,6 @@ var ZombieApp = (function (_super) {
         this._$removeTasksButton.removeEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.removeEventListener('click', 'input', this.todoItemHandler, this);
-        this._todoContainer.$element.removeEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
 
         _super.prototype.disable.call(this);
     };
@@ -19075,8 +19074,11 @@ var ZombieApp = (function (_super) {
         var $currentTarget = $(event.currentTarget);
         var $parentContainer = $currentTarget.parents('tr');
 
-        console.log($currentTarget);
+        var todoItemId = $parentContainer.data('id');
+        var todoItemCid = $parentContainer.data('cid');
+
         var className = $currentTarget.attr("class");
+        console.log("className", className);
         switch (className) {
             case 'checkbox':
                 $parentContainer.toggleClass('completed');
@@ -19089,9 +19091,18 @@ var ZombieApp = (function (_super) {
             case 'viewButton':
                 break;
             case 'deleteButton':
+                this.deleteTodo(todoItemId, todoItemCid);
                 break;
             default:
         }
+    };
+
+    ZombieApp.prototype.deleteTodo = function (voId, cid) {
+        var child = this._todoContainer.getChildByCid(cid);
+
+        var vo = this._todoCollection.find({ id: voId });
+        console.log(voId, vo);
+        this._todoContainer.removeChild(child);
     };
 
     ZombieApp.prototype.todoChangeHandler = function (event) {
