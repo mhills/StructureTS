@@ -1180,6 +1180,12 @@ var TodoCollection = (function (_super) {
         this._localStorage.addItem(item.id, item, true);
     };
 
+    TodoCollection.prototype.removeItem = function (item, silent) {
+        if (typeof silent === "undefined") { silent = false; }
+        _super.prototype.removeItem.call(this, item, silent);
+        this._localStorage.removeItem(item.id, true);
+    };
+
     TodoCollection.prototype.removeCompletedItems = function () {
     };
 
@@ -1320,9 +1326,9 @@ var ZombieApp = (function (_super) {
 
     ZombieApp.prototype.deleteTodo = function (voId, cid) {
         var child = this._todoContainer.getChildByCid(cid);
+        var vo = this._todoCollection.find({ id: voId })[0];
 
-        var vo = this._todoCollection.find({ id: voId });
-        console.log(voId, vo);
+        this._todoCollection.removeItem(vo);
         this._todoContainer.removeChild(child);
     };
 

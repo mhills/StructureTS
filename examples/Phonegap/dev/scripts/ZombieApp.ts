@@ -190,7 +190,7 @@ class ZombieApp extends Stage {
 
     private deleteTodo(voId:string, cid:number):void {
         var child:DOMElement = this._todoContainer.getChildByCid(cid);
-//        var vo:TodoItemVO = this._todoCollection.find({id: voId})[0];
+        var vo:TodoItemVO = <TodoItemVO>this._todoCollection.find({id: voId})[0];
 
         this._todoCollection.removeItem(vo);
         this._todoContainer.removeChild(child);

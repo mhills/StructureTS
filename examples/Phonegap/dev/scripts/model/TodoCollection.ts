@@ -34,6 +34,12 @@ class TodoCollection extends Collection {
         this._localStorage.addItem(item.id, item, true);
     }
 
+    public removeItem(item:TodoItemVO, silent:boolean = false):void
+    {
+        super.removeItem(item, silent);
+        this._localStorage.removeItem(item.id, true);
+    }
+
     public removeCompletedItems():void {
 
     }
