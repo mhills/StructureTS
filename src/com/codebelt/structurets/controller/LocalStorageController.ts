@@ -33,10 +33,9 @@
  * @module StructureTS
  * @submodule controller
  * @constructor
- * @version 0.1.0
+ * @version 0.1.1
  **/
-class LocalStorageController extends BaseController
-{
+class LocalStorageController extends BaseController {
     /**
      * @overridden EventDispatcher.CLASS_NAME
      */
@@ -53,9 +52,20 @@ class LocalStorageController extends BaseController
      */
     private _namespace:string = 'defaultNamespace';
 
+    /**
+     * A reference to window.localStorage for faster access.
+     *
+     * @property _localStorage
+     * @type {Storage}
+     * @private
+     */
+    private _localStorage:Storage = null;
+
     constructor()
     {
         super();
+
+        this._localStorage = window.localStorage;
 
         window.addEventListener('storage', this.onLocalStorageEvent.bind(this));
     }
@@ -95,7 +105,7 @@ class LocalStorageController extends BaseController
     {
         if (useNamespace)
         {
-            key += this.getNamespace();
+            key = this.getNamespace() + key;
         }
 
         if (data instanceof ValueObject)
@@ -105,7 +115,7 @@ class LocalStorageController extends BaseController
 
         data = JSON.stringify(data);
 
-        localStorage.setItem(key, data);
+        this._localStorage.setItem(key, data);
     }
 
     /**
@@ -120,16 +130,75 @@ class LocalStorageController extends BaseController
     {
         if (useNamespace)
         {
-            key += this.getNamespace();
+            key = this.getNamespace() + key;
         }
 
-        var value = localStorage.getItem(key);
+        var value = this._localStorage.getItem(key);
         if (value)
         {
-            value = JSON.parse(value);
+            try
+            {
+                value = JSON.parse(value);
+            } catch (error)
+            {
+                // We are assuming the error is because value being parsed is a plain string with spaces.
+                value = value;
+            }
         }
 
         return value;
+    }
+
+    /**
+     * Returns all items in local storage as an Object with key and value properties that has a certain namespace.
+     *
+     * @method getItemsWithNamespace
+     * @param namespace {string} The namespace that is used to items. If a namespace is not passed in then the current set namespace will be used.
+     * @return {Array.<Object>}
+     */
+    public getItemsWithNamespace(namespace:string = this._namespace):any[]
+    {
+        var list:any[] = [];
+        var length:number = this.getLength();
+        for (var i:number = 0; i < length; i++)
+        {
+            var key:string = this._localStorage.key(i);
+            if (key.indexOf(namespace) > -1)
+            {
+                var value:any = this.getItem(key);
+                var obj:any = {
+                    key: key,
+                    value: value
+                }
+
+                list.push(obj);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Returns all items in local storage as an Object with key and value properties.
+     *
+     * @method getAllItems
+     * @return {Array.<Object>}
+     */
+    public getAllItems():any[]
+    {
+        var list:any[] = [];
+        var length:number = this.getLength();
+        for (var i:number = 0; i < length; i++)
+        {
+            var key:string = this._localStorage.key(i);
+            var value:any = this.getItem(key);
+            var obj:any = {
+                key: key,
+                value: value
+            }
+
+            list.push(obj);
+        }
+        return list;
     }
 
     /**
@@ -143,10 +212,21 @@ class LocalStorageController extends BaseController
     {
         if (useNamespace)
         {
-            key += this.getNamespace();
+            key = this.getNamespace() + key;
         }
 
-        localStorage.removeItem(key);
+        this._localStorage.removeItem(key);
+    }
+
+    /**
+     * Returns the number of items storage in local storage.
+     *
+     * @method getLength
+     * @returns {number}
+     */
+    public getLength():number
+    {
+        return this._localStorage.length;
     }
 
     /**
@@ -157,7 +237,7 @@ class LocalStorageController extends BaseController
      */
     public getSize():number
     {
-        return encodeURIComponent(JSON.stringify(localStorage)).length;
+        return encodeURIComponent(JSON.stringify(this._localStorage)).length;
     }
 
     /**
@@ -167,7 +247,17 @@ class LocalStorageController extends BaseController
      */
     public clear():void
     {
-        localStorage.clear();
+        this._localStorage.clear();
+    }
+
+    /**
+     * @overridden BaseController.destroy
+     */
+    public destroy():void
+    {
+        super.destroy();
+
+        this._localStorage = null;
     }
 
     /**
