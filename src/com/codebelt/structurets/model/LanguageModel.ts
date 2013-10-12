@@ -58,7 +58,7 @@ class LanguageModel extends EventDispatcher
         super();
 
         this._localStorageController = new LocalStorageController();
-        this._localStorageController.setNamespace('.StructureTS');
+        this._localStorageController.setNamespace('StructureTS.');
         this.currentLanguage = this._localStorageController.getItem('language', true);
     }
 

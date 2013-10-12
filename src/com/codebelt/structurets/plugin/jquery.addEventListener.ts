@@ -1,10 +1,12 @@
-(function($, window, document){
+(function ($, window, document)
+{
 
-    $.fn.addEventListener = function(type, selector, data, callback, scope)
+    $.fn.addEventListener = function (type, selector, data, callback, scope)
     {
         var _callback;
         var _scope;
-        switch (arguments.length) {
+        switch (arguments.length)
+        {
             case 3:
                 _callback = selector;
                 _scope = data;
@@ -24,9 +26,10 @@
         return this;
     }
 
-    $.fn.removeEventListener = function(type, selector, callback, scope)
+    $.fn.removeEventListener = function (type, selector, callback, scope)
     {
-        switch (arguments.length) {
+        switch (arguments.length)
+        {
             case 3:
                 var _callback = selector;
                 var _scope = callback;
