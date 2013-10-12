@@ -1,0 +1,62 @@
+/* ---------------------------------------------------------------------
+Original Author:
+
+Target Browsers: All
+Media Type: Screen, Projection
+Width: All Sizes
+------------------------------------------------------------------------ */
+
+/* ---------------------------------------------------------------------
+App
+------------------------------------------------------------------------ */
+body {
+    background-image: url('../img/bg_pattern.png');
+}
+
+.addToDo {
+    background-color: transparent;
+    border-color: transparent;
+    float:left;
+    margin-left:0;
+    position:absolute;
+    left:0px
+}
+
+.removeTasks {
+    background-color: transparent;
+    border-color: transparent;
+    float:right;
+    margin-right:0;
+    position:absolute;
+    right:0px;
+}
+
+.checkbox {
+    /*background-color:transparent;*/
+    /*background-image:url('../img/check_box.png');*/
+    width:34px;
+    height:32px;
+}
+
+.textbox {
+    background-color:grey;
+    text-decoration: none;
+}
+
+.todoItem.completed .textbox {
+    text-decoration: line-through;
+}
+
+.viewButton {
+    background-color:transparent;
+    background-image:url('../img/button_view.png');
+    width:64px;
+    height:32px;
+}
+
+.deleteButton {
+    background-color:transparent;
+    background-image:url('../img/button_delete.png');
+    width:64px;
+    height:32px;
+}
