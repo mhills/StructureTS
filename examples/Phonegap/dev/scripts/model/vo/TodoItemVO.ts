@@ -1,13 +1,5 @@
 ///<reference path='../../../../../../src/com/codebelt/structurets/model/ValueObject.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class TodoItemVO
- * @param [data] {any} Provide a way to update the value object upon initialization.
- * @extends ValueObject
- * @constructor
- **/
 class TodoItemVO extends ValueObject {
 
     /**

@@ -3,30 +3,25 @@
 
 ///<reference path='vo/TodoItemVO.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class TodoCollection
- * @extends Collection
- * @constructor
- **/
 class TodoCollection extends Collection {
 
     public CLASS_NAME:string = 'TodoCollection';
 
-    /**
-     * YUIDoc_comment
-     *
-     * @property _localStorage
-     * @type {LocalStorageController}
-     * @private
-     */
     private _localStorage:LocalStorageController = null;
 
     constructor() {
         super();
 
+        // Create value object so we can use the actual class name that is going to be the namespace.
+        // We could of hard coded a string for the namespace but this will help if the class is refactored/renamed later.
+        var vo:TodoItemVO = new TodoItemVO();
+        var namespace:string = vo.getQualifiedClassName() + ".";
+
+        // Create a local storage controller and set the namespace for it.
         this._localStorage = new LocalStorageController();
+        this._localStorage.setNamespace(namespace);
+
+        this.getItemsFromLocalStorage();
     }
 
 
@@ -36,17 +31,22 @@ class TodoCollection extends Collection {
     public addItem(item:TodoItemVO, silent:boolean = false):void {
         super.addItem(item, silent);
 
-        this._localStorage.addItem(item.id, item);
+        this._localStorage.addItem(item.id, item, true);
     }
 
-    /**
-     * YUIDoc_comment
-     *
-     * @method removeCompletedItems
-     * @public
-     */
-    public removeCompletedItems() {
+    public removeCompletedItems():void {
 
+    }
+
+    private getItemsFromLocalStorage():void {
+        var items:any[] = this._localStorage.getItemsWithNamespace();
+        var itemsLength:number = items.length;
+        var todoItemVO:TodoItemVO;
+
+        for (var i:number = 0; i < itemsLength; i++) {
+            todoItemVO = new TodoItemVO(items[i].value);
+            super.addItem(todoItemVO, true);
+        }
     }
 
 

@@ -1043,6 +1043,9 @@ var LocalStorageController = (function (_super) {
         _super.call(this);
         this.CLASS_NAME = 'LocalStorageController';
         this._namespace = 'defaultNamespace';
+        this._localStorage = null;
+
+        this._localStorage = window.localStorage;
 
         window.addEventListener('storage', this.onLocalStorageEvent.bind(this));
     }
@@ -1057,7 +1060,7 @@ var LocalStorageController = (function (_super) {
     LocalStorageController.prototype.addItem = function (key, data, useNamespace) {
         if (typeof useNamespace === "undefined") { useNamespace = false; }
         if (useNamespace) {
-            key += this.getNamespace();
+            key = this.getNamespace() + key;
         }
 
         if (data instanceof ValueObject) {
@@ -1066,38 +1069,87 @@ var LocalStorageController = (function (_super) {
 
         data = JSON.stringify(data);
 
-        localStorage.setItem(key, data);
+        this._localStorage.setItem(key, data);
     };
 
     LocalStorageController.prototype.getItem = function (key, useNamespace) {
         if (typeof useNamespace === "undefined") { useNamespace = false; }
         if (useNamespace) {
-            key += this.getNamespace();
+            key = this.getNamespace() + key;
         }
 
-        var value = localStorage.getItem(key);
+        var value = this._localStorage.getItem(key);
         if (value) {
-            value = JSON.parse(value);
+            try  {
+                value = JSON.parse(value);
+            } catch (error) {
+                value = value;
+            }
         }
 
         return value;
     };
 
+    LocalStorageController.prototype.getItemsWithNamespace = function (namespace) {
+        if (typeof namespace === "undefined") { namespace = this._namespace; }
+        var list = [];
+        var length = this.getLength();
+        for (var i = 0; i < length; i++) {
+            var key = this._localStorage.key(i);
+            if (key.indexOf(namespace) > -1) {
+                var value = this.getItem(key);
+                var obj = {
+                    key: key,
+                    value: value
+                };
+
+                list.push(obj);
+            }
+        }
+        return list;
+    };
+
+    LocalStorageController.prototype.getAllItems = function () {
+        var list = [];
+        var length = this.getLength();
+        for (var i = 0; i < length; i++) {
+            var key = this._localStorage.key(i);
+            var value = this.getItem(key);
+            var obj = {
+                key: key,
+                value: value
+            };
+
+            list.push(obj);
+        }
+        return list;
+    };
+
     LocalStorageController.prototype.removeItem = function (key, useNamespace) {
         if (typeof useNamespace === "undefined") { useNamespace = false; }
         if (useNamespace) {
-            key += this.getNamespace();
+            key = this.getNamespace() + key;
         }
 
-        localStorage.removeItem(key);
+        this._localStorage.removeItem(key);
+    };
+
+    LocalStorageController.prototype.getLength = function () {
+        return this._localStorage.length;
     };
 
     LocalStorageController.prototype.getSize = function () {
-        return encodeURIComponent(JSON.stringify(localStorage)).length;
+        return encodeURIComponent(JSON.stringify(this._localStorage)).length;
     };
 
     LocalStorageController.prototype.clear = function () {
-        localStorage.clear();
+        this._localStorage.clear();
+    };
+
+    LocalStorageController.prototype.destroy = function () {
+        _super.prototype.destroy.call(this);
+
+        this._localStorage = null;
     };
 
     LocalStorageController.prototype.onLocalStorageEvent = function (event) {
@@ -1112,16 +1164,33 @@ var TodoCollection = (function (_super) {
         this.CLASS_NAME = 'TodoCollection';
         this._localStorage = null;
 
+        var vo = new TodoItemVO();
+        var namespace = vo.getQualifiedClassName() + ".";
+
         this._localStorage = new LocalStorageController();
+        this._localStorage.setNamespace(namespace);
+
+        this.getItemsFromLocalStorage();
     }
     TodoCollection.prototype.addItem = function (item, silent) {
         if (typeof silent === "undefined") { silent = false; }
         _super.prototype.addItem.call(this, item, silent);
 
-        this._localStorage.addItem(item.id, item);
+        this._localStorage.addItem(item.id, item, true);
     };
 
     TodoCollection.prototype.removeCompletedItems = function () {
+    };
+
+    TodoCollection.prototype.getItemsFromLocalStorage = function () {
+        var items = this._localStorage.getItemsWithNamespace();
+        var itemsLength = items.length;
+        var todoItemVO;
+
+        for (var i = 0; i < itemsLength; i++) {
+            todoItemVO = new TodoItemVO(items[i].value);
+            _super.prototype.addItem.call(this, todoItemVO, true);
+        }
     };
     return TodoCollection;
 })(Collection);
@@ -1147,6 +1216,11 @@ var ZombieApp = (function (_super) {
         this._$removeTasksButton = this.$element.find('#js-removeTasksButton');
 
         this._todoContainer = this.getChild('#js-todoContainer');
+
+        for (var i = 0; i < this._todoCollection.length; i++) {
+            var vo = this._todoCollection.getItemByIndex(i);
+            this.addTodoView(vo);
+        }
     };
 
     ZombieApp.prototype.layoutChildren = function () {
@@ -1158,10 +1232,11 @@ var ZombieApp = (function (_super) {
 
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
 
-        this._$todoButton.addEventListener('click', this.addTodo, this);
-        this._$removeTasksButton.addEventListener('click', this.removeTasks, this);
+        this._$todoButton.addEventListener('click', this.addTodoHandler, this);
+        this._$removeTasksButton.addEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.addEventListener('click', 'input', this.todoItemHandler, this);
+        this._todoContainer.$element.addEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
 
         _super.prototype.enable.call(this);
     };
@@ -1170,10 +1245,11 @@ var ZombieApp = (function (_super) {
         if (this.isEnabled === false)
             return;
 
-        this._$todoButton.removeEventListener('click', this.addTodo, this);
-        this._$removeTasksButton.removeEventListener('click', this.removeTasks, this);
+        this._$todoButton.removeEventListener('click', this.addTodoHandler, this);
+        this._$removeTasksButton.removeEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.removeEventListener('click', 'input', this.todoItemHandler, this);
+        this._todoContainer.$element.removeEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
 
         _super.prototype.disable.call(this);
     };
@@ -1186,7 +1262,7 @@ var ZombieApp = (function (_super) {
         console.log('Received Event: ' + 'deviceready');
     };
 
-    ZombieApp.prototype.addTodo = function (event) {
+    ZombieApp.prototype.addTodoHandler = function (event) {
         var todoDictionary = {};
 
         var todoText = prompt("To-Do", "");
@@ -1194,25 +1270,26 @@ var ZombieApp = (function (_super) {
             if (todoText == "") {
                 alert("To-Do can't be empty!");
             } else {
-                this.addTableRow(todoText, false);
+                this.addTodo(todoText);
             }
         }
     };
 
-    ZombieApp.prototype.removeTasks = function (event) {
+    ZombieApp.prototype.removeTasksHandler = function (event) {
     };
 
-    ZombieApp.prototype.addTableRow = function (todoText, appIsLoading) {
+    ZombieApp.prototype.addTodoView = function (todoVO) {
+        var todoItem = new DOMElement('templates/TodoItemTemplate.hbs', todoVO);
+        this._todoContainer.addChild(todoItem);
+    };
+
+    ZombieApp.prototype.addTodo = function (todoText) {
         var todoVO = new TodoItemVO();
         todoVO.id = StringUtil.createUUID();
         todoVO.text = todoText;
 
         this._todoCollection.addItem(todoVO);
-
-        var todoItem = new DOMElement('templates/TodoItemTemplate.hbs', todoVO);
-        this._todoContainer.addChild(todoItem);
-
-        console.log("this._todoCollection", this._todoCollection.items);
+        this.addTodoView(todoVO);
     };
 
     ZombieApp.prototype.todoItemHandler = function (event) {
@@ -1236,6 +1313,10 @@ var ZombieApp = (function (_super) {
                 break;
             default:
         }
+    };
+
+    ZombieApp.prototype.todoChangeHandler = function (event) {
+        console.log("todoChangeHandler");
     };
 
     ZombieApp.prototype.checkboxClicked = function () {
