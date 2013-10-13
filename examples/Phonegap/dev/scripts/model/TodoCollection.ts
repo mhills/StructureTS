@@ -15,6 +15,7 @@ class TodoCollection extends Collection {
         // Create value object so we can use the actual class name that is going to be the namespace.
         // We could of hard coded a string for the namespace but this will help if the class is refactored/renamed later.
         var vo:TodoItemVO = new TodoItemVO();
+
         var namespace:string = vo.getQualifiedClassName() + ".";
 
         // Create a local storage controller and set the namespace for it.
@@ -34,10 +35,18 @@ class TodoCollection extends Collection {
         this._localStorage.addItem(item.id, item, true);
     }
 
+    /**
+     * @overridden Collection.removeItem
+     */
     public removeItem(item:TodoItemVO, silent:boolean = false):void
     {
         super.removeItem(item, silent);
+
         this._localStorage.removeItem(item.id, true);
+    }
+
+    public saveItem(item:TodoItemVO):void {
+        this._localStorage.addItem(item.id, item, true);
     }
 
     public removeCompletedItems():void {

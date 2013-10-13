@@ -49,7 +49,6 @@ class ZombieApp extends Stage {
      */
     public layoutChildren():void {
 
-
     }
 
     /**
@@ -64,7 +63,7 @@ class ZombieApp extends Stage {
         this._$removeTasksButton.addEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.addEventListener('click', 'input', this.todoItemHandler, this);
-//        this._todoContainer.$element.addEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
+        this._todoContainer.$element.addEventListener('change', 'input[type=text]', this.todoItemHandler, this);
 
         super.enable();
     }
@@ -79,7 +78,7 @@ class ZombieApp extends Stage {
         this._$removeTasksButton.removeEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.removeEventListener('click', 'input', this.todoItemHandler, this);
-//        this._todoContainer.$element.removeEventListener('change', 'input[type=text]', this.todoChangeHandler, this);
+        this._todoContainer.$element.removeEventListener('change', 'input[type=text]', this.todoItemHandler, this);
 
         super.disable();
     }
@@ -97,49 +96,27 @@ class ZombieApp extends Stage {
     }
 
     private addTodoHandler(event:JQueryEventObject) {
-        var todoDictionary = {};
-
         //Prompt the user to enter To-Do
-        var todoText:string = prompt("To-Do", "");
-        if (todoText != null) {
-            if (todoText == "") {
-                alert("To-Do can't be empty!");
-            }
-            else {
-                this.addTodo(todoText);
-            }
+        var todoText:string = prompt('Enter Todo:', '');
+        if (todoText != null && todoText !== '') {
+            this.addTodo(todoText);
         }
     }
 
-
     private removeTasksHandler(event:JQueryEventObject) {
-        /*
-         //Get current table
-         var table = document.getElementById("dataTable");
-         var rowCount = table.rows.length;
+        var completedItems:JQuery = this._todoContainer.$element.find('.completed');
+        var length:number = completedItems.length;
 
-         //Loop through all rows
-         for(var i=0; i<rowCount; i++)
-         {
-         //Delete row if checkbox is checked
-         var row = table.rows[i];
-         var chkbox = row.cells[0].childNodes[0];
-         if(null != chkbox && true == chkbox.checked)
-         {
-         table.deleteRow(i);
-         rowCount--;
-         i--;
-         }
+        var $todo:JQuery;
+        var todoItemId:string;
+        var todoItemCid:number;
+        for (var i:number = 0; i < length; i++) {
+            $todo = $(completedItems[i]);
+            todoItemId = $todo.data('id');
+            todoItemCid = $todo.data('cid');
 
-
-
-         }
-
-         //Save
-         this.saveToDoList();
-         alert("Completed Tasks Were Removed Successfully.");
-         */
-
+            this.deleteTodo(todoItemId, todoItemCid);
+        }
     }
 
     private addTodoView(todoVO:TodoItemVO):void  {
@@ -147,9 +124,6 @@ class ZombieApp extends Stage {
         this._todoContainer.addChild(todoItem);
     }
 
-
-    //Add a row to the table
-//    var rowID = 0;
     private addTodo(todoText:string) {
         var todoVO:TodoItemVO = new TodoItemVO();
         todoVO.id = StringUtil.createUUID();
@@ -167,21 +141,19 @@ class ZombieApp extends Stage {
         var todoItemCid:number = $parentContainer.data('cid');
 
         var className:string = $currentTarget.attr("class");
-        console.log("className", className);
         switch (className) {
             case 'checkbox':
                 $parentContainer.toggleClass('completed');
-                console.log("$currentTarget.next()", $parentContainer);
-
-//                $currentTarget.toggleClass('completed');
-                this.checkboxClicked();
+                var isChecked:boolean = $currentTarget.prop('checked');
+                this.checkboxClicked(todoItemId, isChecked);
                 break;
             case 'textbox':
+                this.todoChangeHandler(todoItemId, $currentTarget.val());
                 break;
             case 'viewButton':
+                this.viewTodo(todoItemId);
                 break;
             case 'deleteButton':
-
                 this.deleteTodo(todoItemId, todoItemCid);
                 break;
             default:
@@ -196,118 +168,23 @@ class ZombieApp extends Stage {
         this._todoContainer.removeChild(child);
     }
 
-    private todoChangeHandler(event:JQueryEventObject) {
-        console.log("todoChangeHandler");
+    private todoChangeHandler(voId:string, newText:string) {
+        var vo:TodoItemVO = <TodoItemVO>this._todoCollection.find({id: voId})[0];
+        vo.text = newText;
+
+        this._todoCollection.saveItem(vo);
     }
 
-    private checkboxClicked() {
-//        //Save
-//        this.saveToDoList();
+    private checkboxClicked(voId:string, isChecked:boolean) {
+        var vo:TodoItemVO = <TodoItemVO>this._todoCollection.find({id: voId})[0];
+        vo.completed = isChecked;
+
+        this._todoCollection.saveItem(vo);
     }
 
-    //Views textField's content of the selected row
-    private viewSelectedRow(todoTextField) {
-//        alert(todoTextField.value);
-    }
-
-
-    //Deletes current row
-    private deleteSelectedRow(deleteButton) {
-//        var p = deleteButton.parentNode.parentNode;
-//        p.parentNode.removeChild(p);
-//        this.saveToDoList();
-    }
-
-    private saveToDoList() {
-//        //Create a todoArray
-//        var todoArray = {};
-//        var checkBoxState = 0;
-//        var textValue = "";
-//
-//        //Get current table
-//        var table = document.getElementById("dataTable");
-//        var rowCount = table.rows.length;
-//
-//        if (rowCount != 0) {
-//            //Loop through all rows
-//            for (var i = 0; i < rowCount; i++) {
-//                var row = table.rows[i];
-//
-//                //Add checkbox state
-//                var chkbox = row.cells[0].childNodes[0];
-//                if (null != chkbox && true == chkbox.checked) {
-//                    checkBoxState = 1;
-//                }
-//                else {
-//                    checkBoxState = 0;
-//                }
-//
-//
-//                //Add text data
-//                var textbox = row.cells[1].childNodes[0];
-//                textValue = textbox.value;
-//
-//                //Fill the array with check & text data
-//                todoArray["row" + i] =
-//                {
-//                    check: checkBoxState,
-//                    text: textValue
-//                };
-//
-//            }
-//        }
-//        else {
-//            todoArray = null;
-//        }
-//
-//        //Use local storage to persist data
-//        //We use JSON to preserve objects
-//
-//        window.localStorage.setItem("todoList", JSON.stringify(todoArray));
-    }
-
-    private loadToDoList() {
-
-//        //Get the saved To-Do list array by JSON parsing localStorage
-//        var theList = JSON.parse(window.localStorage.getItem("todoList"));
-//
-//
-//        if (null == theList || theList == "null") {
-//            this.deleteAllRows();
-//        }
-//        else {
-//            var count = 0;
-//            for (var obj in theList) {
-//                count++;
-//            }
-//
-//            //Clear table
-//            this.deleteAllRows();
-//            //Loop through all rows
-//            for (var i = 0; i < count; i++) {
-//                //Add row
-//                this.addTodo(theList["row" + i], true);
-//            }
-//
-//        }
-
-    }
-
-    private deleteAllRows() {
-//        //Get current table
-//        var table = document.getElementById("dataTable");
-//        var rowCount = table.rows.length;
-//
-//        //Loop through all rows
-//        for (var i = 0; i < rowCount; i++) {
-//            //delete row
-//            table.deleteRow(i);
-//            rowCount--;
-//            i--;
-//        }
-//
-//        //Save
-//        this.saveToDoList();
+    private viewTodo(voId:string) {
+        var vo:TodoItemVO = <TodoItemVO>this._todoCollection.find({id: voId})[0];
+        alert(vo.text);
     }
 
 }

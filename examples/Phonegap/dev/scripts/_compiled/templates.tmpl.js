@@ -21,12 +21,35 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 this["JST"]["templates/TodoItemTemplate.hbs"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
-  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+  var buffer = "", stack1, stack2, functionType="function", escapeExpression=this.escapeExpression, self=this;
 
+function program1(depth0,data) {
+  
+  
+  return "completed";
+  }
+
+function program3(depth0,data) {
+  
+  
+  return "\n        <td><input type=\"checkbox\" checked name=\"\" class=\"checkbox\"></td>\n    ";
+  }
+
+function program5(depth0,data) {
+  
+  
+  return "\n        <td><input type=\"checkbox\" name=\"\" class=\"checkbox\"></td>\n    ";
+  }
 
   buffer += "<tr data-id=\""
     + escapeExpression(((stack1 = depth0.id),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\" class=\"todoItem\">\n    <td><input type=\"checkbox\" name=\"chkbox[]\" class=\"checkbox\"></td>\n    <td><input type=\"text\" name=\"txtbox[]\" class=\"textbox\" value=\""
+    + "\" class=\"todoItem ";
+  stack2 = helpers['if'].call(depth0, depth0.completed, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\">\n    ";
+  stack2 = helpers['if'].call(depth0, depth0.completed, {hash:{},inverse:self.program(5, program5, data),fn:self.program(3, program3, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
+  buffer += "\n    <td><input type=\"text\" name=\"\" class=\"textbox\" value=\""
     + escapeExpression(((stack1 = depth0.text),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"></td>\n    <td><input type=\"button\" class=\"viewButton\"></td>\n    <td><input type=\"button\" class=\"deleteButton\"></td>\n</tr>";
   return buffer;

@@ -874,7 +874,7 @@ var Collection = (function (_super) {
             throw new Error('[' + this.getQualifiedClassName() + '] Collection does not have item ' + item);
         }
 
-        this.items.splice(this.items.indexOf(item), 1);
+        this.items.splice(this.getIndexOfItem(item), 1);
         this.length = this.items.length;
 
         if (!silent) {
@@ -894,12 +894,12 @@ var Collection = (function (_super) {
         }
     };
 
-    Collection.prototype.hasItem = function (items) {
-        return !this.items.indexOf(items);
+    Collection.prototype.hasItem = function (item) {
+        return this.getIndexOfItem(item) > -1;
     };
 
-    Collection.prototype.indexOf = function (items) {
-        return this.items.indexOf(items);
+    Collection.prototype.getIndexOfItem = function (item) {
+        return this.items.indexOf(item);
     };
 
     Collection.prototype.addItems = function (items, silent) {
@@ -1166,6 +1166,7 @@ var TodoCollection = (function (_super) {
         this._localStorage = null;
 
         var vo = new TodoItemVO();
+
         var namespace = vo.getQualifiedClassName() + ".";
 
         this._localStorage = new LocalStorageController();
@@ -1183,7 +1184,12 @@ var TodoCollection = (function (_super) {
     TodoCollection.prototype.removeItem = function (item, silent) {
         if (typeof silent === "undefined") { silent = false; }
         _super.prototype.removeItem.call(this, item, silent);
+
         this._localStorage.removeItem(item.id, true);
+    };
+
+    TodoCollection.prototype.saveItem = function (item) {
+        this._localStorage.addItem(item.id, item, true);
     };
 
     TodoCollection.prototype.removeCompletedItems = function () {
@@ -1243,6 +1249,7 @@ var ZombieApp = (function (_super) {
         this._$removeTasksButton.addEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.addEventListener('click', 'input', this.todoItemHandler, this);
+        this._todoContainer.$element.addEventListener('change', 'input[type=text]', this.todoItemHandler, this);
 
         _super.prototype.enable.call(this);
     };
@@ -1255,6 +1262,7 @@ var ZombieApp = (function (_super) {
         this._$removeTasksButton.removeEventListener('click', this.removeTasksHandler, this);
 
         this._todoContainer.$element.removeEventListener('click', 'input', this.todoItemHandler, this);
+        this._todoContainer.$element.removeEventListener('change', 'input[type=text]', this.todoItemHandler, this);
 
         _super.prototype.disable.call(this);
     };
@@ -1268,19 +1276,26 @@ var ZombieApp = (function (_super) {
     };
 
     ZombieApp.prototype.addTodoHandler = function (event) {
-        var todoDictionary = {};
-
-        var todoText = prompt("To-Do", "");
-        if (todoText != null) {
-            if (todoText == "") {
-                alert("To-Do can't be empty!");
-            } else {
-                this.addTodo(todoText);
-            }
+        var todoText = prompt('Enter Todo:', '');
+        if (todoText != null && todoText !== '') {
+            this.addTodo(todoText);
         }
     };
 
     ZombieApp.prototype.removeTasksHandler = function (event) {
+        var completedItems = this._todoContainer.$element.find('.completed');
+        var length = completedItems.length;
+
+        var $todo;
+        var todoItemId;
+        var todoItemCid;
+        for (var i = 0; i < length; i++) {
+            $todo = $(completedItems[i]);
+            todoItemId = $todo.data('id');
+            todoItemCid = $todo.data('cid');
+
+            this.deleteTodo(todoItemId, todoItemCid);
+        }
     };
 
     ZombieApp.prototype.addTodoView = function (todoVO) {
@@ -1305,17 +1320,17 @@ var ZombieApp = (function (_super) {
         var todoItemCid = $parentContainer.data('cid');
 
         var className = $currentTarget.attr("class");
-        console.log("className", className);
         switch (className) {
             case 'checkbox':
                 $parentContainer.toggleClass('completed');
-                console.log("$currentTarget.next()", $parentContainer);
-
-                this.checkboxClicked();
+                var isChecked = $currentTarget.prop('checked');
+                this.checkboxClicked(todoItemId, isChecked);
                 break;
             case 'textbox':
+                this.todoChangeHandler(todoItemId, $currentTarget.val());
                 break;
             case 'viewButton':
+                this.viewTodo(todoItemId);
                 break;
             case 'deleteButton':
                 this.deleteTodo(todoItemId, todoItemCid);
@@ -1332,26 +1347,23 @@ var ZombieApp = (function (_super) {
         this._todoContainer.removeChild(child);
     };
 
-    ZombieApp.prototype.todoChangeHandler = function (event) {
-        console.log("todoChangeHandler");
+    ZombieApp.prototype.todoChangeHandler = function (voId, newText) {
+        var vo = this._todoCollection.find({ id: voId })[0];
+        vo.text = newText;
+
+        this._todoCollection.saveItem(vo);
     };
 
-    ZombieApp.prototype.checkboxClicked = function () {
+    ZombieApp.prototype.checkboxClicked = function (voId, isChecked) {
+        var vo = this._todoCollection.find({ id: voId })[0];
+        vo.completed = isChecked;
+
+        this._todoCollection.saveItem(vo);
     };
 
-    ZombieApp.prototype.viewSelectedRow = function (todoTextField) {
-    };
-
-    ZombieApp.prototype.deleteSelectedRow = function (deleteButton) {
-    };
-
-    ZombieApp.prototype.saveToDoList = function () {
-    };
-
-    ZombieApp.prototype.loadToDoList = function () {
-    };
-
-    ZombieApp.prototype.deleteAllRows = function () {
+    ZombieApp.prototype.viewTodo = function (voId) {
+        var vo = this._todoCollection.find({ id: voId })[0];
+        alert(vo.text);
     };
     return ZombieApp;
 })(Stage);
