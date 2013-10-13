@@ -74,12 +74,12 @@ interface ICollection
     /**
      * @method hasItem
      */
-    hasItem(items:IValueObject):boolean
+    hasItem(item:IValueObject):boolean
 
     /**
      * @method getIndexOfItem
      */
-    indexOf(items:IValueObject):number
+    getIndexOfItem(item:IValueObject):number
 
     /**
      * @method getItemByIndex
