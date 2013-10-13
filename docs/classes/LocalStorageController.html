@@ -374,7 +374,28 @@
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#method_getAllItems">getAllItems</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_getItem">getItem</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getItemsWithNamespace">getItemsWithNamespace</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getLength">getLength</a>
 
                                 
                                 
@@ -424,6 +445,13 @@
                     <h3>Properties</h3>
 
                     <ul class="index-list properties">
+                        
+                            <li class="index-item property private">
+                                <a href="#property__localStorage">_localStorage</a>
+
+                                
+                                
+                            </li>
                         
                             <li class="index-item property private">
                                 <a href="#property__namespace">_namespace</a>
@@ -500,7 +528,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l86"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:86</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l96"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:96</code></a>
         
         </p>
 
@@ -607,7 +635,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l163"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:163</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l243"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:243</code></a>
         
         </p>
 
@@ -623,6 +651,76 @@
 
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_getAllItems" class="method item">
+    <h3 class="name"><code>getAllItems</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Array.<Object></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l180"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:180</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns all items in local storage as an Object with key and value properties.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Array.<Object></span>:
+                    
+                
+            </div>
+        </div>
     
 
     
@@ -681,7 +779,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l111"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:111</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l121"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:121</code></a>
         
         </p>
 
@@ -754,6 +852,179 @@
 </div>
 
                 
+                    <div id="method_getItemsWithNamespace" class="method item">
+    <h3 class="name"><code>getItemsWithNamespace</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>namespace</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Array.<Object></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l152"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:152</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns all items in local storage as an Object with key and value properties that has a certain namespace.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">namespace</code>
+                        <span class="type">String</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The namespace that is used to items. If a namespace is not passed in then the current set namespace will be used.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Array.<Object></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getLength" class="method item">
+    <h3 class="name"><code>getLength</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Number</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l221"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:221</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns the number of items storage in local storage.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Number</span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
                     <div id="method_getNamespace" class="method item">
     <h3 class="name"><code>getNamespace</code></h3>
 
@@ -790,7 +1061,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l75"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:75</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l85"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:85</code></a>
         
         </p>
 
@@ -860,7 +1131,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l152"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:152</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l232"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:232</code></a>
         
         </p>
 
@@ -938,7 +1209,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l173"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:173</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l263"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:263</code></a>
         
         </p>
 
@@ -1031,7 +1302,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l135"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:135</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l204"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:204</code></a>
         
         </p>
 
@@ -1138,7 +1409,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l63"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:63</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l73"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:73</code></a>
         
         </p>
 
@@ -1203,6 +1474,52 @@
                 <h2 class="off-left">Properties</h2>
 
                 
+                    <div id="property__localStorage" class="property item private">
+    <h3 class="name"><code>_localStorage</code></h3>
+    <span class="type">Storage</span>
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l55"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:55</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>A reference to window.localStorage for faster access.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
                     <div id="property__namespace" class="property item private">
     <h3 class="name"><code>_namespace</code></h3>
     <span class="type">String</span>
@@ -1228,7 +1545,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l45"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:45</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_controller_LocalStorageController.ts.html#l44"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;controller&#x2F;LocalStorageController.ts:44</code></a>
         
         </p>
 

@@ -285,7 +285,7 @@
  * @module StructureTS
  * @submodule interface
  * @interface
- * @version 0.1.0
+ * @version 0.2.0
  **/
 interface ICollection
 {
@@ -328,12 +328,12 @@ interface ICollection
     /**
      * @method hasItem
      */
-    hasItem(items:IValueObject):boolean
+    hasItem(item:IValueObject):boolean
 
     /**
-     * @method indexOf
+     * @method getIndexOfItem
      */
-    indexOf(items:IValueObject):number
+    getIndexOfItem(item:IValueObject):number
 
     /**
      * @method getItemByIndex

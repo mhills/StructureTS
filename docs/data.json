@@ -1263,7 +1263,7 @@
             "description": "The LocalStorageController...",
             "submodule": "controller",
             "is_constructor": 1,
-            "version": "0.1.0"
+            "version": "0.1.1"
         },
         "RouterController": {
             "name": "RouterController",
@@ -2077,7 +2077,7 @@
             "description": "YUIDoc_comment",
             "submodule": "interface",
             "interface": "",
-            "version": "0.1.0"
+            "version": "0.2.0"
         },
         "ICore": {
             "name": "ICore",
@@ -2239,7 +2239,7 @@
             "submodule": "model",
             "extends": "EventDispatcher",
             "is_constructor": 1,
-            "version": "0.1.0"
+            "version": "0.2.0"
         },
         "LanguageModel": {
             "name": "LanguageModel",
@@ -3567,7 +3567,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 40,
+            "line": 39,
             "overridden": "EventDispatcher.CLASS_NAME",
             "class": "LocalStorageController",
             "module": "StructureTS",
@@ -3575,7 +3575,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 45,
+            "line": 44,
             "description": "Current user namespace. The namespace is optional.",
             "itemtype": "property",
             "name": "_namespace",
@@ -3590,7 +3590,20 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 63,
+            "line": 55,
+            "description": "A reference to window.localStorage for faster access.",
+            "itemtype": "property",
+            "name": "_localStorage",
+            "type": "{Storage}",
+            "access": "private",
+            "tagname": "",
+            "class": "LocalStorageController",
+            "module": "StructureTS",
+            "submodule": "controller"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
+            "line": 73,
             "description": "Set storage namespace",
             "itemtype": "method",
             "name": "setNamespace",
@@ -3610,7 +3623,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 75,
+            "line": 85,
             "description": "Get storage namespace",
             "itemtype": "method",
             "name": "getNamespace",
@@ -3624,7 +3637,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 86,
+            "line": 96,
             "description": "Add a key/value pair to localStorage.",
             "itemtype": "method",
             "name": "addItem",
@@ -3651,7 +3664,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 111,
+            "line": 121,
             "description": "Retrieves the current value associated with the Local Storage key.",
             "itemtype": "method",
             "name": "getItem",
@@ -3679,7 +3692,42 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 135,
+            "line": 152,
+            "description": "Returns all items in local storage as an Object with key and value properties that has a certain namespace.",
+            "itemtype": "method",
+            "name": "getItemsWithNamespace",
+            "params": [
+                {
+                    "name": "namespace",
+                    "description": "The namespace that is used to items. If a namespace is not passed in then the current set namespace will be used.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Array.<Object>"
+            },
+            "class": "LocalStorageController",
+            "module": "StructureTS",
+            "submodule": "controller"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
+            "line": 180,
+            "description": "Returns all items in local storage as an Object with key and value properties.",
+            "itemtype": "method",
+            "name": "getAllItems",
+            "return": {
+                "description": "",
+                "type": "Array.<Object>"
+            },
+            "class": "LocalStorageController",
+            "module": "StructureTS",
+            "submodule": "controller"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
+            "line": 204,
             "description": "Deletes a key/value pair from the Local Storage collection.",
             "itemtype": "method",
             "name": "removeItem",
@@ -3703,7 +3751,21 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 152,
+            "line": 221,
+            "description": "Returns the number of items storage in local storage.",
+            "itemtype": "method",
+            "name": "getLength",
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "LocalStorageController",
+            "module": "StructureTS",
+            "submodule": "controller"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
+            "line": 232,
             "description": "Returns the size of the Local Storage.",
             "itemtype": "method",
             "name": "getSize",
@@ -3717,7 +3779,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 163,
+            "line": 243,
             "description": "Removes all key/value pairs from the Local Storage area.",
             "itemtype": "method",
             "name": "clear",
@@ -3727,7 +3789,15 @@
         },
         {
             "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
-            "line": 173,
+            "line": 253,
+            "overridden": "BaseController.destroy",
+            "class": "LocalStorageController",
+            "module": "StructureTS",
+            "submodule": "controller"
+        },
+        {
+            "file": "../src/com/codebelt/structurets/controller/LocalStorageController.ts",
+            "line": 263,
             "itemtype": "method",
             "name": "onLocalStorageEvent",
             "params": [
@@ -6149,7 +6219,7 @@
             "file": "../src/com/codebelt/structurets/interface/ICollection.ts",
             "line": 79,
             "itemtype": "method",
-            "name": "indexOf",
+            "name": "getIndexOfItem",
             "class": "ICollection",
             "module": "StructureTS",
             "submodule": "interface"
@@ -6546,7 +6616,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 42,
+            "line": 41,
             "overridden": "BaseObject.CLASS_NAME",
             "class": "Collection",
             "module": "StructureTS",
@@ -6554,7 +6624,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 47,
+            "line": 46,
             "description": "YUIDoc_comment",
             "itemtype": "property",
             "name": "items",
@@ -6566,7 +6636,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 56,
+            "line": 55,
             "description": "YUIDoc_comment",
             "itemtype": "property",
             "name": "length",
@@ -6581,7 +6651,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 72,
+            "line": 71,
             "description": "Add an item to the current collection\nRequires that the item must be an instance of {{#crossLink \"IValueObject\"}}{{/crossLink}} or extends the {{#crossLink \"ValueObject\"}}{{/crossLink}} class.",
             "itemtype": "method",
             "name": "addItem",
@@ -6607,7 +6677,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 100,
+            "line": 99,
             "description": "Removes an item from the collection, maintaining its current sort\nIf the collection doesn't have the item, it throws an error",
             "itemtype": "method",
             "name": "removeItem",
@@ -6633,7 +6703,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 131,
+            "line": 130,
             "description": "Removes an array of items from the collection",
             "itemtype": "method",
             "name": "removeItems",
@@ -6659,7 +6729,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 153,
+            "line": 152,
             "description": "Checks if a collection has an item.",
             "itemtype": "method",
             "name": "hasItem",
@@ -6682,10 +6752,10 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 166,
+            "line": 165,
             "description": "Returns the array index position of the value object.",
             "itemtype": "method",
-            "name": "indexOf",
+            "name": "getIndexOfItem",
             "params": [
                 {
                     "name": "item",
@@ -6705,7 +6775,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 179,
+            "line": 178,
             "description": "Adds an array of items to the collection",
             "itemtype": "method",
             "name": "addItems",
@@ -6729,7 +6799,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 200,
+            "line": 199,
             "description": "Finds an object by an index value.\nIf the index is out of bounds, the collection will clamp it.",
             "itemtype": "method",
             "name": "getItemByIndex",
@@ -6752,7 +6822,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 226,
+            "line": 225,
             "description": "Loops through each object in the collection and performs some function from it",
             "itemtype": "method",
             "name": "forEach",
@@ -6771,7 +6841,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 238,
+            "line": 237,
             "description": "Examines each element in a collection, returning an array of all elements that have the given properties.\nWhen checking properties, this method performs a deep comparison between values to determine if they are equivalent to each other.",
             "example": [
                 "\n     // Finds all value object that has 'Robert' in it.\n     this._collection.find(\"Robert\");\n     // Finds any value object that has 'Robert' or 'Heater' or 23 in it.\n     this._collection.find([\"Robert\", \"Heather\", 32]);\n\n     // Finds all value objects that same key and value you are searching for.\n     this._collection.find({ name: 'apple', organic: false, type: 'fruit' });\n     this._collection.find([{ type: 'vegetable' }, { name: 'apple', 'organic: false, type': 'fruit' }]);"
@@ -6820,7 +6890,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 328,
+            "line": 329,
             "description": "Sorts the collection based on the sort function provided",
             "itemtype": "method",
             "name": "sort",
@@ -6839,7 +6909,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 341,
+            "line": 342,
             "description": "Filters the collection based on the filter test operation provided",
             "itemtype": "method",
             "name": "filter",
@@ -6858,7 +6928,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 368,
+            "line": 369,
             "description": "Applies a function to each of the items in the list",
             "itemtype": "method",
             "name": "map",
@@ -6875,7 +6945,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 389,
+            "line": 390,
             "description": "YUIDoc_comment",
             "itemtype": "method",
             "name": "copy",
@@ -6887,7 +6957,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 402,
+            "line": 403,
             "description": "YUIDoc_comment",
             "itemtype": "method",
             "name": "clear",
@@ -6908,7 +6978,7 @@
         },
         {
             "file": "../src/com/codebelt/structurets/model/Collection.ts",
-            "line": 420,
+            "line": 421,
             "overridden": "BaseObject.destroy",
             "class": "Collection",
             "module": "StructureTS",
@@ -9163,23 +9233,31 @@
         },
         {
             "message": "unknown tag: overridden",
-            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:40"
+            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:39"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:63"
+            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:73"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:75"
+            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:85"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:111"
+            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:121"
         },
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:152"
+            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:221"
+        },
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:232"
+        },
+        {
+            "message": "unknown tag: overridden",
+            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:253"
         },
         {
             "message": "unknown tag: version",
@@ -9623,11 +9701,11 @@
         },
         {
             "message": "unknown tag: overridden",
-            "line": " ../src/com/codebelt/structurets/model/Collection.ts:42"
+            "line": " ../src/com/codebelt/structurets/model/Collection.ts:41"
         },
         {
             "message": "unknown tag: overridden",
-            "line": " ../src/com/codebelt/structurets/model/Collection.ts:420"
+            "line": " ../src/com/codebelt/structurets/model/Collection.ts:421"
         },
         {
             "message": "unknown tag: version",
@@ -10119,7 +10197,11 @@
         },
         {
             "message": "Missing item type",
-            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:40"
+            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:39"
+        },
+        {
+            "message": "Missing item type",
+            "line": " ../src/com/codebelt/structurets/controller/LocalStorageController.ts:253"
         },
         {
             "message": "Missing item type",
@@ -10275,11 +10357,11 @@
         },
         {
             "message": "Missing item type",
-            "line": " ../src/com/codebelt/structurets/model/Collection.ts:42"
+            "line": " ../src/com/codebelt/structurets/model/Collection.ts:41"
         },
         {
             "message": "Missing item type",
-            "line": " ../src/com/codebelt/structurets/model/Collection.ts:420"
+            "line": " ../src/com/codebelt/structurets/model/Collection.ts:421"
         },
         {
             "message": "Missing item type",
