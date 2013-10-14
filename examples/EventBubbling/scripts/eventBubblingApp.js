@@ -1,3 +1,78 @@
+(function ($, window, document) {
+    var hashCode = function (str) {
+        str = String(str);
+
+        var character;
+        var hash = null;
+        var strLength = str.length;
+
+        if (strLength == 0)
+            return hash;
+
+        for (var i = 0; i < strLength; i++) {
+            character = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + character;
+            hash = hash & hash;
+        }
+
+        return String(hash);
+    };
+
+    $.fn.addEventListener = function (type, selector, data, callback, scope) {
+        var _callback;
+        var _scope;
+        var _handler;
+        switch (arguments.length) {
+            case 3:
+                _callback = selector;
+                _scope = data;
+                _handler = _scope[String(_callback)] = _callback;
+                this.on(type, _handler.bind(_scope));
+                break;
+            case 4:
+                _callback = data;
+                _scope = callback;
+                _handler = _scope[String(_callback)] = _callback;
+                this.on(type, selector, _handler.bind(_scope));
+                break;
+            case 5:
+                _callback = callback;
+                _scope = scope;
+                _handler = _scope[String(_callback)] = _callback;
+                this.on(type, selector, data, _handler.bind(_scope));
+                break;
+            default:
+                throw new Error('jQuery addEventListener plugin requires at least 3 arguments.');
+        }
+        return this;
+    };
+
+    $.fn.removeEventListener = function (type, selector, callback, scope) {
+        var _callback;
+        var _scope;
+        var _handler;
+
+        switch (arguments.length) {
+            case 3:
+                _callback = selector;
+                _scope = callback;
+                _handler = _scope[String(_callback)];
+                this.off(type, _handler);
+                _handler = null;
+                break;
+            case 4:
+                _callback = callback;
+                _scope = scope;
+                _handler = _scope[String(_callback)];
+                this.off(type, selector, _handler);
+                _handler = null;
+                break;
+            default:
+                throw new Error('jQuery removeEventListener plugin requires at least 3 arguments.');
+        }
+        return this;
+    };
+})(jQuery, window, document);
 var Util = (function () {
     function Util() {
     }
@@ -25,7 +100,7 @@ var Util = (function () {
                 } else {
                     for (var listIndex in list) {
                         if (key === list[listIndex]) {
-                            delete value;
+                            delete object[key];
                         }
                     }
                 }
@@ -33,10 +108,6 @@ var Util = (function () {
         }
 
         return object;
-    };
-
-    Util.getRandomBoolean = function () {
-        return (Math.random() > .5) ? true : false;
     };
     Util.CLASS_NAME = 'Util';
 
@@ -421,6 +492,14 @@ var StringUtil = (function () {
     StringUtil.removeLeadingTrailingWhitespace = function (str) {
         return str.replace(/(^\s+|\s+$)/g, '');
     };
+
+    StringUtil.truncate = function (text, length) {
+        if (text.length <= length) {
+            return text;
+        } else {
+            return text.substr(0, length) + "...";
+        }
+    };
     StringUtil.CLASS_NAME = 'StringUtil';
     return StringUtil;
 })();
@@ -440,6 +519,7 @@ var TemplateFactory = (function () {
     };
 
     TemplateFactory.create = function (templatePath, data) {
+        if (typeof data === "undefined") { data = null; }
         var regex = /^([.#])(.+)/;
         var template;
         var isClassOrIdName = regex.test(templatePath);

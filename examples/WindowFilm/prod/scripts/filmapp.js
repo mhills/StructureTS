@@ -2190,22 +2190,50 @@ __p += '\n                    </ul>\n                </li>\n                <li 
 return __p
 };
 (function ($, window, document) {
+    var hashCode = function (str) {
+        str = String(str);
+
+        var character;
+        var hash = null;
+        var strLength = str.length;
+
+        if (strLength == 0)
+            return hash;
+
+        for (var i = 0; i < strLength; i++) {
+            character = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + character;
+            hash = hash & hash;
+        }
+
+        return String(Math.abs(hash));
+    };
+
     $.fn.addEventListener = function (type, selector, data, callback, scope) {
         var _callback;
         var _scope;
+        var _handler;
         switch (arguments.length) {
             case 3:
                 _callback = selector;
                 _scope = data;
-                this.on(type, $.proxy(_callback, _scope));
+                _scope._handlerMap = _scope._handlerMap || {};
+                _handler = _scope._handlerMap[hashCode(_callback)] = _callback.bind(_scope);
+                this.on(type, _handler);
                 break;
             case 4:
                 _callback = data;
                 _scope = callback;
-                this.on(type, selector, $.proxy(_callback, _scope));
+                _scope._handlerMap = _scope._handlerMap || {};
+                _handler = _scope._handlerMap[hashCode(_callback)] = _callback.bind(_scope);
+                this.on(type, selector, _handler);
                 break;
             case 5:
-                this.on(type, selector, data, $.proxy(callback, scope));
+                _callback = callback;
+                _scope = scope;
+                _scope._handlerMap = _scope._handlerMap || {};
+                _handler = _scope._handlerMap[hashCode(_callback)] = _callback.bind(_scope);
+                this.on(type, selector, data, _handler);
                 break;
             default:
                 throw new Error('jQuery addEventListener plugin requires at least 3 arguments.');
@@ -2214,14 +2242,26 @@ return __p
     };
 
     $.fn.removeEventListener = function (type, selector, callback, scope) {
+        var _callback;
+        var _scope;
+        var _handler;
+
         switch (arguments.length) {
             case 3:
-                var _callback = selector;
-                var _scope = callback;
-                this.off(type, $.proxy(_callback, _scope));
+                _callback = selector;
+                _scope = callback;
+                _scope._handlerMap = _scope._handlerMap || {};
+                _handler = _scope._handlerMap[hashCode(_callback)];
+                this.off(type, _handler);
+                _scope._handlerMap[hashCode(_callback)] = null;
                 break;
             case 4:
-                this.off(type, selector, $.proxy(callback, scope));
+                _callback = callback;
+                _scope = scope;
+                _scope._handlerMap = _scope._handlerMap || {};
+                _handler = _scope._handlerMap[hashCode(_callback)];
+                this.off(type, selector, _handler);
+                _scope._handlerMap[hashCode(_callback)] = null;
                 break;
             default:
                 throw new Error('jQuery removeEventListener plugin requires at least 3 arguments.');
