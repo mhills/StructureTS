@@ -1,6 +1,10 @@
 (function ($, window, document)
 {
     /**
+     * @version 0.2.0
+     */
+
+    /**
      * Generates a hash string from the string being passed in. In this case it is a function that is casted as string value.
      *
      * @param str
