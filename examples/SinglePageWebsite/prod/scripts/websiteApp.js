@@ -2190,6 +2190,9 @@ var LocalStorageController = (function (_super) {
         _super.call(this);
         this.CLASS_NAME = 'LocalStorageController';
         this._namespace = 'defaultNamespace';
+        this._localStorage = null;
+
+        this._localStorage = window.localStorage;
 
         window.addEventListener('storage', this.onLocalStorageEvent.bind(this));
     }
@@ -2204,7 +2207,7 @@ var LocalStorageController = (function (_super) {
     LocalStorageController.prototype.addItem = function (key, data, useNamespace) {
         if (typeof useNamespace === "undefined") { useNamespace = false; }
         if (useNamespace) {
-            key += this.getNamespace();
+            key = this.getNamespace() + key;
         }
 
         if (data instanceof ValueObject) {
@@ -2213,38 +2216,87 @@ var LocalStorageController = (function (_super) {
 
         data = JSON.stringify(data);
 
-        localStorage.setItem(key, data);
+        this._localStorage.setItem(key, data);
     };
 
     LocalStorageController.prototype.getItem = function (key, useNamespace) {
         if (typeof useNamespace === "undefined") { useNamespace = false; }
         if (useNamespace) {
-            key += this.getNamespace();
+            key = this.getNamespace() + key;
         }
 
-        var value = localStorage.getItem(key);
+        var value = this._localStorage.getItem(key);
         if (value) {
-            value = JSON.parse(value);
+            try  {
+                value = JSON.parse(value);
+            } catch (error) {
+                value = value;
+            }
         }
 
         return value;
     };
 
+    LocalStorageController.prototype.getItemsWithNamespace = function (namespace) {
+        if (typeof namespace === "undefined") { namespace = this._namespace; }
+        var list = [];
+        var length = this.getLength();
+        for (var i = 0; i < length; i++) {
+            var key = this._localStorage.key(i);
+            if (key.indexOf(namespace) > -1) {
+                var value = this.getItem(key);
+                var obj = {
+                    key: key,
+                    value: value
+                };
+
+                list.push(obj);
+            }
+        }
+        return list;
+    };
+
+    LocalStorageController.prototype.getAllItems = function () {
+        var list = [];
+        var length = this.getLength();
+        for (var i = 0; i < length; i++) {
+            var key = this._localStorage.key(i);
+            var value = this.getItem(key);
+            var obj = {
+                key: key,
+                value: value
+            };
+
+            list.push(obj);
+        }
+        return list;
+    };
+
     LocalStorageController.prototype.removeItem = function (key, useNamespace) {
         if (typeof useNamespace === "undefined") { useNamespace = false; }
         if (useNamespace) {
-            key += this.getNamespace();
+            key = this.getNamespace() + key;
         }
 
-        localStorage.removeItem(key);
+        this._localStorage.removeItem(key);
+    };
+
+    LocalStorageController.prototype.getLength = function () {
+        return this._localStorage.length;
     };
 
     LocalStorageController.prototype.getSize = function () {
-        return encodeURIComponent(JSON.stringify(localStorage)).length;
+        return encodeURIComponent(JSON.stringify(this._localStorage)).length;
     };
 
     LocalStorageController.prototype.clear = function () {
-        localStorage.clear();
+        this._localStorage.clear();
+    };
+
+    LocalStorageController.prototype.destroy = function () {
+        _super.prototype.destroy.call(this);
+
+        this._localStorage = null;
     };
 
     LocalStorageController.prototype.onLocalStorageEvent = function (event) {
@@ -2306,7 +2358,7 @@ var LanguageModel = (function (_super) {
         this.data = null;
 
         this._localStorageController = new LocalStorageController();
-        this._localStorageController.setNamespace('.StructureTS');
+        this._localStorageController.setNamespace('StructureTS.');
         this.currentLanguage = this._localStorageController.getItem('language', true);
     }
     LanguageModel.prototype.loadConfig = function (path) {

@@ -985,6 +985,11 @@ var TodoApp = (function (_super) {
     __extends(TodoApp, _super);
     function TodoApp() {
         _super.call(this);
+        this._appModel = null;
+        this._submitBtn = null;
+        this._noTasksMessage = null;
+        this._incompleteItemList = null;
+        this._input = null;
     }
     TodoApp.prototype.createChildren = function () {
         _super.prototype.createChildren.call(this);

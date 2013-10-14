@@ -226,28 +226,4 @@ class StringUtil
         }
     }
 
-    /**
-     * Encode a credit card number as a string and encode all digits except the
-     * last <code>digitsShown</code>.
-     *
-     * @method encodeCreditCardNumber
-     * @param strNumber     credit card number as string
-     * @param digitsShown   display this many digits at the end of the card number for security purposes
-     * @param encodeChar    optional encoding character to use instead of default '*'
-     *
-     * @example
-     * ValidationUtil.encodeCreditCardNumber("1234567890123456"); // ************3456
-     * ValidationUtil.encodeCreditCardNumber("1234567890123456", 5, "x");  // xxxxxxxxxxx23456
-     */
-    public encodeCreditCardNumber(strNumber:string, digitsShown:number = 4, encodeChar:string = "*"):string
-    {
-        var encoded:string = "";
-        for (var i:number = 0; i < strNumber.length - digitsShown; i++)
-        {
-            encoded += encodeChar;
-        }
-        encoded += strNumber.slice(-digitsShown);
-        return encoded;
-    }
-
 }
