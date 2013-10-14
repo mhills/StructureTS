@@ -141,6 +141,16 @@ module.exports = function(grunt) {
                     sourcemap: false,
                     declaration: false
                 }
+            },
+            listener: {
+                src: ['<%= EXAMPLE_PATH %>EventListener/scripts/EventListenerApp.ts'],
+                dest: '<%= EXAMPLE_PATH %>EventListener/scripts/eventListenerApp.js',
+                options: {
+                    target: 'es3', // Options: es3, es5
+                    base_path: '',
+                    sourcemap: false,
+                    declaration: false
+                }
             }
         },
 
@@ -338,6 +348,7 @@ module.exports = function(grunt) {
     grunt.registerTask('todo', ['typescript:todo']);
     grunt.registerTask('canvas', ['typescript:canvas']);
     grunt.registerTask('bubble', ['typescript:bubble']);
+    grunt.registerTask('listener', ['typescript:listener']);
     grunt.registerTask('filmprod', ['typescript:film', 'jst:film', 'json:film', 'concat']);
     grunt.registerTask('film', ['typescript:film', 'concat']);
     grunt.registerTask('gallery', ['typescript:gallery']);

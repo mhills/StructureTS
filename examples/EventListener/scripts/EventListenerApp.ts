@@ -1,0 +1,100 @@
+///<reference path='../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../src/com/codebelt/structurets/display/Stage.ts'/>
+
+/**
+ *
+ * @class EventListenerApp
+ * @extends Stage
+ * @constructor
+ **/
+class EventListenerApp extends Stage {
+
+    private _rec:DOMElement = null;
+    private _enableButton:DOMElement = null;
+    private _disableButton:DOMElement = null;
+
+    constructor() {
+        super();
+
+    }
+
+    /**
+     * @overridden DOMElement.createChildren
+     */
+    public createChildren():void {
+        super.createChildren();
+
+        this._rec = this.getChild('.rect');
+        this._enableButton = this.getChild('.enable');
+        this._disableButton = this.getChild('.disable');
+
+        this._enableButton.$element.addEventListener('click', this.enable, this);
+        this._disableButton.$element.addEventListener('click', this.disable, this);
+    }
+
+    /**
+     * @overridden DisplayObject.layoutChildren
+     */
+    public layoutChildren():void {
+    }
+
+    /**
+     * @overridden DisplayObject.enable
+     */
+    public enable():void {
+        if (this.isEnabled === true) return;
+console.log("enable");
+        this._rec.$element.addEventListener('click', this.changeColor, this);
+
+        super.enable();
+    }
+
+    /**
+     * @overridden DisplayObject.disable
+     */
+    public disable():void {
+        if (this.isEnabled === false) return;
+        console.log("disable");
+        this._rec.$element.removeEventListener('click', this.changeColor, this);
+
+        super.disable();
+    }
+
+    private changeColor(event:JQueryEventObject) {
+        $(event.currentTarget).toggleClass('active')
+    }
+
+    private onEnable(event:JQueryEventObject) {
+
+    }
+
+    private onDisable(event:JQueryEventObject) {
+
+    }
+
+}
+
+
+//var Test = function() {
+//    $('.enable').on('click', this.enable.bind(this));
+//    $('.disable').on('click', this.disable.bind(this));
+//
+//    var func1 = $.proxy(this.onClick, this);
+//    var func2 = $.proxy(this.onClick, this);
+//    console.log('Are the functions equal?', func1 == func2); // this will always return `false`
+//};
+//
+//Test.prototype.enable = function() {
+//    $('.rect').on('click', $.proxy(this.onClick, this));
+//};
+//
+//Test.prototype.disable = function() {
+//    $('.rect').off('click', $.proxy(this.onClick, this));
+//};
+//
+//Test.prototype.onClick = function(e) {
+//    console.log('in onClick');
+//    $(e.currentTarget).toggleClass('active')
+//};
+//
+//var test = new Test();
