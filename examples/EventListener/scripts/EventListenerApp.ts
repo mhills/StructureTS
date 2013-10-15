@@ -15,7 +15,6 @@ class EventListenerApp extends Stage {
 
     constructor() {
         super();
-
     }
 
     /**
@@ -43,7 +42,7 @@ class EventListenerApp extends Stage {
      */
     public enable():void {
         if (this.isEnabled === true) return;
-console.log("enable");
+        console.log("enable");
         this._rec.$element.addEventListener('click', this.changeColor, this);
 
         super.enable();
@@ -60,41 +59,8 @@ console.log("enable");
         super.disable();
     }
 
-    private changeColor(event:JQueryEventObject) {
+    private changeColor(event:JQueryEventObject):void {
         $(event.currentTarget).toggleClass('active')
     }
 
-    private onEnable(event:JQueryEventObject) {
-
-    }
-
-    private onDisable(event:JQueryEventObject) {
-
-    }
-
 }
-
-
-//var Test = function() {
-//    $('.enable').on('click', this.enable.bind(this));
-//    $('.disable').on('click', this.disable.bind(this));
-//
-//    var func1 = $.proxy(this.onClick, this);
-//    var func2 = $.proxy(this.onClick, this);
-//    console.log('Are the functions equal?', func1 == func2); // this will always return `false`
-//};
-//
-//Test.prototype.enable = function() {
-//    $('.rect').on('click', $.proxy(this.onClick, this));
-//};
-//
-//Test.prototype.disable = function() {
-//    $('.rect').off('click', $.proxy(this.onClick, this));
-//};
-//
-//Test.prototype.onClick = function(e) {
-//    console.log('in onClick');
-//    $(e.currentTarget).toggleClass('active')
-//};
-//
-//var test = new Test();
