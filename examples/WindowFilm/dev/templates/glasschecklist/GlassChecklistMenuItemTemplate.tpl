@@ -1,1 +1,0 @@
-<a href="javascript:void(0);" class="btn btn-steps" data-index="<%= index %>"><%= name %><i class="icon-stop icon-right"></i></a>

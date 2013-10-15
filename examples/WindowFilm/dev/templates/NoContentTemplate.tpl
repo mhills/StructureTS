@@ -1,1 +1,0 @@
-<div class="nothing-found"><%= message %></div>

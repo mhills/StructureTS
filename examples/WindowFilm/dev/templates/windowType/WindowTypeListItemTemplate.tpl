@@ -1,1 +1,0 @@
-<a href="<%= model.url('edit') %>" class="btn btn-steps btn-large<%= active ? ' btn-primary': '' %>"><%= model.get('name') %></a>
