@@ -72,6 +72,25 @@ class DisplayObjectContainer extends EventDispatcher
      */
     public children:DisplayObjectContainer[] = [];
 
+    /**
+     * A property providing access to the width.
+     *
+     * @property width
+     * @type {number}
+     * @default 0
+     * @public
+     */
+    public width:number = 0;
+
+    /**
+     * A property providing access to the height.
+     *
+     * @property height
+     * @type {number}
+     * @default 0
+     * @public
+     */
+    public height:number = 0;
 
     /**
      * A property providing access to the unscaledWidth.
@@ -103,7 +122,11 @@ class DisplayObjectContainer extends EventDispatcher
      * of children to the view. It will automatically be called the first time that the view is added
      * to another DisplayObjectContainer. It is critical that all subclasses call the super for this function in
      * their overridden methods.
-     *
+     * @example
+        public createChildren():void {
+            this._childInstance = new DisplayObjectContainer();
+            this.addChild(this._childInstance);
+        }
      * @method createChildren
      * @returns {DisplayObjectContainer} Returns an instance of itself.
      * @public
@@ -124,6 +147,7 @@ class DisplayObjectContainer extends EventDispatcher
      * @method addChild
      * @param child {DisplayObjectContainer} The DisplayObjectContainer instance to add as a child of this DisplayObjectContainerContainer instance.
      * @returns {DisplayObjectContainer} Returns an instance of itself.
+     * @public
      * @chainable
      */
     public addChild(child:DisplayObjectContainer):any
@@ -151,6 +175,7 @@ class DisplayObjectContainer extends EventDispatcher
      * @param child {DisplayObjectContainer} The DisplayObjectContainer instance to add as a child of this object instance.
      * @param index {int} The index position to which the child is added. If you specify a currently occupied index position, the child object that exists at that position and all higher positions are moved up one position in the child list.
      * @returns {DisplayObjectContainer} Returns an instance of itself.
+     * @public
      * @chainable
      */
     public addChildAt(child:DisplayObjectContainer, index:number):any
@@ -176,6 +201,7 @@ class DisplayObjectContainer extends EventDispatcher
      * @param child1 {DisplayObjectContainer} The DisplayObjectContainer instance to be swap.
      * @param child2 {DisplayObjectContainer} The DisplayObjectContainer instance to be swap.
      * @returns {DisplayObjectContainer} Returns an instance of itself.
+     * @public
      * @chainable
      */
     public swapChildren(child1:DisplayObjectContainer, child2:DisplayObjectContainer):any
@@ -207,6 +233,7 @@ class DisplayObjectContainer extends EventDispatcher
      * @method getChildIndex
      * @param child {DisplayObjectContainer}
      * @returns {number}
+     * @public
      */
     public getChildIndex(child:DisplayObjectContainer):number
     {
@@ -246,6 +273,7 @@ class DisplayObjectContainer extends EventDispatcher
      *
      * @method removeChildren
      * @returns {DisplayObjectContainer} Returns an instance of itself.
+     * @public
      * @chainable
      */
     public removeChildren():any
@@ -280,6 +308,7 @@ class DisplayObjectContainer extends EventDispatcher
      * @param unscaledWidth {number} The width within which the component should lay itself out.
      * @param unscaledHeight {number} The height within which the component should lay itself out.
      * @returns {DisplayObjectContainer} Returns an instance of itself.
+     * @@public
      * @chainable
      */
     public setSize(unscaledWidth:number, unscaledHeight:number):any
@@ -298,6 +327,7 @@ class DisplayObjectContainer extends EventDispatcher
      *
      * @method layoutChildren
      * @returns {DisplayObjectContainer} Returns an instance of itself.
+     * @public
      * @chainable
      */
     public layoutChildren():any

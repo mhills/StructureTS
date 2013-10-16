@@ -26,10 +26,8 @@
 ///<reference path='BaseEvent.ts'/>
 
 /**
- * The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the DisplayObjectContainer class.
- * The EventDispatcher class allows any object on the display list to be an event target.
+ * The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} class.
  * The EventDispatcher provides methods for managing prioritized queues of event listeners and dispatching events.
- * {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} classes dispatch events.
  *
  * @class EventDispatcher
  * @extends BaseObject
@@ -61,6 +59,7 @@ class EventDispatcher extends BaseObject
      *
      * @property parent
      * @type {any}
+     * @public
      */
     public parent:any = null;
 
@@ -93,6 +92,7 @@ class EventDispatcher extends BaseObject
      * @param callback {Function} The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void
      * @param scope {any} Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.
      * @param [priority=0] {int} Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.
+     * @public
      * @chainable
      */
     public addEventListener(type:string, callback:Function, scope:any, priority:number = 0):EventDispatcher
@@ -138,6 +138,7 @@ class EventDispatcher extends BaseObject
      * @param callback {Function} The listener object to remove.
      * @param scope {any} The scope of the listener object to be removed.
      * @hide This was added because it was need for the {{#crossLink "EventBroker"}}{{/crossLink}} class. To keep things consistent this parameter is required.
+     * @public
      * @chainable
      */
     public removeEventListener(type:string, callback:Function, scope:any):EventDispatcher
@@ -172,6 +173,7 @@ class EventDispatcher extends BaseObject
      * @method dispatchEvent
      * @param event {BaseEvent} The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
      * extend the {{#crossLink "BaseEvent"}}{{/crossLink}}.
+     * @public
      * @chainable
      */
     public dispatchEvent(event:BaseEvent):EventDispatcher
@@ -240,8 +242,8 @@ class EventDispatcher extends BaseObject
      *          super.enable();
      *      }
      * @method enable
-     * @chainable
      * @public
+     * @chainable
      */
     public enable():any
     {
@@ -263,8 +265,8 @@ class EventDispatcher extends BaseObject
      *          super.enable();
      *      }
      * @method disable
-     * @chainable
      * @public
+     * @chainable
      */
     public disable():any
     {
