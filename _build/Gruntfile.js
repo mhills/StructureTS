@@ -1,5 +1,8 @@
 module.exports = function(grunt) {
 
+    // Load Grunt tasks declared in the package.json file
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+
     // Project configuration.
     grunt.initConfig({
 
@@ -322,25 +325,21 @@ module.exports = function(grunt) {
                     }
                 ]
             }
+        },
+
+        // Testing out image compression.
+        imagemin: {
+            dynamic: {
+                files: [{
+                    expand: true,                  // Enable dynamic expansion
+                    cwd: '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/images/',                   // Src matches are relative to this path
+                    src: ['**/*.{png,jpg,gif}'],   // Actual patterns to match
+                    dest: '<%= BASE_PATH %>imageOutput/'                  // Destination path prefix
+                }]
+            }
         }
 
     });
-
-
-    // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jst');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-yuidoc');
-    grunt.loadNpmTasks('grunt-json');
-    grunt.loadNpmTasks('grunt-typescript');
-
-    grunt.loadNpmTasks('grunt-ts');
 
     // Default task.
     grunt.registerTask('default', ['cssmin', 'typescript:website', 'jst']);
