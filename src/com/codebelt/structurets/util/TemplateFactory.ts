@@ -51,12 +51,12 @@ class TemplateFactory
     {
     }
 
-    public static createTemplate(templatePath:string, data?:Object):string
+    public static createTemplate(templatePath:string, data:Object = null):string
     {
         return TemplateFactory.create(templatePath, data);
     }
 
-    public static createView(templatePath:string, data?:Object):DOMElement
+    public static createView(templatePath:string, data:Object = null):DOMElement
     {
         var template:string = TemplateFactory.create(templatePath, data);
 
@@ -95,21 +95,21 @@ class TemplateFactory
             var templateObj:Object = window[TemplateFactory.templateNamespace];
             if (!templateObj)
             {
-                return template;
+                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
             }
 
             var templateFunction:Function = templateObj[templatePath];
-            if (!templateFunction)
-            {
-                // Set to null so it can be used in a condition statement in the DOMElement class.
-                template = null;
+            if (!templateFunction) {
+                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
             }
-            else
-            {
-                // The templatePath gets a function storage in the associative array.
-                // We call the function by passing in the data as the argument.
-                template = templateFunction(data);
-            }
+
+            //The templatePath gets a function storage in the associative array.
+            //we call the function by passing in the data as the argument.
+            template = templateFunction(data);
+        }
+
+        if (!template) {
+            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
         }
 
         return template;
