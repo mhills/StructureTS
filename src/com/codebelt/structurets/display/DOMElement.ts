@@ -104,19 +104,13 @@ class DOMElement extends DisplayObjectContainer
     /**
      * @overridden DisplayObjectContainer.createChildren
      */
-    public createChildren(type:any = 'div', params:any = null):any
+    public createChildren(type:string = 'div', params:any = null):any
     {
         // Use the data passed into the constructor first else use the arguments from createChildren.
         type = this._type || type;
         params = this._params || params;
 
-        // If the typeof is a Function then the template data must be Jaml.
-        if (typeof type === 'function' && !this.$element)
-        {
-            Jaml.register(this.CLASS_NAME, type);
-            this.$element = jQuery(Jaml.render(this.CLASS_NAME, params));
-        }
-        else if (typeof type === 'string' && !this.$element)
+        if (!this.$element)
         {
             var html:string = TemplateFactory.createTemplate(type, params);
             if (html)
