@@ -348,10 +348,7 @@ module.exports = function(grunt) {
     grunt.registerTask('canvas', ['typescript:canvas']);
     grunt.registerTask('bubble', ['typescript:bubble']);
     grunt.registerTask('listener', ['typescript:listener']);
-    grunt.registerTask('filmprod', ['typescript:film', 'jst:film', 'json:film', 'concat']);
-    grunt.registerTask('film', ['typescript:film', 'concat']);
     grunt.registerTask('gallery', ['typescript:gallery']);
-    grunt.registerTask('temp', ['concat']);
-    grunt.registerTask('all', ['website', 'todo', 'filmprod', 'gallery', 'canvas']);
+    grunt.registerTask('all', ['todo', 'canvas', 'bubble', 'listener', 'website']);
 
 };
