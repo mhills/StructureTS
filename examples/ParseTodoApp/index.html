@@ -12,7 +12,7 @@
     <script type="text/javascript" src="prod/scripts/todoApp.js"></script>
 </head>
 
-<body onload="javascript:init();">
+<body>
 <h1>Parse StructureTS Todo App</h1>
 
 <div id="main" class="js-todo">
@@ -37,7 +37,10 @@
 </script>
 
 <script type="text/javascript">
-    function init() {
+    window.onload = function(event) {
+        // Get class from namespace.
+        var TodoApp = codeBelt.TodoApp;
+
         var app = new TodoApp();
         app.appendTo('.js-todo');
     }

@@ -10,148 +10,162 @@
 ///<reference path='event/ListItemEvent.ts'/>
 ///<reference path='model/AppModel.ts'/>
 
-/**
- *
- * @class TodoApp
- * @extends Stage
- * @constructor
- **/
-class TodoApp extends Stage
+module codeBelt
 {
-    private _appModel:AppModel = null;
-
-    private _submitBtn:DOMElement = null;
-    private _noTasksMessage:DOMElement = null;
-    private _incompleteItemList:DOMElement = null;
-    private _input:DOMElement = null;
-
-    constructor()
-    {
-        super();
-    }
+    import DOMElement = StructureTS.DOMElement;
+    import Stage = StructureTS.Stage;
+    import MouseEvents = StructureTS.MouseEvents;
+    import EventBroker = StructureTS.EventBroker;
+    import TemplateFactory = StructureTS.TemplateFactory;
 
     /**
-     * @overridden DOMElement.createChildren
-     */
-    public createChildren():void
+     *
+     * @class TodoApp
+     * @extends Stage
+     * @constructor
+     **/
+    export class TodoApp extends Stage
     {
-        super.createChildren();
+        private _appModel:AppModel = null;
 
-        this._appModel = new AppModel();
+        private _submitBtn:DOMElement = null;
+        private _noTasksMessage:DOMElement = null;
+        private _incompleteItemList:DOMElement = null;
+        private _input:DOMElement = null;
 
-        this._input = this.getChild('#js-todo-input');
-        this._submitBtn = this.getChild('#js-submit-button');
-        this._noTasksMessage = TemplateFactory.createView('#noTodoItemsTemplate');
+        constructor()
+        {
+            super();
+        }
 
-        this._incompleteItemList = this.getChild('#js-incomplete-items');
-        this._incompleteItemList.addChild(this._noTasksMessage);
+        /**
+         * @overridden DOMElement.createChildren
+         */
+        public createChildren():void
+        {
+            super.createChildren();
 
-        this.updateItemList();
-    }
+            this._appModel = new AppModel();
 
-    /**
-     * @overridden DisplayObject.enable
-     */
-    public enable():void {
-        if (this.isEnabled === true) return;
+            this._input = this.getChild('#js-todo-input');
+            this._submitBtn = this.getChild('#js-submit-button');
+            this._noTasksMessage = TemplateFactory.createView('#noTodoItemsTemplate');
 
-        this._submitBtn.$element.addEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
-        this._incompleteItemList.$element.addEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
-
-        this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
-        this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
-        this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
-
-        super.enable();
-    }
-
-    /**
-     * @overridden DisplayObject.disable
-     */
-    public disable():void {
-        if (this.isEnabled === false) return;
-
-        this._submitBtn.$element.removeEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
-        this._incompleteItemList.$element.removeEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
-
-        this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
-        this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
-
-        super.disable();
-    }
-
-    private onSubmitButton(event:JQueryEventObject):void
-    {
-        var text:string = this._input.$element.val();
-
-        this._appModel.addListItem(text);
-    }
-
-    private onTodoSelected(event:JQueryEventObject):void
-    {
-        var $element:JQuery = $(event.currentTarget);
-
-        var cid:number = $element.data('cid');
-        var domElement:DOMElement = this._incompleteItemList.getChildByCid(cid);
-        var id:string = domElement.$element.children('input').data('id');
-
-        this._appModel.markItemComplete(id);
-        this._incompleteItemList.removeChild(domElement);
-    }
-
-    private onRemoveItemSuccess(event:ListItemEvent):void
-    {
-        if (this._incompleteItemList.numChildren <= 0) {
+            this._incompleteItemList = this.getChild('#js-incomplete-items');
             this._incompleteItemList.addChild(this._noTasksMessage);
-        }
-    }
 
-    private onAddItemSuccess(event:ListItemEvent):void
-    {
-        this._input.$element.val('')
-                       .focus();
-
-        this.updateItemList();
-    }
-
-    /**
-     * This method will be user to fetch the list items from the AppModel.
-     *
-     * @method getItemList
-     * @return void
-     * @private
-     */
-    private updateItemList():void
-    {
-        this._appModel.getListItems();
-    }
-
-    /**
-     * This method will get a list of ListItemVO objects from the ListItemEvent data property to be used to create the list.
-     * Fist it will remove all current children in the list and then add the new list items.
-     *
-     * @param event {ListItemEvent}
-     * @method onListRecieved
-     * @return void
-     * @private
-     */
-    private onListRecieved(event:ListItemEvent):void
-    {
-        var listItems:ListItemVO[] = event.data;
-
-        if (listItems.length > 0) {
-            this._incompleteItemList.removeChildren();
+            this.updateItemList();
         }
 
-        _.each(listItems, function(item) {
-            var view:DOMElement = TemplateFactory.createView('#todoItemsTemplate', {
-                id: item.id,
-                content: item.content,
-                isComplete: item.isComplete
-            });
+        /**
+         * @overridden DisplayObject.enable
+         */
+        public enable():void
+        {
+            if (this.isEnabled === true) return;
 
-            this._incompleteItemList.addChild(view);
-        }.bind(this));
+            this._submitBtn.$element.addEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
+            this._incompleteItemList.$element.addEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
+
+            this._appModel.addEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
+            this._appModel.addEventListener(ListItemEvent.ADD_SUCCESS, this.onAddItemSuccess, this);
+            this._appModel.addEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
+
+            super.enable();
+        }
+
+        /**
+         * @overridden DisplayObject.disable
+         */
+        public disable():void
+        {
+            if (this.isEnabled === false) return;
+
+            this._submitBtn.$element.removeEventListener(MouseEvents.CLICK, this.onSubmitButton, this);
+            this._incompleteItemList.$element.removeEventListener(MouseEvents.CLICK, '.list-item', this.onTodoSelected, this);
+
+            this._appModel.removeEventListener(ListItemEvent.LIST_SUCCESS, this.onListRecieved, this);
+            this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
+
+            super.disable();
+        }
+
+        private onSubmitButton(event:JQueryEventObject):void
+        {
+            var text:string = this._input.$element.val();
+
+            this._appModel.addListItem(text);
+        }
+
+        private onTodoSelected(event:JQueryEventObject):void
+        {
+            var $element:JQuery = $(event.currentTarget);
+
+            var cid:number = $element.data('cid');
+            var domElement:DOMElement = this._incompleteItemList.getChildByCid(cid);
+            var id:string = domElement.$element.children('input').data('id');
+
+            this._appModel.markItemComplete(id);
+            this._incompleteItemList.removeChild(domElement);
+        }
+
+        private onRemoveItemSuccess(event:ListItemEvent):void
+        {
+            if (this._incompleteItemList.numChildren <= 0)
+            {
+                this._incompleteItemList.addChild(this._noTasksMessage);
+            }
+        }
+
+        private onAddItemSuccess(event:ListItemEvent):void
+        {
+            this._input.$element.val('')
+                .focus();
+
+            this.updateItemList();
+        }
+
+        /**
+         * This method will be user to fetch the list items from the AppModel.
+         *
+         * @method getItemList
+         * @return void
+         * @private
+         */
+        private updateItemList():void
+        {
+            this._appModel.getListItems();
+        }
+
+        /**
+         * This method will get a list of ListItemVO objects from the ListItemEvent data property to be used to create the list.
+         * Fist it will remove all current children in the list and then add the new list items.
+         *
+         * @param event {ListItemEvent}
+         * @method onListRecieved
+         * @return void
+         * @private
+         */
+        private onListRecieved(event:ListItemEvent):void
+        {
+            var listItems:ListItemVO[] = event.data;
+
+            if (listItems.length > 0)
+            {
+                this._incompleteItemList.removeChildren();
+            }
+
+            _.each(listItems, function (item)
+            {
+                var view:DOMElement = TemplateFactory.createView('#todoItemsTemplate', {
+                    id: item.id,
+                    content: item.content,
+                    isComplete: item.isComplete
+                });
+
+                this._incompleteItemList.addChild(view);
+            }.bind(this));
+        }
+
     }
-
 }

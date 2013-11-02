@@ -21,6 +21,9 @@
         }
 
         window.onload = function(event) {
+            // Get class from namespace.
+            var BannerAd = codeBelt.BannerAd;
+
             var app = new BannerAd();
             app.appendTo('stage');//TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the '#'.
         }

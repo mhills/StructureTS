@@ -1,34 +1,41 @@
 ///<reference path='../../../../../../src/com/codebelt/structurets/model/ValueObject.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class ListItemVO
- * @extends ValueObject
- * @constructor
- **/
-class ListItemVO extends ValueObject {
-
-    public CLASS_NAME:string = 'ListItemVO';
+module codeBelt
+{
+    import ValueObject = StructureTS.ValueObject;
 
     /**
-     * @type {string}
-     */
-    public content:string;
+     * YUIDoc_comment
+     *
+     * @class ListItemVO
+     * @extends ValueObject
+     * @constructor
+     **/
+    export class ListItemVO extends ValueObject
+    {
 
-    /**
-     * @type {string}
-     */
-    public id:string;
+        public CLASS_NAME:string = 'ListItemVO';
 
-    /**
-     * @type {boolean}
-     * @default false
-     */
-    public isComplete:boolean = false;
+        /**
+         * @type {string}
+         */
+        public content:string;
 
-    constructor() {
-        super();
+        /**
+         * @type {string}
+         */
+        public id:string;
+
+        /**
+         * @type {boolean}
+         * @default false
+         */
+        public isComplete:boolean = false;
+
+        constructor()
+        {
+            super();
+        }
+
     }
-
 }

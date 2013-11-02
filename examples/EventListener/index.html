@@ -18,6 +18,9 @@
     <script type="text/javascript" src="scripts/eventListenerApp.js"></script>
     <script>
         window.onload = function(event) {
+            // Get class from namespace.
+            var EventListenerApp = codeBelt.EventListenerApp;
+
             var app = new EventListenerApp();
             app.appendTo('body');
         }

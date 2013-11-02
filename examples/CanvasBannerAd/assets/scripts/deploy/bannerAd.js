@@ -1,478 +1,508 @@
-var Util = (function () {
-    function Util() {
-    }
-    Util.uniqueId = function (prefix) {
-        if (typeof prefix === "undefined") { prefix = null; }
-        var id = ++Util._idCounter;
-
-        if (prefix != null) {
-            return String(prefix + id);
-        } else {
-            return id;
+var StructureTS;
+(function (StructureTS) {
+    var Util = (function () {
+        function Util() {
         }
-    };
+        Util.uniqueId = function (prefix) {
+            if (typeof prefix === "undefined") { prefix = null; }
+            var id = ++Util._idCounter;
 
-    Util.deletePropertyFromObject = function (object, list) {
-        for (var key in object) {
-            if (object.hasOwnProperty(key)) {
-                var value = object[key];
+            if (prefix != null) {
+                return String(prefix + id);
+            } else {
+                return id;
+            }
+        };
 
-                if (value instanceof Array) {
-                    var array = value;
-                    for (var index in array) {
-                        Util.deletePropertyFromObject(array[index], list);
-                    }
-                } else {
-                    for (var listIndex in list) {
-                        if (key === list[listIndex]) {
-                            delete object[key];
+        Util.deletePropertyFromObject = function (object, list) {
+            for (var key in object) {
+                if (object.hasOwnProperty(key)) {
+                    var value = object[key];
+
+                    if (value instanceof Array) {
+                        var array = value;
+                        for (var index in array) {
+                            Util.deletePropertyFromObject(array[index], list);
+                        }
+                    } else {
+                        for (var listIndex in list) {
+                            if (key === list[listIndex]) {
+                                delete object[key];
+                            }
                         }
                     }
                 }
             }
+
+            return object;
+        };
+        Util.CLASS_NAME = 'Util';
+
+        Util._idCounter = 0;
+        return Util;
+    })();
+    StructureTS.Util = Util;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var BaseObject = (function () {
+        function BaseObject() {
+            this.CLASS_NAME = 'BaseObject';
+            this.cid = null;
+            this.cid = StructureTS.Util.uniqueId();
         }
+        BaseObject.prototype.getQualifiedClassName = function () {
+            return this.CLASS_NAME;
+        };
 
-        return object;
-    };
-    Util.CLASS_NAME = 'Util';
+        BaseObject.prototype.destroy = function () {
+        };
+        return BaseObject;
+    })();
+    StructureTS.BaseObject = BaseObject;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var BaseEvent = (function () {
+        function BaseEvent(type, bubbles, cancelable, data) {
+            if (typeof bubbles === "undefined") { bubbles = false; }
+            if (typeof cancelable === "undefined") { cancelable = false; }
+            if (typeof data === "undefined") { data = null; }
+            this.CLASS_NAME = 'BaseEvent';
+            this.type = null;
+            this.target = null;
+            this.currentTarget = null;
+            this.data = null;
+            this.bubble = false;
+            this.cancelable = false;
+            this.isPropagationStopped = false;
+            this.isImmediatePropagationStopped = false;
+            this.type = type;
+            this.bubble = bubbles;
+            this.cancelable = cancelable;
+            this.data = data;
+        }
+        BaseEvent.prototype.stopPropagation = function () {
+            this.isPropagationStopped = true;
+        };
 
-    Util._idCounter = 0;
-    return Util;
-})();
-var BaseObject = (function () {
-    function BaseObject() {
-        this.CLASS_NAME = 'BaseObject';
-        this.cid = null;
-        this.cid = Util.uniqueId();
-    }
-    BaseObject.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
-    };
+        BaseEvent.prototype.stopImmediatePropagation = function () {
+            this.stopPropagation();
+            this.isImmediatePropagationStopped = true;
+        };
+        BaseEvent.ACTIVATE = 'BaseEvent.activate';
 
-    BaseObject.prototype.destroy = function () {
-    };
-    return BaseObject;
-})();
-var BaseEvent = (function () {
-    function BaseEvent(type, bubbles, cancelable, data) {
-        if (typeof bubbles === "undefined") { bubbles = false; }
-        if (typeof cancelable === "undefined") { cancelable = false; }
-        if (typeof data === "undefined") { data = null; }
-        this.CLASS_NAME = 'BaseEvent';
-        this.type = null;
-        this.target = null;
-        this.currentTarget = null;
-        this.data = null;
-        this.bubble = false;
-        this.cancelable = false;
-        this.isPropagationStopped = false;
-        this.isImmediatePropagationStopped = false;
-        this.type = type;
-        this.bubble = bubbles;
-        this.cancelable = cancelable;
-        this.data = data;
-    }
-    BaseEvent.prototype.stopPropagation = function () {
-        this.isPropagationStopped = true;
-    };
+        BaseEvent.ADDED = 'BaseEvent.added';
 
-    BaseEvent.prototype.stopImmediatePropagation = function () {
-        this.stopPropagation();
-        this.isImmediatePropagationStopped = true;
-    };
-    BaseEvent.ACTIVATE = 'BaseEvent.activate';
+        BaseEvent.ADDED_TO_STAGE = 'BaseEvent.addedToStage';
 
-    BaseEvent.ADDED = 'BaseEvent.added';
+        BaseEvent.CANCEL = 'BaseEvent.cancel';
 
-    BaseEvent.ADDED_TO_STAGE = 'BaseEvent.addedToStage';
+        BaseEvent.CHANGE = 'BaseEvent.change';
 
-    BaseEvent.CANCEL = 'BaseEvent.cancel';
+        BaseEvent.CLEAR = 'BaseEvent.clear';
 
-    BaseEvent.CHANGE = 'BaseEvent.change';
+        BaseEvent.CLOSE = 'BaseEvent.close';
 
-    BaseEvent.CLEAR = 'BaseEvent.clear';
+        BaseEvent.CLOSING = 'BaseEvent.closing';
 
-    BaseEvent.CLOSE = 'BaseEvent.close';
+        BaseEvent.COMPLETE = 'BaseEvent.complete';
 
-    BaseEvent.CLOSING = 'BaseEvent.closing';
+        BaseEvent.CONNECT = 'BaseEvent.connect';
 
-    BaseEvent.COMPLETE = 'BaseEvent.complete';
+        BaseEvent.COPY = 'BaseEvent.copy';
 
-    BaseEvent.CONNECT = 'BaseEvent.connect';
+        BaseEvent.CUT = 'BaseEvent.cut';
 
-    BaseEvent.COPY = 'BaseEvent.copy';
+        BaseEvent.DEACTIVATE = 'BaseEvent.deactivate';
 
-    BaseEvent.CUT = 'BaseEvent.cut';
+        BaseEvent.DISPLAYING = 'BaseEvent.displaying';
 
-    BaseEvent.DEACTIVATE = 'BaseEvent.deactivate';
+        BaseEvent.ENTER_FRAME = 'BaseEvent.enterFrame';
 
-    BaseEvent.DISPLAYING = 'BaseEvent.displaying';
+        BaseEvent.EXIT_FRAME = 'BaseEvent.exitFrame';
 
-    BaseEvent.ENTER_FRAME = 'BaseEvent.enterFrame';
+        BaseEvent.EXITING = 'BaseEvent.exiting';
 
-    BaseEvent.EXIT_FRAME = 'BaseEvent.exitFrame';
+        BaseEvent.FULLSCREEN = 'BaseEvent.fullScreen';
 
-    BaseEvent.EXITING = 'BaseEvent.exiting';
+        BaseEvent.INIT = 'BaseEvent.init';
 
-    BaseEvent.FULLSCREEN = 'BaseEvent.fullScreen';
+        BaseEvent.NETWORK_CHANGE = 'BaseEvent.networkChange';
 
-    BaseEvent.INIT = 'BaseEvent.init';
+        BaseEvent.OPEN = 'BaseEvent.open';
 
-    BaseEvent.NETWORK_CHANGE = 'BaseEvent.networkChange';
+        BaseEvent.PASTE = 'BaseEvent.paste';
 
-    BaseEvent.OPEN = 'BaseEvent.open';
+        BaseEvent.PREPARING = 'BaseEvent.preparing';
 
-    BaseEvent.PASTE = 'BaseEvent.paste';
+        BaseEvent.REMOVED = 'BaseEvent.removed';
 
-    BaseEvent.PREPARING = 'BaseEvent.preparing';
+        BaseEvent.RENDER = 'BaseEvent.render';
 
-    BaseEvent.REMOVED = 'BaseEvent.removed';
-
-    BaseEvent.RENDER = 'BaseEvent.render';
-
-    BaseEvent.RESIZE = 'BaseEvent.resize';
-    return BaseEvent;
-})();
+        BaseEvent.RESIZE = 'BaseEvent.resize';
+        return BaseEvent;
+    })();
+    StructureTS.BaseEvent = BaseEvent;
+})(StructureTS || (StructureTS = {}));
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var EventDispatcher = (function (_super) {
-    __extends(EventDispatcher, _super);
-    function EventDispatcher() {
-        _super.call(this);
-        this.CLASS_NAME = 'EventDispatcher';
-        this._listeners = null;
-        this.parent = null;
-        this.isEnabled = false;
+var StructureTS;
+(function (StructureTS) {
+    var EventDispatcher = (function (_super) {
+        __extends(EventDispatcher, _super);
+        function EventDispatcher() {
+            _super.call(this);
+            this.CLASS_NAME = 'EventDispatcher';
+            this._listeners = null;
+            this.parent = null;
+            this.isEnabled = false;
 
-        this._listeners = [];
-    }
-    EventDispatcher.prototype.addEventListener = function (type, callback, scope, priority) {
-        if (typeof priority === "undefined") { priority = 0; }
-        var list = this._listeners[type];
-        if (list == null) {
-            this._listeners[type] = list = [];
+            this._listeners = [];
         }
-        var index = 0;
-        var listener;
-        var i = list.length;
-        while (--i > -1) {
-            listener = list[i];
-            if (listener.c === callback && listener.s === scope) {
-                list.splice(i, 1);
-            } else if (index === 0 && listener.pr < priority) {
-                index = i + 1;
+        EventDispatcher.prototype.addEventListener = function (type, callback, scope, priority) {
+            if (typeof priority === "undefined") { priority = 0; }
+            var list = this._listeners[type];
+            if (list == null) {
+                this._listeners[type] = list = [];
             }
-        }
-
-        list.splice(index, 0, { c: callback, s: scope, pr: priority });
-
-        return this;
-    };
-
-    EventDispatcher.prototype.removeEventListener = function (type, callback, scope) {
-        var list = this._listeners[type];
-        if (list) {
+            var index = 0;
+            var listener;
             var i = list.length;
             while (--i > -1) {
-                if (list[i].c === callback && list[i].s === scope) {
+                listener = list[i];
+                if (listener.c === callback && listener.s === scope) {
                     list.splice(i, 1);
-                    break;
+                } else if (index === 0 && listener.pr < priority) {
+                    index = i + 1;
                 }
             }
-        }
 
-        return this;
-    };
+            list.splice(index, 0, { c: callback, s: scope, pr: priority });
 
-    EventDispatcher.prototype.dispatchEvent = function (event) {
-        if (event.target == null) {
-            event.target = this;
-        }
+            return this;
+        };
 
-        event.currentTarget = this;
-
-        var list = this._listeners[event.type];
-        if (list) {
-            var i = list.length;
-            var listener;
-            while (--i > -1) {
-                if (event.cancelable && event.isImmediatePropagationStopped)
-                    break;
-
-                listener = list[i];
-                listener.c.call(listener.s, event);
+        EventDispatcher.prototype.removeEventListener = function (type, callback, scope) {
+            var list = this._listeners[type];
+            if (list) {
+                var i = list.length;
+                while (--i > -1) {
+                    if (list[i].c === callback && list[i].s === scope) {
+                        list.splice(i, 1);
+                        break;
+                    }
+                }
             }
-        }
 
-        if (this.parent && event.bubble) {
-            if (event.cancelable && event.isPropagationStopped)
+            return this;
+        };
+
+        EventDispatcher.prototype.dispatchEvent = function (event) {
+            if (event.target == null) {
+                event.target = this;
+            }
+
+            event.currentTarget = this;
+
+            var list = this._listeners[event.type];
+            if (list) {
+                var i = list.length;
+                var listener;
+                while (--i > -1) {
+                    if (event.cancelable && event.isImmediatePropagationStopped) {
+                        break;
+                    }
+
+                    listener = list[i];
+                    listener.c.call(listener.s, event);
+                }
+            }
+
+            if (this.parent && event.bubble) {
+                if (event.cancelable && event.isPropagationStopped) {
+                    return this;
+                }
+
+                this.parent.dispatchEvent(event);
+            }
+
+            return this;
+        };
+
+        EventDispatcher.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
+            this.disable();
+
+            this.parent = null;
+            this._listeners = null;
+        };
+
+        EventDispatcher.prototype.enable = function () {
+            if (this.isEnabled === true)
                 return this;
 
-            this.parent.dispatchEvent(event);
-        }
-
-        return this;
-    };
-
-    EventDispatcher.prototype.destroy = function () {
-        _super.prototype.destroy.call(this);
-
-        this.disable();
-        this.isEnabled = false;
-
-        this.parent = null;
-        this._listeners = null;
-    };
-
-    EventDispatcher.prototype.enable = function () {
-        if (this.isEnabled === true)
+            this.isEnabled = true;
             return this;
+        };
 
-        this.isEnabled = true;
-        return this;
-    };
+        EventDispatcher.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return this;
 
-    EventDispatcher.prototype.disable = function () {
-        if (this.isEnabled === false)
+            this.isEnabled = false;
             return this;
-
-        this.isEnabled = false;
-        return this;
-    };
-    return EventDispatcher;
-})(BaseObject);
-var DisplayObjectContainer = (function (_super) {
-    __extends(DisplayObjectContainer, _super);
-    function DisplayObjectContainer() {
-        _super.call(this);
-        this.CLASS_NAME = 'DisplayObjectContainer';
-        this.isCreated = false;
-        this.numChildren = 0;
-        this.children = [];
-        this.unscaledWidth = 100;
-        this.unscaledHeight = 100;
-    }
-    DisplayObjectContainer.prototype.createChildren = function () {
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.addChild = function (child) {
-        if (child.parent) {
-            child.parent.removeChild(child);
+        };
+        return EventDispatcher;
+    })(StructureTS.BaseObject);
+    StructureTS.EventDispatcher = EventDispatcher;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var DisplayObjectContainer = (function (_super) {
+        __extends(DisplayObjectContainer, _super);
+        function DisplayObjectContainer() {
+            _super.call(this);
+            this.CLASS_NAME = 'DisplayObjectContainer';
+            this.isCreated = false;
+            this.numChildren = 0;
+            this.children = [];
+            this.width = 0;
+            this.height = 0;
+            this.unscaledWidth = 100;
+            this.unscaledHeight = 100;
         }
-
-        this.children.push(child);
-        this.numChildren = this.children.length;
-
-        child.parent = this;
-
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.addChildAt = function (child, index) {
-        if (child.parent) {
-            child.parent.removeChild(child);
-        }
-
-        this.children.splice(index, 0, child);
-        this.numChildren = this.children.length;
-
-        child.parent = this;
-
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.swapChildren = function (child1, child2) {
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.swapChildrenAt = function (index1, index2) {
-        if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
-            throw new TypeError('[' + this.getQualifiedClassName() + '] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
-        }
-
-        var child1 = this.getChildAt(index1);
-        var child2 = this.getChildAt(index2);
-
-        this.swapChildren(child1, child2);
-
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.getChildIndex = function (child) {
-        return this.children.indexOf(child);
-    };
-
-    DisplayObjectContainer.prototype.removeChild = function (child) {
-        var index = this.getChildIndex(child);
-        if (index !== -1) {
-            this.children.splice(index, 1);
-        }
-        child.disable();
-        child.parent = null;
-
-        this.numChildren = this.children.length;
-
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.removeChildren = function () {
-        while (this.children.length > 0) {
-            this.removeChild(this.children.pop());
-        }
-
-        this.numChildren = this.children.length;
-
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.getChildAt = function (index) {
-        return this.children[index];
-    };
-
-    DisplayObjectContainer.prototype.setSize = function (unscaledWidth, unscaledHeight) {
-        this.unscaledWidth = unscaledWidth;
-        this.unscaledHeight = unscaledHeight;
-        if (this.isCreated) {
-            this.layoutChildren();
-        }
-
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.layoutChildren = function () {
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.destroy = function () {
-        _super.prototype.destroy.call(this);
-
-        this.children = [];
-        this.numChildren = 0;
-    };
-    return DisplayObjectContainer;
-})(EventDispatcher);
-var CanvasElement = (function (_super) {
-    __extends(CanvasElement, _super);
-    function CanvasElement() {
-        _super.call(this);
-        this.CLASS_NAME = 'CanvasElement';
-        this.stage = null;
-        this.context = null;
-        this.x = 0;
-        this.y = 0;
-        this.width = 0;
-        this.height = 0;
-        this.scaleX = 1;
-        this.scaleY = 1;
-        this.rotation = 0;
-        this.alpha = 1;
-        this.visible = true;
-        TweenLite.ticker.addEventListener("tick", this.layoutChildren.bind(this), this);
-    }
-    CanvasElement.prototype.createChildren = function () {
-        return this;
-    };
-
-    CanvasElement.prototype.render = function () {
-        return this;
-    };
-
-    CanvasElement.prototype.readerStart = function () {
-        this.context.save();
-        return this;
-    };
-
-    CanvasElement.prototype.layoutChildren = function () {
-        if (!this.context || this.alpha <= 0 || !this.visible)
+        DisplayObjectContainer.prototype.createChildren = function () {
             return this;
+        };
 
-        this.readerStart();
-        this.context.globalAlpha = this.alpha;
-        this.render();
-        this.renderEnd();
+        DisplayObjectContainer.prototype.addChild = function (child) {
+            if (child.parent) {
+                child.parent.removeChild(child);
+            }
 
-        return this;
-    };
+            this.children.push(child);
+            this.numChildren = this.children.length;
 
-    CanvasElement.prototype.renderEnd = function () {
-        this.context.restore();
-        return this;
-    };
+            child.parent = this;
 
-    CanvasElement.prototype.addChild = function (child) {
-        child.parent = this;
-        child.stage = this.stage;
-        child.context = this.context;
-        child.createChildren();
+            return this;
+        };
 
-        return this;
-    };
+        DisplayObjectContainer.prototype.addChildAt = function (child, index) {
+            if (child.parent) {
+                child.parent.removeChild(child);
+            }
 
-    CanvasElement.prototype.removeChild = function (child) {
-        child.stage = null;
-        child.context = null;
+            this.children.splice(index, 0, child);
+            this.numChildren = this.children.length;
 
-        return this;
-    };
-    return CanvasElement;
-})(DisplayObjectContainer);
-var Canvas = (function (_super) {
-    __extends(Canvas, _super);
-    function Canvas() {
-        _super.call(this);
-        this.CLASS_NAME = 'Canvas';
-        this.element = null;
+            child.parent = this;
 
-        this.stage = this;
-    }
-    Canvas.prototype.appendTo = function (type, enabled) {
-        if (typeof enabled === "undefined") { enabled = true; }
-        this.element = document.getElementById(type);
-        this.context = this.element.getContext("2d");
+            return this;
+        };
 
-        this.width = this.element.width;
-        this.height = this.element.height;
+        DisplayObjectContainer.prototype.swapChildren = function (child1, child2) {
+            return this;
+        };
 
-        if (!this.isCreated) {
-            this.createChildren();
-            this.isCreated = true;
+        DisplayObjectContainer.prototype.swapChildrenAt = function (index1, index2) {
+            if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
+                throw new TypeError('[' + this.getQualifiedClassName() + '] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
+            }
+
+            var child1 = this.getChildAt(index1);
+            var child2 = this.getChildAt(index2);
+
+            this.swapChildren(child1, child2);
+
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.getChildIndex = function (child) {
+            return this.children.indexOf(child);
+        };
+
+        DisplayObjectContainer.prototype.removeChild = function (child) {
+            var index = this.getChildIndex(child);
+            if (index !== -1) {
+                this.children.splice(index, 1);
+            }
+            child.disable();
+            child.parent = null;
+
+            this.numChildren = this.children.length;
+
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.removeChildren = function () {
+            while (this.children.length > 0) {
+                this.removeChild(this.children.pop());
+            }
+
+            this.numChildren = this.children.length;
+
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.getChildAt = function (index) {
+            return this.children[index];
+        };
+
+        DisplayObjectContainer.prototype.setSize = function (unscaledWidth, unscaledHeight) {
+            this.unscaledWidth = unscaledWidth;
+            this.unscaledHeight = unscaledHeight;
+            if (this.isCreated) {
+                this.layoutChildren();
+            }
+
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.layoutChildren = function () {
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
+            this.children = [];
+            this.numChildren = 0;
+        };
+        return DisplayObjectContainer;
+    })(StructureTS.EventDispatcher);
+    StructureTS.DisplayObjectContainer = DisplayObjectContainer;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var CanvasElement = (function (_super) {
+        __extends(CanvasElement, _super);
+        function CanvasElement() {
+            _super.call(this);
+            this.CLASS_NAME = 'CanvasElement';
+            this.stage = null;
+            this.context = null;
+            this.x = 0;
+            this.y = 0;
+            this.scaleX = 1;
+            this.scaleY = 1;
+            this.rotation = 0;
+            this.alpha = 1;
+            this.visible = true;
+            TweenLite.ticker.addEventListener("tick", this.layoutChildren.bind(this), this);
         }
+        CanvasElement.prototype.createChildren = function () {
+            return this;
+        };
 
-        if (enabled) {
-            this.enable();
+        CanvasElement.prototype.render = function () {
+            return this;
+        };
+
+        CanvasElement.prototype.readerStart = function () {
+            this.context.save();
+            return this;
+        };
+
+        CanvasElement.prototype.layoutChildren = function () {
+            if (!this.context || this.alpha <= 0 || !this.visible) {
+                return this;
+            }
+
+            this.readerStart();
+            this.context.globalAlpha = this.alpha;
+            this.render();
+            this.renderEnd();
+
+            return this;
+        };
+
+        CanvasElement.prototype.renderEnd = function () {
+            this.context.restore();
+            return this;
+        };
+
+        CanvasElement.prototype.addChild = function (child) {
+            child.parent = this;
+            child.stage = this.stage;
+            child.context = this.context;
+            child.createChildren();
+
+            return this;
+        };
+
+        CanvasElement.prototype.removeChild = function (child) {
+            child.stage = null;
+            child.context = null;
+
+            return this;
+        };
+        return CanvasElement;
+    })(StructureTS.DisplayObjectContainer);
+    StructureTS.CanvasElement = CanvasElement;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var Canvas = (function (_super) {
+        __extends(Canvas, _super);
+        function Canvas() {
+            _super.call(this);
+            this.CLASS_NAME = 'Canvas';
+            this.element = null;
+
+            this.stage = this;
         }
+        Canvas.prototype.appendTo = function (type, enabled) {
+            if (typeof enabled === "undefined") { enabled = true; }
+            this.element = document.getElementById(type);
+            this.context = this.element.getContext("2d");
 
-        return this;
-    };
+            this.width = this.element.width;
+            this.height = this.element.height;
 
-    Canvas.prototype.addChild = function (child) {
-        child.parent = this.stage;
-        child.stage = this.stage;
-        child.context = this.context;
-        child.createChildren();
+            if (!this.isCreated) {
+                this.createChildren();
+                this.isCreated = true;
+            }
 
-        return this;
-    };
+            if (enabled) {
+                this.enable();
+            }
 
-    Canvas.prototype.removeChild = function (child) {
-        child.stage = null;
-        child.context = null;
+            return this;
+        };
 
-        return this;
-    };
+        Canvas.prototype.addChild = function (child) {
+            child.parent = this.stage;
+            child.stage = this.stage;
+            child.context = this.context;
+            child.createChildren();
 
-    Canvas.prototype.render = function () {
-        this.context.clearRect(0, 0, this.width, this.height);
+            return this;
+        };
 
-        return this;
-    };
-    return Canvas;
-})(CanvasElement);
+        Canvas.prototype.removeChild = function (child) {
+            child.stage = null;
+            child.context = null;
+
+            return this;
+        };
+
+        Canvas.prototype.render = function () {
+            this.context.clearRect(0, 0, this.width, this.height);
+
+            return this;
+        };
+        return Canvas;
+    })(StructureTS.CanvasElement);
+    StructureTS.Canvas = Canvas;
+})(StructureTS || (StructureTS = {}));
 (function ($, window, document) {
     var hashCode = function (str) {
         str = String(str);
@@ -553,762 +583,790 @@ var Canvas = (function (_super) {
         return this;
     };
 })(jQuery, window, document);
-var StringUtil = (function () {
-    function StringUtil() {
-    }
-    StringUtil.stringToBoolean = function (str) {
-        return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
-    };
-
-    StringUtil.getExtension = function (filename) {
-        return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
-    };
-
-    StringUtil.hyphenToCamelCase = function (str) {
-        return str.replace(/-([a-z])/g, function (g) {
-            return g[1].toUpperCase();
-        });
-    };
-
-    StringUtil.hyphenToPascalCase = function (str) {
-        return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated) {
-            return hyphenated.toUpperCase();
-        });
-    };
-
-    StringUtil.camelCaseToHyphen = function (str) {
-        return str.replace(/([a-z][A-Z])/g, function (g) {
-            return g[0] + '-' + g[1].toLowerCase();
-        });
-    };
-
-    StringUtil.createUUID = function () {
-        var uuid = ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx').replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0;
-            var v = (c == 'x') ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-
-        return uuid;
-    };
-
-    StringUtil.queryStringToObject = function (queryString) {
-        var params = {};
-        var temp = null;
-
-        var queries = queryString.substring(1).split("&");
-
-        var len = queries.length;
-        for (var i = 0; i < len; i++) {
-            temp = queries[i].split('=');
-            params[temp[0]] = temp[1];
+var StructureTS;
+(function (StructureTS) {
+    var StringUtil = (function () {
+        function StringUtil() {
         }
+        StringUtil.stringToBoolean = function (str) {
+            return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
+        };
 
-        return params;
-    };
+        StringUtil.getExtension = function (filename) {
+            return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
+        };
 
-    StringUtil.removeAllWhitespace = function (str) {
-        return str.replace(/\s+/g, '');
-    };
+        StringUtil.hyphenToCamelCase = function (str) {
+            return str.replace(/-([a-z])/g, function (g) {
+                return g[1].toUpperCase();
+            });
+        };
 
-    StringUtil.removeLeadingTrailingWhitespace = function (str) {
-        return str.replace(/(^\s+|\s+$)/g, '');
-    };
+        StringUtil.hyphenToPascalCase = function (str) {
+            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated) {
+                return hyphenated.toUpperCase();
+            });
+        };
 
-    StringUtil.truncate = function (text, length) {
-        if (text.length <= length) {
-            return text;
-        } else {
-            return text.substr(0, length) + "...";
-        }
-    };
-    StringUtil.CLASS_NAME = 'StringUtil';
-    return StringUtil;
-})();
-var TemplateFactory = (function () {
-    function TemplateFactory() {
-    }
-    TemplateFactory.createTemplate = function (templatePath, data) {
-        return TemplateFactory.create(templatePath, data);
-    };
+        StringUtil.camelCaseToHyphen = function (str) {
+            return str.replace(/([a-z][A-Z])/g, function (g) {
+                return g[0] + '-' + g[1].toLowerCase();
+            });
+        };
 
-    TemplateFactory.createView = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
+        StringUtil.createUUID = function () {
+            var uuid = ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx').replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0;
+                var v = (c == 'x') ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
 
-        var view = new DOMElement();
-        view.$element = jQuery(template);
-        return view;
-    };
+            return uuid;
+        };
 
-    TemplateFactory.create = function (templatePath, data) {
-        if (typeof data === "undefined") { data = null; }
-        var regex = /^([.#])(.+)/;
-        var template;
-        var isClassOrIdName = regex.test(templatePath);
+        StringUtil.queryStringToObject = function (queryString) {
+            var params = {};
+            var temp = null;
 
-        if (isClassOrIdName) {
-            var htmlString = $(templatePath).html();
-            htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
+            var queries = queryString.substring(1).split("&");
 
-            if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
-                var templateMethod = _.template(htmlString);
-                template = templateMethod(data);
+            var len = queries.length;
+            for (var i = 0; i < len; i++) {
+                temp = queries[i].split('=');
+                params[temp[0]] = temp[1];
+            }
+
+            return params;
+        };
+
+        StringUtil.removeAllWhitespace = function (str) {
+            return str.replace(/\s+/g, '');
+        };
+
+        StringUtil.removeLeadingTrailingWhitespace = function (str) {
+            return str.replace(/(^\s+|\s+$)/g, '');
+        };
+
+        StringUtil.truncate = function (text, length) {
+            if (text.length <= length) {
+                return text;
             } else {
-                var templateMethod = Handlebars.compile(htmlString);
-                template = templateMethod(data);
+                return text.substr(0, length) + "...";
             }
-        } else {
-            var templateObj = window[TemplateFactory.templateNamespace];
-            if (!templateObj) {
-                return template;
-            }
+        };
+        StringUtil.CLASS_NAME = 'StringUtil';
+        return StringUtil;
+    })();
+    StructureTS.StringUtil = StringUtil;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var TemplateFactory = (function () {
+        function TemplateFactory() {
+        }
+        TemplateFactory.createTemplate = function (templatePath, data) {
+            if (typeof data === "undefined") { data = null; }
+            return TemplateFactory.create(templatePath, data);
+        };
 
-            var templateFunction = templateObj[templatePath];
-            if (!templateFunction) {
-                template = null;
+        TemplateFactory.createView = function (templatePath, data) {
+            if (typeof data === "undefined") { data = null; }
+            var template = TemplateFactory.create(templatePath, data);
+
+            var view = new StructureTS.DOMElement();
+            view.$element = jQuery(template);
+            return view;
+        };
+
+        TemplateFactory.create = function (templatePath, data) {
+            if (typeof data === "undefined") { data = null; }
+            var regex = /^([.#])(.+)/;
+            var template = null;
+            var isClassOrIdName = regex.test(templatePath);
+
+            if (isClassOrIdName) {
+                var htmlString = $(templatePath).html();
+                htmlString = StructureTS.StringUtil.removeLeadingTrailingWhitespace(htmlString);
+
+                if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
+                    var templateMethod = _.template(htmlString);
+                    template = templateMethod(data);
+                } else {
+                    var templateMethod = Handlebars.compile(htmlString);
+                    template = templateMethod(data);
+                }
             } else {
-                template = templateFunction(data);
+                var templateObj = window[TemplateFactory.templateNamespace];
+                if (!templateObj) {
+                    return null;
+                }
+
+                var templateFunction = templateObj[templatePath];
+                if (templateFunction) {
+                    template = templateFunction(data);
+                }
+            }
+
+            return template;
+        };
+        TemplateFactory.CLASS_NAME = 'TemplateFactory';
+
+        TemplateFactory.UNDERSCORE = 'underscore';
+        TemplateFactory.HANDLEBARS = 'handlebars';
+
+        TemplateFactory.templateEngine = TemplateFactory.HANDLEBARS;
+        TemplateFactory.templateNamespace = 'JST';
+        return TemplateFactory;
+    })();
+    StructureTS.TemplateFactory = TemplateFactory;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var DOMElement = (function (_super) {
+        __extends(DOMElement, _super);
+        function DOMElement(type, params) {
+            if (typeof type === "undefined") { type = null; }
+            if (typeof params === "undefined") { params = null; }
+            _super.call(this);
+            this.CLASS_NAME = 'DOMElement';
+            this._isVisible = true;
+            this.element = null;
+            this.$element = null;
+            this._type = null;
+            this._params = null;
+
+            if (type) {
+                this._type = type;
+                this._params = params;
             }
         }
+        DOMElement.prototype.createChildren = function (type, params) {
+            if (typeof type === "undefined") { type = 'div'; }
+            if (typeof params === "undefined") { params = null; }
+            type = this._type || type;
+            params = this._params || params;
 
-        return template;
-    };
-    TemplateFactory.CLASS_NAME = 'TemplateFactory';
-
-    TemplateFactory.UNDERSCORE = 'underscore';
-    TemplateFactory.HANDLEBARS = 'handlebars';
-
-    TemplateFactory.templateEngine = TemplateFactory.HANDLEBARS;
-    TemplateFactory.templateNamespace = 'JST';
-    return TemplateFactory;
-})();
-var DOMElement = (function (_super) {
-    __extends(DOMElement, _super);
-    function DOMElement(type, params) {
-        if (typeof type === "undefined") { type = null; }
-        if (typeof params === "undefined") { params = null; }
-        _super.call(this);
-        this.CLASS_NAME = 'DOMElement';
-        this._isVisible = true;
-        this.element = null;
-        this.$element = null;
-        this._type = null;
-        this._params = null;
-
-        if (type) {
-            this._type = type;
-            this._params = params;
-        }
-    }
-    DOMElement.prototype.createChildren = function (type, params) {
-        if (typeof type === "undefined") { type = 'div'; }
-        if (typeof params === "undefined") { params = null; }
-        type = this._type || type;
-        params = this._params || params;
-
-        if (typeof type === 'function' && !this.$element) {
-            Jaml.register(this.CLASS_NAME, type);
-            this.$element = jQuery(Jaml.render(this.CLASS_NAME, params));
-        } else if (typeof type === 'string' && !this.$element) {
-            var html = TemplateFactory.createTemplate(type, params);
-            if (html) {
-                this.$element = $(html);
-            } else {
-                this.$element = jQuery("<" + type + "/>", params);
+            if (!this.$element) {
+                var html = StructureTS.TemplateFactory.createTemplate(type, params);
+                if (html) {
+                    this.$element = $(html);
+                } else {
+                    this.$element = jQuery("<" + type + "/>", params);
+                }
             }
-        }
 
-        this.element = this.$element[0];
+            this.element = this.$element[0];
 
-        return this;
-    };
+            return this;
+        };
 
-    DOMElement.prototype.addChild = function (child) {
-        _super.prototype.addChild.call(this, child);
+        DOMElement.prototype.addChild = function (child) {
+            _super.prototype.addChild.call(this, child);
 
-        if (!child.isCreated) {
-            child.createChildren();
-            child.isCreated = true;
-        }
-
-        child.$element.attr('data-cid', child.cid);
-
-        child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
-        this.$element.append(child.$element);
-
-        child.layoutChildren();
-
-        return this;
-    };
-
-    DOMElement.prototype.onAddedToDom = function (event) {
-        var child = event.data;
-        child.$element.removeEventListener('DOMNodeInsertedIntoDocument', this.onAddedToDom, this);
-        child.layoutChildren();
-        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
-    };
-
-    DOMElement.prototype.addChildAt = function (child, index) {
-        var children = this.$element.children();
-        var length = children.length - 1;
-
-        if (index < 0 || index >= length) {
-            this.addChild(child);
-        } else {
             if (!child.isCreated) {
                 child.createChildren();
                 child.isCreated = true;
             }
+
+            child.$element.attr('data-cid', child.cid);
+
             child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
+            this.$element.append(child.$element);
+
             child.layoutChildren();
 
-            _super.prototype.addChildAt.call(this, child, index);
+            return this;
+        };
 
-            jQuery(children.get(index)).before(child.$element);
-        }
+        DOMElement.prototype.onAddedToDom = function (event) {
+            var child = event.data;
+            child.$element.removeEventListener('DOMNodeInsertedIntoDocument', this.onAddedToDom, this);
+            child.layoutChildren();
+            child.dispatchEvent(new StructureTS.BaseEvent(StructureTS.BaseEvent.ADDED));
+        };
 
-        return this;
-    };
+        DOMElement.prototype.addChildAt = function (child, index) {
+            var children = this.$element.children();
+            var length = children.length - 1;
 
-    DOMElement.prototype.swapChildren = function (child1, child2) {
-        var child1Index = child1.$element.index();
-        var child2Index = child2.$element.index();
+            if (index < 0 || index >= length) {
+                this.addChild(child);
+            } else {
+                if (!child.isCreated) {
+                    child.createChildren();
+                    child.isCreated = true;
+                }
+                child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
+                child.layoutChildren();
 
-        this.addChildAt(child1, child2Index);
-        this.addChildAt(child2, child1Index);
+                _super.prototype.addChildAt.call(this, child, index);
 
-        return this;
-    };
+                jQuery(children.get(index)).before(child.$element);
+            }
 
-    DOMElement.prototype.getChildAt = function (index) {
-        return _super.prototype.getChildAt.call(this, index);
-    };
+            return this;
+        };
 
-    DOMElement.prototype.getChildByCid = function (cid) {
-        var domElement = _.find(this.children, function (child) {
-            return child.cid == cid;
-        });
+        DOMElement.prototype.swapChildren = function (child1, child2) {
+            var child1Index = child1.$element.index();
+            var child2Index = child2.$element.index();
 
-        return domElement || null;
-    };
+            this.addChildAt(child1, child2Index);
+            this.addChildAt(child2, child1Index);
 
-    DOMElement.prototype.getChild = function (selector) {
-        var jQueryElement = this.$element.find(selector).first();
-        if (jQueryElement.length == 0) {
-            throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $element');
-        }
+            return this;
+        };
 
-        var cid = jQueryElement.data('cid');
-        var domElement = _.find(this.children, function (domElement) {
-            return domElement.cid == cid;
-        });
+        DOMElement.prototype.getChildAt = function (index) {
+            return _super.prototype.getChildAt.call(this, index);
+        };
 
-        if (!domElement) {
-            domElement = new DOMElement();
-            domElement.$element = jQueryElement;
-            domElement.$element.attr('data-cid', domElement.cid);
-            domElement.element = jQueryElement[0];
-            domElement.isCreated = true;
+        DOMElement.prototype.getChildByCid = function (cid) {
+            var domElement = _.find(this.children, function (child) {
+                return child.cid == cid;
+            });
 
-            _super.prototype.addChild.call(this, domElement);
-        }
+            return domElement || null;
+        };
 
-        return domElement;
-    };
+        DOMElement.prototype.getChild = function (selector) {
+            var jQueryElement = this.$element.find(selector).first();
+            if (jQueryElement.length == 0) {
+                throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $element');
+            }
 
-    DOMElement.prototype.getChildren = function (selector) {
-        if (typeof selector === "undefined") { selector = ''; }
-        var _this = this;
-        var $child;
-        var domElement;
-        var $list = this.$element.children(selector);
+            var cid = jQueryElement.data('cid');
+            var domElement = _.find(this.children, function (domElement) {
+                return domElement.cid == cid;
+            });
 
-        _.each($list, function (item, index) {
-            $child = jQuery(item);
-
-            if (!$child.data('cid')) {
+            if (!domElement) {
                 domElement = new DOMElement();
-                domElement.$element = $child;
+                domElement.$element = jQueryElement;
                 domElement.$element.attr('data-cid', domElement.cid);
-                domElement.element = item;
+                domElement.element = jQueryElement[0];
                 domElement.isCreated = true;
 
-                _super.prototype.addChild.call(_this, domElement);
+                _super.prototype.addChild.call(this, domElement);
             }
-        });
 
-        return this.children;
-    };
+            return domElement;
+        };
 
-    DOMElement.prototype.removeChild = function (child) {
-        child.$element.unbind();
-        child.$element.remove();
+        DOMElement.prototype.getChildren = function (selector) {
+            if (typeof selector === "undefined") { selector = ''; }
+            var _this = this;
+            var $child;
+            var domElement;
+            var $list = this.$element.children(selector);
 
-        _super.prototype.removeChild.call(this, child);
+            _.each($list, function (item, index) {
+                $child = jQuery(item);
 
-        return this;
-    };
+                if (!$child.data('cid')) {
+                    domElement = new DOMElement();
+                    domElement.$element = $child;
+                    domElement.$element.attr('data-cid', domElement.cid);
+                    domElement.element = item;
+                    domElement.isCreated = true;
 
-    DOMElement.prototype.removeChildren = function () {
-        _super.prototype.removeChildren.call(this);
+                    _super.prototype.addChild.call(_this, domElement);
+                }
+            });
 
-        this.$element.empty();
+            return this.children;
+        };
 
-        return this;
-    };
+        DOMElement.prototype.removeChild = function (child) {
+            child.$element.unbind();
+            child.$element.remove();
 
-    DOMElement.prototype.enable = function () {
-        if (this.isEnabled === true)
+            _super.prototype.removeChild.call(this, child);
+
             return this;
+        };
 
-        _super.prototype.enable.call(this);
-        return this;
-    };
+        DOMElement.prototype.removeChildren = function () {
+            _super.prototype.removeChildren.call(this);
 
-    DOMElement.prototype.disable = function () {
-        if (this.isEnabled === false)
+            this.$element.empty();
+
             return this;
+        };
 
-        _super.prototype.disable.call(this);
-        return this;
-    };
+        DOMElement.prototype.alpha = function (number) {
+            this.$element.css('opacity', number);
+            return this;
+        };
 
-    DOMElement.prototype.layoutChildren = function () {
-        return this;
-    };
+        DOMElement.prototype.visible = function (value) {
+            if (value == false) {
+                this._isVisible = false;
+                this.$element.hide();
+            } else if (value == true) {
+                this._isVisible = true;
+                this.$element.show();
+            } else if (value == undefined) {
+                return this._isVisible;
+            }
+            return this;
+        };
 
-    DOMElement.prototype.alpha = function (number) {
-        this.$element.css('opacity', number);
-        return this;
-    };
+        DOMElement.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
 
-    DOMElement.prototype.visible = function (value) {
-        if (value == false) {
-            this._isVisible = false;
-            this.$element.hide();
-        } else if (value == true) {
-            this._isVisible = true;
-            this.$element.show();
-        } else if (value == undefined) {
-            return this._isVisible;
+            this.$element = null;
+            this.element = null;
+        };
+        return DOMElement;
+    })(StructureTS.DisplayObjectContainer);
+    StructureTS.DOMElement = DOMElement;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var Stage = (function (_super) {
+        __extends(Stage, _super);
+        function Stage() {
+            _super.call(this);
+            this.CLASS_NAME = 'Stage';
         }
-        return this;
-    };
+        Stage.prototype.appendTo = function (type, enabled) {
+            if (typeof enabled === "undefined") { enabled = true; }
+            this.$element = jQuery(type);
+            this.$element.attr('data-cid', this.cid);
 
-    DOMElement.prototype.destroy = function () {
-        _super.prototype.destroy.call(this);
+            if (!this.isCreated) {
+                this.createChildren();
+                this.isCreated = true;
+                this.layoutChildren();
+            }
 
-        this.$element = null;
-        this.element = null;
-    };
-    return DOMElement;
-})(DisplayObjectContainer);
-var Stage = (function (_super) {
-    __extends(Stage, _super);
-    function Stage() {
-        _super.call(this);
-        this.CLASS_NAME = 'Stage';
-    }
-    Stage.prototype.appendTo = function (type, enabled) {
-        if (typeof enabled === "undefined") { enabled = true; }
-        this.$element = jQuery(type);
-        this.$element.attr('data-cid', this.cid);
+            if (enabled) {
+                this.enable();
+            }
 
-        if (!this.isCreated) {
-            this.createChildren();
-            this.isCreated = true;
-            this.layoutChildren();
+            return this;
+        };
+        return Stage;
+    })(StructureTS.DOMElement);
+    StructureTS.Stage = Stage;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var MathUtil = (function () {
+        function MathUtil() {
         }
+        MathUtil.constrain = function (num, min, max) {
+            if (typeof min === "undefined") { min = 0; }
+            if (typeof max === "undefined") { max = 1; }
+            if (num < min) {
+                return min;
+            }
+            if (num > max) {
+                return max;
+            }
+            return num;
+        };
 
-        if (enabled) {
-            this.enable();
-        }
+        MathUtil.randomRange = function (min, max, round) {
+            if (typeof round === "undefined") { round = false; }
+            var num = (min + Math.random() * (max - min));
 
-        return this;
-    };
-    return Stage;
-})(DOMElement);
-var MathUtil = (function () {
-    function MathUtil() {
-    }
-    MathUtil.constrain = function (num, min, max) {
-        if (typeof min === "undefined") { min = 0; }
-        if (typeof max === "undefined") { max = 1; }
-        if (num < min) {
-            return min;
-        }
-        if (num > max) {
-            return max;
-        }
-        return num;
-    };
+            if (round) {
+                return Math.round(num);
+            }
+            return num;
+        };
 
-    MathUtil.randomRange = function (min, max, round) {
-        if (typeof round === "undefined") { round = false; }
-        var num = (min + Math.random() * (max - min));
+        MathUtil.rangeToPercent = function (num, min, max, constrainMin, constrainMax) {
+            if (typeof constrainMin === "undefined") { constrainMin = false; }
+            if (typeof constrainMax === "undefined") { constrainMax = false; }
+            if (constrainMin && num < min) {
+                return 0;
+            }
+            if (constrainMax && num > max) {
+                return 1;
+            }
+            return (num - min) / (max - min);
+        };
 
-        if (round) {
-            return Math.round(num);
-        }
-        return num;
-    };
+        MathUtil.percentToRange = function (percent, min, max) {
+            return (percent * (max - min)) + min;
+        };
 
-    MathUtil.rangeToPercent = function (num, min, max, constrainMin, constrainMax) {
-        if (typeof constrainMin === "undefined") { constrainMin = false; }
-        if (typeof constrainMax === "undefined") { constrainMax = false; }
-        if (constrainMin && num < min) {
-            return 0;
-        }
-        if (constrainMax && num > max) {
+        MathUtil.map = function (num, min1, max1, min2, max2, round, constrainMin, constrainMax) {
+            if (typeof round === "undefined") { round = true; }
+            if (typeof constrainMin === "undefined") { constrainMin = true; }
+            if (typeof constrainMax === "undefined") { constrainMax = true; }
+            if (constrainMin && num < min1) {
+                return min2;
+            }
+            if (constrainMax && num > max1) {
+                return max2;
+            }
+
+            var num1 = (num - min1) / (max1 - min1);
+            var num2 = (num1 * (max2 - min2)) + min2;
+            if (round) {
+                return Math.round(num2);
+            }
+            return num2;
+        };
+
+        MathUtil.radiansToDegrees = function (radians) {
+            return (radians * 180 / Math.PI);
+        };
+
+        MathUtil.degreesToRadians = function (degrees) {
+            return (degrees * Math.PI / 180);
+        };
+
+        MathUtil.sign = function (num) {
+            if (num < 0) {
+                return -1;
+            }
             return 1;
-        }
-        return (num - min) / (max - min);
-    };
+        };
 
-    MathUtil.percentToRange = function (percent, min, max) {
-        return (percent * (max - min)) + min;
-    };
+        MathUtil.isPositive = function (num) {
+            return (num >= 0);
+        };
 
-    MathUtil.map = function (num, min1, max1, min2, max2, round, constrainMin, constrainMax) {
-        if (typeof round === "undefined") { round = true; }
-        if (typeof constrainMin === "undefined") { constrainMin = true; }
-        if (typeof constrainMax === "undefined") { constrainMax = true; }
-        if (constrainMin && num < min1) {
-            return min2;
-        }
-        if (constrainMax && num > max1) {
-            return max2;
-        }
+        MathUtil.isNegative = function (num) {
+            return (num < 0);
+        };
 
-        var num1 = (num - min1) / (max1 - min1);
-        var num2 = (num1 * (max2 - min2)) + min2;
-        if (round) {
-            return Math.round(num2);
-        }
-        return num2;
-    };
+        MathUtil.isOdd = function (num) {
+            var i = num;
+            var e = 2;
+            return Boolean(i % e);
+        };
 
-    MathUtil.radiansToDegrees = function (radians) {
-        return (radians * 180 / Math.PI);
-    };
+        MathUtil.isEven = function (num) {
+            var int = num;
+            var e = 2;
+            return (int % e == 0);
+        };
 
-    MathUtil.degreesToRadians = function (degrees) {
-        return (degrees * Math.PI / 180);
-    };
-
-    MathUtil.sign = function (num) {
-        if (num < 0) {
-            return -1;
-        }
-        return 1;
-    };
-
-    MathUtil.isPositive = function (num) {
-        return (num >= 0);
-    };
-
-    MathUtil.isNegative = function (num) {
-        return (num < 0);
-    };
-
-    MathUtil.isOdd = function (num) {
-        var i = num;
-        var e = 2;
-        return Boolean(i % e);
-    };
-
-    MathUtil.isEven = function (num) {
-        var int = num;
-        var e = 2;
-        return (int % e == 0);
-    };
-
-    MathUtil.isPrime = function (num) {
-        if (num > 2 && num % 2 == 0) {
-            return false;
-        }
-        var l = Math.sqrt(num);
-        var i = 3;
-        for (i; i <= l; i += 2)
-            if (num % i == 0) {
+        MathUtil.isPrime = function (num) {
+            if (num > 2 && num % 2 == 0) {
                 return false;
             }
-        return true;
-    };
-
-    MathUtil.factorial = function (num) {
-        if (num == 0) {
-            return 1;
-        }
-        var d = num.valueOf();
-        var i = d - 1;
-        while (i) {
-            d = d * i;
-            i--;
-        }
-        return d;
-    };
-
-    MathUtil.getDivisors = function (num) {
-        var r = [];
-        for (var i = 1, e = num / 2; i <= e; i++)
-            if (num % i == 0) {
-                r.push(i);
+            var l = Math.sqrt(num);
+            var i = 3;
+            for (i; i <= l; i += 2) {
+                if (num % i == 0) {
+                    return false;
+                }
             }
-        if (num != 0) {
-            r.push(num.valueOf());
-        }
-        return r;
-    };
+            return true;
+        };
 
-    MathUtil.toCelsius = function (fahrenheit, decimals) {
-        if (typeof decimals === "undefined") { decimals = 2; }
-        var d = '';
-        var r = (5 / 9) * (fahrenheit - 32);
-        var s = r.toString().split(".");
-        if (s[1] != undefined) {
-            d = s[1].substr(0, decimals);
-        } else {
-            var i = decimals;
-            while (i > 0) {
-                d += "0";
+        MathUtil.factorial = function (num) {
+            if (num == 0) {
+                return 1;
+            }
+            var d = num.valueOf();
+            var i = d - 1;
+            while (i) {
+                d = d * i;
                 i--;
             }
-        }
-        var c = s[0] + "." + d;
-        return Number(c);
-    };
+            return d;
+        };
 
-    MathUtil.toFahrenheit = function (celsius, decimals) {
-        if (typeof decimals === "undefined") { decimals = 2; }
-        var d = '';
-        var r = (celsius / (5 / 9)) + 32;
-        var s = r.toString().split(".");
-        if (s[1] != undefined) {
-            d = s[1].substr(0, decimals);
-        } else {
-            var i = decimals;
-            while (i > 0) {
-                d += "0";
-                i--;
+        MathUtil.getDivisors = function (num) {
+            var r = [];
+            for (var i = 1, e = num / 2; i <= e; i++) {
+                if (num % i == 0) {
+                    r.push(i);
+                }
             }
+            if (num != 0) {
+                r.push(num.valueOf());
+            }
+            return r;
+        };
+
+        MathUtil.toCelsius = function (fahrenheit, decimals) {
+            if (typeof decimals === "undefined") { decimals = 2; }
+            var d = '';
+            var r = (5 / 9) * (fahrenheit - 32);
+            var s = r.toString().split(".");
+            if (s[1] != undefined) {
+                d = s[1].substr(0, decimals);
+            } else {
+                var i = decimals;
+                while (i > 0) {
+                    d += "0";
+                    i--;
+                }
+            }
+            var c = s[0] + "." + d;
+            return Number(c);
+        };
+
+        MathUtil.toFahrenheit = function (celsius, decimals) {
+            if (typeof decimals === "undefined") { decimals = 2; }
+            var d = '';
+            var r = (celsius / (5 / 9)) + 32;
+            var s = r.toString().split(".");
+            if (s[1] != undefined) {
+                d = s[1].substr(0, decimals);
+            } else {
+                var i = decimals;
+                while (i > 0) {
+                    d += "0";
+                    i--;
+                }
+            }
+            var f = s[0] + "." + d;
+            return Number(f);
+        };
+        MathUtil.CLASS_NAME = 'MathUtil';
+        return MathUtil;
+    })();
+    StructureTS.MathUtil = MathUtil;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var Bitmap = (function (_super) {
+        __extends(Bitmap, _super);
+        function Bitmap(image) {
+            _super.call(this);
+            this.CLASS_NAME = 'Bitmap';
+            this._image = null;
+            this.ready = false;
+
+            this._image = image;
+            this.width = this._image.width;
+            this.height = this._image.height;
         }
-        var f = s[0] + "." + d;
-        return Number(f);
-    };
-    MathUtil.CLASS_NAME = 'MathUtil';
-    return MathUtil;
-})();
-var Bitmap = (function (_super) {
-    __extends(Bitmap, _super);
-    function Bitmap(image) {
-        _super.call(this);
-        this.CLASS_NAME = 'Bitmap';
-        this._image = null;
-        this.ready = false;
+        Bitmap.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this);
 
-        this._image = image;
-        this.width = this._image.width;
-        this.height = this._image.height;
-    }
-    Bitmap.prototype.createChildren = function () {
-        _super.prototype.createChildren.call(this);
+            return this;
+        };
 
-        return this;
-    };
+        Bitmap.prototype.render = function () {
+            this.context.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
+            this.context.scale(this.scaleX, this.scaleY);
+            this.context.rotate(StructureTS.MathUtil.degreesToRadians(this.rotation));
+            this.context.translate(-this.width * 0.5, -this.height * 0.5);
 
-    Bitmap.prototype.render = function () {
-        this.context.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
-        this.context.scale(this.scaleX, this.scaleY);
-        this.context.rotate(MathUtil.degreesToRadians(this.rotation));
-        this.context.translate(-this.width * 0.5, -this.height * 0.5);
+            this.context.drawImage(this._image, 0, 0);
 
-        this.context.drawImage(this._image, 0, 0);
-
-        return this;
-    };
-    return Bitmap;
-})(CanvasElement);
-var LoaderEvent = (function (_super) {
-    __extends(LoaderEvent, _super);
-    function LoaderEvent(type, bubbles, cancelable, data) {
-        if (typeof bubbles === "undefined") { bubbles = false; }
-        if (typeof cancelable === "undefined") { cancelable = false; }
-        if (typeof data === "undefined") { data = null; }
-        _super.call(this, type, bubbles, cancelable, data);
-        this.CLASS_NAME = 'LoaderEvent';
-    }
-    LoaderEvent.COMPLETE = "LoaderEvent.complete";
-
-    LoaderEvent.LOAD_COMPLETE = "LoaderEvent.loadComplete";
-    return LoaderEvent;
-})(BaseEvent);
-var AssetLoader = (function (_super) {
-    __extends(AssetLoader, _super);
-    function AssetLoader() {
-        _super.call(this);
-        this.CLASS_NAME = 'AssetLoader';
-        this._dataStores = [];
-
-        this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
-    }
-    AssetLoader.getInstance = function () {
-        if (this._instance == null) {
-            this._instance = new AssetLoader();
+            return this;
+        };
+        return Bitmap;
+    })(StructureTS.CanvasElement);
+    StructureTS.Bitmap = Bitmap;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var LoaderEvent = (function (_super) {
+        __extends(LoaderEvent, _super);
+        function LoaderEvent(type, bubbles, cancelable, data) {
+            if (typeof bubbles === "undefined") { bubbles = false; }
+            if (typeof cancelable === "undefined") { cancelable = false; }
+            if (typeof data === "undefined") { data = null; }
+            _super.call(this, type, bubbles, cancelable, data);
+            this.CLASS_NAME = 'LoaderEvent';
         }
-        return this._instance;
-    };
+        LoaderEvent.COMPLETE = "LoaderEvent.complete";
 
-    AssetLoader.prototype.addFile = function (dataStore, key) {
-        this._dataStores[key] = dataStore;
-        return this;
-    };
+        LoaderEvent.LOAD_COMPLETE = "LoaderEvent.loadComplete";
+        return LoaderEvent;
+    })(StructureTS.BaseEvent);
+    StructureTS.LoaderEvent = LoaderEvent;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var AssetLoader = (function (_super) {
+        __extends(AssetLoader, _super);
+        function AssetLoader() {
+            _super.call(this);
+            this.CLASS_NAME = 'AssetLoader';
+            this._dataStores = [];
 
-    AssetLoader.prototype.getFile = function (key) {
-        return this._dataStores[key];
-    };
-
-    AssetLoader.prototype.getImage = function (key) {
-        return this._dataStores[key].data;
-    };
-
-    AssetLoader.prototype.getHtmlTemplate = function (key, templateId) {
-        console.log(this.getQualifiedClassName(), 'TODO: check if you need to change this to user the TemplateFactory');
-        var rawHtml = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
-        return rawHtml;
-    };
-
-    AssetLoader.prototype.load = function () {
-        for (var key in this._dataStores) {
-            var dataStore = this._dataStores[key];
-            dataStore.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
-            dataStore.load();
+            this.addEventListener(StructureTS.LoaderEvent.COMPLETE, this.onLoadComplete, this);
         }
+        AssetLoader.getInstance = function () {
+            if (this._instance == null) {
+                this._instance = new AssetLoader();
+            }
+            return this._instance;
+        };
 
-        return this;
-    };
+        AssetLoader.prototype.addFile = function (dataStore, key) {
+            this._dataStores[key] = dataStore;
+            return this;
+        };
 
-    AssetLoader.prototype.onLoadComplete = function (event) {
-        event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
+        AssetLoader.prototype.getFile = function (key) {
+            return this._dataStores[key];
+        };
 
-        for (var key in this._dataStores) {
-            var dataStore = this._dataStores[key];
-            if (!dataStore.complete) {
+        AssetLoader.prototype.getImage = function (key) {
+            return this._dataStores[key].data;
+        };
+
+        AssetLoader.prototype.getHtmlTemplate = function (key, templateId) {
+            console.log(this.getQualifiedClassName(), 'TODO: check if you need to change this to user the TemplateFactory');
+            var rawHtml = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
+            return rawHtml;
+        };
+
+        AssetLoader.prototype.load = function () {
+            for (var key in this._dataStores) {
+                var dataStore = this._dataStores[key];
+                dataStore.addEventListener(StructureTS.LoaderEvent.COMPLETE, this.onLoadComplete, this);
+                dataStore.load();
+            }
+
+            return this;
+        };
+
+        AssetLoader.prototype.onLoadComplete = function (event) {
+            event.target.removeEventListener(StructureTS.LoaderEvent.COMPLETE, this.onLoadComplete, this);
+
+            for (var key in this._dataStores) {
+                var dataStore = this._dataStores[key];
+                if (!dataStore.complete) {
+                    return;
+                }
+            }
+
+            this.dispatchEvent(new StructureTS.LoaderEvent(StructureTS.LoaderEvent.LOAD_COMPLETE));
+        };
+        return AssetLoader;
+    })(StructureTS.EventDispatcher);
+    StructureTS.AssetLoader = AssetLoader;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var ImageLoader = (function (_super) {
+        __extends(ImageLoader, _super);
+        function ImageLoader(path) {
+            _super.call(this);
+            this.CLASS_NAME = 'ImageLoader';
+            this._image = null;
+            this.complete = false;
+
+            this.src = path;
+
+            var self = this;
+            this._image = new Image();
+            this._image.onload = function () {
+                self.onImageLoad();
+            };
+        }
+        ImageLoader.prototype.load = function () {
+            if (this.complete) {
                 return;
             }
-        }
 
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_COMPLETE));
-    };
-    return AssetLoader;
-})(EventDispatcher);
-var ImageLoader = (function (_super) {
-    __extends(ImageLoader, _super);
-    function ImageLoader(path) {
-        _super.call(this);
-        this.CLASS_NAME = 'ImageLoader';
-        this._image = null;
-        this.complete = false;
-
-        this.src = path;
-
-        var self = this;
-        this._image = new Image();
-        this._image.onload = function () {
-            self.onImageLoad();
+            this._image.src = this.src;
         };
-    }
-    ImageLoader.prototype.load = function () {
-        if (this.complete)
-            return;
 
-        this._image.src = this.src;
-    };
+        ImageLoader.prototype.onImageLoad = function () {
+            this.complete = true;
+            this.data = this._image;
+            this.dispatchEvent(new StructureTS.LoaderEvent(StructureTS.LoaderEvent.COMPLETE));
+        };
+        return ImageLoader;
+    })(StructureTS.EventDispatcher);
+    StructureTS.ImageLoader = ImageLoader;
+})(StructureTS || (StructureTS = {}));
+var codeBelt;
+(function (codeBelt) {
+    var Canvas = StructureTS.Canvas;
+    var Stage = StructureTS.Stage;
+    var Bitmap = StructureTS.Bitmap;
+    var AssetLoader = StructureTS.AssetLoader;
+    var ImageLoader = StructureTS.ImageLoader;
+    var MathUtil = StructureTS.MathUtil;
+    var LoaderEvent = StructureTS.LoaderEvent;
 
-    ImageLoader.prototype.onImageLoad = function () {
-        this.complete = true;
-        this.data = this._image;
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
-    };
-    return ImageLoader;
-})(EventDispatcher);
-var BannerAd = (function (_super) {
-    __extends(BannerAd, _super);
-    function BannerAd() {
-        _super.call(this);
-        this._cherry = null;
-        this._cherryDipped = null;
-        this._logo = null;
-        this._boxOfCandy = null;
-        this._assetLoader = null;
+    var BannerAd = (function (_super) {
+        __extends(BannerAd, _super);
+        function BannerAd() {
+            _super.call(this);
+            this._cherry = null;
+            this._cherryDipped = null;
+            this._logo = null;
+            this._boxOfCandy = null;
+            this._assetLoader = null;
 
-        this._assetLoader = new AssetLoader();
-        this._assetLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
-        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry.png"), "cherry");
-        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
-        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "logo.png"), "logo");
-        this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "box.png"), "box");
-        this._assetLoader.load();
-    }
-    BannerAd.prototype.createChildren = function () {
-        _super.prototype.createChildren.call(this);
-    };
+            this._assetLoader = new AssetLoader();
+            this._assetLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
+            this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry.png"), "cherry");
+            this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "cherry-dipped.png"), "cherry-dipped");
+            this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "logo.png"), "logo");
+            this._assetLoader.addFile(new ImageLoader(BannerAd.BASE_PATH + "box.png"), "box");
+            this._assetLoader.load();
+        }
+        BannerAd.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this);
+        };
 
-    BannerAd.prototype.enable = function () {
-        if (this.isEnabled === true)
-            return;
+        BannerAd.prototype.enable = function () {
+            if (this.isEnabled === true)
+                return;
 
-        _super.prototype.enable.call(this);
-    };
+            _super.prototype.enable.call(this);
+        };
 
-    BannerAd.prototype.disable = function () {
-        if (this.isEnabled === false)
-            return;
+        BannerAd.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return;
 
-        _super.prototype.disable.call(this);
-    };
+            _super.prototype.disable.call(this);
+        };
 
-    BannerAd.prototype.init = function (event) {
-        this._assetLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
+        BannerAd.prototype.init = function (event) {
+            this._assetLoader.removeEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
 
-        this._cherry = new Bitmap(this._assetLoader.getImage("cherry"));
-        this._cherry.x = 83;
-        this._cherry.y = 3;
-        this.addChild(this._cherry);
+            this._cherry = new Bitmap(this._assetLoader.getImage("cherry"));
+            this._cherry.x = 83;
+            this._cherry.y = 3;
+            this.addChild(this._cherry);
 
-        this._cherryDipped = new Bitmap(this._assetLoader.getImage("cherry-dipped"));
-        this._cherryDipped.x = 83;
-        this._cherryDipped.y = 37;
-        this._cherryDipped.visible = false;
-        this.addChild(this._cherryDipped);
+            this._cherryDipped = new Bitmap(this._assetLoader.getImage("cherry-dipped"));
+            this._cherryDipped.x = 83;
+            this._cherryDipped.y = 37;
+            this._cherryDipped.visible = false;
+            this.addChild(this._cherryDipped);
 
-        this._logo = new Bitmap(this._assetLoader.getImage("logo"));
-        this._logo.x = 222;
-        this._logo.y = 27;
-        this.addChild(this._logo);
+            this._logo = new Bitmap(this._assetLoader.getImage("logo"));
+            this._logo.x = 222;
+            this._logo.y = 27;
+            this.addChild(this._logo);
 
-        this._boxOfCandy = new Bitmap(this._assetLoader.getImage("box"));
-        this._boxOfCandy.x = 598;
-        this._boxOfCandy.y = 2;
-        this._boxOfCandy.alpha = 0;
-        this._boxOfCandy.scaleX = 0;
-        this._boxOfCandy.scaleY = 0;
-        this.addChild(this._boxOfCandy);
+            this._boxOfCandy = new Bitmap(this._assetLoader.getImage("box"));
+            this._boxOfCandy.x = 598;
+            this._boxOfCandy.y = 2;
+            this._boxOfCandy.alpha = 0;
+            this._boxOfCandy.scaleX = 0;
+            this._boxOfCandy.scaleY = 0;
+            this.addChild(this._boxOfCandy);
 
-        TweenLite.to(this._boxOfCandy, 1, { delay: 0.5, alpha: 1, scaleX: 1, scaleY: 1, ease: Cubic.easeOut });
-        TweenLite.to(this._cherry, 0.5, { delay: 1, y: 37, ease: Cubic.easeOut, onComplete: this.onCherryComplete, onCompleteScope: this });
-    };
+            TweenLite.to(this._boxOfCandy, 1, { delay: 0.5, alpha: 1, scaleX: 1, scaleY: 1, ease: Cubic.easeOut });
+            TweenLite.to(this._cherry, 0.5, { delay: 1, y: 37, ease: Cubic.easeOut, onComplete: this.onCherryComplete, onCompleteScope: this });
+        };
 
-    BannerAd.prototype.onCherryComplete = function () {
-        this._cherryDipped.visible = true;
-        this.removeChild(this._cherry);
+        BannerAd.prototype.onCherryComplete = function () {
+            this._cherryDipped.visible = true;
+            this.removeChild(this._cherry);
 
-        TweenLite.to(this._cherryDipped, 0.5, { y: 3, ease: Cubic.easeInOut, onComplete: this.onCherryDippedComplete, onCompleteScope: this });
-    };
+            TweenLite.to(this._cherryDipped, 0.5, { y: 3, ease: Cubic.easeInOut, onComplete: this.onCherryDippedComplete, onCompleteScope: this });
+        };
 
-    BannerAd.prototype.onCherryDippedComplete = function () {
-        TweenLite.to(this._logo, 1, { rotation: 720, scaleX: 0.5, scaleY: 0.5, ease: Bounce.easeOut });
-    };
-    BannerAd.BASE_PATH = "assets/images/";
-    return BannerAd;
-})(Canvas);
+        BannerAd.prototype.onCherryDippedComplete = function () {
+            TweenLite.to(this._logo, 1, { rotation: 720, scaleX: 0.5, scaleY: 0.5, ease: Bounce.easeOut });
+        };
+        BannerAd.BASE_PATH = "assets/images/";
+        return BannerAd;
+    })(StructureTS.Canvas);
+    codeBelt.BannerAd = BannerAd;
+})(codeBelt || (codeBelt = {}));

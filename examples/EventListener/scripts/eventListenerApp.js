@@ -47,9 +47,6 @@
             default:
                 throw new Error('jQuery addEventListener plugin requires at least 3 arguments.');
         }
-
-        console.log("_scope", _scope);
-
         return this;
     };
 
@@ -78,792 +75,807 @@
             default:
                 throw new Error('jQuery removeEventListener plugin requires at least 3 arguments.');
         }
-
-        console.log("_scope", _scope);
         return this;
     };
 })(jQuery, window, document);
-var Util = (function () {
-    function Util() {
-    }
-    Util.uniqueId = function (prefix) {
-        if (typeof prefix === "undefined") { prefix = null; }
-        var id = ++Util._idCounter;
-
-        if (prefix != null) {
-            return String(prefix + id);
-        } else {
-            return id;
+var StructureTS;
+(function (StructureTS) {
+    var Util = (function () {
+        function Util() {
         }
-    };
+        Util.uniqueId = function (prefix) {
+            if (typeof prefix === "undefined") { prefix = null; }
+            var id = ++Util._idCounter;
 
-    Util.deletePropertyFromObject = function (object, list) {
-        for (var key in object) {
-            if (object.hasOwnProperty(key)) {
-                var value = object[key];
+            if (prefix != null) {
+                return String(prefix + id);
+            } else {
+                return id;
+            }
+        };
 
-                if (value instanceof Array) {
-                    var array = value;
-                    for (var index in array) {
-                        Util.deletePropertyFromObject(array[index], list);
-                    }
-                } else {
-                    for (var listIndex in list) {
-                        if (key === list[listIndex]) {
-                            delete object[key];
+        Util.deletePropertyFromObject = function (object, list) {
+            for (var key in object) {
+                if (object.hasOwnProperty(key)) {
+                    var value = object[key];
+
+                    if (value instanceof Array) {
+                        var array = value;
+                        for (var index in array) {
+                            Util.deletePropertyFromObject(array[index], list);
+                        }
+                    } else {
+                        for (var listIndex in list) {
+                            if (key === list[listIndex]) {
+                                delete object[key];
+                            }
                         }
                     }
                 }
             }
+
+            return object;
+        };
+        Util.CLASS_NAME = 'Util';
+
+        Util._idCounter = 0;
+        return Util;
+    })();
+    StructureTS.Util = Util;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var BaseObject = (function () {
+        function BaseObject() {
+            this.CLASS_NAME = 'BaseObject';
+            this.cid = null;
+            this.cid = StructureTS.Util.uniqueId();
         }
+        BaseObject.prototype.getQualifiedClassName = function () {
+            return this.CLASS_NAME;
+        };
 
-        return object;
-    };
-    Util.CLASS_NAME = 'Util';
+        BaseObject.prototype.destroy = function () {
+        };
+        return BaseObject;
+    })();
+    StructureTS.BaseObject = BaseObject;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var BaseEvent = (function () {
+        function BaseEvent(type, bubbles, cancelable, data) {
+            if (typeof bubbles === "undefined") { bubbles = false; }
+            if (typeof cancelable === "undefined") { cancelable = false; }
+            if (typeof data === "undefined") { data = null; }
+            this.CLASS_NAME = 'BaseEvent';
+            this.type = null;
+            this.target = null;
+            this.currentTarget = null;
+            this.data = null;
+            this.bubble = false;
+            this.cancelable = false;
+            this.isPropagationStopped = false;
+            this.isImmediatePropagationStopped = false;
+            this.type = type;
+            this.bubble = bubbles;
+            this.cancelable = cancelable;
+            this.data = data;
+        }
+        BaseEvent.prototype.stopPropagation = function () {
+            this.isPropagationStopped = true;
+        };
 
-    Util._idCounter = 0;
-    return Util;
-})();
-var BaseObject = (function () {
-    function BaseObject() {
-        this.CLASS_NAME = 'BaseObject';
-        this.cid = null;
-        this.cid = Util.uniqueId();
-    }
-    BaseObject.prototype.getQualifiedClassName = function () {
-        return this.CLASS_NAME;
-    };
+        BaseEvent.prototype.stopImmediatePropagation = function () {
+            this.stopPropagation();
+            this.isImmediatePropagationStopped = true;
+        };
+        BaseEvent.ACTIVATE = 'BaseEvent.activate';
 
-    BaseObject.prototype.destroy = function () {
-    };
-    return BaseObject;
-})();
-var BaseEvent = (function () {
-    function BaseEvent(type, bubbles, cancelable, data) {
-        if (typeof bubbles === "undefined") { bubbles = false; }
-        if (typeof cancelable === "undefined") { cancelable = false; }
-        if (typeof data === "undefined") { data = null; }
-        this.CLASS_NAME = 'BaseEvent';
-        this.type = null;
-        this.target = null;
-        this.currentTarget = null;
-        this.data = null;
-        this.bubble = false;
-        this.cancelable = false;
-        this.isPropagationStopped = false;
-        this.isImmediatePropagationStopped = false;
-        this.type = type;
-        this.bubble = bubbles;
-        this.cancelable = cancelable;
-        this.data = data;
-    }
-    BaseEvent.prototype.stopPropagation = function () {
-        this.isPropagationStopped = true;
-    };
+        BaseEvent.ADDED = 'BaseEvent.added';
 
-    BaseEvent.prototype.stopImmediatePropagation = function () {
-        this.stopPropagation();
-        this.isImmediatePropagationStopped = true;
-    };
-    BaseEvent.ACTIVATE = 'BaseEvent.activate';
+        BaseEvent.ADDED_TO_STAGE = 'BaseEvent.addedToStage';
 
-    BaseEvent.ADDED = 'BaseEvent.added';
+        BaseEvent.CANCEL = 'BaseEvent.cancel';
 
-    BaseEvent.ADDED_TO_STAGE = 'BaseEvent.addedToStage';
+        BaseEvent.CHANGE = 'BaseEvent.change';
 
-    BaseEvent.CANCEL = 'BaseEvent.cancel';
+        BaseEvent.CLEAR = 'BaseEvent.clear';
 
-    BaseEvent.CHANGE = 'BaseEvent.change';
+        BaseEvent.CLOSE = 'BaseEvent.close';
 
-    BaseEvent.CLEAR = 'BaseEvent.clear';
+        BaseEvent.CLOSING = 'BaseEvent.closing';
 
-    BaseEvent.CLOSE = 'BaseEvent.close';
+        BaseEvent.COMPLETE = 'BaseEvent.complete';
 
-    BaseEvent.CLOSING = 'BaseEvent.closing';
+        BaseEvent.CONNECT = 'BaseEvent.connect';
 
-    BaseEvent.COMPLETE = 'BaseEvent.complete';
+        BaseEvent.COPY = 'BaseEvent.copy';
 
-    BaseEvent.CONNECT = 'BaseEvent.connect';
+        BaseEvent.CUT = 'BaseEvent.cut';
 
-    BaseEvent.COPY = 'BaseEvent.copy';
+        BaseEvent.DEACTIVATE = 'BaseEvent.deactivate';
 
-    BaseEvent.CUT = 'BaseEvent.cut';
+        BaseEvent.DISPLAYING = 'BaseEvent.displaying';
 
-    BaseEvent.DEACTIVATE = 'BaseEvent.deactivate';
+        BaseEvent.ENTER_FRAME = 'BaseEvent.enterFrame';
 
-    BaseEvent.DISPLAYING = 'BaseEvent.displaying';
+        BaseEvent.EXIT_FRAME = 'BaseEvent.exitFrame';
 
-    BaseEvent.ENTER_FRAME = 'BaseEvent.enterFrame';
+        BaseEvent.EXITING = 'BaseEvent.exiting';
 
-    BaseEvent.EXIT_FRAME = 'BaseEvent.exitFrame';
+        BaseEvent.FULLSCREEN = 'BaseEvent.fullScreen';
 
-    BaseEvent.EXITING = 'BaseEvent.exiting';
+        BaseEvent.INIT = 'BaseEvent.init';
 
-    BaseEvent.FULLSCREEN = 'BaseEvent.fullScreen';
+        BaseEvent.NETWORK_CHANGE = 'BaseEvent.networkChange';
 
-    BaseEvent.INIT = 'BaseEvent.init';
+        BaseEvent.OPEN = 'BaseEvent.open';
 
-    BaseEvent.NETWORK_CHANGE = 'BaseEvent.networkChange';
+        BaseEvent.PASTE = 'BaseEvent.paste';
 
-    BaseEvent.OPEN = 'BaseEvent.open';
+        BaseEvent.PREPARING = 'BaseEvent.preparing';
 
-    BaseEvent.PASTE = 'BaseEvent.paste';
+        BaseEvent.REMOVED = 'BaseEvent.removed';
 
-    BaseEvent.PREPARING = 'BaseEvent.preparing';
+        BaseEvent.RENDER = 'BaseEvent.render';
 
-    BaseEvent.REMOVED = 'BaseEvent.removed';
-
-    BaseEvent.RENDER = 'BaseEvent.render';
-
-    BaseEvent.RESIZE = 'BaseEvent.resize';
-    return BaseEvent;
-})();
+        BaseEvent.RESIZE = 'BaseEvent.resize';
+        return BaseEvent;
+    })();
+    StructureTS.BaseEvent = BaseEvent;
+})(StructureTS || (StructureTS = {}));
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var EventDispatcher = (function (_super) {
-    __extends(EventDispatcher, _super);
-    function EventDispatcher() {
-        _super.call(this);
-        this.CLASS_NAME = 'EventDispatcher';
-        this._listeners = null;
-        this.parent = null;
-        this.isEnabled = false;
+var StructureTS;
+(function (StructureTS) {
+    var EventDispatcher = (function (_super) {
+        __extends(EventDispatcher, _super);
+        function EventDispatcher() {
+            _super.call(this);
+            this.CLASS_NAME = 'EventDispatcher';
+            this._listeners = null;
+            this.parent = null;
+            this.isEnabled = false;
 
-        this._listeners = [];
-    }
-    EventDispatcher.prototype.addEventListener = function (type, callback, scope, priority) {
-        if (typeof priority === "undefined") { priority = 0; }
-        var list = this._listeners[type];
-        if (list == null) {
-            this._listeners[type] = list = [];
+            this._listeners = [];
         }
-        var index = 0;
-        var listener;
-        var i = list.length;
-        while (--i > -1) {
-            listener = list[i];
-            if (listener.c === callback && listener.s === scope) {
-                list.splice(i, 1);
-            } else if (index === 0 && listener.pr < priority) {
-                index = i + 1;
+        EventDispatcher.prototype.addEventListener = function (type, callback, scope, priority) {
+            if (typeof priority === "undefined") { priority = 0; }
+            var list = this._listeners[type];
+            if (list == null) {
+                this._listeners[type] = list = [];
             }
-        }
-
-        list.splice(index, 0, { c: callback, s: scope, pr: priority });
-
-        return this;
-    };
-
-    EventDispatcher.prototype.removeEventListener = function (type, callback, scope) {
-        var list = this._listeners[type];
-        if (list) {
+            var index = 0;
+            var listener;
             var i = list.length;
             while (--i > -1) {
-                if (list[i].c === callback && list[i].s === scope) {
+                listener = list[i];
+                if (listener.c === callback && listener.s === scope) {
                     list.splice(i, 1);
-                    break;
+                } else if (index === 0 && listener.pr < priority) {
+                    index = i + 1;
                 }
             }
-        }
 
-        return this;
-    };
+            list.splice(index, 0, { c: callback, s: scope, pr: priority });
 
-    EventDispatcher.prototype.dispatchEvent = function (event) {
-        if (event.target == null) {
-            event.target = this;
-        }
+            return this;
+        };
 
-        event.currentTarget = this;
-
-        var list = this._listeners[event.type];
-        if (list) {
-            var i = list.length;
-            var listener;
-            while (--i > -1) {
-                if (event.cancelable && event.isImmediatePropagationStopped)
-                    break;
-
-                listener = list[i];
-                listener.c.call(listener.s, event);
+        EventDispatcher.prototype.removeEventListener = function (type, callback, scope) {
+            var list = this._listeners[type];
+            if (list) {
+                var i = list.length;
+                while (--i > -1) {
+                    if (list[i].c === callback && list[i].s === scope) {
+                        list.splice(i, 1);
+                        break;
+                    }
+                }
             }
-        }
 
-        if (this.parent && event.bubble) {
-            if (event.cancelable && event.isPropagationStopped)
+            return this;
+        };
+
+        EventDispatcher.prototype.dispatchEvent = function (event) {
+            if (event.target == null) {
+                event.target = this;
+            }
+
+            event.currentTarget = this;
+
+            var list = this._listeners[event.type];
+            if (list) {
+                var i = list.length;
+                var listener;
+                while (--i > -1) {
+                    if (event.cancelable && event.isImmediatePropagationStopped) {
+                        break;
+                    }
+
+                    listener = list[i];
+                    listener.c.call(listener.s, event);
+                }
+            }
+
+            if (this.parent && event.bubble) {
+                if (event.cancelable && event.isPropagationStopped) {
+                    return this;
+                }
+
+                this.parent.dispatchEvent(event);
+            }
+
+            return this;
+        };
+
+        EventDispatcher.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
+            this.disable();
+
+            this.parent = null;
+            this._listeners = null;
+        };
+
+        EventDispatcher.prototype.enable = function () {
+            if (this.isEnabled === true)
                 return this;
 
-            this.parent.dispatchEvent(event);
-        }
-
-        return this;
-    };
-
-    EventDispatcher.prototype.destroy = function () {
-        _super.prototype.destroy.call(this);
-
-        this.disable();
-        this.isEnabled = false;
-
-        this.parent = null;
-        this._listeners = null;
-    };
-
-    EventDispatcher.prototype.enable = function () {
-        if (this.isEnabled === true)
+            this.isEnabled = true;
             return this;
+        };
 
-        this.isEnabled = true;
-        return this;
-    };
+        EventDispatcher.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return this;
 
-    EventDispatcher.prototype.disable = function () {
-        if (this.isEnabled === false)
+            this.isEnabled = false;
             return this;
-
-        this.isEnabled = false;
-        return this;
-    };
-    return EventDispatcher;
-})(BaseObject);
-var DisplayObjectContainer = (function (_super) {
-    __extends(DisplayObjectContainer, _super);
-    function DisplayObjectContainer() {
-        _super.call(this);
-        this.CLASS_NAME = 'DisplayObjectContainer';
-        this.isCreated = false;
-        this.numChildren = 0;
-        this.children = [];
-        this.unscaledWidth = 100;
-        this.unscaledHeight = 100;
-    }
-    DisplayObjectContainer.prototype.createChildren = function () {
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.addChild = function (child) {
-        if (child.parent) {
-            child.parent.removeChild(child);
+        };
+        return EventDispatcher;
+    })(StructureTS.BaseObject);
+    StructureTS.EventDispatcher = EventDispatcher;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var DisplayObjectContainer = (function (_super) {
+        __extends(DisplayObjectContainer, _super);
+        function DisplayObjectContainer() {
+            _super.call(this);
+            this.CLASS_NAME = 'DisplayObjectContainer';
+            this.isCreated = false;
+            this.numChildren = 0;
+            this.children = [];
+            this.width = 0;
+            this.height = 0;
+            this.unscaledWidth = 100;
+            this.unscaledHeight = 100;
         }
+        DisplayObjectContainer.prototype.createChildren = function () {
+            return this;
+        };
 
-        this.children.push(child);
-        this.numChildren = this.children.length;
+        DisplayObjectContainer.prototype.addChild = function (child) {
+            if (child.parent) {
+                child.parent.removeChild(child);
+            }
 
-        child.parent = this;
+            this.children.push(child);
+            this.numChildren = this.children.length;
 
-        return this;
-    };
+            child.parent = this;
 
-    DisplayObjectContainer.prototype.addChildAt = function (child, index) {
-        if (child.parent) {
-            child.parent.removeChild(child);
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.addChildAt = function (child, index) {
+            if (child.parent) {
+                child.parent.removeChild(child);
+            }
+
+            this.children.splice(index, 0, child);
+            this.numChildren = this.children.length;
+
+            child.parent = this;
+
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.swapChildren = function (child1, child2) {
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.swapChildrenAt = function (index1, index2) {
+            if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
+                throw new TypeError('[' + this.getQualifiedClassName() + '] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
+            }
+
+            var child1 = this.getChildAt(index1);
+            var child2 = this.getChildAt(index2);
+
+            this.swapChildren(child1, child2);
+
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.getChildIndex = function (child) {
+            return this.children.indexOf(child);
+        };
+
+        DisplayObjectContainer.prototype.removeChild = function (child) {
+            var index = this.getChildIndex(child);
+            if (index !== -1) {
+                this.children.splice(index, 1);
+            }
+            child.disable();
+            child.parent = null;
+
+            this.numChildren = this.children.length;
+
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.removeChildren = function () {
+            while (this.children.length > 0) {
+                this.removeChild(this.children.pop());
+            }
+
+            this.numChildren = this.children.length;
+
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.getChildAt = function (index) {
+            return this.children[index];
+        };
+
+        DisplayObjectContainer.prototype.setSize = function (unscaledWidth, unscaledHeight) {
+            this.unscaledWidth = unscaledWidth;
+            this.unscaledHeight = unscaledHeight;
+            if (this.isCreated) {
+                this.layoutChildren();
+            }
+
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.layoutChildren = function () {
+            return this;
+        };
+
+        DisplayObjectContainer.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
+            this.children = [];
+            this.numChildren = 0;
+        };
+        return DisplayObjectContainer;
+    })(StructureTS.EventDispatcher);
+    StructureTS.DisplayObjectContainer = DisplayObjectContainer;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var StringUtil = (function () {
+        function StringUtil() {
         }
+        StringUtil.stringToBoolean = function (str) {
+            return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
+        };
 
-        this.children.splice(index, 0, child);
-        this.numChildren = this.children.length;
+        StringUtil.getExtension = function (filename) {
+            return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
+        };
 
-        child.parent = this;
+        StringUtil.hyphenToCamelCase = function (str) {
+            return str.replace(/-([a-z])/g, function (g) {
+                return g[1].toUpperCase();
+            });
+        };
 
-        return this;
-    };
+        StringUtil.hyphenToPascalCase = function (str) {
+            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated) {
+                return hyphenated.toUpperCase();
+            });
+        };
 
-    DisplayObjectContainer.prototype.swapChildren = function (child1, child2) {
-        return this;
-    };
+        StringUtil.camelCaseToHyphen = function (str) {
+            return str.replace(/([a-z][A-Z])/g, function (g) {
+                return g[0] + '-' + g[1].toLowerCase();
+            });
+        };
 
-    DisplayObjectContainer.prototype.swapChildrenAt = function (index1, index2) {
-        if (index1 < 0 || index1 < 0 || index1 >= this.numChildren || index2 >= this.numChildren) {
-            throw new TypeError('[' + this.getQualifiedClassName() + '] index value(s) cannot be out of bounds. index1 value is ' + index1 + ' index2 value is ' + index2);
-        }
+        StringUtil.createUUID = function () {
+            var uuid = ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx').replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0;
+                var v = (c == 'x') ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
 
-        var child1 = this.getChildAt(index1);
-        var child2 = this.getChildAt(index2);
+            return uuid;
+        };
 
-        this.swapChildren(child1, child2);
+        StringUtil.queryStringToObject = function (queryString) {
+            var params = {};
+            var temp = null;
 
-        return this;
-    };
+            var queries = queryString.substring(1).split("&");
 
-    DisplayObjectContainer.prototype.getChildIndex = function (child) {
-        return this.children.indexOf(child);
-    };
+            var len = queries.length;
+            for (var i = 0; i < len; i++) {
+                temp = queries[i].split('=');
+                params[temp[0]] = temp[1];
+            }
 
-    DisplayObjectContainer.prototype.removeChild = function (child) {
-        var index = this.getChildIndex(child);
-        if (index !== -1) {
-            this.children.splice(index, 1);
-        }
-        child.disable();
-        child.parent = null;
+            return params;
+        };
 
-        this.numChildren = this.children.length;
+        StringUtil.removeAllWhitespace = function (str) {
+            return str.replace(/\s+/g, '');
+        };
 
-        return this;
-    };
+        StringUtil.removeLeadingTrailingWhitespace = function (str) {
+            return str.replace(/(^\s+|\s+$)/g, '');
+        };
 
-    DisplayObjectContainer.prototype.removeChildren = function () {
-        while (this.children.length > 0) {
-            this.removeChild(this.children.pop());
-        }
-
-        this.numChildren = this.children.length;
-
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.getChildAt = function (index) {
-        return this.children[index];
-    };
-
-    DisplayObjectContainer.prototype.setSize = function (unscaledWidth, unscaledHeight) {
-        this.unscaledWidth = unscaledWidth;
-        this.unscaledHeight = unscaledHeight;
-        if (this.isCreated) {
-            this.layoutChildren();
-        }
-
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.layoutChildren = function () {
-        return this;
-    };
-
-    DisplayObjectContainer.prototype.destroy = function () {
-        _super.prototype.destroy.call(this);
-
-        this.children = [];
-        this.numChildren = 0;
-    };
-    return DisplayObjectContainer;
-})(EventDispatcher);
-var StringUtil = (function () {
-    function StringUtil() {
-    }
-    StringUtil.stringToBoolean = function (str) {
-        return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
-    };
-
-    StringUtil.getExtension = function (filename) {
-        return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
-    };
-
-    StringUtil.hyphenToCamelCase = function (str) {
-        return str.replace(/-([a-z])/g, function (g) {
-            return g[1].toUpperCase();
-        });
-    };
-
-    StringUtil.hyphenToPascalCase = function (str) {
-        return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated) {
-            return hyphenated.toUpperCase();
-        });
-    };
-
-    StringUtil.camelCaseToHyphen = function (str) {
-        return str.replace(/([a-z][A-Z])/g, function (g) {
-            return g[0] + '-' + g[1].toLowerCase();
-        });
-    };
-
-    StringUtil.createUUID = function () {
-        var uuid = ('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx').replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0;
-            var v = (c == 'x') ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-
-        return uuid;
-    };
-
-    StringUtil.queryStringToObject = function (queryString) {
-        var params = {};
-        var temp = null;
-
-        var queries = queryString.substring(1).split("&");
-
-        var len = queries.length;
-        for (var i = 0; i < len; i++) {
-            temp = queries[i].split('=');
-            params[temp[0]] = temp[1];
-        }
-
-        return params;
-    };
-
-    StringUtil.removeAllWhitespace = function (str) {
-        return str.replace(/\s+/g, '');
-    };
-
-    StringUtil.removeLeadingTrailingWhitespace = function (str) {
-        return str.replace(/(^\s+|\s+$)/g, '');
-    };
-
-    StringUtil.truncate = function (text, length) {
-        if (text.length <= length) {
-            return text;
-        } else {
-            return text.substr(0, length) + "...";
-        }
-    };
-    StringUtil.CLASS_NAME = 'StringUtil';
-    return StringUtil;
-})();
-var TemplateFactory = (function () {
-    function TemplateFactory() {
-    }
-    TemplateFactory.createTemplate = function (templatePath, data) {
-        return TemplateFactory.create(templatePath, data);
-    };
-
-    TemplateFactory.createView = function (templatePath, data) {
-        var template = TemplateFactory.create(templatePath, data);
-
-        var view = new DOMElement();
-        view.$element = jQuery(template);
-        return view;
-    };
-
-    TemplateFactory.create = function (templatePath, data) {
-        if (typeof data === "undefined") { data = null; }
-        var regex = /^([.#])(.+)/;
-        var template;
-        var isClassOrIdName = regex.test(templatePath);
-
-        if (isClassOrIdName) {
-            var htmlString = $(templatePath).html();
-            htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
-
-            if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
-                var templateMethod = _.template(htmlString);
-                template = templateMethod(data);
+        StringUtil.truncate = function (text, length) {
+            if (text.length <= length) {
+                return text;
             } else {
-                var templateMethod = Handlebars.compile(htmlString);
-                template = templateMethod(data);
+                return text.substr(0, length) + "...";
             }
-        } else {
-            var templateObj = window[TemplateFactory.templateNamespace];
-            if (!templateObj) {
-                return template;
-            }
+        };
+        StringUtil.CLASS_NAME = 'StringUtil';
+        return StringUtil;
+    })();
+    StructureTS.StringUtil = StringUtil;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var TemplateFactory = (function () {
+        function TemplateFactory() {
+        }
+        TemplateFactory.createTemplate = function (templatePath, data) {
+            if (typeof data === "undefined") { data = null; }
+            return TemplateFactory.create(templatePath, data);
+        };
 
-            var templateFunction = templateObj[templatePath];
-            if (!templateFunction) {
-                template = null;
+        TemplateFactory.createView = function (templatePath, data) {
+            if (typeof data === "undefined") { data = null; }
+            var template = TemplateFactory.create(templatePath, data);
+
+            var view = new StructureTS.DOMElement();
+            view.$element = jQuery(template);
+            return view;
+        };
+
+        TemplateFactory.create = function (templatePath, data) {
+            if (typeof data === "undefined") { data = null; }
+            var regex = /^([.#])(.+)/;
+            var template = null;
+            var isClassOrIdName = regex.test(templatePath);
+
+            if (isClassOrIdName) {
+                var htmlString = $(templatePath).html();
+                htmlString = StructureTS.StringUtil.removeLeadingTrailingWhitespace(htmlString);
+
+                if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
+                    var templateMethod = _.template(htmlString);
+                    template = templateMethod(data);
+                } else {
+                    var templateMethod = Handlebars.compile(htmlString);
+                    template = templateMethod(data);
+                }
             } else {
-                template = templateFunction(data);
+                var templateObj = window[TemplateFactory.templateNamespace];
+                if (!templateObj) {
+                    return null;
+                }
+
+                var templateFunction = templateObj[templatePath];
+                if (templateFunction) {
+                    template = templateFunction(data);
+                }
+            }
+
+            return template;
+        };
+        TemplateFactory.CLASS_NAME = 'TemplateFactory';
+
+        TemplateFactory.UNDERSCORE = 'underscore';
+        TemplateFactory.HANDLEBARS = 'handlebars';
+
+        TemplateFactory.templateEngine = TemplateFactory.HANDLEBARS;
+        TemplateFactory.templateNamespace = 'JST';
+        return TemplateFactory;
+    })();
+    StructureTS.TemplateFactory = TemplateFactory;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var DOMElement = (function (_super) {
+        __extends(DOMElement, _super);
+        function DOMElement(type, params) {
+            if (typeof type === "undefined") { type = null; }
+            if (typeof params === "undefined") { params = null; }
+            _super.call(this);
+            this.CLASS_NAME = 'DOMElement';
+            this._isVisible = true;
+            this.element = null;
+            this.$element = null;
+            this._type = null;
+            this._params = null;
+
+            if (type) {
+                this._type = type;
+                this._params = params;
             }
         }
+        DOMElement.prototype.createChildren = function (type, params) {
+            if (typeof type === "undefined") { type = 'div'; }
+            if (typeof params === "undefined") { params = null; }
+            type = this._type || type;
+            params = this._params || params;
 
-        return template;
-    };
-    TemplateFactory.CLASS_NAME = 'TemplateFactory';
-
-    TemplateFactory.UNDERSCORE = 'underscore';
-    TemplateFactory.HANDLEBARS = 'handlebars';
-
-    TemplateFactory.templateEngine = TemplateFactory.HANDLEBARS;
-    TemplateFactory.templateNamespace = 'JST';
-    return TemplateFactory;
-})();
-var DOMElement = (function (_super) {
-    __extends(DOMElement, _super);
-    function DOMElement(type, params) {
-        if (typeof type === "undefined") { type = null; }
-        if (typeof params === "undefined") { params = null; }
-        _super.call(this);
-        this.CLASS_NAME = 'DOMElement';
-        this._isVisible = true;
-        this.element = null;
-        this.$element = null;
-        this._type = null;
-        this._params = null;
-
-        if (type) {
-            this._type = type;
-            this._params = params;
-        }
-    }
-    DOMElement.prototype.createChildren = function (type, params) {
-        if (typeof type === "undefined") { type = 'div'; }
-        if (typeof params === "undefined") { params = null; }
-        type = this._type || type;
-        params = this._params || params;
-
-        if (typeof type === 'function' && !this.$element) {
-            Jaml.register(this.CLASS_NAME, type);
-            this.$element = jQuery(Jaml.render(this.CLASS_NAME, params));
-        } else if (typeof type === 'string' && !this.$element) {
-            var html = TemplateFactory.createTemplate(type, params);
-            if (html) {
-                this.$element = $(html);
-            } else {
-                this.$element = jQuery("<" + type + "/>", params);
+            if (!this.$element) {
+                var html = StructureTS.TemplateFactory.createTemplate(type, params);
+                if (html) {
+                    this.$element = $(html);
+                } else {
+                    this.$element = jQuery("<" + type + "/>", params);
+                }
             }
-        }
 
-        this.element = this.$element[0];
+            this.element = this.$element[0];
 
-        return this;
-    };
+            return this;
+        };
 
-    DOMElement.prototype.addChild = function (child) {
-        _super.prototype.addChild.call(this, child);
+        DOMElement.prototype.addChild = function (child) {
+            _super.prototype.addChild.call(this, child);
 
-        if (!child.isCreated) {
-            child.createChildren();
-            child.isCreated = true;
-        }
-
-        child.$element.attr('data-cid', child.cid);
-
-        child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
-        this.$element.append(child.$element);
-
-        child.layoutChildren();
-
-        return this;
-    };
-
-    DOMElement.prototype.onAddedToDom = function (event) {
-        var child = event.data;
-        child.$element.removeEventListener('DOMNodeInsertedIntoDocument', this.onAddedToDom, this);
-        child.layoutChildren();
-        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
-    };
-
-    DOMElement.prototype.addChildAt = function (child, index) {
-        var children = this.$element.children();
-        var length = children.length - 1;
-
-        if (index < 0 || index >= length) {
-            this.addChild(child);
-        } else {
             if (!child.isCreated) {
                 child.createChildren();
                 child.isCreated = true;
             }
+
+            child.$element.attr('data-cid', child.cid);
+
             child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
+            this.$element.append(child.$element);
+
             child.layoutChildren();
 
-            _super.prototype.addChildAt.call(this, child, index);
+            return this;
+        };
 
-            jQuery(children.get(index)).before(child.$element);
-        }
+        DOMElement.prototype.onAddedToDom = function (event) {
+            var child = event.data;
+            child.$element.removeEventListener('DOMNodeInsertedIntoDocument', this.onAddedToDom, this);
+            child.layoutChildren();
+            child.dispatchEvent(new StructureTS.BaseEvent(StructureTS.BaseEvent.ADDED));
+        };
 
-        return this;
-    };
+        DOMElement.prototype.addChildAt = function (child, index) {
+            var children = this.$element.children();
+            var length = children.length - 1;
 
-    DOMElement.prototype.swapChildren = function (child1, child2) {
-        var child1Index = child1.$element.index();
-        var child2Index = child2.$element.index();
+            if (index < 0 || index >= length) {
+                this.addChild(child);
+            } else {
+                if (!child.isCreated) {
+                    child.createChildren();
+                    child.isCreated = true;
+                }
+                child.$element.addEventListener('DOMNodeInsertedIntoDocument', child, this.onAddedToDom, this);
+                child.layoutChildren();
 
-        this.addChildAt(child1, child2Index);
-        this.addChildAt(child2, child1Index);
+                _super.prototype.addChildAt.call(this, child, index);
 
-        return this;
-    };
+                jQuery(children.get(index)).before(child.$element);
+            }
 
-    DOMElement.prototype.getChildAt = function (index) {
-        return _super.prototype.getChildAt.call(this, index);
-    };
+            return this;
+        };
 
-    DOMElement.prototype.getChildByCid = function (cid) {
-        var domElement = _.find(this.children, function (child) {
-            return child.cid == cid;
-        });
+        DOMElement.prototype.swapChildren = function (child1, child2) {
+            var child1Index = child1.$element.index();
+            var child2Index = child2.$element.index();
 
-        return domElement || null;
-    };
+            this.addChildAt(child1, child2Index);
+            this.addChildAt(child2, child1Index);
 
-    DOMElement.prototype.getChild = function (selector) {
-        var jQueryElement = this.$element.find(selector).first();
-        if (jQueryElement.length == 0) {
-            throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $element');
-        }
+            return this;
+        };
 
-        var cid = jQueryElement.data('cid');
-        var domElement = _.find(this.children, function (domElement) {
-            return domElement.cid == cid;
-        });
+        DOMElement.prototype.getChildAt = function (index) {
+            return _super.prototype.getChildAt.call(this, index);
+        };
 
-        if (!domElement) {
-            domElement = new DOMElement();
-            domElement.$element = jQueryElement;
-            domElement.$element.attr('data-cid', domElement.cid);
-            domElement.element = jQueryElement[0];
-            domElement.isCreated = true;
+        DOMElement.prototype.getChildByCid = function (cid) {
+            var domElement = _.find(this.children, function (child) {
+                return child.cid == cid;
+            });
 
-            _super.prototype.addChild.call(this, domElement);
-        }
+            return domElement || null;
+        };
 
-        return domElement;
-    };
+        DOMElement.prototype.getChild = function (selector) {
+            var jQueryElement = this.$element.find(selector).first();
+            if (jQueryElement.length == 0) {
+                throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $element');
+            }
 
-    DOMElement.prototype.getChildren = function (selector) {
-        if (typeof selector === "undefined") { selector = ''; }
-        var _this = this;
-        var $child;
-        var domElement;
-        var $list = this.$element.children(selector);
+            var cid = jQueryElement.data('cid');
+            var domElement = _.find(this.children, function (domElement) {
+                return domElement.cid == cid;
+            });
 
-        _.each($list, function (item, index) {
-            $child = jQuery(item);
-
-            if (!$child.data('cid')) {
+            if (!domElement) {
                 domElement = new DOMElement();
-                domElement.$element = $child;
+                domElement.$element = jQueryElement;
                 domElement.$element.attr('data-cid', domElement.cid);
-                domElement.element = item;
+                domElement.element = jQueryElement[0];
                 domElement.isCreated = true;
 
-                _super.prototype.addChild.call(_this, domElement);
+                _super.prototype.addChild.call(this, domElement);
             }
-        });
 
-        return this.children;
-    };
+            return domElement;
+        };
 
-    DOMElement.prototype.removeChild = function (child) {
-        child.$element.unbind();
-        child.$element.remove();
+        DOMElement.prototype.getChildren = function (selector) {
+            if (typeof selector === "undefined") { selector = ''; }
+            var _this = this;
+            var $child;
+            var domElement;
+            var $list = this.$element.children(selector);
 
-        _super.prototype.removeChild.call(this, child);
+            _.each($list, function (item, index) {
+                $child = jQuery(item);
 
-        return this;
-    };
+                if (!$child.data('cid')) {
+                    domElement = new DOMElement();
+                    domElement.$element = $child;
+                    domElement.$element.attr('data-cid', domElement.cid);
+                    domElement.element = item;
+                    domElement.isCreated = true;
 
-    DOMElement.prototype.removeChildren = function () {
-        _super.prototype.removeChildren.call(this);
+                    _super.prototype.addChild.call(_this, domElement);
+                }
+            });
 
-        this.$element.empty();
+            return this.children;
+        };
 
-        return this;
-    };
+        DOMElement.prototype.removeChild = function (child) {
+            child.$element.unbind();
+            child.$element.remove();
 
-    DOMElement.prototype.enable = function () {
-        if (this.isEnabled === true)
+            _super.prototype.removeChild.call(this, child);
+
             return this;
+        };
 
-        _super.prototype.enable.call(this);
-        return this;
-    };
+        DOMElement.prototype.removeChildren = function () {
+            _super.prototype.removeChildren.call(this);
 
-    DOMElement.prototype.disable = function () {
-        if (this.isEnabled === false)
+            this.$element.empty();
+
             return this;
+        };
 
-        _super.prototype.disable.call(this);
-        return this;
-    };
+        DOMElement.prototype.alpha = function (number) {
+            this.$element.css('opacity', number);
+            return this;
+        };
 
-    DOMElement.prototype.layoutChildren = function () {
-        return this;
-    };
+        DOMElement.prototype.visible = function (value) {
+            if (value == false) {
+                this._isVisible = false;
+                this.$element.hide();
+            } else if (value == true) {
+                this._isVisible = true;
+                this.$element.show();
+            } else if (value == undefined) {
+                return this._isVisible;
+            }
+            return this;
+        };
 
-    DOMElement.prototype.alpha = function (number) {
-        this.$element.css('opacity', number);
-        return this;
-    };
+        DOMElement.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
 
-    DOMElement.prototype.visible = function (value) {
-        if (value == false) {
-            this._isVisible = false;
-            this.$element.hide();
-        } else if (value == true) {
-            this._isVisible = true;
-            this.$element.show();
-        } else if (value == undefined) {
-            return this._isVisible;
+            this.$element = null;
+            this.element = null;
+        };
+        return DOMElement;
+    })(StructureTS.DisplayObjectContainer);
+    StructureTS.DOMElement = DOMElement;
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var Stage = (function (_super) {
+        __extends(Stage, _super);
+        function Stage() {
+            _super.call(this);
+            this.CLASS_NAME = 'Stage';
         }
-        return this;
-    };
+        Stage.prototype.appendTo = function (type, enabled) {
+            if (typeof enabled === "undefined") { enabled = true; }
+            this.$element = jQuery(type);
+            this.$element.attr('data-cid', this.cid);
 
-    DOMElement.prototype.destroy = function () {
-        _super.prototype.destroy.call(this);
+            if (!this.isCreated) {
+                this.createChildren();
+                this.isCreated = true;
+                this.layoutChildren();
+            }
 
-        this.$element = null;
-        this.element = null;
-    };
-    return DOMElement;
-})(DisplayObjectContainer);
-var Stage = (function (_super) {
-    __extends(Stage, _super);
-    function Stage() {
-        _super.call(this);
-        this.CLASS_NAME = 'Stage';
-    }
-    Stage.prototype.appendTo = function (type, enabled) {
-        if (typeof enabled === "undefined") { enabled = true; }
-        this.$element = jQuery(type);
-        this.$element.attr('data-cid', this.cid);
+            if (enabled) {
+                this.enable();
+            }
 
-        if (!this.isCreated) {
-            this.createChildren();
-            this.isCreated = true;
-            this.layoutChildren();
+            return this;
+        };
+        return Stage;
+    })(StructureTS.DOMElement);
+    StructureTS.Stage = Stage;
+})(StructureTS || (StructureTS = {}));
+var codeBelt;
+(function (codeBelt) {
+    var DOMElement = StructureTS.DOMElement;
+    var Stage = StructureTS.Stage;
+
+    var EventListenerApp = (function (_super) {
+        __extends(EventListenerApp, _super);
+        function EventListenerApp() {
+            _super.call(this);
+            this._rec = null;
+            this._enableButton = null;
+            this._disableButton = null;
         }
+        EventListenerApp.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this);
 
-        if (enabled) {
-            this.enable();
-        }
+            this._rec = this.getChild('.rect');
+            this._enableButton = this.getChild('.enable');
+            this._disableButton = this.getChild('.disable');
 
-        return this;
-    };
-    return Stage;
-})(DOMElement);
-var EventListenerApp = (function (_super) {
-    __extends(EventListenerApp, _super);
-    function EventListenerApp() {
-        _super.call(this);
-        this._rec = null;
-        this._enableButton = null;
-        this._disableButton = null;
-    }
-    EventListenerApp.prototype.createChildren = function () {
-        _super.prototype.createChildren.call(this);
+            this._enableButton.$element.addEventListener('click', this.enable, this);
+            this._disableButton.$element.addEventListener('click', this.disable, this);
+        };
 
-        this._rec = this.getChild('.rect');
-        this._enableButton = this.getChild('.enable');
-        this._disableButton = this.getChild('.disable');
+        EventListenerApp.prototype.layoutChildren = function () {
+        };
 
-        this._enableButton.$element.addEventListener('click', this.enable, this);
-        this._disableButton.$element.addEventListener('click', this.disable, this);
-    };
+        EventListenerApp.prototype.enable = function () {
+            if (this.isEnabled === true)
+                return;
+            console.log("enable");
+            this._rec.$element.addEventListener('click', this.changeColor, this);
 
-    EventListenerApp.prototype.layoutChildren = function () {
-    };
+            _super.prototype.enable.call(this);
+        };
 
-    EventListenerApp.prototype.enable = function () {
-        if (this.isEnabled === true)
-            return;
-        console.log("enable");
-        this._rec.$element.addEventListener('click', this.changeColor, this);
+        EventListenerApp.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return;
+            console.log("disable");
+            this._rec.$element.removeEventListener('click', this.changeColor, this);
 
-        _super.prototype.enable.call(this);
-    };
+            _super.prototype.disable.call(this);
+        };
 
-    EventListenerApp.prototype.disable = function () {
-        if (this.isEnabled === false)
-            return;
-        console.log("disable");
-        this._rec.$element.removeEventListener('click', this.changeColor, this);
-
-        _super.prototype.disable.call(this);
-    };
-
-    EventListenerApp.prototype.changeColor = function (event) {
-        $(event.currentTarget).toggleClass('active');
-    };
-
-    EventListenerApp.prototype.onEnable = function (event) {
-    };
-
-    EventListenerApp.prototype.onDisable = function (event) {
-    };
-    return EventListenerApp;
-})(Stage);
+        EventListenerApp.prototype.changeColor = function (event) {
+            $(event.currentTarget).toggleClass('active');
+        };
+        return EventListenerApp;
+    })(StructureTS.Stage);
+    codeBelt.EventListenerApp = EventListenerApp;
+})(codeBelt || (codeBelt = {}));

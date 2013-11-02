@@ -1,40 +1,48 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
 
-class PhotoGalleryApp extends Stage
+module codeBelt
 {
-    constructor() {
-        super();
+    import DOMElement = StructureTS.DOMElement;
+    import Stage = StructureTS.Stage;
+
+    export class PhotoGalleryApp extends Stage
+    {
+        constructor()
+        {
+            super();
+        }
+
+        public createChildren():DOMElement
+        {
+            super.createChildren();
+
+            var thumbnails:DOMElement = this.getChild('.gallery-thumbnails');
+            var images:DOMElement[] = thumbnails.getChildren();
+            console.log(thumbnails.numChildren)
+            console.log(images)
+            return this;
+        }
+
+        /**
+         * @overridden DisplayObject.enable
+         */
+        public enable():void
+        {
+            if (this.isEnabled === true) return;
+
+            super.enable();
+        }
+
+        /**
+         * @overridden DisplayObject.disable
+         */
+        public disable():void
+        {
+            if (this.isEnabled === false) return;
+
+            super.disable();
+        }
+
     }
-
-    public createChildren():DOMElement {
-        super.createChildren();
-
-        var thumbnails:DOMElement = this.getChild('.gallery-thumbnails');
-        var images:DOMElement[] = thumbnails.getChildren();
-        console.log(thumbnails.numChildren)
-        console.log(images)
-        return this;
-    }
-
-    /**
-     * @overridden DisplayObject.enable
-     */
-    public enable():DOMElement {
-        if (this.isEnabled === true) return this;
-
-        super.enable();
-        return this;
-    }
-
-    /**
-     * @overridden DisplayObject.disable
-     */
-    public disable():DOMElement {
-        if (this.isEnabled === false) return this;
-
-        super.disable();
-        return this;
-    }
-
 }
