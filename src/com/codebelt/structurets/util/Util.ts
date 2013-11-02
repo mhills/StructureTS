@@ -22,110 +22,113 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * A Utility class that has several static methods to assist in development.
- *
- * @class Util
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class Util
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'Util';
-
-    /**
-     * Keeps track of the count for the uniqueId method.
+     * A Utility class that has several static methods to assist in development.
      *
-     * @property _idCounter
-     * @type {init}
-     * @private
-     * @static
-     */
-    private static _idCounter:number = 0;
-
-    constructor()
+     * @class Util
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class Util
     {
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = 'Util';
 
-    /**
-     * Generates a unique ID. If a prefix is passed in, the value will be appended to it.
-     * @example
-     *      var property:number = Util.uniqueId();
-     *      // 1
-     *
-     *      var property:string = Util.uniqueId('yomama_');
-     *      // yomama_1
-     * @method uniqueId
-     * @param [prefix] {string} The string value used for the prefix.
-     * @returns {init|string} Returns the unique identifier.
-     * @public
-     * @static
-     */
-    public static uniqueId(prefix:string = null):any
-    {
-        var id:number = ++Util._idCounter;
+        /**
+         * Keeps track of the count for the uniqueId method.
+         *
+         * @property _idCounter
+         * @type {init}
+         * @private
+         * @static
+         */
+        private static _idCounter:number = 0;
 
-        if (prefix != null)
+        constructor()
         {
-            return String(prefix + id);
         }
-        else
-        {
-            return id;
-        }
-    }
 
-    /**
-     * @method deletePropertyFromObject
-     * @param object {Object} The object you want to remove properties from.
-     * @param list {array} A list of property names you want to remove from the object.
-     * @returns {any} Returns the object passed in without the removed the properties.
-     * @public
-     * @static
-     */
-    public static deletePropertyFromObject(object:any, list:any[]):any
-    {
-        // Loop through the object properties.
-        for (var key in object)
+        /**
+         * Generates a unique ID. If a prefix is passed in, the value will be appended to it.
+         * @example
+         *      var property:number = Util.uniqueId();
+         *      // 1
+         *
+         *      var property:string = Util.uniqueId('yomama_');
+         *      // yomama_1
+         * @method uniqueId
+         * @param [prefix] {string} The string value used for the prefix.
+         * @returns {init|string} Returns the unique identifier.
+         * @public
+         * @static
+         */
+        public static uniqueId(prefix:string = null):any
         {
-            // If the key is a property and not function.
-            if (object.hasOwnProperty(key))
+            var id:number = ++Util._idCounter;
+
+            if (prefix != null)
             {
-                var value:any = object[key];
-                // If the property is an Array.
-                if (value instanceof Array)
-                {
-                    // Loop through the Array and call the Util.deletePropertyFromObject method on each object in the array.
-                    var array:any[] = value;
-                    for (var index in array)
-                    {
-                        // Recursive function call.
-                        Util.deletePropertyFromObject(array[index], list);
-                    }
-                }
-                else
-                {
-                    // Loop through the list of property name.
-                    for (var listIndex in list)
-                    {
-                        // If the key(property name) equals the property name in the list array.
-                        if (key === list[listIndex])
-                        {
-                            // Delete the property from the object.
-                            delete object[key];
-                        }
-                    }
-
-                }
+                return String(prefix + id);
+            }
+            else
+            {
+                return id;
             }
         }
 
-        return object;
-    }
+        /**
+         * @method deletePropertyFromObject
+         * @param object {Object} The object you want to remove properties from.
+         * @param list {array} A list of property names you want to remove from the object.
+         * @returns {any} Returns the object passed in without the removed the properties.
+         * @public
+         * @static
+         */
+        public static deletePropertyFromObject(object:any, list:any[]):any
+        {
+            // Loop through the object properties.
+            for (var key in object)
+            {
+                // If the key is a property and not function.
+                if (object.hasOwnProperty(key))
+                {
+                    var value:any = object[key];
+                    // If the property is an Array.
+                    if (value instanceof Array)
+                    {
+                        // Loop through the Array and call the Util.deletePropertyFromObject method on each object in the array.
+                        var array:any[] = value;
+                        for (var index in array)
+                        {
+                            // Recursive function call.
+                            Util.deletePropertyFromObject(array[index], list);
+                        }
+                    }
+                    else
+                    {
+                        // Loop through the list of property name.
+                        for (var listIndex in list)
+                        {
+                            // If the key(property name) equals the property name in the list array.
+                            if (key === list[listIndex])
+                            {
+                                // Delete the property from the object.
+                                delete object[key];
+                            }
+                        }
 
+                    }
+                }
+            }
+
+            return object;
+        }
+
+    }
 }

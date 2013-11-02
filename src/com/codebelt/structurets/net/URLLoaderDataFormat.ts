@@ -24,27 +24,30 @@
 
 ///<reference path=''/>
 
-/**
- * The URLLoaderDataFormat...
- *
- * @class URLLoaderDataFormat
- * @module StructureTS
- * @submodule net
- * @constructor
- * @version 0.1.0
- **/
-class URLLoaderDataFormat
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'URLLoaderDataFormat';
+     * The URLLoaderDataFormat...
+     *
+     * @class URLLoaderDataFormat
+     * @module StructureTS
+     * @submodule net
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class URLLoaderDataFormat
+    {
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = 'URLLoaderDataFormat';
 
-    public static XML:string = "xml";
-    public static HTML:string = "html";
-    public static SCRIPT:string = "script";
-    public static JSON:string = "json";
-    public static JSONP:string = "jsonp";
-    public static TEXT:string = "text";
+        public static XML:string = "xml";
+        public static HTML:string = "html";
+        public static SCRIPT:string = "script";
+        public static JSON:string = "json";
+        public static JSONP:string = "jsonp";
+        public static TEXT:string = "text";
 
+    }
 }

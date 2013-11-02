@@ -25,36 +25,39 @@
 ///<reference path='ICore.ts'/>
 ///<reference path='../event/BaseEvent.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class IValueObject
- * @extends ICore
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface IEventDispatcher extends ICore
+module StructureTS
 {
     /**
-     * @property parent
-     */
-    parent:any;
+     * YUIDoc_comment
+     *
+     * @class IValueObject
+     * @extends ICore
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface IEventDispatcher extends ICore
+    {
+        /**
+         * @property parent
+         */
+            parent:any;
 
-    /**
-     * @method addEventListener
-     */
-    addEventListener(type:string, func:Function, scope:any, priority?:number):any;
+        /**
+         * @method addEventListener
+         */
+        addEventListener(type:string, func:Function, scope:any, priority?:number):any;
 
-    /**
-     * @method removeEventListener
-     */
-    removeEventListener(type:string, func:Function, scope:any):any;
+        /**
+         * @method removeEventListener
+         */
+        removeEventListener(type:string, func:Function, scope:any):any;
 
-    /**
-     * @method dispatchEvent
-     */
-    dispatchEvent(event:BaseEvent):any;
+        /**
+         * @method dispatchEvent
+         */
+        dispatchEvent(event:BaseEvent):any;
 
+    }
 }

@@ -24,81 +24,84 @@
 
 ///<reference path=''/>
 
-/**
- * The DateUtil...
- *
- * @class DateUtil
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class DateUtil
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'DateUtil';
-
-    /**
-     * YUIDoc_comment
+     * The DateUtil...
      *
-     * @property LONG_DAY_LABELS
-     * @type {array}
-     * @public
-     * @static
-     * @final
-     */
-    public static LONG_DAY_LABELS:any[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-    /**
-     * YUIDoc_comment
-     *
-     * @property SHORT_DAY_LABELS
-     * @type {array}
-     * @public
-     * @static
-     * @final
-     */
-    public static SHORT_DAY_LABELS:any[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
-    /**
-     * YUIDoc_comment
-     *
-     * @property LONG_MONTH_LABELS
-     * @type {array}
-     * @public
-     * @static
-     * @final
-     */
-    public static LONG_MONTH_LABELS:any[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-    /**
-     * YUIDoc_comment
-     *
-     * @property SHORT_MONTH_LABELS
-     * @type {array}
-     * @public
-     * @static
-     * @final
-     */
-    public static SHORT_MONTH_LABELS:any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    constructor()
+     * @class DateUtil
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class DateUtil
     {
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = 'DateUtil';
 
-    /**
-     * YUIDoc_comment
-     *
-     * @method getDaySuffix
-     * @param today {number}
-     * @returns {string}
-     */
-    public static getDaySuffix(today:number):string
-    {
-        var day:number = today % 100;
-        return (( Math.floor(day/10) == 1) ? "th" : ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"][day%10]);
-    }
+        /**
+         * YUIDoc_comment
+         *
+         * @property LONG_DAY_LABELS
+         * @type {array}
+         * @public
+         * @static
+         * @final
+         */
+        public static LONG_DAY_LABELS:any[] = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+        /**
+         * YUIDoc_comment
+         *
+         * @property SHORT_DAY_LABELS
+         * @type {array}
+         * @public
+         * @static
+         * @final
+         */
+        public static SHORT_DAY_LABELS:any[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+        /**
+         * YUIDoc_comment
+         *
+         * @property LONG_MONTH_LABELS
+         * @type {array}
+         * @public
+         * @static
+         * @final
+         */
+        public static LONG_MONTH_LABELS:any[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        /**
+         * YUIDoc_comment
+         *
+         * @property SHORT_MONTH_LABELS
+         * @type {array}
+         * @public
+         * @static
+         * @final
+         */
+        public static SHORT_MONTH_LABELS:any[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        constructor()
+        {
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method getDaySuffix
+         * @param today {number}
+         * @returns {string}
+         */
+        public static getDaySuffix(today:number):string
+        {
+            var day:number = today % 100;
+            return (( Math.floor(day / 10) == 1) ? "th" : ["th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th"][day % 10]);
+        }
+
+    }
 }

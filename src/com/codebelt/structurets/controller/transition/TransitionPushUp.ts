@@ -27,51 +27,54 @@
 ///<reference path='../../display/DisplayObjectContainer.ts'/>
 ///<reference path='../../display/DOMElement.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class TransitionPushUp
- * @extends BaseTransition
- * @module StructureTS
- * @submodule controller
- * @constructor
- * @version 0.1.0
- **/
-class TransitionPushUp extends BaseTransition
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'TransitionPushUp';
-
-    constructor()
+     * YUIDoc_comment
+     *
+     * @class TransitionPushUp
+     * @extends BaseTransition
+     * @module StructureTS
+     * @submodule controller
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class TransitionPushUp extends BaseTransition
     {
-        super();
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'TransitionPushUp';
 
-    public createTransition(transitionType:string, viewContainer:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = 0.75):ITransition
-    {
-        var varsObject = {
-            onStart: this.onTweenStart,
-            onStartScope: this,
-            onUpdate: this.onTweenUpdate,
-            onUpdateScope: this,
-            onComplete: this.onTweenComplete,
-            onCompleteScope: this
+        constructor()
+        {
+            super();
         }
-        this.transition = new TimelineMax(varsObject);
-        this.transition.add(TweenMax.to(currentView.$element, duration, {y: -viewContainer.unscaledHeight, ease: Expo.easeInOut}), 0);
-        this.transition.add(TweenMax.from(nextView.$element, duration, {y: viewContainer.unscaledHeight, ease: Expo.easeInOut}), 0);
 
-        return this;
+        public createTransition(transitionType:string, viewContainer:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = 0.75):ITransition
+        {
+            var varsObject = {
+                onStart: this.onTweenStart,
+                onStartScope: this,
+                onUpdate: this.onTweenUpdate,
+                onUpdateScope: this,
+                onComplete: this.onTweenComplete,
+                onCompleteScope: this
+            }
+            this.transition = new TimelineMax(varsObject);
+            this.transition.add(TweenMax.to(currentView.$element, duration, {y: -viewContainer.unscaledHeight, ease: Expo.easeInOut}), 0);
+            this.transition.add(TweenMax.from(nextView.$element, duration, {y: viewContainer.unscaledHeight, ease: Expo.easeInOut}), 0);
+
+            return this;
+        }
+
+        /**
+         * @overridden EventDispatcher.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+        }
+
     }
-
-    /**
-     * @overridden EventDispatcher.destroy
-     */
-    public destroy():void
-    {
-        super.destroy();
-    }
-
 }

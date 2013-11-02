@@ -24,12 +24,14 @@
 
 ///<reference path='DOMElement.ts'/>
 
-/**
- * The {{#crossLink "Stage"}}{{/crossLink}} class should be extended by your main or root class.
- * @example
- * This example illustrates how to setup your main or root class when extending the {{#crossLink "Stage"}}{{/crossLink}} class.
- *
- *      class MainClass extends Stage {
+module StructureTS
+{
+    /**
+     * The {{#crossLink "Stage"}}{{/crossLink}} class should be extended by your main or root class.
+     * @example
+     * This example illustrates how to setup your main or root class when extending the {{#crossLink "Stage"}}{{/crossLink}} class.
+     *
+     *      class MainClass extends Stage {
  *
  *          constructor() {
  *              super();
@@ -58,58 +60,59 @@
  *           }
  *
  *      }
- *
- * <b>Instantiation Example</b><br>
- * This example illustrates how to instantiation your main or root class.
- *
- *      var app = new MainClass();
- *      app.appendTo('body');
- *
- * @class Stage
- * @extends DOMElement
- * @module StructureTS
- * @submodule view
- * @constructor
- * @version 0.1.0
- **/
-class Stage extends DOMElement
-{
-    /**
-     * @overridden DOMElement.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'Stage';
-
-    constructor()
-    {
-        super();
-    }
-
-    /**
-     * The selected HTML element where all the child elements will be created. This method also starts the lifecycle of the application.
      *
-     * @method appendTo
-     * @param type {string} A string value that you want the your code appended too. This can be an element id (#some-id), element class (.some-class) or a element tag (body).
-     * @param [enabled=true] {boolean} Sets the enabled state of the object.
-     * @chainable
-     */
-    public appendTo(type:string, enabled:boolean = true):any
+     * <b>Instantiation Example</b><br>
+     * This example illustrates how to instantiation your main or root class.
+     *
+     *      var app = new MainClass();
+     *      app.appendTo('body');
+     *
+     * @class Stage
+     * @extends DOMElement
+     * @module StructureTS
+     * @submodule view
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class Stage extends DOMElement
     {
-        this.$element = jQuery(type);
-        this.$element.attr('data-cid', this.cid);
+        /**
+         * @overridden DOMElement.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'Stage';
 
-        if (!this.isCreated)
+        constructor()
         {
-            this.createChildren();
-            this.isCreated = true;
-            this.layoutChildren();
+            super();
         }
 
-        if (enabled)
+        /**
+         * The selected HTML element where all the child elements will be created. This method also starts the lifecycle of the application.
+         *
+         * @method appendTo
+         * @param type {string} A string value that you want the your code appended too. This can be an element id (#some-id), element class (.some-class) or a element tag (body).
+         * @param [enabled=true] {boolean} Sets the enabled state of the object.
+         * @chainable
+         */
+        public appendTo(type:string, enabled:boolean = true):any
         {
-            this.enable();
+            this.$element = jQuery(type);
+            this.$element.attr('data-cid', this.cid);
+
+            if (!this.isCreated)
+            {
+                this.createChildren();
+                this.isCreated = true;
+                this.layoutChildren();
+            }
+
+            if (enabled)
+            {
+                this.enable();
+            }
+
+            return this;
         }
 
-        return this;
     }
-
 }

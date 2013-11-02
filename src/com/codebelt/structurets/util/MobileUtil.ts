@@ -22,55 +22,57 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-/**
- * The MobileUtil...
- *
- * @class MobileUtil
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class MobileUtil
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'MobileUtil';
-
-    constructor()
+     * The MobileUtil...
+     *
+     * @class MobileUtil
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class MobileUtil
     {
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = 'MobileUtil';
 
-    public static isAndroid():boolean
-    {
-        return !!navigator.userAgent.match(/Android/i);
-    }
+        constructor()
+        {
+        }
 
-    public static isBlackBerry():boolean
-    {
-        return !!navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/BB10; Touch/);
-    }
+        public static isAndroid():boolean
+        {
+            return !!navigator.userAgent.match(/Android/i);
+        }
 
-    public static isiOS():boolean
-    {
-        return !!navigator.userAgent.match(/iPhone|iPad|iPod/i);
-    }
+        public static isBlackBerry():boolean
+        {
+            return !!navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/BB10; Touch/);
+        }
 
-    public static isOpera():boolean
-    {
-        return !!navigator.userAgent.match(/Opera Mini/i);
-    }
+        public static isiOS():boolean
+        {
+            return !!navigator.userAgent.match(/iPhone|iPad|iPod/i);
+        }
 
-    public static isWindows():boolean
-    {
-        return !!navigator.userAgent.match(/IEMobile/i);
-    }
+        public static isOpera():boolean
+        {
+            return !!navigator.userAgent.match(/Opera Mini/i);
+        }
 
-    public static isMobile():boolean
-    {
-        return (MobileUtil.isAndroid() || MobileUtil.isBlackBerry() || MobileUtil.isiOS() || MobileUtil.isOpera() || MobileUtil.isWindows());
-    }
+        public static isWindows():boolean
+        {
+            return !!navigator.userAgent.match(/IEMobile/i);
+        }
 
+        public static isMobile():boolean
+        {
+            return (MobileUtil.isAndroid() || MobileUtil.isBlackBerry() || MobileUtil.isiOS() || MobileUtil.isOpera() || MobileUtil.isWindows());
+        }
+
+    }
 }

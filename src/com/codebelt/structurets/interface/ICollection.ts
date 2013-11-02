@@ -24,85 +24,88 @@
 
 ///<reference path='IValueObject.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class ICollection
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.2.0
- **/
-interface ICollection
+module StructureTS
 {
-
     /**
-     * @method destroy
-     */
-    destroy():void;
+     * YUIDoc_comment
+     *
+     * @class ICollection
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.2.0
+     **/
+    export interface ICollection
+    {
+
+        /**
+         * @method destroy
+         */
+        destroy():void;
 
 //    /**
 //     * @method clone
 //     */
 //    clone():void;
 
-    /**
-     * @method copy
-     */
-    copy():void;
+        /**
+         * @method copy
+         */
+        copy():void;
 
-    /**
-     * @method addItem
-     */
-    addItem(item:IValueObject):any;
+        /**
+         * @method addItem
+         */
+        addItem(item:IValueObject):any;
 
-    /**
-     * @method addItems
-     */
-    addItems(items:IValueObject[]):any
+        /**
+         * @method addItems
+         */
+        addItems(items:IValueObject[]):any
 
-    /**
-     * @method removeItem
-     */
-    removeItem(item:IValueObject):any
+        /**
+         * @method removeItem
+         */
+        removeItem(item:IValueObject):any
 
-    /**
-     * @method removeItems
-     */
-    removeItems(items:IValueObject[]):any
+        /**
+         * @method removeItems
+         */
+        removeItems(items:IValueObject[]):any
 
-    /**
-     * @method hasItem
-     */
-    hasItem(item:IValueObject):boolean
+        /**
+         * @method hasItem
+         */
+        hasItem(item:IValueObject):boolean
 
-    /**
-     * @method getIndexOfItem
-     */
-    getIndexOfItem(item:IValueObject):number
+        /**
+         * @method getIndexOfItem
+         */
+        getIndexOfItem(item:IValueObject):number
 
-    /**
-     * @method getItemByIndex
-     */
-    getItemByIndex(index:number):IValueObject;
+        /**
+         * @method getItemByIndex
+         */
+        getItemByIndex(index:number):IValueObject;
 
-    /**
-     * @method forEach
-     */
-    forEach(operation:Function):any
+        /**
+         * @method forEach
+         */
+        forEach(operation:Function):any
 
-    /**
-     * @method find
-     */
-    find(properties:any):IValueObject[]
+        /**
+         * @method find
+         */
+        find(properties:any):IValueObject[]
 
-    /**
-     * @method sort
-     */
-    sort(sort:Function):any
+        /**
+         * @method sort
+         */
+        sort(sort:Function):any
 
-    /**
-     * @method filter
-     */
-    filter(filter:Function):any
+        /**
+         * @method filter
+         */
+        filter(filter:Function):any
+    }
 }

@@ -22,23 +22,26 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * YUIDoc_comment
- *
- * @class WindowEvents
- * @module StructureTS
- * @submodule nativeEvent
- * @static
- * @version 0.1.0
- **/
-class WindowEvents
+module StructureTS
 {
     /**
      * YUIDoc_comment
      *
-     * @property CHANGE
-     * @type {string}
+     * @class WindowEvents
+     * @module StructureTS
+     * @submodule nativeEvent
      * @static
-     */
-    public static CHANGE:string = "change";
+     * @version 0.1.0
+     **/
+    export class WindowEvents
+    {
+        /**
+         * YUIDoc_comment
+         *
+         * @property CHANGE
+         * @type {string}
+         * @static
+         */
+        public static CHANGE:string = "change";
+    }
 }

@@ -28,61 +28,67 @@
 ///<reference path='../net/URLLoader.ts'/>
 ///<reference path='../event/LoaderEvent.ts'/>
 
-/**
- * The BaseRequest...
- *
- * @class BaseRequest
- * @module StructureTS
- * @submodule net
- * @constructor
- * @version 0.1.0
- **/
-class BaseRequest extends EventDispatcher implements IDataStore
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'BaseRequest';
-
-    private _request:URLRequest;
-    private _loader:URLLoader;
-
-    public src:string = '';
-    public data:any = null;
-    public complete:boolean = false;
-
-    constructor(url:string)
+     * The BaseRequest...
+     *
+     * @class BaseRequest
+     * @module StructureTS
+     * @submodule net
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class BaseRequest extends EventDispatcher implements IDataStore
     {
-        super();
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'BaseRequest';
 
-        this.src = url;
-        this.configureRequest();
-    }
+        private _request:URLRequest;
+        private _loader:URLLoader;
 
-    private configureRequest():void
-    {
-        this._request = new URLRequest(this.src);
-        this._request.method = URLRequestMethod.GET;
+        public src:string = '';
+        public data:any = null;
+        public complete:boolean = false;
 
-        this._loader = new URLLoader();
-        this._loader.addEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
-        this._loader.dataFormat = URLLoaderDataFormat.HTML;
-    }
+        constructor(url:string)
+        {
+            super();
 
-    private onLoaderComplete(event:LoaderEvent):void
-    {
-        this.complete = true;
-        this.data = this._loader.data;
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
+            this.src = url;
+            this.configureRequest();
+        }
 
-        this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
-        this._loader = null;
-    }
+        private configureRequest():void
+        {
+            this._request = new URLRequest(this.src);
+            this._request.method = URLRequestMethod.GET;
 
-    public load():void
-    {
-        if (this.complete) return;
+            this._loader = new URLLoader();
+            this._loader.addEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
+            this._loader.dataFormat = URLLoaderDataFormat.HTML;
+        }
 
-        this._loader.load(this._request);
+        private onLoaderComplete(event:LoaderEvent):void
+        {
+            this.complete = true;
+            this.data = this._loader.data;
+            this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
+
+            this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
+            this._loader = null;
+        }
+
+        public load():void
+        {
+            if (this.complete)
+            {
+                return;
+            }
+
+            this._loader.load(this._request);
+        }
     }
 }

@@ -27,112 +27,115 @@
 ///<reference path='URLRequest.ts'/>
 ///<reference path='URLLoaderDataFormat.ts'/>
 
-/**
- * The URLLoader...
- *
- * @class URLLoader
- * @module StructureTS
- * @submodule net
- * @constructor
- * @version 0.1.0
- **/
-class URLLoader extends EventDispatcher
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'URLLoader';
-
-    /**
+     * The URLLoader...
      *
-     * @property dataFormat
-     * @type {string}
-     * @default URLLoaderDataFormat.TEXT
-     */
-    public dataFormat:string = URLLoaderDataFormat.TEXT;
-
-    /**
-     *
-     * @property data
-     * @type {any}
-     * @default null
-     */
-    public data:any = null;
-
-    /**
-     *
-     * @property ready
-     * @type {boolean}
-     * @default false
-     */
-    public ready:boolean = false;
-
-    /**
-     *
-     * @property _defer
-     * @type {jQuery.Deferred}
-     * @default null
-     * @private
-     */
-    private _defer:Object = null;
-
-    constructor(request:URLRequest = null)
+     * @class URLLoader
+     * @module StructureTS
+     * @submodule net
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class URLLoader extends EventDispatcher
     {
-        super();
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'URLLoader';
 
-        if (request)
+        /**
+         *
+         * @property dataFormat
+         * @type {string}
+         * @default URLLoaderDataFormat.TEXT
+         */
+        public dataFormat:string = URLLoaderDataFormat.TEXT;
+
+        /**
+         *
+         * @property data
+         * @type {any}
+         * @default null
+         */
+        public data:any = null;
+
+        /**
+         *
+         * @property ready
+         * @type {boolean}
+         * @default false
+         */
+        public ready:boolean = false;
+
+        /**
+         *
+         * @property _defer
+         * @type {jQuery.Deferred}
+         * @default null
+         * @private
+         */
+        private _defer:Object = null;
+
+        constructor(request:URLRequest = null)
         {
-            this.load(request);
+            super();
+
+            if (request)
+            {
+                this.load(request);
+            }
         }
+
+        public load(request:URLRequest):void
+        {
+            this.ready = false;
+            var self:URLLoader = this;
+
+            jQuery.ajax({
+                type: request.method,
+                url: request.url,
+                data: request.data,
+                contentType: request.contentType,
+                dataType: self.dataFormat,
+                beforeSend: self.onBeforeSend.bind(this),
+                success: self.onLoadSuccess.bind(this),
+                error: self.onLoadError.bind(this),
+                complete: self.onComplete.bind(this)
+            });
+        }
+
+        public onLoadSuccess():void
+        {
+            //console.log("onLoadSuccess", arguments);
+        }
+
+        public onBeforeSend():void
+        {
+            //console.log("onBeforeSend", arguments);
+        }
+
+        public onLoadError():void
+        {
+            console.log("[URLLoader] - onLoadError", arguments);
+        }
+
+        public onComplete(data):void
+        {
+            this.ready = true;
+            //console.log("[URLLoader] - onComplete", data);
+            this.data = data.responseText;
+            this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
+        }
+
+        public destroy():void
+        {
+            super.destroy();
+
+            this._defer = null;
+            this.data = null;
+        }
+
     }
-
-    public load(request:URLRequest):void
-    {
-        this.ready = false;
-        var self:URLLoader = this;
-
-        jQuery.ajax({
-            type: request.method,
-            url: request.url,
-            data: request.data,
-            contentType: request.contentType,
-            dataType: self.dataFormat,
-            beforeSend: self.onBeforeSend.bind(this),
-            success: self.onLoadSuccess.bind(this),
-            error: self.onLoadError.bind(this),
-            complete: self.onComplete.bind(this)
-        });
-    }
-
-    public onLoadSuccess():void
-    {
-        //console.log("onLoadSuccess", arguments);
-    }
-
-    public onBeforeSend():void
-    {
-        //console.log("onBeforeSend", arguments);
-    }
-
-    public onLoadError():void
-    {
-        console.log("[URLLoader] - onLoadError", arguments);
-    }
-
-    public onComplete(data):void
-    {
-        this.ready = true;
-        //console.log("[URLLoader] - onComplete", data);
-        this.data = data.responseText;
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
-    }
-
-    public destroy():void
-    {
-        super.destroy();
-
-        this._defer = null;
-        this.data = null;
-    }
-
 }

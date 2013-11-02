@@ -22,84 +22,87 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * A ValidationUtility class that has several static methods to assist in development.
- *
- * @class ValidationUtil
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class ValidationUtil
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'ValidationUtil';
-
-    constructor()
-    {
-    }
-
-    /**
-     * Determines if the String passed in is a valid email address.
+     * A ValidationUtility class that has several static methods to assist in development.
      *
-     * @method isValidEmailAddress
-     * @param email {string}
-     * @returns {boolean}
-     * @public
-     * @static
-     */
-    public static isValidEmailAddress(email:string):boolean
+     * @class ValidationUtil
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class ValidationUtil
     {
-        var expression:RegExp = /[^@]+@[^@]+\.[a-zA-Z]{2,6}/;
-        return email.match(expression) != null;
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = 'ValidationUtil';
 
-    /**
-     * Determines if the String passed in is a phone number.
-     *
-     * @method isValidPhoneNumber
-     * @param phoneNumber {string}
-     * @returns {boolean}
-     * @public
-     * @static
-     */
-    public static isValidPhoneNumber(phoneNumber:string):boolean
-    {
-        var expression:RegExp = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/i;
-        return expression.test(phoneNumber);
-    }
+        constructor()
+        {
+        }
 
-    /**
-     * Determines if the String passed in is a zip code.
-     *
-     * @method isZipCode
-     * @param zipCode {string}
-     * @returns {boolean}
-     * @public
-     * @static
-     */
-    public static isZipCode(zipCode:string):boolean
-    {
-        var expression:RegExp = /^\d{5}([\-]\d{4})?$/;
-        return expression.test(zipCode);
-    }
+        /**
+         * Determines if the String passed in is a valid email address.
+         *
+         * @method isValidEmailAddress
+         * @param email {string}
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static isValidEmailAddress(email:string):boolean
+        {
+            var expression:RegExp = /[^@]+@[^@]+\.[a-zA-Z]{2,6}/;
+            return email.match(expression) != null;
+        }
 
-    /**
-     * Determines if the String passed in is a postal code.
-     *
-     * @method isPostalCode
-     * @param postalCode {string}
-     * @returns {boolean}
-     * @public
-     * @static
-     */
-    public static isPostalCode(postalCode:string):boolean
-    {
-        var expression:RegExp = /^([ABCEGHJKLMNPRSTVXY][0-9][A-Z] [0-9][A-Z][0-9])*$/;
-        return expression.test(postalCode);
-    }
+        /**
+         * Determines if the String passed in is a phone number.
+         *
+         * @method isValidPhoneNumber
+         * @param phoneNumber {string}
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static isValidPhoneNumber(phoneNumber:string):boolean
+        {
+            var expression:RegExp = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/i;
+            return expression.test(phoneNumber);
+        }
 
+        /**
+         * Determines if the String passed in is a zip code.
+         *
+         * @method isZipCode
+         * @param zipCode {string}
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static isZipCode(zipCode:string):boolean
+        {
+            var expression:RegExp = /^\d{5}([\-]\d{4})?$/;
+            return expression.test(zipCode);
+        }
+
+        /**
+         * Determines if the String passed in is a postal code.
+         *
+         * @method isPostalCode
+         * @param postalCode {string}
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static isPostalCode(postalCode:string):boolean
+        {
+            var expression:RegExp = /^([ABCEGHJKLMNPRSTVXY][0-9][A-Z] [0-9][A-Z][0-9])*$/;
+            return expression.test(postalCode);
+        }
+
+    }
 }

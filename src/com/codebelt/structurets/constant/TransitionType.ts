@@ -22,28 +22,31 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * YUIDoc_comment
- *
- * @class TransitionType
- * @constructor
- * @version 0.1.0
- **/
-class TransitionType
+module StructureTS
 {
-    public static CLASS_NAME:string = 'TransitionType';
-
-    public static NONE:string = 'none';
-    public static PUSH_LEFT:string = 'pushLeft';
-    public static PUSH_RIGHT:string = 'pushRight';
-    public static PUSH_UP:string = 'pushUp';
-    public static PUSH_DOWN:string = 'pushDown';
-    public static CROSSFADE:string = 'crossFade';
-    public static FADE_OUT_AND_IN:string = 'fadeOutAndIn';
-
-    constructor()
+    /**
+     * YUIDoc_comment
+     *
+     * @class TransitionType
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class TransitionType
     {
-        throw new Error('[TransitionType] Do instantiation the TransitionType class because it is a static class.');
-    }
+        public static CLASS_NAME:string = 'TransitionType';
 
+        public static NONE:string = 'none';
+        public static PUSH_LEFT:string = 'pushLeft';
+        public static PUSH_RIGHT:string = 'pushRight';
+        public static PUSH_UP:string = 'pushUp';
+        public static PUSH_DOWN:string = 'pushDown';
+        public static CROSSFADE:string = 'crossFade';
+        public static FADE_OUT_AND_IN:string = 'fadeOutAndIn';
+
+        constructor()
+        {
+            throw new Error('[TransitionType] Do instantiation the TransitionType class because it is a static class.');
+        }
+
+    }
 }

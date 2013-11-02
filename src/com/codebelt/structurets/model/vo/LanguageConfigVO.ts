@@ -24,56 +24,59 @@
 
 ///<reference path='../ValueObject.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class LanguageConfigVO
- * @param [data] {any} Provide a way to update the value object upon initialization.
- * @constructor
- * @version 0.1.0
- **/
-class LanguageConfigVO extends ValueObject
+module StructureTS
 {
     /**
-     * @overridden ValueObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'LanguageConfigVO';
-
-    public id:string;
-    public lang:string;
-    public text:string;
-    public path:string;
-
-    constructor(data:any = null)
+     * YUIDoc_comment
+     *
+     * @class LanguageConfigVO
+     * @param [data] {any} Provide a way to update the value object upon initialization.
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class LanguageConfigVO extends ValueObject
     {
-        super();
+        /**
+         * @overridden ValueObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'LanguageConfigVO';
 
-        if (data)
+        public id:string;
+        public lang:string;
+        public text:string;
+        public path:string;
+
+        constructor(data:any = null)
         {
-            this.update(data);
+            super();
+
+            if (data)
+            {
+                this.update(data);
+            }
         }
+
+        /**
+         * @overridden ValueObject.update
+         */
+        public update(data:any):any
+        {
+            this.id = data.id;
+            this.lang = data.lang;
+            this.text = data.text;
+            this.path = data.path;
+
+            return this;
+        }
+
+        /**
+         * @overridden ValueObject.copy
+         */
+        public copy():LanguageConfigVO
+        {
+            var data:IValueObject = super.copy();
+            return new LanguageConfigVO(data);
+        }
+
     }
-
-    /**
-     * @overridden ValueObject.update
-     */
-    public update(data:any):any
-    {
-        this.id = data.id;
-        this.lang = data.lang;
-        this.text = data.text;
-        this.path = data.path;
-
-        return this;
-    }
-
-    /**
-     * @overridden ValueObject.copy
-     */
-    public copy():LanguageConfigVO
-    {
-        var data:IValueObject = super.copy();
-        return new LanguageConfigVO(data);
-    }
-
 }

@@ -24,37 +24,40 @@
 
 ///<reference path='IEventDispatcher.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class IDataStore
- * @extends IEventDispatcher
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface IDataStore extends IEventDispatcher
+module StructureTS
 {
-
     /**
-     * @property data
-     */
-    data:any;
+     * YUIDoc_comment
+     *
+     * @class IDataStore
+     * @extends IEventDispatcher
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface IDataStore extends IEventDispatcher
+    {
 
-    /**
-     * @property src
-     */
-    src:string;
+        /**
+         * @property data
+         */
+            data:any;
 
-    /**
-     * @property complete
-     */
-    complete:boolean;
+        /**
+         * @property src
+         */
+            src:string;
 
-    /**
-     * @method load
-     */
-    load():any;
+        /**
+         * @property complete
+         */
+            complete:boolean;
 
+        /**
+         * @method load
+         */
+        load():any;
+
+    }
 }

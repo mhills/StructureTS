@@ -22,38 +22,41 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * YUIDoc_comment
- *
- * @class ICore
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface ICore
+module StructureTS
 {
-
     /**
-     * @property CLASS_NAME
-     * @readOnly
-     */
-    CLASS_NAME:string;
+     * YUIDoc_comment
+     *
+     * @class ICore
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface ICore
+    {
 
-    /**
-     * @property cid
-     * @readOnly
-     */
-    cid:number;
+        /**
+         * @property CLASS_NAME
+         * @readOnly
+         */
+            CLASS_NAME:string;
 
-    /**
-     * @method getQualifiedClassName
-     */
-    getQualifiedClassName():string;
+        /**
+         * @property cid
+         * @readOnly
+         */
+            cid:number;
 
-    /**
-     * @method destroy
-     */
-    destroy():void
+        /**
+         * @method getQualifiedClassName
+         */
+        getQualifiedClassName():string;
 
+        /**
+         * @method destroy
+         */
+        destroy():void
+
+    }
 }

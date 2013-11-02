@@ -24,24 +24,27 @@
 
 ///<reference path='../event/EventDispatcher.ts'/>
 
-/**
- * The DataLoader...
- *
- * @class DataLoader
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class DataLoader
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'DataLoader';
-
-    constructor()
+     * The DataLoader...
+     *
+     * @class DataLoader
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class DataLoader
     {
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'DataLoader';
 
+        constructor()
+        {
+
+        }
     }
 }

@@ -22,33 +22,36 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * The NavigatorEvents...
- *
- * @class NavigatorEvents
- * @module StructureTS
- * @submodule nativeEvent
- * @static
- * @version 0.1.0
- **/
-class NavigatorEvents
+module StructureTS
 {
     /**
-     * YUIDoc_comment
+     * The NavigatorEvents...
      *
-     * @event ONLINE
-     * @type {string}
+     * @class NavigatorEvents
+     * @module StructureTS
+     * @submodule nativeEvent
      * @static
-     */
-    public static ONLINE:string = "online";
+     * @version 0.1.0
+     **/
+    export class NavigatorEvents
+    {
+        /**
+         * YUIDoc_comment
+         *
+         * @event ONLINE
+         * @type {string}
+         * @static
+         */
+        public static ONLINE:string = "online";
 
-    /**
-     * YUIDoc_comment
-     *
-     * @event OFFLINE
-     * @type {string}
-     * @static
-     */
-    public static OFFLINE:string = "offline";
+        /**
+         * YUIDoc_comment
+         *
+         * @event OFFLINE
+         * @type {string}
+         * @static
+         */
+        public static OFFLINE:string = "offline";
 
+    }
 }

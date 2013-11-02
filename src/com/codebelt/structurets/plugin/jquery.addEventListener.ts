@@ -10,7 +10,8 @@
      * @param str
      * @returns {String}
      */
-    var hashCode = function(str) {
+    var hashCode = function (str)
+    {
         str = String(str);
         // http://erlycoder.com/49/javascript-hash-functions-to-convert-string-into-integer-hash-
         var character;
@@ -19,9 +20,10 @@
 
         if (strLength == 0) return hash;
 
-        for (var i = 0; i < strLength; i++) {
+        for (var i = 0; i < strLength; i++)
+        {
             character = str.charCodeAt(i);
-            hash = ((hash<<5) - hash) + character;
+            hash = ((hash << 5) - hash) + character;
             hash = hash & hash; // Convert to 32bit integer
         }
 

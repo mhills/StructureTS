@@ -26,53 +26,59 @@
 ///<reference path='../event/EventDispatcher.ts'/>
 ///<reference path='../event/LoaderEvent.ts'/>
 
-/**
- * The ImageLoader...
- *
- * @class ImageLoader
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class ImageLoader extends EventDispatcher implements IDataStore
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'ImageLoader';
-
-    private _image:HTMLImageElement = null;
-
-    public data:any;
-    public src:string;
-    public complete:boolean = false;
-
-    constructor(path:string)
+     * The ImageLoader...
+     *
+     * @class ImageLoader
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class ImageLoader extends EventDispatcher implements IDataStore
     {
-        super();
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'ImageLoader';
 
-        this.src = path;
+        private _image:HTMLImageElement = null;
 
-        var self = this;
-        this._image = new Image();
-        this._image.onload = function ()
+        public data:any;
+        public src:string;
+        public complete:boolean = false;
+
+        constructor(path:string)
         {
-            self.onImageLoad();
+            super();
+
+            this.src = path;
+
+            var self = this;
+            this._image = new Image();
+            this._image.onload = function ()
+            {
+                self.onImageLoad();
+            }
         }
-    }
 
-    public load():void
-    {
-        if (this.complete) return;
+        public load():void
+        {
+            if (this.complete)
+            {
+                return;
+            }
 
-        this._image.src = this.src;
-    }
+            this._image.src = this.src;
+        }
 
-    private onImageLoad():void
-    {
-        this.complete = true;
-        this.data = this._image;
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
+        private onImageLoad():void
+        {
+            this.complete = true;
+            this.data = this._image;
+            this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
+        }
     }
 }

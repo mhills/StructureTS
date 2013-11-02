@@ -24,80 +24,83 @@
 
 ///<reference path='IEventDispatcher.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class IDisplayObject
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface IDisplayObject extends IEventDispatcher
+module StructureTS
 {
-
     /**
-     * @property isCreated
-     */
-        isCreated:boolean;
+     * YUIDoc_comment
+     *
+     * @class IDisplayObject
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface IDisplayObject extends IEventDispatcher
+    {
 
-    /**
-     * @property numChildren
-     */
-        numChildren:number;
+        /**
+         * @property isCreated
+         */
+            isCreated:boolean;
 
-    /**
-     * @property children
-     */
-        children:IDisplayObject[];
+        /**
+         * @property numChildren
+         */
+            numChildren:number;
 
-    /**
-     * @method createChildren
-     */
-    createChildren():any;
+        /**
+         * @property children
+         */
+            children:IDisplayObject[];
 
-    /**
-     * @method addChild
-     */
-    addChild(child:IDisplayObject):any;
+        /**
+         * @method createChildren
+         */
+        createChildren():any;
 
-    /**
-     * @method removeChild
-     */
-    removeChild(child:IDisplayObject):any;
+        /**
+         * @method addChild
+         */
+        addChild(child:IDisplayObject):any;
 
-    /**
-     * @method removeChildren
-     */
-    removeChildren():any;
+        /**
+         * @method removeChild
+         */
+        removeChild(child:IDisplayObject):any;
 
-    /**
-     * @method layoutChildren
-     */
-    layoutChildren():any;
+        /**
+         * @method removeChildren
+         */
+        removeChildren():any;
 
-    /**
-     * @method addChildAt
-     */
-    addChildAt(child:IDisplayObject, index:number):any;
+        /**
+         * @method layoutChildren
+         */
+        layoutChildren():any;
 
-    /**
-     * @method getChildAt
-     */
-    getChildAt(index:number):IDisplayObject;
+        /**
+         * @method addChildAt
+         */
+        addChildAt(child:IDisplayObject, index:number):any;
 
-    /**
-     * @method getChildIndex
-     */
-    getChildIndex(child:IDisplayObject):number;
+        /**
+         * @method getChildAt
+         */
+        getChildAt(index:number):IDisplayObject;
 
-    /**
-     * @method swapChildren
-     */
-    swapChildren(child1:IDisplayObject, child2:IDisplayObject):any
+        /**
+         * @method getChildIndex
+         */
+        getChildIndex(child:IDisplayObject):number;
 
-    /**
-     * @method swapChildrenAt
-     */
-    swapChildrenAt(index1:number, index2:number):any;
+        /**
+         * @method swapChildren
+         */
+        swapChildren(child1:IDisplayObject, child2:IDisplayObject):any
+
+        /**
+         * @method swapChildrenAt
+         */
+        swapChildrenAt(index1:number, index2:number):any;
+    }
 }

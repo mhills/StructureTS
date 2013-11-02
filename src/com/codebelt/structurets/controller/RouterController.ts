@@ -27,129 +27,139 @@
 
 ///<reference path='../../../millermedeiros/hasher/Hasher.ts'/>
 ///<reference path='../../../millermedeiros/crossroads/Crossroads.ts' />
-import Hasher = millermedeiros.Hasher;
-import Crossroads = millermedeiros.Crossroads;
 
-/**
- * The RouterController...
- *
- * @class RouterController
- * @module StructureTS
- * @submodule controller
- * @constructor
- * @version 0.1.0
- **/
-class RouterController extends BaseController
+module StructureTS
 {
-    /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'RouterController';
+    import Hasher = MillerMedeiros.Hasher;
+    import Crossroads = MillerMedeiros.Crossroads;
 
     /**
-     * YUIDoc_comment
+     * The RouterController...
      *
-     * @property _crossroads
-     * @type {Crossroads}
-     * @private
-     */
-    private _crossroads:Crossroads = null;
-
-    constructor()
+     * @class RouterController
+     * @module StructureTS
+     * @submodule controller
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class RouterController extends BaseController
     {
-        super();
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'RouterController';
 
-        this._crossroads = new Crossroads();
+        /**
+         * YUIDoc_comment
+         *
+         * @property _crossroads
+         * @type {Crossroads}
+         * @private
+         */
+        private _crossroads:Crossroads = null;
 
-    }
+        constructor()
+        {
+            super();
 
-    public addRoute(pattern:string, handler:Function, scope:any, priority?:number):void
-    {
-        this._crossroads.addRoute(pattern, handler.bind(scope), priority);
-    }
+            this._crossroads = new Crossroads();
 
-    /**
-     *
-     * @method start
-     */
-    public start():void
-    {
-        if (Hasher.isActive()) return;
+        }
+
+        public addRoute(pattern:string, handler:Function, scope:any, priority?:number):void
+        {
+            this._crossroads.addRoute(pattern, handler.bind(scope), priority);
+        }
+
+        /**
+         *
+         * @method start
+         */
+        public start():void
+        {
+            if (Hasher.isActive())
+            {
+                return;
+            }
 
 //        Hasher.prependHash = '!';
-        Hasher.initialized.add(this.parseHash.bind(this)); //parse initial hash
-        Hasher.changed.add(this.parseHash.bind(this)); //parse hash changes
-        Hasher.init(); //start listening for hash changes
-    }
+            Hasher.initialized.add(this.parseHash.bind(this)); //parse initial hash
+            Hasher.changed.add(this.parseHash.bind(this)); //parse hash changes
+            Hasher.init(); //start listening for hash changes
+        }
 
-    /**
-     *
-     * @method parseHash
-     * @param newHash {string}
-     * @param oldHash {string}
-     */
-    public parseHash(newHash, oldHash):void
-    {
-        this._crossroads.parse(newHash);
-    }
+        /**
+         *
+         * @method parseHash
+         * @param newHash {string}
+         * @param oldHash {string}
+         */
+        public parseHash(newHash, oldHash):void
+        {
+            this._crossroads.parse(newHash);
+        }
 
-    /**
-     *
-     * @method navigateTo
-     * @param hash {string}
-     * @param [silently=false] {boolean}
-     */
-    public navigateTo(hash:string, silently:boolean = false):void
-    {
-        hash = hash.replace('#/', '');
-        if (silently) {
-            Hasher.changed.active = false;
-            Hasher.setHash(hash);
-            Hasher.changed.active = true;
-        } else {
-            Hasher.setHash(hash);
+        /**
+         *
+         * @method navigateTo
+         * @param hash {string}
+         * @param [silently=false] {boolean}
+         */
+        public navigateTo(hash:string, silently:boolean = false):void
+        {
+            hash = hash.replace('#/', '');
+            if (silently)
+            {
+                Hasher.changed.active = false;
+                Hasher.setHash(hash);
+                Hasher.changed.active = true;
+            }
+            else
+            {
+                Hasher.setHash(hash);
+            }
+
+        }
+
+        /**
+         *
+         * @method getHash
+         * @returns {string}
+         */
+        public getHash():string
+        {
+            return Hasher.getHash();
+        }
+
+        /**
+         *
+         * @method getHashAsArray
+         * @returns {array}
+         */
+        public getHashAsArray():any[]
+        {
+            return Hasher.getHashAsArray();
+        }
+
+        /**
+         *
+         * @method getURL
+         * @returns {string}
+         */
+        public getURL():string
+        {
+            return Hasher.getURL();
+        }
+
+        /**
+         *
+         * @method getBaseURL
+         * @returns {string}
+         */
+        public getBaseURL():string
+        {
+            return Hasher.getBaseURL();
         }
 
     }
-
-    /**
-     *
-     * @method getHash
-     * @returns {string}
-     */
-    public getHash():string
-    {
-        return Hasher.getHash();
-    }
-
-    /**
-     *
-     * @method getHashAsArray
-     * @returns {array}
-     */
-    public getHashAsArray():any[]
-    {
-        return Hasher.getHashAsArray();
-    }
-
-    /**
-     *
-     * @method getURL
-     * @returns {string}
-     */
-    public getURL():string
-    {
-        return Hasher.getURL();
-    }
-
-    /**
-     *
-     * @method getBaseURL
-     * @returns {string}
-     */
-    public getBaseURL():string
-    {
-        return Hasher.getBaseURL();
-    }
-
 }

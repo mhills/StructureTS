@@ -26,90 +26,93 @@
 ///<reference path='../event/EventDispatcher.ts'/>
 ///<reference path='../event/LoaderEvent.ts'/>
 
-/**
- * The AssetLoader...
- *
- * @class AssetLoader
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class AssetLoader extends EventDispatcher
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'AssetLoader';
-
-    private static _instance:AssetLoader;
-    public _dataStores:IDataStore[] = [];
-
-    constructor()
+     * The AssetLoader...
+     *
+     * @class AssetLoader
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class AssetLoader extends EventDispatcher
     {
-        super();
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'AssetLoader';
 
-        this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
-    }
+        private static _instance:AssetLoader;
+        public _dataStores:IDataStore[] = [];
 
-    public static getInstance():AssetLoader
-    {
-        if (this._instance == null)
+        constructor()
         {
-            this._instance = new AssetLoader();
-        }
-        return this._instance;
-    }
+            super();
 
-    public addFile(dataStore:IDataStore, key:string):any
-    {
-        this._dataStores[key] = dataStore;
-        return this;
-    }
-
-    public getFile(key:string):IDataStore
-    {
-        return this._dataStores[key];
-    }
-
-    public getImage(key:string):HTMLImageElement
-    {
-        return this._dataStores[key].data;
-    }
-
-    public getHtmlTemplate(key:string, templateId:string):string
-    {
-        //TODO: check if you need to change this to user the TemplateFactory
-        console.log(this.getQualifiedClassName(),'TODO: check if you need to change this to user the TemplateFactory')
-        var rawHtml:string = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
-        return rawHtml;
-    }
-
-    public load():any
-    {
-        for (var key in this._dataStores)
-        {
-            var dataStore:IDataStore = this._dataStores[key];
-            dataStore.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
-            dataStore.load();
+            this.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
         }
 
-        return this;
-    }
-
-    private onLoadComplete(event:LoaderEvent):void
-    {
-        event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
-
-        for (var key in this._dataStores)
+        public static getInstance():AssetLoader
         {
-            var dataStore:IDataStore = this._dataStores[key];
-            if (!dataStore.complete)
+            if (this._instance == null)
             {
-                return;
+                this._instance = new AssetLoader();
             }
+            return this._instance;
         }
 
-        this.dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_COMPLETE));
+        public addFile(dataStore:IDataStore, key:string):any
+        {
+            this._dataStores[key] = dataStore;
+            return this;
+        }
+
+        public getFile(key:string):IDataStore
+        {
+            return this._dataStores[key];
+        }
+
+        public getImage(key:string):HTMLImageElement
+        {
+            return this._dataStores[key].data;
+        }
+
+        public getHtmlTemplate(key:string, templateId:string):string
+        {
+            //TODO: check if you need to change this to user the TemplateFactory
+            console.log(this.getQualifiedClassName(), 'TODO: check if you need to change this to user the TemplateFactory')
+            var rawHtml:string = jQuery(this._dataStores[key].data).filter("#" + templateId).html();
+            return rawHtml;
+        }
+
+        public load():any
+        {
+            for (var key in this._dataStores)
+            {
+                var dataStore:IDataStore = this._dataStores[key];
+                dataStore.addEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
+                dataStore.load();
+            }
+
+            return this;
+        }
+
+        private onLoadComplete(event:LoaderEvent):void
+        {
+            event.target.removeEventListener(LoaderEvent.COMPLETE, this.onLoadComplete, this);
+
+            for (var key in this._dataStores)
+            {
+                var dataStore:IDataStore = this._dataStores[key];
+                if (!dataStore.complete)
+                {
+                    return;
+                }
+            }
+
+            this.dispatchEvent(new LoaderEvent(LoaderEvent.LOAD_COMPLETE));
+        }
     }
 }

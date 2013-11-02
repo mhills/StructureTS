@@ -24,26 +24,29 @@
 
 ///<reference path='../event/EventDispatcher.ts'/>
 
-/**
- * The BaseController...
- *
- * @class BaseController
- * @extends EventDispatcher
- * @module StructureTS
- * @submodule controller
- * @constructor
- * @version 0.1.0
- **/
-class BaseController extends EventDispatcher
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'BaseController';
-
-    constructor()
+     * The BaseController...
+     *
+     * @class BaseController
+     * @extends EventDispatcher
+     * @module StructureTS
+     * @submodule controller
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class BaseController extends EventDispatcher
     {
-        super();
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'BaseController';
 
+        constructor()
+        {
+            super();
+        }
+
+    }
 }

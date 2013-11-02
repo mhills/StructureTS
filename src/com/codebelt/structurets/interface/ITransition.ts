@@ -26,16 +26,20 @@
 ///<reference path='../display/DisplayObjectContainer.ts'/>
 ///<reference path='../display/DOMElement.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class ITransition
- * @constructor
- * @version 0.1.0
- **/
-interface ITransition extends IEventDispatcher {
+module StructureTS
+{
+    /**
+     * YUIDoc_comment
+     *
+     * @class ITransition
+     * @constructor
+     * @version 0.1.0
+     **/
+    export interface ITransition extends IEventDispatcher
+    {
 
-    createTransition(transitionType:string, sectionStage:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration?:number):ITransition;
-    complete():any;
+        createTransition(transitionType:string, sectionStage:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration?:number):ITransition;
+        complete():any;
 
+    }
 }

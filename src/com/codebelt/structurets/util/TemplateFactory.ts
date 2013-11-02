@@ -25,94 +25,93 @@
 ///<reference path='../display/DOMElement.ts'/>
 ///<reference path='../util/StringUtil.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class TemplateFactory
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class TemplateFactory
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'TemplateFactory';
-
-    public static UNDERSCORE:string = 'underscore';
-    public static HANDLEBARS:string = 'handlebars';
-
-    public static templateEngine:string = TemplateFactory.HANDLEBARS;
-    public static templateNamespace:string = 'JST';
-
-    constructor()
+     * YUIDoc_comment
+     *
+     * @class TemplateFactory
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class TemplateFactory
     {
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = 'TemplateFactory';
 
-    public static createTemplate(templatePath:string, data:Object = null):string
-    {
-        return TemplateFactory.create(templatePath, data);
-    }
+        public static UNDERSCORE:string = 'underscore';
+        public static HANDLEBARS:string = 'handlebars';
 
-    public static createView(templatePath:string, data:Object = null):DOMElement
-    {
-        var template:string = TemplateFactory.create(templatePath, data);
+        public static templateEngine:string = TemplateFactory.HANDLEBARS;
+        public static templateNamespace:string = 'JST';
 
-        var view:DOMElement = new DOMElement();
-        view.$element = jQuery(template);
-        return view;
-    }
-
-    private static create(templatePath:string, data:Object = null):string
-    {
-        //Checks the first charactor to see if it is a "." or "#".
-        var regex = /^([.#])(.+)/;
-        var template:string;
-        var isClassOrIdName:boolean = regex.test(templatePath);
-
-        if (isClassOrIdName)
+        constructor()
         {
-            var htmlString:string = $(templatePath).html();
-            htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
+        }
 
-            if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE)
+        public static createTemplate(templatePath:string, data:Object = null):string
+        {
+            return TemplateFactory.create(templatePath, data);
+        }
+
+        public static createView(templatePath:string, data:Object = null):DOMElement
+        {
+            var template:string = TemplateFactory.create(templatePath, data);
+
+            var view:DOMElement = new DOMElement();
+            view.$element = jQuery(template);
+            return view;
+        }
+
+        private static create(templatePath:string, data:Object = null):string
+        {
+            //Checks the first charactor to see if it is a "." or "#".
+            var regex = /^([.#])(.+)/;
+            var template:string = null;
+            var isClassOrIdName:boolean = regex.test(templatePath);
+
+            if (isClassOrIdName)
             {
-                // Underscore Template:
-                var templateMethod:Function = _.template(htmlString);
-                template = templateMethod(data);
+                var htmlString:string = $(templatePath).html();
+                htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
+
+                if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE)
+                {
+                    // Underscore Template:
+                    var templateMethod:Function = _.template(htmlString);
+                    template = templateMethod(data);
+                }
+                else
+                {
+                    // Handlebars Template
+                    var templateMethod:Function = Handlebars.compile(htmlString);
+                    template = templateMethod(data);
+                }
             }
             else
             {
-                // Handlebars Template
-                var templateMethod:Function = Handlebars.compile(htmlString);
-                template = templateMethod(data);
-            }
-        }
-        else
-        {
-            var templateObj:Object = window[TemplateFactory.templateNamespace];
-            if (!templateObj)
-            {
-                throw new ReferenceError('[TemplateFactory] Make sure the TemplateFactory.templateNamespace value is correct. Currently the value is ' + TemplateFactory.templateNamespace);
-            }
+                var templateObj:Object = window[TemplateFactory.templateNamespace];
+                if (!templateObj)
+                {
+                    // Returns null because the template namespace is not found.
+                    return null;
+                }
 
-            var templateFunction:Function = templateObj[templatePath];
-            if (!templateFunction) {
-                throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
+                var templateFunction:Function = templateObj[templatePath];
+                if (templateFunction)
+                {
+                    // The templatePath gets a function storage in the associative array.
+                    // We call the function by passing in the data as the argument.
+                    template = templateFunction(data);
+                }
             }
 
-            //The templatePath gets a function storage in the associative array.
-            //we call the function by passing in the data as the argument.
-            template = templateFunction(data);
+            return template;
         }
 
-        if (!template) {
-            throw new ReferenceError('[TemplateFactory] Template not found for ' + templatePath);
-        }
-
-        return template;
     }
-
 }

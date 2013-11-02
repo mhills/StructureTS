@@ -24,22 +24,25 @@
 
 ///<reference path='IDOMElement.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class IViewController
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface IViewController extends IDOMElement
+module StructureTS
 {
-
     /**
-     * @method update
-     * @param ...rest {rest} The …rest parameter is an identifier that represents the name of the array of arguments passed in to the function. You can specify the data type of the … (rest) parameter as any[] (Array), but this could cause confusion because the parameter accepts a comma-delimited list of values, which is not identical to an instance of the array.
-     */
-    update(...rest):any;
+     * YUIDoc_comment
+     *
+     * @class IViewController
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface IViewController extends IDOMElement
+    {
 
+        /**
+         * @method update
+         * @param ...rest {rest} The …rest parameter is an identifier that represents the name of the array of arguments passed in to the function. You can specify the data type of the … (rest) parameter as any[] (Array), but this could cause confusion because the parameter accepts a comma-delimited list of values, which is not identical to an instance of the array.
+         */
+        update(...rest):any;
+
+    }
 }

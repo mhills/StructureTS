@@ -24,16 +24,19 @@
 
 ///<reference path='BaseRequest'/>
 
-class JsonRequest extends BaseRequest
+module StructureTS
 {
-    /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'JsonRequest';
-
-    constructor()
+    export class JsonRequest extends BaseRequest
     {
-        super("");
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'JsonRequest';
+
+        constructor()
+        {
+            super("");
+        }
     }
 }
 

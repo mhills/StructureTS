@@ -24,31 +24,34 @@
 
 ///<reference path='IDisplayObject.ts'/>
 
-/**
- * YUIDoc_comment
- *
- * @class IDOMElement
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface IDOMElement extends IDisplayObject
+module StructureTS
 {
-
     /**
-     * @property element
-     */
-    element:Element;
+     * YUIDoc_comment
+     *
+     * @class IDOMElement
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface IDOMElement extends IDisplayObject
+    {
 
-    /**
-     * @property $element
-     */
-    $element:JQuery;
+        /**
+         * @property element
+         */
+            element:Element;
 
-    /**
-     * @method getChild
-     */
-    getChild(child:any):IDOMElement;
+        /**
+         * @property $element
+         */
+            $element:JQuery;
 
+        /**
+         * @method getChild
+         */
+        getChild(child:any):IDOMElement;
+
+    }
 }

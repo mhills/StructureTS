@@ -1,62 +1,65 @@
 ///<reference path=''/>
 
-class XML
+module StructureTS
 {
-    /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'XML';
-
-    constructor()
+    export class XML
     {
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'XML';
 
-    }
-
-    public static parse(xml):string
-    {
-        var dom:string = null;
-
-        if (window.DOMParser)
+        constructor()
         {
-            try
-            {
-                dom = (new DOMParser()).parseFromString(xml, "text/xml");
-            }
-            catch (e)
-            {
-                dom = null;
-            }
+
         }
-        else if (window.ActiveXObject)
+
+        public static parse(xml):string
         {
-            try
+            var dom:string = null;
+
+            if (window.DOMParser)
             {
-                dom = new ActiveXObject('Microsoft.XMLDOM');
-                dom.async = false;
-                if (!dom.loadXML(xml))
+                try
                 {
-                    // parse error ..
-                    throw new Error(dom.parseError.reason + dom.parseError.srcText);
+                    dom = (new DOMParser()).parseFromString(xml, "text/xml");
+                }
+                catch (e)
+                {
+                    dom = null;
                 }
             }
-            catch (err)
+            else if (window.ActiveXObject)
             {
-                dom = null;
+                try
+                {
+                    dom = new ActiveXObject('Microsoft.XMLDOM');
+                    dom.async = false;
+                    if (!dom.loadXML(xml))
+                    {
+                        // parse error ..
+                        throw new Error(dom.parseError.reason + dom.parseError.srcText);
+                    }
+                }
+                catch (err)
+                {
+                    dom = null;
+                }
             }
+            else
+            {
+                throw new Error("XML has an issue parsing xml string with dom parser");
+            }
+            return dom;
         }
-        else
+
+        public static toJSON()
         {
-            throw new Error("XML has an issue parsing xml string with dom parser");
         }
-        return dom;
-    }
 
-    public static toJSON()
-    {
-    }
+        public static fromJSON()
+        {
+        }
 
-    public static fromJSON()
-    {
     }
-
 }

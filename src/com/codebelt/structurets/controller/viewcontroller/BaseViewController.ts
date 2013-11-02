@@ -25,42 +25,46 @@
 ///<reference path='../../interface/IViewController.ts'/>
 ///<reference path='../../display/DOMElement.ts'/>
 
-/**
- * The BaseViewController...
- *
- * @class BaseViewController
- * @extends BaseController
- * @module StructureTS
- * @submodule controller
- * @constructor
- * @version 0.1.0
- **/
-class BaseViewController extends DOMElement implements IViewController
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'BaseViewController';
-
-    constructor()
-    {
-        super();
-    }
-
-    public update(...rest):any
-    {
-
-        return this;
-    }
-
-    /**
-     * Sets the browser title.
+     * The BaseViewController...
      *
-     * @method setPageTitle
-     * @param title {string}
-     */
-    public setPageTitle(title:string) {
-        document.title = title;
-    }
+     * @class BaseViewController
+     * @extends BaseController
+     * @module StructureTS
+     * @submodule controller
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class BaseViewController extends DOMElement implements IViewController
+    {
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'BaseViewController';
 
+        constructor()
+        {
+            super();
+        }
+
+        public update(...rest):any
+        {
+
+            return this;
+        }
+
+        /**
+         * Sets the browser title.
+         *
+         * @method setPageTitle
+         * @param title {string}
+         */
+        public setPageTitle(title:string)
+        {
+            document.title = title;
+        }
+
+    }
 }

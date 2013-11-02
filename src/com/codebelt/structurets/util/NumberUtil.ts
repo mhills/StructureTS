@@ -24,113 +24,115 @@
 
 ///<reference path=''/>
 
-/**
- * The NumberUtil...
- *
- * @class NumberUtil
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class NumberUtil
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'NumberUtil';
-
-    constructor()
-    {
-    }
-
-    /**
-     * YUIDoc_comment
+     * The NumberUtil...
      *
-     * @method bytesToMegabytes
-     * @param bytes {number}
-     * @returns {number}
-     */
-    public static bytesToMegabytes(bytes:number):number
+     * @class NumberUtil
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class NumberUtil
     {
-        return bytes / 1048576;
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = 'NumberUtil';
 
-    /**
-     * YUIDoc_comment
-     *
-     * @method centimeterToInch
-     * @param cm {number}
-     * @returns {number}
-     */
-    public static centimeterToInch(cm:number):number
-    {
-        return cm * 0.39370;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method inchToCentimeter
-     * @param inch {number}
-     * @returns {number}
-     */
-    public static inchToCentimeter(inch:number):number
-    {
-        return inch * 2.54;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method feetToMeter
-     * @param feet {number}
-     * @returns {number}
-     */
-    public static feetToMeter(feet:number):number
-    {
-        return feet / 3.2808;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method convertToHHMMSS
-     * @param seconds {number}
-     * @returns {string}
-     */
-    public static convertToHHMMSS(seconds:number):string
-    {
-        var sec:number = isNaN(seconds) ? 0 : seconds;//Changes NaN to 0
-
-        var s:number = sec % 60;
-        var m:number = Math.floor((sec % 3600 ) / 60);
-        var h:number = Math.floor(sec / (60 * 60));
-
-        var hourStr:string = (h == 0) ? "" : NumberUtil.doubleDigitFormat(h) + ":";
-        var minuteStr:string = NumberUtil.doubleDigitFormat(m) + ":";
-        var secondsStr:string = NumberUtil.doubleDigitFormat(s);
-
-        return hourStr + minuteStr + secondsStr;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method doubleDigitFormat
-     * @param num {number}
-     * @returns {string}
-     */
-    public static doubleDigitFormat(num:number):string
-    {
-        if (num < 10)
+        constructor()
         {
-            return ("0" + num);
         }
-        return String(num);
-    }
 
-    //http://www.metric-conversions.org/length/inches-conversion.htm
+        /**
+         * YUIDoc_comment
+         *
+         * @method bytesToMegabytes
+         * @param bytes {number}
+         * @returns {number}
+         */
+        public static bytesToMegabytes(bytes:number):number
+        {
+            return bytes / 1048576;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method centimeterToInch
+         * @param cm {number}
+         * @returns {number}
+         */
+        public static centimeterToInch(cm:number):number
+        {
+            return cm * 0.39370;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method inchToCentimeter
+         * @param inch {number}
+         * @returns {number}
+         */
+        public static inchToCentimeter(inch:number):number
+        {
+            return inch * 2.54;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method feetToMeter
+         * @param feet {number}
+         * @returns {number}
+         */
+        public static feetToMeter(feet:number):number
+        {
+            return feet / 3.2808;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method convertToHHMMSS
+         * @param seconds {number}
+         * @returns {string}
+         */
+        public static convertToHHMMSS(seconds:number):string
+        {
+            var sec:number = isNaN(seconds) ? 0 : seconds;//Changes NaN to 0
+
+            var s:number = sec % 60;
+            var m:number = Math.floor((sec % 3600 ) / 60);
+            var h:number = Math.floor(sec / (60 * 60));
+
+            var hourStr:string = (h == 0) ? "" : NumberUtil.doubleDigitFormat(h) + ":";
+            var minuteStr:string = NumberUtil.doubleDigitFormat(m) + ":";
+            var secondsStr:string = NumberUtil.doubleDigitFormat(s);
+
+            return hourStr + minuteStr + secondsStr;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method doubleDigitFormat
+         * @param num {number}
+         * @returns {string}
+         */
+        public static doubleDigitFormat(num:number):string
+        {
+            if (num < 10)
+            {
+                return ("0" + num);
+            }
+            return String(num);
+        }
+
+        //http://www.metric-conversions.org/length/inches-conversion.htm
 
 //    public static formatUnit(number:number, decimalPlacement:number = 2, decimalSeparator:string = '.', thousandsSeparator:string = ''):number
 //    {
@@ -144,4 +146,5 @@ class NumberUtil
 //        return s + (j ? i.substr(0, j) + thousandsSeparator : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousandsSeparator) + (decimalPlacement ? decimalPlacement + Math.abs(n - i).toFixed(decimalPlacement).slice(2) : "");
 //    }
 
+    }
 }

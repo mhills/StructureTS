@@ -24,82 +24,85 @@
 
 ///<reference path='CanvasElement.ts'/>
 
-/**
- * The Canvas...
- *
- * @class Canvas
- * @extends CanvasElement
- * @module StructureTS
- * @submodule view
- * @constructor
- * @version 0.1.0
- **/
-class Canvas extends CanvasElement
+module StructureTS
 {
     /**
-     * @overridden CanvasElement.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'Canvas';
-
-    public element:any = null;
-
-    constructor()
+     * The Canvas...
+     *
+     * @class Canvas
+     * @extends CanvasElement
+     * @module StructureTS
+     * @submodule view
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class Canvas extends CanvasElement
     {
-        super();
+        /**
+         * @overridden CanvasElement.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'Canvas';
 
-        this.stage = this;
-    }
+        public element:any = null;
 
-    //TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the '#'.
-    public appendTo(type:string, enabled:boolean = true):any
-    {
+        constructor()
+        {
+            super();
+
+            this.stage = this;
+        }
+
+        //TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the '#'.
+        public appendTo(type:string, enabled:boolean = true):any
+        {
 //        this.element = canvas.element[0];
-        this.element = document.getElementById(type);
-        this.context = this.element.getContext("2d");
+            this.element = document.getElementById(type);
+            this.context = this.element.getContext("2d");
 
-        this.width = this.element.width;
-        this.height = this.element.height;
+            this.width = this.element.width;
+            this.height = this.element.height;
 
-        if (!this.isCreated)
-        {
-            this.createChildren();
-            this.isCreated = true;
+            if (!this.isCreated)
+            {
+                this.createChildren();
+                this.isCreated = true;
+            }
+
+            if (enabled)
+            {
+                this.enable();
+            }
+
+            return this;
         }
 
-        if (enabled)
+        /**
+         * @override
+         */
+        public addChild(child:CanvasElement):any
         {
-            this.enable();
+            child.parent = this.stage;
+            child.stage = this.stage;
+            child.context = this.context;
+            child.createChildren();
+
+            return this;
         }
 
-        return this;
+        public removeChild(child:CanvasElement):any
+        {
+            child.stage = null;
+            child.context = null;
+
+            return this;
+        }
+
+        public render():any
+        {
+            this.context.clearRect(0, 0, this.width, this.height);
+
+            return this;
+        }
+
     }
-
-    /**
-     * @override
-     */
-    public addChild(child:CanvasElement):any
-    {
-        child.parent = this.stage;
-        child.stage = this.stage;
-        child.context = this.context;
-        child.createChildren();
-
-        return this;
-    }
-
-    public removeChild(child:CanvasElement):any
-    {
-        child.stage = null;
-        child.context = null;
-
-        return this;
-    }
-
-    public render():any
-    {
-        this.context.clearRect(0, 0, this.width, this.height);
-
-        return this;
-    }
-
 }

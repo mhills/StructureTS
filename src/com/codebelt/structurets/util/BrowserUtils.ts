@@ -22,74 +22,79 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * The BrowserUtils...
- *
- * @class BrowserUtils
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class BrowserUtils
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'BrowserUtils';
-
-    constructor()
-    {
-    }
-
-    /**
-     * YUIDoc_comment
+     * The BrowserUtils...
      *
-     * @method hasBrowserHistory
-     * @returns {boolean}
-     * @public
-     * @static
-     */
-    public static hasBrowserHistory():boolean
+     * @class BrowserUtils
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class BrowserUtils
     {
-        return !!(window.history && history.pushState);
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = 'BrowserUtils';
 
-    /**
-     * YUIDoc_comment
-     *
-     * @method hasLocalStorage
-     * @returns {boolean}
-     * @public
-     * @static
-     */
-    public static hasLocalStorage():boolean
-    {
-        try
+        constructor()
         {
-            return ('localStorage' in window) && window.localStorage !== null;
-        } catch (error)
-        {
-            return false;
         }
-    }
 
-    /**
-     * YUIDoc_comment
-     *
-     * @method hasSessionStorage
-     * @returns {boolean}
-     * @public
-     * @static
-     */
-    public static hasSessionStorage():boolean
-    {
-        try
+        /**
+         * YUIDoc_comment
+         *
+         * @method hasBrowserHistory
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static hasBrowserHistory():boolean
         {
-            return ('sessionStorage' in window) && window.sessionStorage !== null;
-        } catch (error)
+            return !!(window.history && history.pushState);
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method hasLocalStorage
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static hasLocalStorage():boolean
         {
-            return false;
+            try
+            {
+                return ('localStorage' in window) && window.localStorage !== null;
+            }
+            catch (error)
+            {
+                return false;
+            }
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method hasSessionStorage
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static hasSessionStorage():boolean
+        {
+            try
+            {
+                return ('sessionStorage' in window) && window.sessionStorage !== null;
+            }
+            catch (error)
+            {
+                return false;
+            }
         }
     }
 }

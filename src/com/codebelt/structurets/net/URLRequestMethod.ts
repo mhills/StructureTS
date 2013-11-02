@@ -22,28 +22,30 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-/**
- * The URLRequestMethod...
- *
- * @class URLRequestMethod
- * @module StructureTS
- * @submodule net
- * @constructor
- * @version 0.1.0
- **/
-class URLRequestMethod
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = 'URLRequestMethod';
+     * The URLRequestMethod...
+     *
+     * @class URLRequestMethod
+     * @module StructureTS
+     * @submodule net
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class URLRequestMethod
+    {
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = 'URLRequestMethod';
 
-    public static DELETE:string = "DELETE";
-    public static GET:string = "GET";
-    public static POST:string = "POST";
-    public static PUT:string = "PUT";
-    public static HEAD:string = "HEAD";
-    public static OPTIONS:string = "OPTIONS";
+        public static DELETE:string = "DELETE";
+        public static GET:string = "GET";
+        public static POST:string = "POST";
+        public static PUT:string = "PUT";
+        public static HEAD:string = "HEAD";
+        public static OPTIONS:string = "OPTIONS";
 
+    }
 }

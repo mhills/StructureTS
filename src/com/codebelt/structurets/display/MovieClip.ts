@@ -25,44 +25,47 @@
 ///<reference path='CanvasElement.ts'/>
 ///<reference path='../util/NumberUtil.ts'/>
 
-class MovieClip extends CanvasElement
+module StructureTS
 {
-    /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = 'MovieClip';
-
-    private _image:HTMLImageElement = null;
-
-    public currentFrame:number = 0;
-    public totalFrames:number = null;
-
-    constructor(image:HTMLImageElement)
+    export class MovieClip extends CanvasElement
     {
-        super();
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'MovieClip';
 
-        this._image = image;
-        this.width = this._image.width;
-        this.height = this._image.height;
-    }
+        private _image:HTMLImageElement = null;
 
-    public createChildren():void
-    {
-        super.createChildren();
-    }
+        public currentFrame:number = 0;
+        public totalFrames:number = null;
 
-    public render():void
-    {
-        if (this.currentFrame >= this.totalFrames)
+        constructor(image:HTMLImageElement)
         {
-            this.currentFrame = 0;
-        }
-        else
-        {
-            this.currentFrame++;
-        }
-    }
+            super();
 
+            this._image = image;
+            this.width = this._image.width;
+            this.height = this._image.height;
+        }
+
+        public createChildren():void
+        {
+            super.createChildren();
+        }
+
+        public render():void
+        {
+            if (this.currentFrame >= this.totalFrames)
+            {
+                this.currentFrame = 0;
+            }
+            else
+            {
+                this.currentFrame++;
+            }
+        }
+
+    }
 }
 
 

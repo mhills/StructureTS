@@ -22,46 +22,49 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * YUIDoc_comment
- *
- * @class IValueObject
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface IValueObject
+module StructureTS
 {
-
     /**
-     * @method clone
-     */
-    clone():Object;
+     * YUIDoc_comment
+     *
+     * @class IValueObject
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface IValueObject
+    {
 
-    /**
-     * @method copy
-     */
-    copy():IValueObject;
+        /**
+         * @method clone
+         */
+        clone():Object;
 
-    /**
-     * @method toJSON
-     */
-    toJSON():any;
+        /**
+         * @method copy
+         */
+        copy():IValueObject;
 
-    /**
-     * @method toJSONString
-     */
-    toJSONString():string
+        /**
+         * @method toJSON
+         */
+        toJSON():any;
 
-    /**
-     * @method fromJSON
-     */
-    fromJSON(json:Object):any;
+        /**
+         * @method toJSONString
+         */
+        toJSONString():string
 
-    /**
-     * @method destroy
-     */
-    destroy():void;
+        /**
+         * @method fromJSON
+         */
+        fromJSON(json:Object):any;
 
+        /**
+         * @method destroy
+         */
+        destroy():void;
+
+    }
 }
