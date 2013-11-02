@@ -2,7 +2,7 @@
 ///<reference path='PatternLexer.ts'/>
 ///<reference path='Route.ts'/>
 
-module millermedeiros
+module MillerMedeiros
 {
     /**
      * YUIDoc_comment
@@ -10,10 +10,11 @@ module millermedeiros
      * @class Crossroads
      * @constructor
      * @author Miller Medeiros
-     * @module millermedeiros
-     * @submodule crossroads
+     * @module MillerMedeiros
+     * @submodule Crossroads
      **/
-    export class Crossroads {
+    export class Crossroads
+    {
 
         /**
          * String representation of the crossroads version number (e.g. "0.6.0").
@@ -25,11 +26,13 @@ module millermedeiros
          */
         public static VERSION:string = '0.12.0';
 
-        public static NORM_AS_ARRAY:Function = function(req, vals) {
+        public static NORM_AS_ARRAY:Function = function (req, vals)
+        {
             return [vals.vals_];
         };
 
-        public static NORM_AS_OBJECT:Function = function(req, vals) {
+        public static NORM_AS_OBJECT:Function = function (req, vals)
+        {
             return [vals];
         };
 
@@ -90,36 +93,36 @@ module millermedeiros
          * Creates a new route pattern listener and add it to crossroads routes collection.
          *
          * @example
-            //String rule with param:
-            //match '/news/123' passing "123" as param to handler
-            var route1 = crossroads.addRoute('/news/{id}', function(id){
+         //String rule with param:
+         //match '/news/123' passing "123" as param to handler
+         var route1 = crossroads.addRoute('/news/{id}', function(id){
                 console.log(id);
             });
 
-            //String rule with optional param:
-            //match '/foo/123/bar' passing "123" and "bar" as param
-            //match '/foo/45' passing 45 as param (slug is optional)
-            var route2 = crossroads.addRoute('/foo/{id}/:slug:');
-            //addRoute returns a Route object
-            route2.matched.add(console.log, console);
+         //String rule with optional param:
+         //match '/foo/123/bar' passing "123" and "bar" as param
+         //match '/foo/45' passing 45 as param (slug is optional)
+         var route2 = crossroads.addRoute('/foo/{id}/:slug:');
+         //addRoute returns a Route object
+         route2.matched.add(console.log, console);
 
-            //RegExp rule:
-            //match '/lorem/ipsum' passing "ipsum" as param to handler
-            //note the capturing group around segment
-            var route3 = crossroads.addRoute(/^\/lorem\/([a-z]+)$/, function(id){
+         //RegExp rule:
+         //match '/lorem/ipsum' passing "ipsum" as param to handler
+         //note the capturing group around segment
+         var route3 = crossroads.addRoute(/^\/lorem\/([a-z]+)$/, function(id){
                 console.log(id);
             });
 
-            //String rule with rest segments:
-            //match '/foo/123/edit' passing "123" as argument
-            //match '/foo/45/asd/123/edit' passing "45/asd/123" as argument
-            var route4 = crossroads.addRoute('/foo/{id*}/edit');
-            //addRoute returns a Route object
-            route4.matched.add(console.log, console);
+         //String rule with rest segments:
+         //match '/foo/123/edit' passing "123" as argument
+         //match '/foo/45/asd/123/edit' passing "45/asd/123" as argument
+         var route4 = crossroads.addRoute('/foo/{id*}/edit');
+         //addRoute returns a Route object
+         route4.matched.add(console.log, console);
 
-            //Query String:
-            //match 'foo.php?lorem=ipsum&dolor=amet'
-            crossroads.addRoute('foo.php{?query}', function(query){
+         //Query String:
+         //match 'foo.php?lorem=ipsum&dolor=amet'
+         crossroads.addRoute('foo.php{?query}', function(query){
             // query strings are decoded into objects
                 console.log('lorem '+ query.lorem +' dolor sit '+ query.dolor);
             });

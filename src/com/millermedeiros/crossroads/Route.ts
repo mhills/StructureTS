@@ -1,6 +1,6 @@
 ///<reference path='../signals/Signal.ts'/>
 
-module millermedeiros
+module MillerMedeiros
 {
     /**
      * YUIDoc_comment
@@ -8,10 +8,11 @@ module millermedeiros
      * @class Route
      * @constructor
      * @author Miller Medeiros
-     * @module millermedeiros
-     * @submodule crossroads
+     * @module MillerMedeiros
+     * @submodule Crossroads
      **/
-    export class Route {
+    export class Route
+    {
 
         private _router = null;
         private _pattern = null;

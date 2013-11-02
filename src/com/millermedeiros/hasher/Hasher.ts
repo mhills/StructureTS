@@ -1,6 +1,6 @@
 ///<reference path='../signals/Signal.ts'/>
 
-module millermedeiros
+module MillerMedeiros
 {
     /**
      * Hasher is a history manager for rich-media applications.
@@ -8,11 +8,12 @@ module millermedeiros
      * @class Hasher
      * @constructor
      * @author Miller Medeiros
-     * @module millermedeiros
-     * @submodule hasher
+     * @module MillerMedeiros
+     * @submodule Hasher
      * @static
      **/
-    export class Hasher {
+    export class Hasher
+    {
 
         /**
          * Hasher Version Number.
@@ -303,7 +304,10 @@ module millermedeiros
          */
         public static init():void
         {
-            if (this._isActive) return;
+            if (this._isActive)
+            {
+                return;
+            }
 
             Hasher._isHashChangeSupported = ('onhashchange' in window) && Hasher._document.documentMode !== 7;
             Hasher._isLegacyIE = Hasher._isIE && !Hasher._isHashChangeSupported;
@@ -348,7 +352,10 @@ module millermedeiros
          */
         public static stop():void
         {
-            if (!Hasher._isActive) return;
+            if (!Hasher._isActive)
+            {
+                return;
+            }
 
             if (Hasher._isHashChangeSupported)
             {
@@ -509,7 +516,10 @@ module millermedeiros
 
         private static _trimHash(hash:string):string
         {
-            if (!hash) return '';
+            if (!hash)
+            {
+                return '';
+            }
             var regexp = new RegExp('^' + Hasher._escapeRegExp(Hasher.prependHash) + '|' + Hasher._escapeRegExp(Hasher.appendHash) + '$', 'g');
             return hash.replace(regexp, '');
         }

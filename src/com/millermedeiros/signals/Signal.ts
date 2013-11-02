@@ -1,6 +1,6 @@
 ///<reference path='SignalBinding.ts'/>
 
-module millermedeiros
+module MillerMedeiros
 {
     /**
      * Custom event broadcaster
@@ -9,12 +9,13 @@ module millermedeiros
      * @class Signal
      * @constructor
      * @author Miller Medeiros
-     * @module millermedeiros
-     * @submodule singals
+     * @module MillerMedeiros
+     * @submodule Signals
      * @requires SignalBinding
      * @constructor
      */
-    export class Signal {
+    export class Signal
+    {
 
         /**
          * Signals Version Number.

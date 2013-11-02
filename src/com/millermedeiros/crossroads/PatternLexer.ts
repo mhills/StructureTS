@@ -1,6 +1,6 @@
 ///<reference path=''/>
 
-module millermedeiros
+module MillerMedeiros
 {
     /**
      * YUIDoc_comment
@@ -8,10 +8,11 @@ module millermedeiros
      * @class PatternLexer
      * @constructor
      * @author Miller Medeiros
-     * @module millermedeiros
-     * @submodule crossroads
+     * @module MillerMedeiros
+     * @submodule Crossroads
      **/
-    export class PatternLexer {
+    export class PatternLexer
+    {
 
         public LOOSE_SLASH = 1;
         public STRICT_SLASH = 2;

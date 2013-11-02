@@ -1,6 +1,6 @@
 ///<reference path='Signal.ts'/>
 
-module millermedeiros
+module MillerMedeiros
 {
     /**
      * Object that represents a binding between a Signal and a listener function.
@@ -10,8 +10,8 @@ module millermedeiros
      * @class SignalBinding
      * @constructor
      * @author Miller Medeiros
-     * @module millermedeiros
-     * @submodule singals
+     * @module MillerMedeiros
+     * @submodule Signals
      * @internal
      * @name SignalBinding
      * @param signal {Signal} Reference to Signal object that listener is currently bound to.
@@ -20,7 +20,8 @@ module millermedeiros
      * @param [listenerContext] {Object} Context on which listener will be executed (object that should represent the `this` variable inside listener function).
      * @param [priority=0] {Number} The priority level of the event listener. (default = 0).
      */
-    export class SignalBinding {
+    export class SignalBinding
+    {
 
         /**
          * If binding should be executed just once.
