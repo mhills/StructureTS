@@ -1,0 +1,28 @@
+#header{
+	background:none;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='img/bg-header-transparent.png', sizingmethod='crop');
+}
+#leftcol .block .block-top{
+	background:none;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='img/bg-leftblock-top.png', sizingmethod='crop');
+}
+#leftcol .block .block-content{
+	background:none;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='img/bg-leftblock.png', sizingmethod='scale');
+}
+#leftcol .block .block-bottom{
+	background:none;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='img/bg-leftblock-bottom.png', sizingmethod='crop');
+}
+#rightcol .block .block-top{
+	background:none;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='img/bg-rightblock-top.png', sizingmethod='crop');
+}
+#rightcol .block .block-content{
+	background:none;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='img/bg-rightblock.png', sizingmethod='scale');
+}
+#rightcol .block .block-bottom{
+	background:none;
+	filter: progid:dximagetransform.microsoft.alphaimageloader(src='img/bg-rightblock-bottom.png', sizingmethod='crop');
+}

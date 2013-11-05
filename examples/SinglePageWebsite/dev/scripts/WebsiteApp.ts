@@ -1,147 +1,70 @@
-///<reference path='_declare/parse.d.ts'/>
-
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
 ///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/controller/RouterController.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/request/JsonRequest.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/model/LanguageModel.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/controller/LocalStorageController.ts'/>
 
-///<reference path='view/layout/NavigationView.ts'/>
-///<reference path='view/layout/FooterView.ts'/>
-///<reference path='view/MainView.ts'/>
-///<reference path='model/MainLanguageModel.ts'/>
+///<reference path='view/RootView.ts'/>
 
-class WebsiteApp extends Stage
+module codeBelt
 {
-    static BASE_PATH:string = "prod/";
+    import DOMElement = StructureTS.DOMElement;
+    import Stage = StructureTS.Stage;
 
-    private _router:RouterController = null;
-
-    private _pageContainer:DOMElement = null;
-    private _navigationView:NavigationView = null;
-    private _footerView:FooterView = null;
-    private _mainView:MainView = null;
-
-    private _languageManager:MainLanguageModel = null;
-    private _request:JsonRequest = null;
-
-    constructor() {
-        super();
-
-        this._languageManager = MainLanguageModel.getInstance();
-        this._languageManager.addEventListener(LanguageEvent.LANGUAGE_LOADED, this.init, this);
-        this._languageManager.loadConfig(WebsiteApp.BASE_PATH + 'data/languages/languages.json');
-
-        this._router = new RouterController();
-
-        this._request = new JsonRequest();
-    }
-
-    public createChildren():DOMElement {
-        super.createChildren();
-
-        return this;
-    }
-
-    /**
-     * @overridden DisplayObject.enable
-     */
-    public enable():DOMElement {
-        if (this.isEnabled === true) return this;
-
-        super.enable();
-        return this;
-    }
-
-    /**
-     * @overridden DisplayObject.disable
-     */
-    public disable():DOMElement {
-        if (this.isEnabled === false) return this;
-
-        super.disable();
-        return this;
-    }
-
-    private init(event):void
+    export class WebsiteApp extends Stage
     {
-        this._pageContainer = new DOMElement("div", {id: "page"});
-        this.addChild(this._pageContainer);
+        /**
+         * @overridden Stage.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'WebsiteApp';
 
-        this._navigationView = new NavigationView();
-        this._pageContainer.addChild(this._navigationView);
-        this._navigationView.enable();
+        private _rootView:RootView = null;
 
-        //Add the main content to manage the changing views
-        this._mainView = new MainView("div", {id: "content"}, this._router);
-        this._pageContainer.addChild(this._mainView);
+        constructor()
+        {
+            super();
+        }
 
-        this._footerView = new FooterView();
-        this._pageContainer.addChild(this._footerView);
+        /**
+         * @overridden DOMElement.createChildren
+         */
+        public createChildren():void
+        {
+            super.createChildren();
+
+            this._rootView = new RootView();
+            this.addChild(this._rootView);
+        }
+
+        /**
+         * @overridden DOMElement.enable
+         */
+        public enable():void
+        {
+            if (this.isEnabled === true) return;
+
+            this._rootView.enable();
+
+            super.enable();
+        }
+
+        /**
+         * @overridden DOMElement.disable
+         */
+        public disable():void
+        {
+            if (this.isEnabled === false) return;
+
+            this._rootView.disable();
+
+            super.disable();
+        }
+
+        /**
+         * @overridden DOMElement.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+        }
+
     }
 }
-
-
-
-//http://blog.parse.com/2012/01/19/javascript-and-user-authentication-for-the-rest-api/
-//http://www.adobe.com/devnet/phonegap/articles/using-parse-with-phonegap-a-marriage-made-in-awesome.html
-//http://net.tutsplus.com/tutorials/javascript-ajax/getting-started-with-parse/
-/*$.ajax({
- url : 'https://api.parse.com/1/users',
- type : 'POST',
- dataType: 'json',
- contentType : 'application/json',
- beforeSend: function(request) {
- request.setRequestHeader("X-Parse-Application-Id", '5tfOk1NPi4KxQwWDbGdaw0eY0GFKAnrp3upTzRo8');
- request.setRequestHeader("X-Parse-REST-API-Key", 'Tz2OgC9TZTEgGvMQhtk7IHQT6c46mBuCbF545Dgn');
- },
- data : JSON.stringify({
- username : 'codebelt',
- password: 'password',
- email: 'test@example.com'
- }),
- error : function(data) {
- var response:any = JSON.parse(data.responseText);
- console.log('error', response);
- },
- success : function(data) {
- console.log('success', data);
-*/
-
-
-//http://www.jsobfuscate.com/index.php
-//http://code.ovidiu.ch/dragdealer/
-//http://blogs.creative-jar.com/post/Dragdealer.aspx
-
-
-
-
-//Content-Type	application/x-www-form-urlencoded; charset=UTF-8
-//emailAddress=rsavian%40nerdery.com&password=testing&voType=AuthenticateVO
-
-//{
-//    "status":"success",
-//    "data":{
-//    "user":{
-//        "id":"11",
-//            "firstName":"Robert",
-//            "lastName":"Savian",
-//            "dealer":null,
-//            "language":"en",
-//            "country":"BY",
-//            "email":"rsavian@nerdery.com",
-//            "status":"active",
-//            "role":"super_admin",
-//            "measurementType":"imperial",
-//            "glassChecklistRegion":"apac",
-//            "dateRegistered":"Thu, 14 Mar 2013 14:49:32 -0500",
-//            "created":"Thu, 14 Mar 2013 14:49:32 -0500",
-//            "updated":"Sat, 25 May 2013 14:07:57 -0500",
-//            "lastLogon":"Sat, 25 May 2013 14:07:57 -0500"
-//    },
-//    "userSession":{
-//        "token":"b274558c-cfc5-45be-8891-202c53c8afba"
-//    }
-//}
-//}
