@@ -2020,7 +2020,7 @@ var codeBelt;
             this.CLASS_NAME = 'FooterView';
         }
         FooterView.prototype.createChildren = function () {
-            _super.prototype.createChildren.call(this, 'templates/footer/FooterTemplate.hbs');
+            _super.prototype.createChildren.call(this, 'templates/footer/footerTemplate.hbs');
         };
 
         FooterView.prototype.layoutChildren = function () {
@@ -2046,6 +2046,40 @@ var codeBelt;
 var codeBelt;
 (function (codeBelt) {
     var DOMElement = StructureTS.DOMElement;
+
+    var HeaderView = (function (_super) {
+        __extends(HeaderView, _super);
+        function HeaderView() {
+            _super.call(this);
+            this.CLASS_NAME = 'HeaderView';
+        }
+        HeaderView.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this, 'templates/header/headerTemplate.hbs');
+        };
+
+        HeaderView.prototype.layoutChildren = function () {
+        };
+
+        HeaderView.prototype.enable = function () {
+            if (this.isEnabled === true)
+                return;
+
+            _super.prototype.enable.call(this);
+        };
+
+        HeaderView.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return;
+
+            _super.prototype.disable.call(this);
+        };
+        return HeaderView;
+    })(StructureTS.DOMElement);
+    codeBelt.HeaderView = HeaderView;
+})(codeBelt || (codeBelt = {}));
+var codeBelt;
+(function (codeBelt) {
+    var DOMElement = StructureTS.DOMElement;
     var RouterController = StructureTS.RouterController;
 
     var RootView = (function (_super) {
@@ -2055,12 +2089,26 @@ var codeBelt;
             this.CLASS_NAME = 'RootView';
             this._router = null;
             this._headerView = null;
+            this._contentContainer = null;
             this._footerView = null;
+            this._currentView = null;
         }
         RootView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this, 'div', { "id": "pageWrapper" });
 
+            this._headerView = new codeBelt.HeaderView();
+            this.addChild(this._headerView);
+
+            this._contentContainer = new DOMElement('div');
+            this.addChild(this._contentContainer);
+
+            this._footerView = new codeBelt.FooterView();
             this.addChild(this._footerView);
+
+            this._router = new RouterController();
+            this._router.addRoute('', this.homeRouterHandler, this);
+
+            this._router.start();
         };
 
         RootView.prototype.layoutChildren = function () {
@@ -2082,6 +2130,22 @@ var codeBelt;
 
         RootView.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
+        };
+
+        RootView.prototype.homeRouterHandler = function () {
+            if (!(this._currentView instanceof DOMElement)) {
+                var view = new DOMElement('templates/home/homeTemplate.hbs');
+                this.changeView(view);
+            }
+        };
+
+        RootView.prototype.changeView = function (view) {
+            if (this._currentView) {
+                this.removeChild(this._currentView);
+            }
+
+            this._currentView = view;
+            this.addChildAt(this._currentView, 1);
         };
         return RootView;
     })(StructureTS.DOMElement);

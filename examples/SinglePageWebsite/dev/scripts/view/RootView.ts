@@ -2,6 +2,7 @@
 ///<reference path='../../../../../src/com/codebelt/structurets/controller/RouterController.ts'/>
 
 ///<reference path='footer/FooterView.ts'/>
+///<reference path='header/HeaderView.ts'/>
 
 module codeBelt
 {
@@ -17,8 +18,11 @@ module codeBelt
 
         private _router:RouterController = null;
 
-        private _headerView:RouterController = null;
+        private _headerView:HeaderView = null;
+        private _contentContainer:DOMElement = null;
         private _footerView:FooterView = null;
+
+        private _currentView:DOMElement = null;
 
         constructor()
         {
@@ -32,16 +36,24 @@ module codeBelt
         {
             super.createChildren('div', {"id": "pageWrapper"});
 
+            this._headerView = new HeaderView();
+            this.addChild(this._headerView);
+
+            this._contentContainer = new DOMElement('div');
+            this.addChild(this._contentContainer);
+
+            this._footerView = new FooterView();
             this.addChild(this._footerView);
 
-//            this._router = new RouterController();
-//            this._router.addRoute('', this.homeRouterHandler, this);
+
+            this._router = new RouterController();
+            this._router.addRoute('', this.homeRouterHandler, this);
 //            this._router.addRoute(RoutePath.HOME.BASE, this.homeRouterHandler, this);
 //            this._router.addRoute(RoutePath.PRODUCT.BASE, this.filtekProductsRouterHandler, this);
 //            this._router.addRoute(RoutePath.PRODUCT.BASE + ':product:', this.productRouterHandler, this);
 //            this._router.addRoute(RoutePath.CLASSES.BASE + '{class}', this.classRouterHandler, this);
 //            this._router.addRoute('{?query}', this.resetRouterHandler, this);
-//            this._router.start();
+            this._router.start();
         }
 
         /**
@@ -120,15 +132,14 @@ module codeBelt
 //            this._router.navigateTo(event.url, event.silent);
 //        }
 
-//        private homeRouterHandler():void
-//        {
-//            if (!(this._currentView instanceof HomeViewController))
-//            {
-//                var view:HomeViewController = new HomeViewController();
-//                this.changeView(view);
-//            }
-//            this._currentView.update();
-//        }
+        private homeRouterHandler():void
+        {
+            if (!(this._currentView instanceof DOMElement))
+            {
+                var view:DOMElement = new DOMElement('templates/home/homeTemplate.hbs');
+                this.changeView(view);
+            }
+        }
 //
 //        private filtekProductsRouterHandler():void
 //        {
@@ -173,23 +184,16 @@ module codeBelt
 //            }
 //        }
 //
-//        private changeView(view:ESPEViewController):void
-//        {
-//            view.setSize(this._contentContainer.unscaledWidth, this._contentContainer.unscaledHeight);
-//
-//            if (this._currentView)
-//            {
-//                this._transitionManager.transitionToNextView(view, this._direction);
-//            }
-//            else
-//            {
-//                this._transitionManager.setCurrentView(view);
-//            }
-//
-//            this._currentView = view;
-//
-//            this.hideShowSubNav();
-//        }
+        private changeView(view:DOMElement):void
+        {
+            if (this._currentView)
+            {
+                this.removeChild(this._currentView)
+            }
+
+            this._currentView = view;
+            this.addChildAt(this._currentView, 1);
+        }
 //
 //        private hideShowSubNav():void
 //        {
