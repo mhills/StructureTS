@@ -24,8 +24,7 @@ module codeBelt
         }
 
         /**
-         * @copy DisplayObject.createChildren
-         * @overridden
+         * @overridden DisplayObject.createChildren
          */
         public createChildren():void
         {
@@ -34,8 +33,7 @@ module codeBelt
         }
 
         /**
-         * @copy DisplayObject.layoutChildren
-         * @overridden
+         * @overridden DisplayObject.layoutChildren
          */
         public layoutChildren():void
         {
@@ -43,8 +41,7 @@ module codeBelt
         }
 
         /**
-         * @copy DisplayObject.enable
-         * @overridden
+         * @overridden DisplayObject.enable
          */
         public enable():void
         {
@@ -54,8 +51,7 @@ module codeBelt
         }
 
         /**
-         * @copy DisplayObject.disable
-         * @overridden
+         * @overridden DisplayObject.disable
          */
         public disable():void
         {

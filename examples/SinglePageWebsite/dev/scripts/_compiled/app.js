@@ -2080,6 +2080,196 @@ var codeBelt;
 var codeBelt;
 (function (codeBelt) {
     var DOMElement = StructureTS.DOMElement;
+
+    var ContentView = (function (_super) {
+        __extends(ContentView, _super);
+        function ContentView() {
+            _super.call(this);
+            this.CLASS_NAME = 'ContentView';
+        }
+        ContentView.prototype.layoutChildren = function () {
+        };
+
+        ContentView.prototype.enable = function () {
+            if (this.isEnabled === true)
+                return;
+
+            _super.prototype.enable.call(this);
+        };
+
+        ContentView.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return;
+
+            _super.prototype.disable.call(this);
+        };
+        return ContentView;
+    })(StructureTS.DOMElement);
+    codeBelt.ContentView = ContentView;
+})(codeBelt || (codeBelt = {}));
+var codeBelt;
+(function (codeBelt) {
+    var AboutView = (function (_super) {
+        __extends(AboutView, _super);
+        function AboutView() {
+            _super.call(this);
+            this.CLASS_NAME = 'AboutView';
+        }
+        AboutView.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this, 'templates/about/aboutTemplate.hbs');
+        };
+
+        AboutView.prototype.layoutChildren = function () {
+        };
+
+        AboutView.prototype.enable = function () {
+            if (this.isEnabled === true)
+                return;
+
+            _super.prototype.enable.call(this);
+        };
+
+        AboutView.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return;
+
+            _super.prototype.disable.call(this);
+        };
+        return AboutView;
+    })(codeBelt.ContentView);
+    codeBelt.AboutView = AboutView;
+})(codeBelt || (codeBelt = {}));
+var codeBelt;
+(function (codeBelt) {
+    var ContactView = (function (_super) {
+        __extends(ContactView, _super);
+        function ContactView() {
+            _super.call(this);
+            this.CLASS_NAME = 'ContactView';
+        }
+        ContactView.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this, 'templates/contact/contactTemplate.hbs');
+        };
+
+        ContactView.prototype.layoutChildren = function () {
+        };
+
+        ContactView.prototype.enable = function () {
+            if (this.isEnabled === true)
+                return;
+
+            _super.prototype.enable.call(this);
+        };
+
+        ContactView.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return;
+
+            _super.prototype.disable.call(this);
+        };
+        return ContactView;
+    })(codeBelt.ContentView);
+    codeBelt.ContactView = ContactView;
+})(codeBelt || (codeBelt = {}));
+var codeBelt;
+(function (codeBelt) {
+    var HomeView = (function (_super) {
+        __extends(HomeView, _super);
+        function HomeView() {
+            _super.call(this);
+            this.CLASS_NAME = 'HomeView';
+        }
+        HomeView.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this, 'templates/home/homeTemplate.hbs');
+        };
+
+        HomeView.prototype.layoutChildren = function () {
+        };
+
+        HomeView.prototype.enable = function () {
+            if (this.isEnabled === true)
+                return;
+
+            _super.prototype.enable.call(this);
+        };
+
+        HomeView.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return;
+
+            _super.prototype.disable.call(this);
+        };
+        return HomeView;
+    })(codeBelt.ContentView);
+    codeBelt.HomeView = HomeView;
+})(codeBelt || (codeBelt = {}));
+var codeBelt;
+(function (codeBelt) {
+    var MenuView = (function (_super) {
+        __extends(MenuView, _super);
+        function MenuView() {
+            _super.call(this);
+            this.CLASS_NAME = 'MenuView';
+        }
+        MenuView.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this, 'templates/menu/menuTemplate.hbs');
+        };
+
+        MenuView.prototype.layoutChildren = function () {
+        };
+
+        MenuView.prototype.enable = function () {
+            if (this.isEnabled === true)
+                return;
+
+            _super.prototype.enable.call(this);
+        };
+
+        MenuView.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return;
+
+            _super.prototype.disable.call(this);
+        };
+        return MenuView;
+    })(codeBelt.ContentView);
+    codeBelt.MenuView = MenuView;
+})(codeBelt || (codeBelt = {}));
+var codeBelt;
+(function (codeBelt) {
+    var ServicesView = (function (_super) {
+        __extends(ServicesView, _super);
+        function ServicesView() {
+            _super.call(this);
+            this.CLASS_NAME = 'ServicesView';
+        }
+        ServicesView.prototype.createChildren = function () {
+            _super.prototype.createChildren.call(this, 'templates/services/servicesTemplate.hbs');
+        };
+
+        ServicesView.prototype.layoutChildren = function () {
+        };
+
+        ServicesView.prototype.enable = function () {
+            if (this.isEnabled === true)
+                return;
+
+            _super.prototype.enable.call(this);
+        };
+
+        ServicesView.prototype.disable = function () {
+            if (this.isEnabled === false)
+                return;
+
+            _super.prototype.disable.call(this);
+        };
+        return ServicesView;
+    })(codeBelt.ContentView);
+    codeBelt.ServicesView = ServicesView;
+})(codeBelt || (codeBelt = {}));
+var codeBelt;
+(function (codeBelt) {
+    var DOMElement = StructureTS.DOMElement;
     var RouterController = StructureTS.RouterController;
 
     var RootView = (function (_super) {
@@ -2107,6 +2297,11 @@ var codeBelt;
 
             this._router = new RouterController();
             this._router.addRoute('', this.homeRouterHandler, this);
+            this._router.addRoute('home/', this.homeRouterHandler, this);
+            this._router.addRoute('about/', this.aboutRouterHandler, this);
+            this._router.addRoute('contact/', this.contactRouterHandler, this);
+            this._router.addRoute('services/', this.servicesRouterHandler, this);
+            this._router.addRoute('menu/', this.menuRouterHandler, this);
 
             this._router.start();
         };
@@ -2133,8 +2328,36 @@ var codeBelt;
         };
 
         RootView.prototype.homeRouterHandler = function () {
-            if (!(this._currentView instanceof DOMElement)) {
-                var view = new DOMElement('templates/home/homeTemplate.hbs');
+            if (!(this._currentView instanceof codeBelt.HomeView)) {
+                var view = new codeBelt.HomeView();
+                this.changeView(view);
+            }
+        };
+
+        RootView.prototype.aboutRouterHandler = function () {
+            if (!(this._currentView instanceof codeBelt.AboutView)) {
+                var view = new codeBelt.AboutView();
+                this.changeView(view);
+            }
+        };
+
+        RootView.prototype.contactRouterHandler = function () {
+            if (!(this._currentView instanceof codeBelt.ContactView)) {
+                var view = new codeBelt.ContactView();
+                this.changeView(view);
+            }
+        };
+
+        RootView.prototype.servicesRouterHandler = function () {
+            if (!(this._currentView instanceof codeBelt.ServicesView)) {
+                var view = new codeBelt.ServicesView();
+                this.changeView(view);
+            }
+        };
+
+        RootView.prototype.menuRouterHandler = function () {
+            if (!(this._currentView instanceof codeBelt.MenuView)) {
+                var view = new codeBelt.MenuView();
                 this.changeView(view);
             }
         };

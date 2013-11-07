@@ -3,6 +3,11 @@
 
 ///<reference path='footer/FooterView.ts'/>
 ///<reference path='header/HeaderView.ts'/>
+///<reference path='about/AboutView.ts'/>
+///<reference path='contact/ContactView.ts'/>
+///<reference path='home/HomeView.ts'/>
+///<reference path='menu/MenuView.ts'/>
+///<reference path='services/ServicesView.ts'/>
 
 module codeBelt
 {
@@ -48,10 +53,11 @@ module codeBelt
 
             this._router = new RouterController();
             this._router.addRoute('', this.homeRouterHandler, this);
-//            this._router.addRoute(RoutePath.HOME.BASE, this.homeRouterHandler, this);
-//            this._router.addRoute(RoutePath.PRODUCT.BASE, this.filtekProductsRouterHandler, this);
-//            this._router.addRoute(RoutePath.PRODUCT.BASE + ':product:', this.productRouterHandler, this);
-//            this._router.addRoute(RoutePath.CLASSES.BASE + '{class}', this.classRouterHandler, this);
+            this._router.addRoute('home/', this.homeRouterHandler, this);
+            this._router.addRoute('about/', this.aboutRouterHandler, this);
+            this._router.addRoute('contact/', this.contactRouterHandler, this);
+            this._router.addRoute('services/', this.servicesRouterHandler, this);
+            this._router.addRoute('menu/', this.menuRouterHandler, this);
 //            this._router.addRoute('{?query}', this.resetRouterHandler, this);
             this._router.start();
         }
@@ -134,12 +140,49 @@ module codeBelt
 
         private homeRouterHandler():void
         {
-            if (!(this._currentView instanceof DOMElement))
+            if (!(this._currentView instanceof HomeView))
             {
-                var view:DOMElement = new DOMElement('templates/home/homeTemplate.hbs');
+                var view:HomeView = new HomeView();
                 this.changeView(view);
             }
         }
+
+        private aboutRouterHandler():void
+        {
+            if (!(this._currentView instanceof AboutView))
+            {
+                var view:AboutView = new AboutView();
+                this.changeView(view);
+            }
+        }
+
+        private contactRouterHandler():void
+        {
+            if (!(this._currentView instanceof ContactView))
+            {
+                var view:ContactView = new ContactView();
+                this.changeView(view);
+            }
+        }
+
+        private servicesRouterHandler():void
+        {
+            if (!(this._currentView instanceof ServicesView))
+            {
+                var view:ServicesView = new ServicesView();
+                this.changeView(view);
+            }
+        }
+
+        private menuRouterHandler():void
+        {
+            if (!(this._currentView instanceof MenuView))
+            {
+                var view:MenuView = new MenuView();
+                this.changeView(view);
+            }
+        }
+
 //
 //        private filtekProductsRouterHandler():void
 //        {
@@ -194,44 +237,6 @@ module codeBelt
             this._currentView = view;
             this.addChildAt(this._currentView, 1);
         }
-//
-//        private hideShowSubNav():void
-//        {
-//            if (this._currentView instanceof HomeViewController)
-//            {
-//                this._titleBar.show();
-//                this._subNav.hideUpArrow();
-//                this._subNav.hideSideArrows();
-//            }
-//            else if (this._currentView instanceof FiltekProductsViewController)
-//            {
-//                this._titleBar.hide();
-//                this._subNav.showUpArrow();
-//                this._subNav.hideSideArrows();
-//            }
-//            else
-//            {
-//                this._titleBar.hide();
-//                this._subNav.showUpArrow();
-//                this._subNav.showSideArrows();
-//            }
-//        }
-//
-//        private onSubNavChange(event:BaseEvent):void
-//        {
-//            switch (event.data)
-//            {
-//                case 'up':
-//                    this._currentView.up();
-//                    break;
-//                case 'right':
-//                    this._currentView.next();
-//                    break;
-//                case 'left':
-//                    this._currentView.previous();
-//                    break;
-//            }
-//        }
 
     }
 }

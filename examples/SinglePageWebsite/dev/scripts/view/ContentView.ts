@@ -1,18 +1,22 @@
-///<reference path='../../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 
 module codeBelt
 {
     import DOMElement = StructureTS.DOMElement;
+
     /**
      * YUIDoc_comment
      *
-     * @class HeaderView
+     * @class ContentView
+     * @extends DOMElement
      * @constructor
      **/
-    export class HeaderView extends DOMElement
+    export class ContentView extends DOMElement
     {
-
-        public CLASS_NAME:string = 'HeaderView';
+        /**
+         * @overridden DOMElement.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'ContentView';
 
         constructor()
         {
@@ -21,16 +25,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.createChildren
-         */
-        public createChildren():void
-        {
-            super.createChildren('templates/header/headerTemplate.hbs');
-
-        }
-
-        /**
-         * @overridden DisplayObject.layoutChildren
+         * @overridden DOMElement.layoutChildren
          */
         public layoutChildren():void
         {
@@ -38,7 +33,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden DOMElement.enable
          */
         public enable():void
         {
@@ -48,7 +43,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden DOMElement.disable
          */
         public disable():void
         {
