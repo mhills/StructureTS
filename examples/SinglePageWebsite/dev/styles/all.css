@@ -15,6 +15,14 @@ form, fieldset {
     border: 0;
 }
 
+a {
+    color: #90B094;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
 #pageWrapper {
     width: 942px;
     overflow: hidden;
@@ -492,4 +500,55 @@ h1 a {
 
 #footer a:hover {
     text-decoration: underline;
+}
+
+/* MENU */
+
+.container .column, .container .columns {
+    float: left;
+    display: inline;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.menu-item .price {
+    position: static;
+    float: right;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #CD1C1D;
+    padding: 0 5px 0 5px;
+    color: #fff;
+    width: 30px;
+    text-align: center;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+}
+
+.menu-info {
+    margin-left: 90px;
+    margin-bottom: 30px;
+}
+
+.menu-item img {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    margin-top: 5px;
+}
+
+.menu-info h4 {
+    font-size: 15px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}
+
+.menu-list {
+    margin-bottom: 0px;
+}
+
+.menu_category {
+    font-size: 22px;
+    font-style: normal;
 }
