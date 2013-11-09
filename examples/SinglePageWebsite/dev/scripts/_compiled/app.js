@@ -2279,7 +2279,6 @@ var codeBelt;
             this.CLASS_NAME = 'RootView';
             this._router = null;
             this._headerView = null;
-            this._contentContainer = null;
             this._footerView = null;
             this._currentView = null;
         }
@@ -2288,9 +2287,6 @@ var codeBelt;
 
             this._headerView = new codeBelt.HeaderView();
             this.addChild(this._headerView);
-
-            this._contentContainer = new DOMElement('div');
-            this.addChild(this._contentContainer);
 
             this._footerView = new codeBelt.FooterView();
             this.addChild(this._footerView);
@@ -2307,6 +2303,9 @@ var codeBelt;
         };
 
         RootView.prototype.layoutChildren = function () {
+            if (this._currentView) {
+                this._currentView.layoutChildren();
+            }
         };
 
         RootView.prototype.enable = function () {
@@ -2325,6 +2324,11 @@ var codeBelt;
 
         RootView.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
+
+            this._router.destroy();
+            this._router = null;
+            this._currentView.destroy();
+            this._currentView = null;
         };
 
         RootView.prototype.homeRouterHandler = function () {

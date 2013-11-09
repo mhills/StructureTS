@@ -1,6 +1,6 @@
 /*
 * Project: TypeScript-Grunt-Boilerplate
-* Version: 0.1.0 (2013-11-02)
+* Version: 0.1.0 (2013-11-08)
 * Development By: codeBelt
 * Copyright(c): 2013
 */ 
@@ -17808,9 +17808,8 @@ function program5(depth0,data) {
         var hash = null;
         var strLength = str.length;
 
-        if (strLength == 0) {
+        if (strLength == 0)
             return hash;
-        }
 
         for (var i = 0; i < strLength; i++) {
             character = str.charCodeAt(i);
@@ -17881,8 +17880,8 @@ function program5(depth0,data) {
         return this;
     };
 })(jQuery, window, document);
-var structurets;
-(function (structurets) {
+var StructureTS;
+(function (StructureTS) {
     var Util = (function () {
         function Util() {
         }
@@ -17925,9 +17924,9 @@ var structurets;
         return Util;
     })();
     StructureTS.Util = Util;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var BaseObject = (function () {
         function BaseObject() {
             this.CLASS_NAME = 'BaseObject';
@@ -17943,9 +17942,9 @@ var structurets;
         return BaseObject;
     })();
     StructureTS.BaseObject = BaseObject;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var BaseEvent = (function () {
         function BaseEvent(type, bubbles, cancelable, data) {
             if (typeof bubbles === "undefined") { bubbles = false; }
@@ -18027,15 +18026,15 @@ var structurets;
         return BaseEvent;
     })();
     StructureTS.BaseEvent = BaseEvent;
-})(structurets || (structurets = {}));
+})(StructureTS || (StructureTS = {}));
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var structurets;
-(function (structurets) {
+var StructureTS;
+(function (StructureTS) {
     var EventDispatcher = (function (_super) {
         __extends(EventDispatcher, _super);
         function EventDispatcher() {
@@ -18144,9 +18143,9 @@ var structurets;
         return EventDispatcher;
     })(StructureTS.BaseObject);
     StructureTS.EventDispatcher = EventDispatcher;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var DisplayObjectContainer = (function (_super) {
         __extends(DisplayObjectContainer, _super);
         function DisplayObjectContainer() {
@@ -18261,9 +18260,9 @@ var structurets;
         return DisplayObjectContainer;
     })(StructureTS.EventDispatcher);
     StructureTS.DisplayObjectContainer = DisplayObjectContainer;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var StringUtil = (function () {
         function StringUtil() {
         }
@@ -18337,9 +18336,9 @@ var structurets;
         return StringUtil;
     })();
     StructureTS.StringUtil = StringUtil;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var TemplateFactory = (function () {
         function TemplateFactory() {
         }
@@ -18398,9 +18397,9 @@ var structurets;
         return TemplateFactory;
     })();
     StructureTS.TemplateFactory = TemplateFactory;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var DOMElement = (function (_super) {
         __extends(DOMElement, _super);
         function DOMElement(type, params) {
@@ -18600,9 +18599,9 @@ var structurets;
         return DOMElement;
     })(StructureTS.DisplayObjectContainer);
     StructureTS.DOMElement = DOMElement;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var Stage = (function (_super) {
         __extends(Stage, _super);
         function Stage() {
@@ -18629,9 +18628,9 @@ var structurets;
         return Stage;
     })(StructureTS.DOMElement);
     StructureTS.Stage = Stage;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var ValueObject = (function (_super) {
         __extends(ValueObject, _super);
         function ValueObject() {
@@ -18676,9 +18675,9 @@ var structurets;
         return ValueObject;
     })(StructureTS.BaseObject);
     StructureTS.ValueObject = ValueObject;
-})(structurets || (structurets = {}));
-var example;
-(function (example) {
+})(StructureTS || (StructureTS = {}));
+var codeBelt;
+(function (codeBelt) {
     var ValueObject = StructureTS.ValueObject;
     
 
@@ -18708,10 +18707,10 @@ var example;
         };
         return TodoItemVO;
     })(StructureTS.ValueObject);
-    example.TodoItemVO = TodoItemVO;
-})(example || (example = {}));
-var structurets;
-(function (structurets) {
+    codeBelt.TodoItemVO = TodoItemVO;
+})(codeBelt || (codeBelt = {}));
+var StructureTS;
+(function (StructureTS) {
     var Collection = (function (_super) {
         __extends(Collection, _super);
         function Collection() {
@@ -18887,9 +18886,9 @@ var structurets;
         return Collection;
     })(StructureTS.EventDispatcher);
     StructureTS.Collection = Collection;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var BaseController = (function (_super) {
         __extends(BaseController, _super);
         function BaseController() {
@@ -18899,9 +18898,9 @@ var structurets;
         return BaseController;
     })(StructureTS.EventDispatcher);
     StructureTS.BaseController = BaseController;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var LocalStorageEvent = (function (_super) {
         __extends(LocalStorageEvent, _super);
         function LocalStorageEvent(type, bubbles, cancelable, nativeEvent) {
@@ -18919,9 +18918,9 @@ var structurets;
         return LocalStorageEvent;
     })(StructureTS.BaseEvent);
     StructureTS.LocalStorageEvent = LocalStorageEvent;
-})(structurets || (structurets = {}));
-var structurets;
-(function (structurets) {
+})(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
     var LocalStorageController = (function (_super) {
         __extends(LocalStorageController, _super);
         function LocalStorageController() {
@@ -19043,9 +19042,9 @@ var structurets;
         return LocalStorageController;
     })(StructureTS.BaseController);
     StructureTS.LocalStorageController = LocalStorageController;
-})(structurets || (structurets = {}));
-var example;
-(function (example) {
+})(StructureTS || (StructureTS = {}));
+var codeBelt;
+(function (codeBelt) {
     var Collection = StructureTS.Collection;
     var LocalStorageController = StructureTS.LocalStorageController;
 
@@ -19056,7 +19055,7 @@ var example;
             this.CLASS_NAME = 'TodoCollection';
             this._localStorage = null;
 
-            var vo = new example.TodoItemVO();
+            var vo = new codeBelt.TodoItemVO();
 
             var namespace = vo.getQualifiedClassName() + ".";
 
@@ -19092,16 +19091,16 @@ var example;
             var todoItemVO;
 
             for (var i = 0; i < itemsLength; i++) {
-                todoItemVO = new example.TodoItemVO(items[i].value);
+                todoItemVO = new codeBelt.TodoItemVO(items[i].value);
                 _super.prototype.addItem.call(this, todoItemVO, true);
             }
         };
         return TodoCollection;
     })(StructureTS.Collection);
-    example.TodoCollection = TodoCollection;
-})(example || (example = {}));
-var example;
-(function (example) {
+    codeBelt.TodoCollection = TodoCollection;
+})(codeBelt || (codeBelt = {}));
+var codeBelt;
+(function (codeBelt) {
     var Stage = StructureTS.Stage;
     var DOMElement = StructureTS.DOMElement;
     var StringUtil = StructureTS.StringUtil;
@@ -19119,7 +19118,7 @@ var example;
         ZombieApp.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
 
-            this._todoCollection = new example.TodoCollection();
+            this._todoCollection = new codeBelt.TodoCollection();
 
             var backgroundAndButtons = new DOMElement('templates/MainTemplate.hbs');
             this.addChild(backgroundAndButtons);
@@ -19203,7 +19202,7 @@ var example;
         };
 
         ZombieApp.prototype.addTodo = function (todoText) {
-            var todoVO = new example.TodoItemVO();
+            var todoVO = new codeBelt.TodoItemVO();
             todoVO.id = StringUtil.createUUID();
             todoVO.text = todoText;
 
@@ -19266,5 +19265,5 @@ var example;
         };
         return ZombieApp;
     })(StructureTS.Stage);
-    example.ZombieApp = ZombieApp;
-})(example || (example = {}));
+    codeBelt.ZombieApp = ZombieApp;
+})(codeBelt || (codeBelt = {}));

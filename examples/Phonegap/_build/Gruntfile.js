@@ -122,10 +122,7 @@ module.exports = function(grunt) {
                     keepSpecialComments: 0                                                  // '*' for keeping all (default), 1 for keeping first one, 0 for removing all
                 },
                 files: {
-                    '<%= PRODUCTION_PATH %>css/app.css': [
-                        '<%= DEVELOPMENT_PATH %>' + 'styles/phonegap.css',
-                        '<%= DEVELOPMENT_PATH %>' + 'styles/styles.css'
-                    ]
+                    '<%= PRODUCTION_PATH %>css/main.min.css': ['<%= DEVELOPMENT_PATH %>' + 'styles/import.css']
                 }
             }
         },

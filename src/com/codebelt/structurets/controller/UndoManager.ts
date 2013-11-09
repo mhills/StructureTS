@@ -83,6 +83,7 @@ module StructureST
 
         /**
          * Clears the redo stack.
+         *
          * @method clearRedo
          * @public
          */
@@ -93,6 +94,7 @@ module StructureST
 
         /**
          * Returns the next operation to be redone.
+         *
          * @method peekRedo
          * @public
          */
