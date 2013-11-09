@@ -24,9 +24,7 @@ module codeBelt
         private _router:RouterController = null;
 
         private _headerView:HeaderView = null;
-        private _contentContainer:DOMElement = null;
         private _footerView:FooterView = null;
-
         private _currentView:DOMElement = null;
 
         constructor()
@@ -44,12 +42,8 @@ module codeBelt
             this._headerView = new HeaderView();
             this.addChild(this._headerView);
 
-            this._contentContainer = new DOMElement('div');
-            this.addChild(this._contentContainer);
-
             this._footerView = new FooterView();
             this.addChild(this._footerView);
-
 
             this._router = new RouterController();
             this._router.addRoute('', this.homeRouterHandler, this);
@@ -67,12 +61,10 @@ module codeBelt
          */
         public layoutChildren():void
         {
-//            this._titleBar.layoutChildren();
-//
-//            if (this._currentView)
-//            {
-//                this._currentView.layoutChildren();
-//            }
+            if (this._currentView)
+            {
+                this._currentView.layoutChildren();
+            }
         }
 
         /**
@@ -81,13 +73,6 @@ module codeBelt
         public enable():void
         {
             if (this.isEnabled === true) return;
-
-//            this.addEventListener(RouterEvent.CHANGE, this.changeRoute, this);
-//
-//            this._titleBar.enable();
-//
-//            this._subNav.addEventListener(BaseEvent.CHANGE, this.onSubNavChange, this);
-//            this._subNav.enable();
 
             super.enable();
         }
@@ -99,13 +84,6 @@ module codeBelt
         {
             if (this.isEnabled === false) return;
 
-//            this.removeEventListener(RouterEvent.CHANGE, this.changeRoute, this);
-//
-//            this._titleBar.enable();
-//
-//            this._subNav.removeEventListener(BaseEvent.CHANGE, this.onSubNavChange, this);
-//            this._subNav.enable();
-
             super.disable();
         }
 
@@ -116,27 +94,11 @@ module codeBelt
         {
             super.destroy();
 
-//            this._titleBar.destroy();
-//            this._titleBar = null;
-//            this._subNav.destroy();
-//            this._subNav = null;
-//            this._contentContainer.destroy();
-//            this._contentContainer = null;
-//            this._router.destroy();
-//            this._router = null;
-//            this._transitionManager.destroy();
-//            this._transitionManager = null;
-//            this._currentView.destroy();
-//            this._currentView = null;
+            this._router.destroy();
+            this._router = null;
+            this._currentView.destroy();
+            this._currentView = null;
         }
-
-//        private changeRoute(event:RouterEvent):void
-//        {
-//            event.stopPropagation();
-//            this._direction = event.data || TransitionType.PUSH_DOWN;
-//
-//            this._router.navigateTo(event.url, event.silent);
-//        }
 
         private homeRouterHandler():void
         {
@@ -183,50 +145,6 @@ module codeBelt
             }
         }
 
-//
-//        private filtekProductsRouterHandler():void
-//        {
-//            if (!(this._currentView instanceof FiltekProductsViewController))
-//            {
-//                var view:FiltekProductsViewController = new FiltekProductsViewController();
-//                this.changeView(view);
-//            }
-//            this._currentView.update();
-//        }
-//
-//        private productRouterHandler(id:number = null):void
-//        {
-//            if (!(this._currentView instanceof ProductViewController))
-//            {
-//                var view:ProductViewController = new ProductViewController();
-//                this.changeView(view);
-//            }
-//            this._currentView.update(id);
-//        }
-//
-//        private classRouterHandler(classId:string):void
-//        {
-//            if (!(this._currentView instanceof ClassViewController))
-//            {
-//                var view:ClassViewController = new ClassViewController();
-//                this.changeView(view);
-//            }
-//            this._currentView.update(classId);
-//        }
-//
-//        private resetRouterHandler(queryObject:any):void
-//        {
-//            if (queryObject.reset === false) return;
-//
-//            var yesNo:boolean = confirm("Are you sure you want to reset the application?");
-//            if (yesNo === true)
-//            {
-//                localStorage.clear();
-//                this._router.navigateTo(RoutePath.HOME.BASE);
-//                window.location.reload();
-//            }
-//        }
-//
         private changeView(view:DOMElement):void
         {
             if (this._currentView)
