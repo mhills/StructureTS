@@ -862,17 +862,17 @@ var codeBelt;
         function ChildView() {
             _super.call(this);
             this.CLASS_NAME = 'ChildView';
-            this._childrenContainer = null;
+            this._panelContainer = null;
             this._dispatchButton = null;
             this._sonMessage = null;
         }
         ChildView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
-            this._childrenContainer = this.getChild('.js-panelContent');
+            this._panelContainer = this.getChild('.js-panelContent');
 
             this._dispatchButton = new DOMElement('button', { 'class': 'button_dispatch', text: 'Dispatch Event' });
-            this._childrenContainer.addChild(this._dispatchButton);
+            this._panelContainer.addChild(this._dispatchButton);
 
             this._sonMessage = this.getChild('.js-message');
         };
@@ -907,8 +907,8 @@ var codeBelt;
             this._dispatchButton.destroy();
             this._dispatchButton = null;
 
-            this._childrenContainer.destroy();
-            this._childrenContainer = null;
+            this._panelContainer.destroy();
+            this._panelContainer = null;
 
             _super.prototype.destroy.call(this);
         };
@@ -920,7 +920,7 @@ var codeBelt;
         };
 
         ChildView.prototype.onBubbled = function (event) {
-            var checkbox = this._childrenContainer.$element.find('[type=checkbox]').first().prop('checked');
+            var checkbox = this._panelContainer.$element.find('[type=checkbox]').first().prop('checked');
 
             if (checkbox == true) {
                 event.stopPropagation();
@@ -942,17 +942,17 @@ var codeBelt;
         function ParentView() {
             _super.call(this);
             this.CLASS_NAME = 'ParentView';
-            this._childrenContainer = null;
+            this._panelContainer = null;
             this._childView = null;
             this._parentMessage = null;
         }
         ParentView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
-            this._childrenContainer = this.getChild('.js-panelContent');
+            this._panelContainer = this.getChild('.js-panelContent');
 
             this._childView = new codeBelt.ChildView();
-            this._childrenContainer.addChild(this._childView);
+            this._panelContainer.addChild(this._childView);
 
             this._parentMessage = this.getChild('.js-message');
         };
@@ -988,14 +988,14 @@ var codeBelt;
             this._childView.destroy();
             this._childView = null;
 
-            this._childrenContainer.destroy();
-            this._childrenContainer = null;
+            this._panelContainer.destroy();
+            this._panelContainer = null;
 
             _super.prototype.destroy.call(this);
         };
 
         ParentView.prototype.onBubbled = function (event) {
-            var checkbox = this._childrenContainer.$element.find('[type=checkbox]').first().prop('checked');
+            var checkbox = this._panelContainer.$element.find('[type=checkbox]').first().prop('checked');
 
             if (checkbox == true) {
                 event.stopPropagation();
@@ -1017,17 +1017,17 @@ var codeBelt;
         function GrandparentView() {
             _super.call(this);
             this.CLASS_NAME = 'GrandparentView';
-            this._childrenContainer = null;
+            this._panelContainer = null;
             this._parentView = null;
             this._grandparentMessage = null;
         }
         GrandparentView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
-            this._childrenContainer = this.getChild('.js-panelContent');
+            this._panelContainer = this.getChild('.js-panelContent');
 
             this._parentView = new codeBelt.ParentView();
-            this._childrenContainer.addChild(this._parentView);
+            this._panelContainer.addChild(this._parentView);
 
             this._grandparentMessage = this.getChild('.js-message');
         };
@@ -1063,14 +1063,14 @@ var codeBelt;
             this._parentView.destroy();
             this._parentView = null;
 
-            this._childrenContainer.destroy();
-            this._childrenContainer = null;
+            this._panelContainer.destroy();
+            this._panelContainer = null;
 
             _super.prototype.destroy.call(this);
         };
 
         GrandparentView.prototype.onBubbled = function (event) {
-            var checkbox = this._childrenContainer.$element.find('[type=checkbox]').first().prop('checked');
+            var checkbox = this._panelContainer.$element.find('[type=checkbox]').first().prop('checked');
 
             if (checkbox == true) {
                 event.stopPropagation();

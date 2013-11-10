@@ -18,7 +18,7 @@ module codeBelt
     {
         public CLASS_NAME:string = 'GrandparentView';
 
-        private _childrenContainer:DOMElement = null;
+        private _panelContainer:DOMElement = null;
         private _parentView:ParentView = null;
         private _grandparentMessage:DOMElement = null;
 
@@ -34,10 +34,10 @@ module codeBelt
         {
             super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
 
-            this._childrenContainer = this.getChild('.js-panelContent');
+            this._panelContainer = this.getChild('.js-panelContent');
 
             this._parentView = new ParentView();
-            this._childrenContainer.addChild(this._parentView);
+            this._panelContainer.addChild(this._parentView);
 
             this._grandparentMessage = this.getChild('.js-message');
         }
@@ -87,15 +87,15 @@ module codeBelt
             this._parentView.destroy();
             this._parentView = null;
 
-            this._childrenContainer.destroy();
-            this._childrenContainer = null;
+            this._panelContainer.destroy();
+            this._panelContainer = null;
 
             super.destroy();
         }
 
         private onBubbled(event:BaseEvent):void
         {
-            var checkbox:boolean = this._childrenContainer.$element.find('[type=checkbox]')
+            var checkbox:boolean = this._panelContainer.$element.find('[type=checkbox]')
                 .first()
                 .prop('checked');
 

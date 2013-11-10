@@ -218,9 +218,9 @@ module.exports = function(grunt) {
         },
 
         typescript: {
-            main: {
-                src: ['<%= DEVELOPMENT_PATH %>' + 'scripts/WebsiteApp.ts'],
-                dest: '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/app.js',
+            dev: {
+                src: ['<%= DEVELOPMENT_PATH %>' + 'scripts/EventBubblingApp.ts'],
+                dest: '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/eventBubblingApp.js',
                 options: {
                     target: 'es3', //or es5
                     base_path: '',
@@ -277,18 +277,6 @@ module.exports = function(grunt) {
             }
         },
 
-        // grunt-open will open your browser at the project's URL
-        open: {
-            dev: {
-                // Gets the port from the connect configuration
-                path: 'http://localhost:<%= express.dev.options.port%>'
-            },
-            prod: {
-                // Gets the port from the connect configuration
-                path: 'http://localhost:<%= express.prod.options.port%>'
-            }
-        },
-
         // grunt-watch will monitor the projects files
         watch: {
             dev: {
@@ -319,16 +307,25 @@ module.exports = function(grunt) {
                 ],
                 tasks: ['typescript']
             }
+        },
+
+        // grunt-open will open your browser at the project's URL
+        open: {
+            dev: {
+                // Gets the port from the connect configuration
+                path: 'http://localhost:<%= express.dev.options.port%>'
+            },
+            prod: {
+                // Gets the port from the connect configuration
+                path: 'http://localhost:<%= express.prod.options.port%>'
+            }
         }
 
     });
 
     // Grunt tasks.
     grunt.registerTask('default', ['server']);
-    grunt.registerTask('dev', ['env:dev', 'preprocess:dev', 'json', 'handlebars', 'typescript']);
-    grunt.registerTask('prod', ['env:prod', 'preprocess:prod', 'cssmin', 'htmlmin', 'handlebars', 'typescript', 'concat:prod', 'uglify', 'copy:prod', 'concat:addBanner', 'manifest']);
-
+    grunt.registerTask('dev', ['typescript:dev']);
     grunt.registerTask('server', ['dev', 'express:dev', 'open:dev', 'watch:dev']);
-    grunt.registerTask('server:prod', ['prod', 'express:prod', 'open:prod', 'watch:prod']);
 
 };

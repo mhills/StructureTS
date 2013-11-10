@@ -17,7 +17,7 @@ module codeBelt
     {
         public CLASS_NAME:string = 'ChildView';
 
-        private _childrenContainer:DOMElement = null;
+        private _panelContainer:DOMElement = null;
         private _dispatchButton:DOMElement = null;
         private _sonMessage:DOMElement = null;
 
@@ -33,10 +33,10 @@ module codeBelt
         {
             super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
 
-            this._childrenContainer = this.getChild('.js-panelContent');
+            this._panelContainer = this.getChild('.js-panelContent');
 
             this._dispatchButton = new DOMElement('button', {'class': 'button_dispatch', text: 'Dispatch Event'});
-            this._childrenContainer.addChild(this._dispatchButton);
+            this._panelContainer.addChild(this._dispatchButton);
 
             this._sonMessage = this.getChild('.js-message');
         }
@@ -85,8 +85,8 @@ module codeBelt
             this._dispatchButton.destroy();
             this._dispatchButton = null;
 
-            this._childrenContainer.destroy();
-            this._childrenContainer = null;
+            this._panelContainer.destroy();
+            this._panelContainer = null;
 
             super.destroy();
         }
@@ -100,7 +100,7 @@ module codeBelt
 
         private onBubbled(event:BaseEvent):void
         {
-            var checkbox:boolean = this._childrenContainer.$element.find('[type=checkbox]')
+            var checkbox:boolean = this._panelContainer.$element.find('[type=checkbox]')
                 .first()
                 .prop('checked');
 

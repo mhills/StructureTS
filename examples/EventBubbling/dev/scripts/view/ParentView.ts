@@ -18,7 +18,7 @@ module codeBelt
     {
         public CLASS_NAME:string = 'ParentView';
 
-        private _childrenContainer:DOMElement = null;
+        private _panelContainer:DOMElement = null;
         private _childView:ChildView = null;
         private _parentMessage:DOMElement = null;
 
@@ -34,10 +34,10 @@ module codeBelt
         {
             super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
 
-            this._childrenContainer = this.getChild('.js-panelContent');
+            this._panelContainer = this.getChild('.js-panelContent');
 
             this._childView = new ChildView();
-            this._childrenContainer.addChild(this._childView);
+            this._panelContainer.addChild(this._childView);
 
             this._parentMessage = this.getChild('.js-message');
         }
@@ -87,17 +87,17 @@ module codeBelt
             this._childView.destroy();
             this._childView = null;
 
-            this._childrenContainer.destroy();
-            this._childrenContainer = null;
+            this._panelContainer.destroy();
+            this._panelContainer = null;
 
             super.destroy();
         }
 
         private onBubbled(event:BaseEvent):void
         {
-            var checkbox:boolean = this._childrenContainer.$element.find('[type=checkbox]')
-                .first()
-                .prop('checked');
+            var checkbox:boolean = this._panelContainer.$element.find('[type=checkbox]')
+                                                                .first()
+                                                                .prop('checked');
 
             if (checkbox == true)
             {
