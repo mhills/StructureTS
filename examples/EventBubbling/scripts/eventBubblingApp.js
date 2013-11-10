@@ -663,7 +663,7 @@ var StructureTS;
 
         DOMElement.prototype.addChildAt = function (child, index) {
             var children = this.$element.children();
-            var length = children.length - 1;
+            var length = children.length;
 
             if (index < 0 || index >= length) {
                 this.addChild(child);
@@ -857,19 +857,19 @@ var codeBelt;
     var MouseEvents = StructureTS.MouseEvents;
     var BaseEvent = StructureTS.BaseEvent;
 
-    var SonView = (function (_super) {
-        __extends(SonView, _super);
-        function SonView() {
+    var ChildView = (function (_super) {
+        __extends(ChildView, _super);
+        function ChildView() {
             _super.call(this);
-            this.CLASS_NAME = 'SonView';
+            this.CLASS_NAME = 'ChildView';
             this._childrenContainer = null;
             this._dispatchButton = null;
             this._sonMessage = null;
         }
-        SonView.prototype.createChildren = function () {
+        ChildView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
-            this._childrenContainer = this.getChild('.js-childrenArea');
+            this._childrenContainer = this.getChild('.js-panelContent');
 
             this._dispatchButton = new DOMElement('button', { 'class': 'button_dispatch', text: 'Dispatch Event' });
             this._childrenContainer.addChild(this._dispatchButton);
@@ -877,11 +877,11 @@ var codeBelt;
             this._sonMessage = this.getChild('.js-message');
         };
 
-        SonView.prototype.layoutChildren = function () {
+        ChildView.prototype.layoutChildren = function () {
             this._sonMessage.$element.css('opacity', 0);
         };
 
-        SonView.prototype.enable = function () {
+        ChildView.prototype.enable = function () {
             if (this.isEnabled === true)
                 return;
 
@@ -892,7 +892,7 @@ var codeBelt;
             _super.prototype.enable.call(this);
         };
 
-        SonView.prototype.disable = function () {
+        ChildView.prototype.disable = function () {
             if (this.isEnabled === false)
                 return;
 
@@ -903,7 +903,7 @@ var codeBelt;
             _super.prototype.disable.call(this);
         };
 
-        SonView.prototype.destroy = function () {
+        ChildView.prototype.destroy = function () {
             this._dispatchButton.destroy();
             this._dispatchButton = null;
 
@@ -913,13 +913,13 @@ var codeBelt;
             _super.prototype.destroy.call(this);
         };
 
-        SonView.prototype.onButtonClick = function (event) {
+        ChildView.prototype.onButtonClick = function (event) {
             event.preventDefault();
 
             this.dispatchEvent(new BaseEvent(BaseEvent.CHANGE, true, true));
         };
 
-        SonView.prototype.onBubbled = function (event) {
+        ChildView.prototype.onBubbled = function (event) {
             var checkbox = this._childrenContainer.$element.find('[type=checkbox]').first().prop('checked');
 
             if (checkbox == true) {
@@ -928,65 +928,65 @@ var codeBelt;
 
             this._sonMessage.$element.css('opacity', 1);
         };
-        return SonView;
+        return ChildView;
     })(StructureTS.DOMElement);
-    codeBelt.SonView = SonView;
+    codeBelt.ChildView = ChildView;
 })(codeBelt || (codeBelt = {}));
 var codeBelt;
 (function (codeBelt) {
     var DOMElement = StructureTS.DOMElement;
     var BaseEvent = StructureTS.BaseEvent;
 
-    var DadView = (function (_super) {
-        __extends(DadView, _super);
-        function DadView() {
+    var ParentView = (function (_super) {
+        __extends(ParentView, _super);
+        function ParentView() {
             _super.call(this);
-            this.CLASS_NAME = 'DadView';
+            this.CLASS_NAME = 'ParentView';
             this._childrenContainer = null;
-            this._sonView = null;
-            this._dadMessage = null;
+            this._childView = null;
+            this._parentMessage = null;
         }
-        DadView.prototype.createChildren = function () {
+        ParentView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
-            this._childrenContainer = this.getChild('.js-childrenArea');
+            this._childrenContainer = this.getChild('.js-panelContent');
 
-            this._sonView = new codeBelt.SonView();
-            this._childrenContainer.addChild(this._sonView);
+            this._childView = new codeBelt.ChildView();
+            this._childrenContainer.addChild(this._childView);
 
-            this._dadMessage = this.getChild('.js-message');
+            this._parentMessage = this.getChild('.js-message');
         };
 
-        DadView.prototype.layoutChildren = function () {
-            this._dadMessage.$element.css('opacity', 0);
-            this._sonView.layoutChildren();
+        ParentView.prototype.layoutChildren = function () {
+            this._parentMessage.$element.css('opacity', 0);
+            this._childView.layoutChildren();
         };
 
-        DadView.prototype.enable = function () {
+        ParentView.prototype.enable = function () {
             if (this.isEnabled === true)
                 return;
 
             this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-            this._sonView.enable();
+            this._childView.enable();
 
             _super.prototype.enable.call(this);
         };
 
-        DadView.prototype.disable = function () {
+        ParentView.prototype.disable = function () {
             if (this.isEnabled === false)
                 return;
 
             this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-            this._sonView.disable();
+            this._childView.disable();
 
             _super.prototype.disable.call(this);
         };
 
-        DadView.prototype.destroy = function () {
-            this._sonView.destroy();
-            this._sonView = null;
+        ParentView.prototype.destroy = function () {
+            this._childView.destroy();
+            this._childView = null;
 
             this._childrenContainer.destroy();
             this._childrenContainer = null;
@@ -994,74 +994,74 @@ var codeBelt;
             _super.prototype.destroy.call(this);
         };
 
-        DadView.prototype.onBubbled = function (event) {
+        ParentView.prototype.onBubbled = function (event) {
             var checkbox = this._childrenContainer.$element.find('[type=checkbox]').first().prop('checked');
 
             if (checkbox == true) {
                 event.stopPropagation();
             }
 
-            this._dadMessage.$element.css('opacity', 1);
+            this._parentMessage.$element.css('opacity', 1);
         };
-        return DadView;
+        return ParentView;
     })(StructureTS.DOMElement);
-    codeBelt.DadView = DadView;
+    codeBelt.ParentView = ParentView;
 })(codeBelt || (codeBelt = {}));
 var codeBelt;
 (function (codeBelt) {
     var DOMElement = StructureTS.DOMElement;
     var BaseEvent = StructureTS.BaseEvent;
 
-    var GrandpaView = (function (_super) {
-        __extends(GrandpaView, _super);
-        function GrandpaView() {
+    var GrandparentView = (function (_super) {
+        __extends(GrandparentView, _super);
+        function GrandparentView() {
             _super.call(this);
-            this.CLASS_NAME = 'GrandpaView';
+            this.CLASS_NAME = 'GrandparentView';
             this._childrenContainer = null;
-            this._dadView = null;
-            this._grandpaMessage = null;
+            this._parentView = null;
+            this._grandparentMessage = null;
         }
-        GrandpaView.prototype.createChildren = function () {
+        GrandparentView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this, '#containerTemplate', { title: this.getQualifiedClassName() });
 
-            this._childrenContainer = this.getChild('.js-childrenArea');
+            this._childrenContainer = this.getChild('.js-panelContent');
 
-            this._dadView = new codeBelt.DadView();
-            this._childrenContainer.addChild(this._dadView);
+            this._parentView = new codeBelt.ParentView();
+            this._childrenContainer.addChild(this._parentView);
 
-            this._grandpaMessage = this.getChild('.js-message');
+            this._grandparentMessage = this.getChild('.js-message');
         };
 
-        GrandpaView.prototype.layoutChildren = function () {
-            this._grandpaMessage.$element.css('opacity', 0);
-            this._dadView.layoutChildren();
+        GrandparentView.prototype.layoutChildren = function () {
+            this._grandparentMessage.$element.css('opacity', 0);
+            this._parentView.layoutChildren();
         };
 
-        GrandpaView.prototype.enable = function () {
+        GrandparentView.prototype.enable = function () {
             if (this.isEnabled === true)
                 return;
 
             this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-            this._dadView.enable();
+            this._parentView.enable();
 
             _super.prototype.enable.call(this);
         };
 
-        GrandpaView.prototype.disable = function () {
+        GrandparentView.prototype.disable = function () {
             if (this.isEnabled === false)
                 return;
 
             this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-            this._dadView.disable();
+            this._parentView.disable();
 
             _super.prototype.disable.call(this);
         };
 
-        GrandpaView.prototype.destroy = function () {
-            this._dadView.destroy();
-            this._dadView = null;
+        GrandparentView.prototype.destroy = function () {
+            this._parentView.destroy();
+            this._parentView = null;
 
             this._childrenContainer.destroy();
             this._childrenContainer = null;
@@ -1069,18 +1069,18 @@ var codeBelt;
             _super.prototype.destroy.call(this);
         };
 
-        GrandpaView.prototype.onBubbled = function (event) {
+        GrandparentView.prototype.onBubbled = function (event) {
             var checkbox = this._childrenContainer.$element.find('[type=checkbox]').first().prop('checked');
 
             if (checkbox == true) {
                 event.stopPropagation();
             }
 
-            this._grandpaMessage.$element.css('opacity', 1);
+            this._grandparentMessage.$element.css('opacity', 1);
         };
-        return GrandpaView;
+        return GrandparentView;
     })(StructureTS.DOMElement);
-    codeBelt.GrandpaView = GrandpaView;
+    codeBelt.GrandparentView = GrandparentView;
 })(codeBelt || (codeBelt = {}));
 var codeBelt;
 (function (codeBelt) {
@@ -1100,7 +1100,7 @@ var codeBelt;
         EventBubblingApp.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
 
-            this._grandpaView = new codeBelt.GrandpaView();
+            this._grandpaView = new codeBelt.GrandparentView();
             this.addChild(this._grandpaView);
 
             this._clearButton = this.getChild('#js-clearButton');

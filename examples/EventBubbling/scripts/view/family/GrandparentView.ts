@@ -1,7 +1,7 @@
 ///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../../../src/com/codebelt/structurets/event/BaseEvent.ts'/>
 
-///<reference path='SonView.ts'/>
+///<reference path='ParentView.ts'/>
 
 module codeBelt
 {
@@ -11,16 +11,16 @@ module codeBelt
     /**
      * YUIDoc_comment
      *
-     * @class DadView
+     * @class GrandparentView
      * @constructor
      **/
-    export class DadView extends DOMElement
+    export class GrandparentView extends DOMElement
     {
-        public CLASS_NAME:string = 'DadView';
+        public CLASS_NAME:string = 'GrandparentView';
 
         private _childrenContainer:DOMElement = null;
-        private _sonView:SonView = null;
-        private _dadMessage:DOMElement = null;
+        private _parentView:ParentView = null;
+        private _grandparentMessage:DOMElement = null;
 
         constructor()
         {
@@ -34,12 +34,12 @@ module codeBelt
         {
             super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
 
-            this._childrenContainer = this.getChild('.js-childrenArea');
+            this._childrenContainer = this.getChild('.js-panelContent');
 
-            this._sonView = new SonView();
-            this._childrenContainer.addChild(this._sonView);
+            this._parentView = new ParentView();
+            this._childrenContainer.addChild(this._parentView);
 
-            this._dadMessage = this.getChild('.js-message');
+            this._grandparentMessage = this.getChild('.js-message');
         }
 
         /**
@@ -47,8 +47,8 @@ module codeBelt
          */
         public layoutChildren():void
         {
-            this._dadMessage.$element.css('opacity', 0);
-            this._sonView.layoutChildren();
+            this._grandparentMessage.$element.css('opacity', 0);
+            this._parentView.layoutChildren();
         }
 
         /**
@@ -60,7 +60,7 @@ module codeBelt
 
             this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-            this._sonView.enable();
+            this._parentView.enable();
 
             super.enable();
         }
@@ -74,7 +74,7 @@ module codeBelt
 
             this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-            this._sonView.disable();
+            this._parentView.disable();
 
             super.disable();
         }
@@ -84,8 +84,8 @@ module codeBelt
          */
         public destroy():void
         {
-            this._sonView.destroy();
-            this._sonView = null;
+            this._parentView.destroy();
+            this._parentView = null;
 
             this._childrenContainer.destroy();
             this._childrenContainer = null;
@@ -104,7 +104,7 @@ module codeBelt
                 event.stopPropagation();
             }
 
-            this._dadMessage.$element.css('opacity', 1);
+            this._grandparentMessage.$element.css('opacity', 1);
         }
 
     }

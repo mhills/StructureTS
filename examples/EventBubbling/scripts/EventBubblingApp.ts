@@ -1,7 +1,7 @@
 ///<reference path='../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 ///<reference path='../../../src/com/codebelt/structurets/display/Stage.ts'/>
 
-///<reference path='view/family/GrandpaView.ts'/>
+///<reference path='view/family/GrandparentView.ts'/>
 
 module codeBelt
 {
@@ -18,7 +18,7 @@ module codeBelt
      **/
     export class EventBubblingApp extends Stage
     {
-        private _grandpaView:GrandpaView = null;
+        private _grandpaView:GrandparentView = null;
         private _clearButton:DOMElement = null;
         private _stageMessage:DOMElement = null;
 
@@ -34,7 +34,7 @@ module codeBelt
         {
             super.createChildren();
 
-            this._grandpaView = new GrandpaView();
+            this._grandpaView = new GrandparentView();
             this.addChild(this._grandpaView);
 
             this._clearButton = this.getChild('#js-clearButton');

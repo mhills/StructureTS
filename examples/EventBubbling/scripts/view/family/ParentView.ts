@@ -1,25 +1,26 @@
 ///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../../../src/com/codebelt/structurets/event/native/MouseEvents.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/event/BaseEvent.ts'/>
+
+///<reference path='ChildView.ts'/>
 
 module codeBelt
 {
     import DOMElement = StructureTS.DOMElement;
-    import MouseEvents = StructureTS.MouseEvents;
     import BaseEvent = StructureTS.BaseEvent;
 
     /**
      * YUIDoc_comment
      *
-     * @class SonView
+     * @class ParentView
      * @constructor
      **/
-    export class SonView extends DOMElement
+    export class ParentView extends DOMElement
     {
-        public CLASS_NAME:string = 'SonView';
+        public CLASS_NAME:string = 'ParentView';
 
         private _childrenContainer:DOMElement = null;
-        private _dispatchButton:DOMElement = null;
-        private _sonMessage:DOMElement = null;
+        private _childView:ChildView = null;
+        private _parentMessage:DOMElement = null;
 
         constructor()
         {
@@ -33,12 +34,12 @@ module codeBelt
         {
             super.createChildren('#containerTemplate', {title: this.getQualifiedClassName()});
 
-            this._childrenContainer = this.getChild('.js-childrenArea');
+            this._childrenContainer = this.getChild('.js-panelContent');
 
-            this._dispatchButton = new DOMElement('button', {'class': 'button_dispatch', text: 'Dispatch Event'});
-            this._childrenContainer.addChild(this._dispatchButton);
+            this._childView = new ChildView();
+            this._childrenContainer.addChild(this._childView);
 
-            this._sonMessage = this.getChild('.js-message');
+            this._parentMessage = this.getChild('.js-message');
         }
 
         /**
@@ -46,7 +47,8 @@ module codeBelt
          */
         public layoutChildren():void
         {
-            this._sonMessage.$element.css('opacity', 0);
+            this._parentMessage.$element.css('opacity', 0);
+            this._childView.layoutChildren();
         }
 
         /**
@@ -58,7 +60,7 @@ module codeBelt
 
             this.addEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-            this._dispatchButton.$element.addEventListener(MouseEvents.CLICK, this.onButtonClick, this);
+            this._childView.enable();
 
             super.enable();
         }
@@ -72,7 +74,7 @@ module codeBelt
 
             this.removeEventListener(BaseEvent.CHANGE, this.onBubbled, this);
 
-            this._dispatchButton.$element.removeEventListener(MouseEvents.CLICK, this.onButtonClick, this);
+            this._childView.disable();
 
             super.disable();
         }
@@ -82,20 +84,13 @@ module codeBelt
          */
         public destroy():void
         {
-            this._dispatchButton.destroy();
-            this._dispatchButton = null;
+            this._childView.destroy();
+            this._childView = null;
 
             this._childrenContainer.destroy();
             this._childrenContainer = null;
 
             super.destroy();
-        }
-
-        private onButtonClick(event:JQueryEventObject):void
-        {
-            event.preventDefault();
-
-            this.dispatchEvent(new BaseEvent(BaseEvent.CHANGE, true, true));
         }
 
         private onBubbled(event:BaseEvent):void
@@ -109,7 +104,7 @@ module codeBelt
                 event.stopPropagation();
             }
 
-            this._sonMessage.$element.css('opacity', 1);
+            this._parentMessage.$element.css('opacity', 1);
         }
 
     }
