@@ -70,24 +70,10 @@ module.exports = function(grunt) {
 //            }
         },
 
-        cssmin: {
-            compress: {
-                files: {
-                    '<%= EXAMPLE_PATH %>SinglePageWebsite/prod/styles/styles.min.css': [
-//                        '<%= SRC_PATH %>styles/gallery.css',
-//                        '<%= SRC_PATH %>styles/shadows.css',
-//                        '<%= SRC_PATH %>styles/buttons.css',
-//                        '<%= SRC_PATH %>styles/style.css',
-                        '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/styles/dellistore.css'
-                    ]
-                }
-            }
-        },
-
         typescript: {
             website: {
                 src: ['<%= EXAMPLE_PATH %>SinglePageWebsite/dev/scripts/WebsiteApp.ts'],
-                dest: '<%= EXAMPLE_PATH %>SinglePageWebsite/prod/scripts/websiteApp.js',
+                dest: '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/scripts/_compiled/app.js',
                 options: {
                     target: 'es3', //or es5
                     base_path: '',
@@ -168,7 +154,7 @@ module.exports = function(grunt) {
         },
 
         jst: {
-            compile: {
+            website: {
                 options: {
                     namespace: "JST",                 //Default: 'JST'
                     prettify: false,                        //Default: false|true
@@ -182,7 +168,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    "<%= EXAMPLE_PATH %>SinglePageWebsite/prod/scripts/templates.js": ["<%= EXAMPLE_PATH %>SinglePageWebsite/dev/templates/**/*.tpl"]
+                    "<%= EXAMPLE_PATH %>SinglePageWebsite/dev/scripts/templates.js": ["<%= EXAMPLE_PATH %>SinglePageWebsite/dev/templates/**/*.tpl"]
                 }
             },
             film: {
@@ -200,6 +186,28 @@ module.exports = function(grunt) {
                 },
                 files: {
                     "<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/templates.js": ["<%= EXAMPLE_PATH %>WindowFilm/dev/templates/**/*.tpl"]
+                }
+            }
+        },
+
+        handlebars: {
+            website: {
+                options: {
+                    namespace: 'JST',
+                    // Registers all files that start with '_' as a partial.
+                    partialRegex: /^_/,
+                    // Shortens the file path for the template.
+                    processName: function(filename) {
+
+                        return filename.slice(filename.indexOf("template"), filename.length);
+                    },
+                    // Shortens the file path for the template.
+                    processPartialName: function(filePath) {
+                        return filePath.slice(filePath.indexOf("template"), filePath.length);
+                    }
+                },
+                files: {
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/scripts/_compiled/templates.tmpl.js': ['<%= EXAMPLE_PATH %>SinglePageWebsite/dev/templates/**/*.hbs']
                 }
             }
         },
@@ -258,7 +266,8 @@ module.exports = function(grunt) {
                 files: [
                     '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/scripts/**/*.ts',
                     '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/styles/**/*.css',
-                    '<%= EXAMPLE_PATH %>SinglePageWebsite/index.html',
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/templates/**/*.hbs',
+                    '<%= EXAMPLE_PATH %>SinglePageWebsite/dev/config.html',
                     '<%= SRC_PATH %>com/**/*.ts'
                 ],
                 tasks: ['website']
@@ -337,13 +346,35 @@ module.exports = function(grunt) {
                     dest: '<%= BASE_PATH %>imageOutput/'                  // Destination path prefix
                 }]
             }
+        },
+
+        // grunt-express will serve the files from the folders listed in `bases`
+        // on specified `port` and `hostname`
+        express: {
+            website: {
+                options: {
+                    port: 8001,
+                    hostname: "0.0.0.0",
+                    bases: ['<%= EXAMPLE_PATH %>SinglePageWebsite/dev/'],
+                    livereload: true
+                }
+            }
+        },
+
+        // grunt-open will open your browser at the project's URL
+        open: {
+            website: {
+                // Gets the port from the connect configuration
+                path: 'http://localhost:<%= express.website.options.port%>'
+            }
         }
 
     });
 
     // Default task.
-    grunt.registerTask('default', ['cssmin', 'typescript:website', 'jst']);
-    grunt.registerTask('website', ['typescript:website']);
+    grunt.registerTask('default', ['website']);
+    grunt.registerTask('websiteServer', ['website', 'express:website', 'open:website', 'watch:website']);
+    grunt.registerTask('website', ['typescript:website', 'handlebars:website']);
     grunt.registerTask('todo', ['typescript:todo']);
     grunt.registerTask('canvas', ['typescript:canvas']);
     grunt.registerTask('bubble', ['typescript:bubble']);
