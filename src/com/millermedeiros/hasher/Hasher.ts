@@ -557,7 +557,7 @@ module MillerMedeiros
         {
             if (Hasher._frame && Hasher._hash !== Hasher._getFrameHash())
             {
-                var frameDoc = Hasher._frame.contentWindow.document;
+                var frameDoc:Document = Hasher._frame.contentWindow.document;
                 frameDoc.open();
                 //update iframe content to force new history record.
                 //based on Really Simple History, SWFAddress and YUI.history.
@@ -592,7 +592,7 @@ module MillerMedeiros
 
         private static _checkHistory():void
         {
-            var windowHash = Hasher._getWindowHash();
+            var windowHash:string = Hasher._getWindowHash();
             if (Hasher._isLegacyIE)
             {
                 var frameHash = Hasher._getFrameHash();

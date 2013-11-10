@@ -21,12 +21,12 @@ module MillerMedeiros
          * Signals Version Number.
          *
          * @property VERSION
-         * @type String
+         * @type string
          * @final
          * @public
          * @static
          */
-        public static VERSION = '1.0.0';
+        public static VERSION:string = '1.0.0';
 
         /**
          * YUIDoc_comment
