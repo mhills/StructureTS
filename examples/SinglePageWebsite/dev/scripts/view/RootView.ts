@@ -149,7 +149,7 @@ module codeBelt
         {
             if (this._currentView)
             {
-                this.removeChild(this._currentView)
+                this.removeChild(this._currentView);
             }
 
             this._currentView = view;
