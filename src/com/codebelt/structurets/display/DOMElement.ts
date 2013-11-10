@@ -183,7 +183,7 @@ module StructureTS
         public addChildAt(child:DOMElement, index:number):any
         {
             var children = this.$element.children();
-            var length = children.length - 1;
+            var length = children.length;
 
             // If the index passed in is less than 0 and greater than
             // the total number of children then place the item at the end.
