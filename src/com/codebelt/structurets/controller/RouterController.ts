@@ -24,6 +24,7 @@
 
 ///<reference path='BaseController.ts'/>
 ///<reference path='../util/BrowserUtils.ts'/>
+///<reference path='../event/RouterEvent.ts'/>
 
 ///<reference path='../../../millermedeiros/hasher/Hasher.ts'/>
 ///<reference path='../../../millermedeiros/crossroads/Crossroads.ts' />
@@ -66,7 +67,7 @@ module StructureTS
 
         }
 
-        public addRoute(pattern:string, handler:Function, scope:any, priority?:number):void
+        public addRoute(pattern:string, handler:Function, scope:any, priority:number = 0):void
         {
             this._crossroads.addRoute(pattern, handler.bind(scope), priority);
         }
@@ -82,10 +83,18 @@ module StructureTS
                 return;
             }
 
+            this._crossroads.routed.add(this.onAllRoutesHandler, this);
+
 //        Hasher.prependHash = '!';
             Hasher.initialized.add(this.parseHash.bind(this)); //parse initial hash
             Hasher.changed.add(this.parseHash.bind(this)); //parse hash changes
             Hasher.init(); //start listening for hash changes
+        }
+
+        public onAllRoutesHandler():void
+        {
+            //console.log("all", arguments);
+            this.dispatchEvent(new RouterEvent(RouterEvent.CHANGE));
         }
 
         /**
