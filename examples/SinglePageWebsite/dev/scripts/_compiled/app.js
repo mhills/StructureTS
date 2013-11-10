@@ -868,6 +868,29 @@ var StructureTS;
     })();
     StructureTS.BrowserUtils = BrowserUtils;
 })(StructureTS || (StructureTS = {}));
+var StructureTS;
+(function (StructureTS) {
+    var RouterEvent = (function (_super) {
+        __extends(RouterEvent, _super);
+        function RouterEvent(type, bubbles, cancelable, url, silent, data) {
+            if (typeof bubbles === "undefined") { bubbles = false; }
+            if (typeof cancelable === "undefined") { cancelable = false; }
+            if (typeof url === "undefined") { url = null; }
+            if (typeof silent === "undefined") { silent = false; }
+            if (typeof data === "undefined") { data = null; }
+            _super.call(this, type, bubbles, cancelable, data);
+            this.CLASS_NAME = 'RouterEvent';
+            this.url = null;
+            this.silent = null;
+
+            this.url = url;
+            this.silent = silent;
+        }
+        RouterEvent.CHANGE = 'RouterEvent.change';
+        return RouterEvent;
+    })(StructureTS.BaseEvent);
+    StructureTS.RouterEvent = RouterEvent;
+})(StructureTS || (StructureTS = {}));
 var MillerMedeiros;
 (function (MillerMedeiros) {
     var SignalBinding = (function () {
@@ -1961,6 +1984,7 @@ var StructureTS;
             this._crossroads = new Crossroads();
         }
         RouterController.prototype.addRoute = function (pattern, handler, scope, priority) {
+            if (typeof priority === "undefined") { priority = 0; }
             this._crossroads.addRoute(pattern, handler.bind(scope), priority);
         };
 
@@ -1969,9 +1993,15 @@ var StructureTS;
                 return;
             }
 
+            this._crossroads.routed.add(this.onAllRoutesHandler, this);
+
             Hasher.initialized.add(this.parseHash.bind(this));
             Hasher.changed.add(this.parseHash.bind(this));
             Hasher.init();
+        };
+
+        RouterController.prototype.onAllRoutesHandler = function () {
+            this.dispatchEvent(new StructureTS.RouterEvent(StructureTS.RouterEvent.CHANGE));
         };
 
         RouterController.prototype.parseHash = function (newHash, oldHash) {
@@ -2046,15 +2076,23 @@ var codeBelt;
 var codeBelt;
 (function (codeBelt) {
     var DOMElement = StructureTS.DOMElement;
+    var RouterController = StructureTS.RouterController;
+    var RouterEvent = StructureTS.RouterEvent;
 
     var HeaderView = (function (_super) {
         __extends(HeaderView, _super);
-        function HeaderView() {
+        function HeaderView(router) {
             _super.call(this);
             this.CLASS_NAME = 'HeaderView';
+            this._router = null;
+            this._$navLinks = null;
+
+            this._router = router;
         }
         HeaderView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this, 'templates/header/headerTemplate.hbs');
+
+            this._$navLinks = this.$element.find('#js-nav li');
         };
 
         HeaderView.prototype.layoutChildren = function () {
@@ -2064,6 +2102,8 @@ var codeBelt;
             if (this.isEnabled === true)
                 return;
 
+            this._router.addEventListener(RouterEvent.CHANGE, this.onRouteChange, this);
+
             _super.prototype.enable.call(this);
         };
 
@@ -2071,7 +2111,22 @@ var codeBelt;
             if (this.isEnabled === false)
                 return;
 
+            this._router.removeEventListener(RouterEvent.CHANGE, this.onRouteChange, this);
+
             _super.prototype.disable.call(this);
+        };
+
+        HeaderView.prototype.onRouteChange = function (event) {
+            var route = this._router.getHash();
+            var $navItem = this._$navLinks.find('a[href*="' + route + '"]');
+
+            this._$navLinks.removeClass('active');
+
+            if ($navItem.length != 0) {
+                $navItem.parent().addClass('active');
+            } else {
+                this._$navLinks.first().addClass('active');
+            }
         };
         return HeaderView;
     })(StructureTS.DOMElement);
@@ -2285,21 +2340,19 @@ var codeBelt;
         RootView.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this, 'div', { "id": "pageWrapper" });
 
-            this._headerView = new codeBelt.HeaderView();
+            this._router = new RouterController();
+            this._router.addRoute('', this.homeRouterHandler, this);
+            this._router.addRoute('home', this.homeRouterHandler, this);
+            this._router.addRoute('about', this.aboutRouterHandler, this);
+            this._router.addRoute('contact', this.contactRouterHandler, this);
+            this._router.addRoute('services', this.servicesRouterHandler, this);
+            this._router.addRoute('menu', this.menuRouterHandler, this);
+
+            this._headerView = new codeBelt.HeaderView(this._router);
             this.addChild(this._headerView);
 
             this._footerView = new codeBelt.FooterView();
             this.addChild(this._footerView);
-
-            this._router = new RouterController();
-            this._router.addRoute('', this.homeRouterHandler, this);
-            this._router.addRoute('home/', this.homeRouterHandler, this);
-            this._router.addRoute('about/', this.aboutRouterHandler, this);
-            this._router.addRoute('contact/', this.contactRouterHandler, this);
-            this._router.addRoute('services/', this.servicesRouterHandler, this);
-            this._router.addRoute('menu/', this.menuRouterHandler, this);
-
-            this._router.start();
         };
 
         RootView.prototype.layoutChildren = function () {
@@ -2312,12 +2365,20 @@ var codeBelt;
             if (this.isEnabled === true)
                 return;
 
+            this._headerView.enable();
+            this._footerView.enable();
+
+            this._router.start();
+
             _super.prototype.enable.call(this);
         };
 
         RootView.prototype.disable = function () {
             if (this.isEnabled === false)
                 return;
+
+            this._headerView.enable();
+            this._footerView.enable();
 
             _super.prototype.disable.call(this);
         };
@@ -2372,8 +2433,8 @@ var codeBelt;
             }
 
             this._currentView = view;
-
             this.addChildAt(this._currentView, 1);
+            this._currentView.enable();
         };
         return RootView;
     })(StructureTS.DOMElement);

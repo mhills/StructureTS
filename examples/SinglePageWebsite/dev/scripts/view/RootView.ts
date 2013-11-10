@@ -39,21 +39,20 @@ module codeBelt
         {
             super.createChildren('div', {"id": "pageWrapper"});
 
-            this._headerView = new HeaderView();
+            this._router = new RouterController();
+            this._router.addRoute('', this.homeRouterHandler, this);
+            this._router.addRoute('home', this.homeRouterHandler, this);
+            this._router.addRoute('about', this.aboutRouterHandler, this);
+            this._router.addRoute('contact', this.contactRouterHandler, this);
+            this._router.addRoute('services', this.servicesRouterHandler, this);
+            this._router.addRoute('menu', this.menuRouterHandler, this);
+//            this._router.addRoute('{?query}', this.resetRouterHandler, this);
+
+            this._headerView = new HeaderView(this._router);
             this.addChild(this._headerView);
 
             this._footerView = new FooterView();
             this.addChild(this._footerView);
-
-            this._router = new RouterController();
-            this._router.addRoute('', this.homeRouterHandler, this);
-            this._router.addRoute('home/', this.homeRouterHandler, this);
-            this._router.addRoute('about/', this.aboutRouterHandler, this);
-            this._router.addRoute('contact/', this.contactRouterHandler, this);
-            this._router.addRoute('services/', this.servicesRouterHandler, this);
-            this._router.addRoute('menu/', this.menuRouterHandler, this);
-//            this._router.addRoute('{?query}', this.resetRouterHandler, this);
-            this._router.start();
         }
 
         /**
@@ -74,6 +73,11 @@ module codeBelt
         {
             if (this.isEnabled === true) return;
 
+            this._headerView.enable();
+            this._footerView.enable();
+
+            this._router.start();
+
             super.enable();
         }
 
@@ -83,6 +87,9 @@ module codeBelt
         public disable():void
         {
             if (this.isEnabled === false) return;
+
+            this._headerView.enable();
+            this._footerView.enable();
 
             super.disable();
         }
@@ -154,6 +161,7 @@ module codeBelt
 
             this._currentView = view;
             this.addChildAt(this._currentView, 1);
+            this._currentView.enable();
         }
 
     }
