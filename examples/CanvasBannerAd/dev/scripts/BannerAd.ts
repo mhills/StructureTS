@@ -23,7 +23,7 @@ module codeBelt
      **/
     export class BannerAd extends Canvas
     {
-        static BASE_PATH:string = "assets/images/";
+        static BASE_PATH:string = "images/";
 
         private _cherry:Bitmap = null;
         private _cherryDipped:Bitmap = null;

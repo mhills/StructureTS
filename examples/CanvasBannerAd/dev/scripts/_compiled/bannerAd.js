@@ -787,7 +787,7 @@ var StructureTS;
 
         DOMElement.prototype.addChildAt = function (child, index) {
             var children = this.$element.children();
-            var length = children.length - 1;
+            var length = children.length;
 
             if (index < 0 || index >= length) {
                 this.addChild(child);
@@ -1365,7 +1365,7 @@ var codeBelt;
         BannerAd.prototype.onCherryDippedComplete = function () {
             TweenLite.to(this._logo, 1, { rotation: 720, scaleX: 0.5, scaleY: 0.5, ease: Bounce.easeOut });
         };
-        BannerAd.BASE_PATH = "assets/images/";
+        BannerAd.BASE_PATH = "images/";
         return BannerAd;
     })(StructureTS.Canvas);
     codeBelt.BannerAd = BannerAd;
