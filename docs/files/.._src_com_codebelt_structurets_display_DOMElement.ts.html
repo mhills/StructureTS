@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -281,443 +287,411 @@
 ///&lt;reference path=&#x27;../event/BaseEvent.ts&#x27;/&gt;
 ///&lt;reference path=&#x27;../util/TemplateFactory.ts&#x27;/&gt;
 
-/**
- * The {{#crossLink &quot;DOMElement&quot;}}{{/crossLink}} class is the base class for all objects that can be placed into the HTML DOM.
- *
- * @class DOMElement
- * @extends DisplayObjectContainer
- * @module StructureTS
- * @submodule view
- * @constructor
- * @version 0.1.0
- **/
-class DOMElement extends DisplayObjectContainer
+module StructureTS
 {
     /**
-     * @overridden DisplayObjectContainer.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;DOMElement&#x27;;
-
-    /**
-     * Whether or not the display object is visible. Display objects that are not visible are disabled.
-     * For example, if visible=false for an InteractiveObject instance, it cannot be clicked.
+     * The {{#crossLink &quot;DOMElement&quot;}}{{/crossLink}} class is the base class for all objects that can be placed into the HTML DOM.
      *
-     * @property _isVisible
-     * @type {boolean}
-     * @default true
-     * @private
-     */
-    private _isVisible:boolean = true;
-
-    /**
-     * A cached of the DOM Element.
-     *
-     * @property element
-     * @type {Element}
-     * @default null
-     */
-    public element:Element = null;
-
-    /**
-     * A cached jQuery object for the view&#x27;s element.
-     *
-     * @property $element
-     * @type {JQuery}
-     * @default null
-     */
-    public $element:JQuery = null;
-
-    /**
-     * Holds onto the value passed into the constructor.
-     *
-     * @property _type
-     * @type {string}
-     * @default null
-     */
-    private _type:string = null;
-
-    /**
-     * Holds onto the value passed into the constructor.
-     *
-     * @property _params
-     * @type {any}
-     * @default null
-     */
-    private _params:any = null;
-
-    constructor(type:string = null, params:any = null)
+     * @class DOMElement
+     * @extends DisplayObjectContainer
+     * @module StructureTS
+     * @submodule view
+     * @constructor
+     * @version 0.1.1
+     **/
+    export class DOMElement extends DisplayObjectContainer
     {
-        super();
+        /**
+         * @overridden DisplayObjectContainer.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;DOMElement&#x27;;
 
-        if (type) {
-            this._type = type;
-            this._params = params;
-        }
-    }
+        /**
+         * Whether or not the display object is visible. Display objects that are not visible are disabled.
+         * For example, if visible=false for an InteractiveObject instance, it cannot be clicked.
+         *
+         * @property _isVisible
+         * @type {boolean}
+         * @default true
+         * @private
+         */
+        private _isVisible:boolean = true;
 
-    /**
-     * @overridden DisplayObjectContainer.createChildren
-     */
-    public createChildren(type:any = &#x27;div&#x27;, params:any = null):any
-    {
-        // Use the data passed into the constructor first else use the arguments from createChildren.
-        type = this._type || type;
-        params = this._params || params;
+        /**
+         * A cached of the DOM Element.
+         *
+         * @property element
+         * @type {Element}
+         * @default null
+         */
+        public element:Element = null;
 
-        // If the typeof is a Function then the template data must be Jaml.
-        if (typeof type === &#x27;function&#x27; &amp;&amp; !this.$element)
+        /**
+         * A cached jQuery object for the view&#x27;s element.
+         *
+         * @property $element
+         * @type {JQuery}
+         * @default null
+         */
+        public $element:JQuery = null;
+
+        /**
+         * Holds onto the value passed into the constructor.
+         *
+         * @property _type
+         * @type {string}
+         * @default null
+         */
+        private _type:string = null;
+
+        /**
+         * Holds onto the value passed into the constructor.
+         *
+         * @property _params
+         * @type {any}
+         * @default null
+         */
+        private _params:any = null;
+
+        constructor(type:string = null, params:any = null)
         {
-            Jaml.register(this.CLASS_NAME, type);
-            this.$element = jQuery(Jaml.render(this.CLASS_NAME, params));
-        }
-        else if (typeof type === &#x27;string&#x27; &amp;&amp; !this.$element)
-        {
-            var html:string = TemplateFactory.createTemplate(type, params);
-            if (html)
+            super();
+
+            if (type)
             {
-                this.$element = $(html);
-            }
-            else
-            {
-                this.$element = jQuery(&quot;&lt;&quot; + type + &quot;/&gt;&quot;, params);
+                this._type = type;
+                this._params = params;
             }
         }
 
-        this.element = this.$element[0];
-
-        return this;
-    }
-
-    /**
-     * @overridden DisplayObjectContainer.addChild
-     * @example
-     *      container.addChild(domElementInstance);
-     * @method addChild
-     * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
-     * @returns {DOMElement} Returns an instance of itself.
-     * @chainable
-     */
-    public addChild(child:DOMElement):any
-    {
-        super.addChild(child);
-
-        if (!child.isCreated)
+        /**
+         * @overridden DisplayObjectContainer.createChildren
+         */
+        public createChildren(type:string = &#x27;div&#x27;, params:any = null):any
         {
-            child.createChildren();// Render the item before adding to the DOM
-            child.isCreated = true;
+            // Use the data passed into the constructor first else use the arguments from createChildren.
+            type = this._type || type;
+            params = this._params || params;
+
+            if (!this.$element)
+            {
+                var html:string = TemplateFactory.createTemplate(type, params);
+                if (html)
+                {
+                    this.$element = $(html);
+                }
+                else
+                {
+                    this.$element = jQuery(&quot;&lt;&quot; + type + &quot;/&gt;&quot;, params);
+                }
+            }
+
+            this.element = this.$element[0];
+
+            return this;
         }
 
-        // Adds the cid to the DOM element so we can know what what Class object the element belongs too.
-        child.$element.attr(&#x27;data-cid&#x27;, child.cid);
-
-        child.$element.addEventListener(&#x27;DOMNodeInsertedIntoDocument&#x27;, child, this.onAddedToDom, this);
-        this.$element.append(child.$element);
-
-        child.layoutChildren();
-
-        return this;
-    }
-
-    /**
-     * Gets called when the child object is added to the DOM.
-     * The method will call {{#crossLink &quot;DOMElement/layoutChildren:method&quot;}}{{/crossLink}} and dispatch the BaseEvent.ADDED event.
-     *
-     * @method onDomAdded
-     * @param event {JQueryEventObject}
-     * @private
-     */
-    private onAddedToDom(event:JQueryEventObject) {
-        var child:DOMElement = event.data;
-        child.$element.removeEventListener(&#x27;DOMNodeInsertedIntoDocument&#x27;, this.onAddedToDom, this);
-        child.layoutChildren();
-        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
-    }
-
-    /**
-     * @overridden DisplayObjectContainer.addChildAt
-     */
-    public addChildAt(child:DOMElement, index:number):any
-    {
-        var children = this.$element.children();
-        var length = children.length - 1;
-
-        // If the index passed in is less than 0 and greater than
-        // the total number of children then place the item at the end.
-        if (index &lt; 0 || index &gt;= length)
+        /**
+         * @overridden DisplayObjectContainer.addChild
+         * @example
+         *      container.addChild(domElementInstance);
+         * @method addChild
+         * @param child {DOMElement} The DOMElement instance to add as a child of this object instance.
+         * @returns {DOMElement} Returns an instance of itself.
+         * @chainable
+         */
+        public addChild(child:DOMElement):any
         {
-            this.addChild(child);
-        }
-        // Else get the child in the children array by the
-        // index passed in and place the item before that child.
-        else
-        {
+            super.addChild(child);
+
             if (!child.isCreated)
             {
                 child.createChildren();// Render the item before adding to the DOM
                 child.isCreated = true;
             }
+
+            // Adds the cid to the DOM element so we can know what what Class object the element belongs too.
+            child.$element.attr(&#x27;data-cid&#x27;, child.cid);
+
             child.$element.addEventListener(&#x27;DOMNodeInsertedIntoDocument&#x27;, child, this.onAddedToDom, this);
+            this.$element.append(child.$element);
+
             child.layoutChildren();
 
-            // Adds the child at a specific index but also will remove the child from another parent object if one exists.
-            super.addChildAt(child, index);
-
-            // Adds the child before the a child already in the DOM.
-            jQuery(children.get(index)).before(child.$element);
+            return this;
         }
 
-        return this;
-    }
-
-    /**
-     * @overridden DisplayObjectContainer.swapChildren
-     */
-    public swapChildren(child1:DOMElement, child2:DOMElement):any
-    {
-        var child1Index = child1.$element.index();
-        var child2Index = child2.$element.index();
-
-        this.addChildAt(child1, child2Index);
-        this.addChildAt(child2, child1Index);
-
-        return this;
-    }
-
-    /**
-     *
-     * @method getChildAt
-     * @param index {number}
-     * @returns {DOMElement}
-     * @public
-     */
-    public getChildAt(index:number):DOMElement
-    {
-        return &lt;DOMElement&gt;super.getChildAt(index);
-    }
-
-    /**
-     * Gets a DOMElement by its cid.
-     *
-     * @method getChildByCid
-     * @param selector {number}
-     * @returns {DOMElement}
-     * @override
-     * @public
-     */
-    public getChildByCid(cid:number):DOMElement
-    {
-        var domElement:DOMElement = &lt;DOMElement&gt;_.find(this.children, function(child)
+        /**
+         * Gets called when the child object is added to the DOM.
+         * The method will call {{#crossLink &quot;DOMElement/layoutChildren:method&quot;}}{{/crossLink}} and dispatch the BaseEvent.ADDED event.
+         *
+         * @method onDomAdded
+         * @param event {JQueryEventObject}
+         * @private
+         */
+        private onAddedToDom(event:JQueryEventObject)
         {
-            return child.cid == cid;
-        });
-
-        return domElement || null;
-    }
-
-    /**
-     * Returns a DOMElement object with the first found DOM element by the passed in selector.
-     *
-     * @method getChild
-     * @param selector {string} DOM id name, DOM class name or a DOM tag name.
-     * @returns {DOMElement}
-     * @override
-     * @public
-     */
-    public getChild(selector:string):DOMElement
-    {
-        // Get the first match from the selector passed in.
-        var jQueryElement:JQuery = this.$element.find(selector).first();
-        if (jQueryElement.length == 0)
-        {
-            throw new TypeError(&#x27;[&#x27;+this.getQualifiedClassName()+&#x27;] getChild(&#x27; + selector + &#x27;) Cannot find DOM $element&#x27;);
+            var child:DOMElement = event.data;
+            child.$element.removeEventListener(&#x27;DOMNodeInsertedIntoDocument&#x27;, this.onAddedToDom, this);
+            child.layoutChildren();
+            child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
         }
 
-        // Loop through the children array to see if the cid found on the jQueryElement matches any in the children array.
-        var cid:number = jQueryElement.data(&#x27;cid&#x27;);
-        var domElement:DOMElement = &lt;DOMElement&gt;_.find(this.children, function (domElement)
+        /**
+         * @overridden DisplayObjectContainer.addChildAt
+         */
+        public addChildAt(child:DOMElement, index:number):any
         {
-            return domElement.cid == cid;
-        });
+            var children = this.$element.children();
+            var length = children.length;
 
-        // Create a DOMElement from the jQueryElement.
-        if (!domElement)
-        {
-            // Create a new DOMElement and assign the jQuery element to it.
-            domElement = new DOMElement();
-            domElement.$element = jQueryElement;
-            domElement.$element.attr(&#x27;data-cid&#x27;, domElement.cid);
-            domElement.element = jQueryElement[0];
-            domElement.isCreated = true;
-
-            // Added to the super addChild method because we don&#x27;t need to append the element to the DOM.
-            // At this point it already exists and we are just getting a reference to the DOM element.
-            super.addChild(domElement);
-        }
-
-        return domElement;
-    }
-
-    /**
-     * Gets all the HTML elements children of this object.
-     *
-     * @method getChildren
-     * @param [selector] {string} You can pass in any type of jQuery selector. If there is no selector passed in it will get all the children this parent element.
-     * @returns {Array} Returns a list of DOMElement&#x27;s. It will grab all children HTML DOM elements of this object and will create a DOMElement for each DOM child.
-     * If the &#x27;data-cid&#x27; property exists is on an HTML element a DOMElement will not be create for that element because it will be assumed it already exists as a DOMElement.
-     */
-    public getChildren(selector:string = &#x27;&#x27;):DOMElement[]
-    {
-        //TODO: Make sure the index of the children added is the same as the what is in the actual DOM.
-        var $child:JQuery;
-        var domElement:DOMElement;
-        var $list:JQuery = this.$element.children(selector);
-
-        _.each($list, (item, index) =&gt;
-        {
-            $child = jQuery(item);
-            // If the jQuery element already has cid data property then must be an existing DisplayObjectContainer (DOMElement) in the children array.
-            if (!$child.data(&#x27;cid&#x27;))
+            // If the index passed in is less than 0 and greater than
+            // the total number of children then place the item at the end.
+            if (index &lt; 0 || index &gt;= length)
             {
+                this.addChild(child);
+            }
+            // Else get the child in the children array by the
+            // index passed in and place the item before that child.
+            else
+            {
+                if (!child.isCreated)
+                {
+                    child.createChildren();// Render the item before adding to the DOM
+                    child.isCreated = true;
+                }
+                child.$element.addEventListener(&#x27;DOMNodeInsertedIntoDocument&#x27;, child, this.onAddedToDom, this);
+                child.layoutChildren();
+
+                // Adds the child at a specific index but also will remove the child from another parent object if one exists.
+                super.addChildAt(child, index);
+
+                // Adds the child before the a child already in the DOM.
+                jQuery(children.get(index)).before(child.$element);
+            }
+
+            return this;
+        }
+
+        /**
+         * @overridden DisplayObjectContainer.swapChildren
+         */
+        public swapChildren(child1:DOMElement, child2:DOMElement):any
+        {
+            var child1Index = child1.$element.index();
+            var child2Index = child2.$element.index();
+
+            this.addChildAt(child1, child2Index);
+            this.addChildAt(child2, child1Index);
+
+            return this;
+        }
+
+        /**
+         *
+         * @method getChildAt
+         * @param index {number}
+         * @returns {DOMElement}
+         * @public
+         */
+        public getChildAt(index:number):DOMElement
+        {
+            return &lt;DOMElement&gt;super.getChildAt(index);
+        }
+
+        /**
+         * Gets a DOMElement by its cid.
+         *
+         * @method getChildByCid
+         * @param selector {number}
+         * @returns {DOMElement}
+         * @override
+         * @public
+         */
+        public getChildByCid(cid:number):DOMElement
+        {
+            var domElement:DOMElement = &lt;DOMElement&gt;_.find(this.children, function (child)
+            {
+                return child.cid == cid;
+            });
+
+            return domElement || null;
+        }
+
+        /**
+         * Returns a DOMElement object with the first found DOM element by the passed in selector.
+         *
+         * @method getChild
+         * @param selector {string} DOM id name, DOM class name or a DOM tag name.
+         * @returns {DOMElement}
+         * @override
+         * @public
+         */
+        public getChild(selector:string):DOMElement
+        {
+            // Get the first match from the selector passed in.
+            var jQueryElement:JQuery = this.$element.find(selector).first();
+            if (jQueryElement.length == 0)
+            {
+                throw new TypeError(&#x27;[&#x27; + this.getQualifiedClassName() + &#x27;] getChild(&#x27; + selector + &#x27;) Cannot find DOM $element&#x27;);
+            }
+
+            // Loop through the children array to see if the cid found on the jQueryElement matches any in the children array.
+            var cid:number = jQueryElement.data(&#x27;cid&#x27;);
+            var domElement:DOMElement = &lt;DOMElement&gt;_.find(this.children, function (domElement)
+            {
+                return domElement.cid == cid;
+            });
+
+            // Create a DOMElement from the jQueryElement.
+            if (!domElement)
+            {
+                // Create a new DOMElement and assign the jQuery element to it.
                 domElement = new DOMElement();
-                domElement.$element = $child;
+                domElement.$element = jQueryElement;
                 domElement.$element.attr(&#x27;data-cid&#x27;, domElement.cid);
-                domElement.element = item;
+                domElement.element = jQueryElement[0];
                 domElement.isCreated = true;
 
                 // Added to the super addChild method because we don&#x27;t need to append the element to the DOM.
                 // At this point it already exists and we are just getting a reference to the DOM element.
                 super.addChild(domElement);
             }
-        });
 
-        return &lt;DOMElement[]&gt;this.children;
-    }
-
-    /**
-     * Removes the specified child object instance from the child list of the parent object instance.
-     * The parent property of the removed child is set to null , and the object is garbage collected if no other references
-     * to the child exist. The index positions of any objects above the child in the parent object are decreased by 1.
-     *
-     * @method removeChild
-     * @param child {DOMElement} The DisplayObjectContainer instance to remove.
-     * @returns {DOMElement} Returns an instance of itself.
-     * @override
-     * @public
-     * @chainable
-     */
-    public removeChild(child:DOMElement):any
-    {
-        child.$element.unbind();
-        child.$element.remove();
-
-        super.removeChild(child);
-
-        return this;
-    }
-
-    /**
-     * Removes all child object instances from the child list of the parent object instance.
-     * The parent property of the removed children is set to null , and the objects are garbage collected if no other
-     * references to the children exist.
-     *
-     * @method removeChildren
-     * @returns {DOMElement} Returns an instance of itself.
-     * @override
-     * @public
-     * @chainable
-     */
-    public removeChildren():any
-    {
-        super.removeChildren();
-
-        this.$element.empty();
-
-        return this;
-    }
-
-    /**
-     * @overridden BaseObject.enable
-     */
-    public enable():any
-    {
-        if (this.isEnabled === true) return this;
-
-        super.enable();
-        return this;
-    }
-
-    /**
-     * @overridden BaseObject.disable
-     */
-    public disable():any
-    {
-        if (this.isEnabled === false) return this;
-
-        super.disable();
-        return this;
-    }
-
-    /**
-     * @overridden DisplayObjectContainer.layoutChildren
-     */
-    public layoutChildren():any
-    {
-
-        return this;
-    }
-
-    /**
-     * Indicates the alpha transparency value of the object specified. Valid values are 0 (fully transparent)
-     * to 1 (fully opaque). The default value is 1. Display objects with alpha set to 0 are active, even though
-     * they are invisible.
-     *
-     * @method alpha
-     * @param number
-     * @returns {DOMElement} Returns an instance of itself.
-     * @chainable
-     */
-    public alpha(number):any
-    {
-        this.$element.css(&#x27;opacity&#x27;, number);
-        return this;
-    }
-
-    /**
-     *
-     * @method visible
-     * @param value
-     * @returns {any}
-     */
-    public visible(value:boolean):any
-    {
-        if (value == false)
-        {
-            this._isVisible = false;
-            this.$element.hide();
+            return domElement;
         }
-        else if (value == true)
+
+        /**
+         * Gets all the HTML elements children of this object.
+         *
+         * @method getChildren
+         * @param [selector] {string} You can pass in any type of jQuery selector. If there is no selector passed in it will get all the children this parent element.
+         * @returns {Array} Returns a list of DOMElement&#x27;s. It will grab all children HTML DOM elements of this object and will create a DOMElement for each DOM child.
+         * If the &#x27;data-cid&#x27; property exists is on an HTML element a DOMElement will not be create for that element because it will be assumed it already exists as a DOMElement.
+         */
+        public getChildren(selector:string = &#x27;&#x27;):DOMElement[]
         {
-            this._isVisible = true;
-            this.$element.show();
+            //TODO: Make sure the index of the children added is the same as the what is in the actual DOM.
+            var $child:JQuery;
+            var domElement:DOMElement;
+            var $list:JQuery = this.$element.children(selector);
+
+            _.each($list, (item, index) =&gt;
+            {
+                $child = jQuery(item);
+                // If the jQuery element already has cid data property then must be an existing DisplayObjectContainer (DOMElement) in the children array.
+                if (!$child.data(&#x27;cid&#x27;))
+                {
+                    domElement = new DOMElement();
+                    domElement.$element = $child;
+                    domElement.$element.attr(&#x27;data-cid&#x27;, domElement.cid);
+                    domElement.element = item;
+                    domElement.isCreated = true;
+
+                    // Added to the super addChild method because we don&#x27;t need to append the element to the DOM.
+                    // At this point it already exists and we are just getting a reference to the DOM element.
+                    super.addChild(domElement);
+                }
+            });
+
+            return &lt;DOMElement[]&gt;this.children;
         }
-        else if (value == undefined)
+
+        /**
+         * Removes the specified child object instance from the child list of the parent object instance.
+         * The parent property of the removed child is set to null , and the object is garbage collected if no other references
+         * to the child exist. The index positions of any objects above the child in the parent object are decreased by 1.
+         *
+         * @method removeChild
+         * @param child {DOMElement} The DisplayObjectContainer instance to remove.
+         * @returns {DOMElement} Returns an instance of itself.
+         * @override
+         * @public
+         * @chainable
+         */
+        public removeChild(child:DOMElement):any
         {
-            return this._isVisible;
+            child.$element.unbind();
+            child.$element.remove();
+
+            super.removeChild(child);
+
+            return this;
         }
-        return this;
+
+        /**
+         * Removes all child object instances from the child list of the parent object instance.
+         * The parent property of the removed children is set to null , and the objects are garbage collected if no other
+         * references to the children exist.
+         *
+         * @method removeChildren
+         * @returns {DOMElement} Returns an instance of itself.
+         * @override
+         * @public
+         * @chainable
+         */
+        public removeChildren():any
+        {
+            super.removeChildren();
+
+            this.$element.empty();
+
+            return this;
+        }
+
+        /**
+         * Indicates the alpha transparency value of the object specified. Valid values are 0 (fully transparent)
+         * to 1 (fully opaque). The default value is 1. Display objects with alpha set to 0 are active, even though
+         * they are invisible.
+         *
+         * @method alpha
+         * @param number
+         * @returns {DOMElement} Returns an instance of itself.
+         * @chainable
+         */
+        public alpha(number):any
+        {
+            this.$element.css(&#x27;opacity&#x27;, number);
+            return this;
+        }
+
+        /**
+         *
+         * @method visible
+         * @param value
+         * @returns {any}
+         */
+        public visible(value:boolean):any
+        {
+            if (value == false)
+            {
+                this._isVisible = false;
+                this.$element.hide();
+            }
+            else if (value == true)
+            {
+                this._isVisible = true;
+                this.$element.show();
+            }
+            else if (value == undefined)
+            {
+                return this._isVisible;
+            }
+            return this;
+        }
+
+        /**
+         * @overridden DisplayObjectContainer.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            this.$element = null;
+            this.element = null;
+        }
+
     }
-
-    /**
-     * @overridden DisplayObjectContainer.destroy
-     */
-    public destroy():void
-    {
-        super.destroy();
-
-        this.$element = null;
-        this.element = null;
-    }
-
 }
     </pre>
 </div>

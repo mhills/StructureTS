@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -280,115 +286,118 @@
 ///&lt;reference path=&#x27;../BaseObject.ts&#x27;/&gt;
 ///&lt;reference path=&#x27;../util/Util.ts&#x27;/&gt;
 
-/**
- * Value Object (VO) is a design pattern used to transfer data between software application subsystems.
- *
- * @class ValueObject
- * @param [data] {any} Provide a way to update the value object upon initialization.
- * @module StructureTS
- * @submodule model
- * @constructor
- * @version 0.1.0
- **/
-class ValueObject extends BaseObject implements IValueObject
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;ValueObject&#x27;;
-
-    constructor()
+     * Value Object (VO) is a design pattern used to transfer data between software application subsystems.
+     *
+     * @class ValueObject
+     * @param [data] {any} Provide a way to update the value object upon initialization.
+     * @module StructureTS
+     * @submodule model
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class ValueObject extends BaseObject implements IValueObject
     {
-        super();
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;ValueObject&#x27;;
 
-    /**
-     * Provide a way to update the value object.
-     *
-     * @method update
-     * @param data {any}
-     * @public
-     */
-    public update(data:any):any
-    {
-        return this;
-    }
-
-    /**
-     * ...
-     *
-     * @method toJSON
-     * @returns {ValueObject}
-     * @public
-     */
-    public toJSON():ValueObject
-    {
-        //TODO: test on vo that extends multiple vo&#x27;s
-        var clone:ValueObject = &lt;ValueObject&gt;this.clone();
-        return Util.deletePropertyFromObject(clone, [&#x27;cid&#x27;]);
-    }
-
-    /**
-     * ...
-     *
-     * @method toJSONString
-     * @returns {string}
-     * @public
-     */
-    public toJSONString():string
-    {
-        return JSON.stringify(this.toJSON());
-    }
-
-    /**
-     * Converts the string json data into an Object and calls the {{#crossLink &quot;ValueObject/update:method&quot;}}{{/crossLink}} method with the converted Object.
-     *
-     * @method fromJSON
-     * @param json {string}
-     * @public
-     */
-    public fromJSON(json:string):any
-    {
-        var parsedData:any = JSON.parse(json);
-        this.update(parsedData);
-
-        return this;
-    }
-
-    /**
-     *
-     *
-     * @method clone
-     * @returns {Object}
-     * @public
-     */
-    public clone():Object
-    {
-        return _.cloneDeep(this);
-    }
-
-    /**
-     *
-     *
-     * @method copy
-     * @returns {IValueObject}
-     * @public
-     */
-    public copy():IValueObject
-    {
-        var copy:Object = new Object();
-
-        for (var key in this)
+        constructor()
         {
-            if (this.hasOwnProperty(key))
-            {
-                copy[key] = this[key];
-            }
+            super();
         }
 
-        return &lt;IValueObject&gt;copy;
-    }
+        /**
+         * Provide a way to update the value object.
+         *
+         * @method update
+         * @param data {any}
+         * @public
+         */
+        public update(data:any):any
+        {
+            return this;
+        }
 
+        /**
+         * ...
+         *
+         * @method toJSON
+         * @returns {ValueObject}
+         * @public
+         */
+        public toJSON():ValueObject
+        {
+            //TODO: test on vo that extends multiple vo&#x27;s
+            var clone:ValueObject = &lt;ValueObject&gt;this.clone();
+            return Util.deletePropertyFromObject(clone, [&#x27;cid&#x27;]);
+        }
+
+        /**
+         * ...
+         *
+         * @method toJSONString
+         * @returns {string}
+         * @public
+         */
+        public toJSONString():string
+        {
+            return JSON.stringify(this.toJSON());
+        }
+
+        /**
+         * Converts the string json data into an Object and calls the {{#crossLink &quot;ValueObject/update:method&quot;}}{{/crossLink}} method with the converted Object.
+         *
+         * @method fromJSON
+         * @param json {string}
+         * @public
+         */
+        public fromJSON(json:string):any
+        {
+            var parsedData:any = JSON.parse(json);
+            this.update(parsedData);
+
+            return this;
+        }
+
+        /**
+         *
+         *
+         * @method clone
+         * @returns {Object}
+         * @public
+         */
+        public clone():Object
+        {
+            return _.cloneDeep(this);
+        }
+
+        /**
+         *
+         *
+         * @method copy
+         * @returns {IValueObject}
+         * @public
+         */
+        public copy():IValueObject
+        {
+            var copy:Object = new Object();
+
+            for (var key in this)
+            {
+                if (this.hasOwnProperty(key))
+                {
+                    copy[key] = this[key];
+                }
+            }
+
+            return &lt;IValueObject&gt;copy;
+        }
+
+    }
 }
     </pre>
 </div>

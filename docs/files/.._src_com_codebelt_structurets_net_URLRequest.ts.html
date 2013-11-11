@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -280,70 +286,72 @@
 ///&lt;reference path=&#x27;URLRequestMethod.ts&#x27;/&gt;
 ///&lt;reference path=&#x27;URLContentType.ts&#x27;/&gt;
 
-/**
- * The URLRequest class captures all of the information in a single HTTP request.
- * URLRequest objects are passed to the load() methods of the {{#crossLink &quot;URLLoader&quot;}}{{/crossLink}} classes.
- *
- * @class URLRequest
- * @extends BaseObject
- * @param url [string=null] The URL to be requested. You can set the URL later by using the url property.
- * @module StructureTS
- * @submodule net
- * @constructor
- * @version 0.1.0
- **/
-class URLRequest extends BaseObject
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;URLRequest&#x27;;
-
-    /**
-     * The URL to be requested.
+     * The URLRequest class captures all of the information in a single HTTP request.
+     * URLRequest objects are passed to the load() methods of the {{#crossLink &quot;URLLoader&quot;}}{{/crossLink}} classes.
      *
-     * @property url
-     * @type {string}
-     * @public
-     */
-    public url:string = null;
-
-    /**
-     * Controls the HTTP form submission method ({{#crossLink &quot;URLRequestMethod&quot;}}{{/crossLink}}).
-     *
-     * @property method
-     * @type {string}
-     * @default URLRequestMethod.GET
-     * @public
-     */
-    public method:string = URLRequestMethod.GET;
-
-    /**
-     * The MIME content type of the content in the the data property ({{#crossLink &quot;URLContentType&quot;}}{{/crossLink}}).
-     *
-     * @property method
-     * @type {string}
-     * @default application/x-www-form-urlencoded
-     * @public
-     */
-    public contentType:string = URLContentType.DEFAULT;
-
-    /**
-     * An object containing data to be transmitted with the URL request.
-     *
-     * @property data
-     * @type {any}
-     * @public
-     */
-    public data:any = null;
-
-    constructor(url:string = null)
+     * @class URLRequest
+     * @extends BaseObject
+     * @param url [string=null] The URL to be requested. You can set the URL later by using the url property.
+     * @module StructureTS
+     * @submodule net
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class URLRequest extends BaseObject
     {
-        super();
-        this.url = url;
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;URLRequest&#x27;;
+
+        /**
+         * The URL to be requested.
+         *
+         * @property url
+         * @type {string}
+         * @public
+         */
+        public url:string = null;
+
+        /**
+         * Controls the HTTP form submission method ({{#crossLink &quot;URLRequestMethod&quot;}}{{/crossLink}}).
+         *
+         * @property method
+         * @type {string}
+         * @default URLRequestMethod.GET
+         * @public
+         */
+        public method:string = URLRequestMethod.GET;
+
+        /**
+         * The MIME content type of the content in the the data property ({{#crossLink &quot;URLContentType&quot;}}{{/crossLink}}).
+         *
+         * @property method
+         * @type {string}
+         * @default application/x-www-form-urlencoded
+         * @public
+         */
+        public contentType:string = URLContentType.DEFAULT;
+
+        /**
+         * An object containing data to be transmitted with the URL request.
+         *
+         * @property data
+         * @type {any}
+         * @public
+         */
+        public data:any = null;
+
+        constructor(url:string = null)
+        {
+            super();
+            this.url = url;
+        }
     }
 }
-
     </pre>
 </div>
 

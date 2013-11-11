@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -278,82 +284,85 @@
 
 ///&lt;reference path=&#x27;IEventDispatcher.ts&#x27;/&gt;
 
-/**
- * YUIDoc_comment
- *
- * @class IDisplayObject
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface IDisplayObject extends IEventDispatcher
+module StructureTS
 {
-
     /**
-     * @property isCreated
-     */
-        isCreated:boolean;
+     * YUIDoc_comment
+     *
+     * @class IDisplayObject
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface IDisplayObject extends IEventDispatcher
+    {
 
-    /**
-     * @property numChildren
-     */
-        numChildren:number;
+        /**
+         * @property isCreated
+         */
+            isCreated:boolean;
 
-    /**
-     * @property children
-     */
-        children:IDisplayObject[];
+        /**
+         * @property numChildren
+         */
+            numChildren:number;
 
-    /**
-     * @method createChildren
-     */
-    createChildren():any;
+        /**
+         * @property children
+         */
+            children:IDisplayObject[];
 
-    /**
-     * @method addChild
-     */
-    addChild(child:IDisplayObject):any;
+        /**
+         * @method createChildren
+         */
+        createChildren():any;
 
-    /**
-     * @method removeChild
-     */
-    removeChild(child:IDisplayObject):any;
+        /**
+         * @method addChild
+         */
+        addChild(child:IDisplayObject):any;
 
-    /**
-     * @method removeChildren
-     */
-    removeChildren():any;
+        /**
+         * @method removeChild
+         */
+        removeChild(child:IDisplayObject):any;
 
-    /**
-     * @method layoutChildren
-     */
-    layoutChildren():any;
+        /**
+         * @method removeChildren
+         */
+        removeChildren():any;
 
-    /**
-     * @method addChildAt
-     */
-    addChildAt(child:IDisplayObject, index:number):any;
+        /**
+         * @method layoutChildren
+         */
+        layoutChildren():any;
 
-    /**
-     * @method getChildAt
-     */
-    getChildAt(index:number):IDisplayObject;
+        /**
+         * @method addChildAt
+         */
+        addChildAt(child:IDisplayObject, index:number):any;
 
-    /**
-     * @method getChildIndex
-     */
-    getChildIndex(child:IDisplayObject):number;
+        /**
+         * @method getChildAt
+         */
+        getChildAt(index:number):IDisplayObject;
 
-    /**
-     * @method swapChildren
-     */
-    swapChildren(child1:IDisplayObject, child2:IDisplayObject):any
+        /**
+         * @method getChildIndex
+         */
+        getChildIndex(child:IDisplayObject):number;
 
-    /**
-     * @method swapChildrenAt
-     */
-    swapChildrenAt(index1:number, index2:number):any;
+        /**
+         * @method swapChildren
+         */
+        swapChildren(child1:IDisplayObject, child2:IDisplayObject):any
+
+        /**
+         * @method swapChildrenAt
+         */
+        swapChildrenAt(index1:number, index2:number):any;
+    }
 }
     </pre>
 </div>

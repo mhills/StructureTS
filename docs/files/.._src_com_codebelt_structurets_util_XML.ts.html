@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -254,65 +260,68 @@
     <pre class="code prettyprint linenums">
 ///&lt;reference path=&#x27;&#x27;/&gt;
 
-class XML
+module StructureTS
 {
-    /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;XML&#x27;;
-
-    constructor()
+    export class XML
     {
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;XML&#x27;;
 
-    }
-
-    public static parse(xml):string
-    {
-        var dom:string = null;
-
-        if (window.DOMParser)
+        constructor()
         {
-            try
-            {
-                dom = (new DOMParser()).parseFromString(xml, &quot;text/xml&quot;);
-            }
-            catch (e)
-            {
-                dom = null;
-            }
+
         }
-        else if (window.ActiveXObject)
+
+        public static parse(xml):string
         {
-            try
+            var dom:string = null;
+
+            if (window.DOMParser)
             {
-                dom = new ActiveXObject(&#x27;Microsoft.XMLDOM&#x27;);
-                dom.async = false;
-                if (!dom.loadXML(xml))
+                try
                 {
-                    // parse error ..
-                    throw new Error(dom.parseError.reason + dom.parseError.srcText);
+                    dom = (new DOMParser()).parseFromString(xml, &quot;text/xml&quot;);
+                }
+                catch (e)
+                {
+                    dom = null;
                 }
             }
-            catch (err)
+            else if (window.ActiveXObject)
             {
-                dom = null;
+                try
+                {
+                    dom = new ActiveXObject(&#x27;Microsoft.XMLDOM&#x27;);
+                    dom.async = false;
+                    if (!dom.loadXML(xml))
+                    {
+                        // parse error ..
+                        throw new Error(dom.parseError.reason + dom.parseError.srcText);
+                    }
+                }
+                catch (err)
+                {
+                    dom = null;
+                }
             }
+            else
+            {
+                throw new Error(&quot;XML has an issue parsing xml string with dom parser&quot;);
+            }
+            return dom;
         }
-        else
+
+        public static toJSON()
         {
-            throw new Error(&quot;XML has an issue parsing xml string with dom parser&quot;);
         }
-        return dom;
-    }
 
-    public static toJSON()
-    {
-    }
+        public static fromJSON()
+        {
+        }
 
-    public static fromJSON()
-    {
     }
-
 }
     </pre>
 </div>

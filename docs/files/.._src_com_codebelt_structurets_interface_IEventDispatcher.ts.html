@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -279,40 +285,42 @@
 ///&lt;reference path=&#x27;ICore.ts&#x27;/&gt;
 ///&lt;reference path=&#x27;../event/BaseEvent.ts&#x27;/&gt;
 
-/**
- * YUIDoc_comment
- *
- * @class IValueObject
- * @extends ICore
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface IEventDispatcher extends ICore
+module StructureTS
 {
     /**
-     * @property parent
-     */
-    parent:any;
+     * YUIDoc_comment
+     *
+     * @class IValueObject
+     * @extends ICore
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface IEventDispatcher extends ICore
+    {
+        /**
+         * @property parent
+         */
+            parent:any;
 
-    /**
-     * @method addEventListener
-     */
-    addEventListener(type:string, func:Function, scope:any, priority?:number):any;
+        /**
+         * @method addEventListener
+         */
+        addEventListener(type:string, func:Function, scope:any, priority?:number):any;
 
-    /**
-     * @method removeEventListener
-     */
-    removeEventListener(type:string, func:Function, scope:any):any;
+        /**
+         * @method removeEventListener
+         */
+        removeEventListener(type:string, func:Function, scope:any):any;
 
-    /**
-     * @method dispatchEvent
-     */
-    dispatchEvent(event:BaseEvent):any;
+        /**
+         * @method dispatchEvent
+         */
+        dispatchEvent(event:BaseEvent):any;
 
+    }
 }
-
     </pre>
 </div>
 

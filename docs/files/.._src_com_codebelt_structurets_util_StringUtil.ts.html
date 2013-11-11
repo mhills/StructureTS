@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -278,208 +284,214 @@
 
 ///&lt;reference path=&#x27;&#x27;/&gt;
 
-/**
- * The StringUtil...
- *
- * @class StringUtil
- * @module StructureTS
- * @submodule util
- * @constructor
- * @static
- * @version 0.1.0
- **/
-class StringUtil
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = &#x27;StringUtil&#x27;;
-
-    constructor()
-    {
-    }
-
-    /**
-     * YUIDoc_comment
+     * The StringUtil...
      *
-     * @method stringToBoolean
-     * @param str {string}
-     * @returns {boolean}
-     * @public
+     * @class StringUtil
+     * @module StructureTS
+     * @submodule util
+     * @constructor
      * @static
-     */
-    public static stringToBoolean(str:string):boolean
+     * @version 0.1.0
+     **/
+    export class StringUtil
     {
-        return (str.toLowerCase() == &quot;true&quot; || str.toLowerCase() == &quot;1&quot;);
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = &#x27;StringUtil&#x27;;
 
-    /**
-     * YUIDoc_comment
-     *
-     * @method getExtension
-     * @param filename {string}
-     * @returns {string}
-     * @public
-     * @static
-     */
-    public static getExtension(filename:string):string
-    {
-        return filename.slice(filename.lastIndexOf(&quot;.&quot;) + 1, filename.length);
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method hyphenToCamelCase
-     * @param str {string}
-     * @returns {string}
-     * @public
-     * @static
-     */
-    public static hyphenToCamelCase(str:string):string
-    {
-        return str.replace(/-([a-z])/g, function (g)
+        constructor()
         {
-            return g[1].toUpperCase()
-        });
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method hyphenToPascalCase
-     * @param str {string}
-     * @returns {string}
-     * @public
-     * @static
-     */
-    public static hyphenToPascalCase(str:string):string
-    {
-        return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
-        {
-            return hyphenated.toUpperCase();
-        });
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method camelCaseToHyphen
-     * @param str {string}
-     * @returns {string}
-     * @public
-     * @static
-     */
-    public static camelCaseToHyphen(str:string):string
-    {
-        return str.replace(/([a-z][A-Z])/g, function (g)
-        {
-            return g[0] + &#x27;-&#x27; + g[1].toLowerCase()
-        });
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method createUUID
-     * @returns {string}
-     * @public
-     * @static
-     */
-    public static createUUID():string
-    {
-        var uuid = (&#x27;xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx&#x27;).replace(/[xy]/g, function (c)
-        {
-            var r = Math.random() * 16 | 0;
-            var v = (c == &#x27;x&#x27;) ? r : (r &amp; 0x3 | 0x8);
-            return v.toString(16);
-        });
-
-        return uuid;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method queryStringToObject
-     * @param queryString {string}
-     * @returns {Object}
-     * @public
-     * @static
-     */
-    public static queryStringToObject(queryString:string):Object
-    {
-        var params = {};
-        var temp = null;
-
-        // Split into key/value pairs
-        var queries = queryString.substring(1).split(&quot;&amp;&quot;);
-
-        // Convert the array of strings into an object
-        var len = queries.length;
-        for (var i = 0; i &lt; len; i++)
-        {
-            temp = queries[i].split(&#x27;=&#x27;);
-            params[temp[0]] = temp[1];
         }
 
-        return params;
-    }
-
-    /**
-     * Remove all whitespace from the string passed in.
-     * @example
-     *      var str = &quot;   a b    c d e f g &quot;;
-     *      StringUtil.removeAllWhitespace(str);
-     *      // &quot;abcdefg&quot;
-     *
-     * @method removeAllWhitespace
-     * @param str {string}
-     * @returns {string}
-     * @public
-     * @static
-     */
-    public static removeAllWhitespace(str:string):string
-    {
-        return str.replace(/\s+/g, &#x27;&#x27;);
-    }
-
-    /**
-     * Remove leading and trailing whitespace.
-     * @example
-     *      var str = &quot;   a b    c d e f g &quot;;
-     *      StringUtil.removeLeadingTrailingWhitespace(str);
-     *      // &quot;a b c d e f g&quot;
-     *
-     * @method removeLeadingTrailingWhitespace
-     * @param str {string}
-     * @returns {string}
-     * @public
-     * @static
-     */
-    public static removeLeadingTrailingWhitespace(str:string):string
-    {
-        return str.replace(/(^\s+|\s+$)/g,&#x27;&#x27;);
-    }
-
-    /**
-     *
-     * @method truncate
-     * @param text {string}
-     * @param length {int}
-     * @returns {string}
-     * @public
-     * @static
-     */
-    public static truncate(text:string, length:number):string
-    {
-        if (text.length &lt;= length) {
-            return text;
-        } else {
-            return text.substr(0, length) + &quot;...&quot;;
+        /**
+         * YUIDoc_comment
+         *
+         * @method stringToBoolean
+         * @param str {string}
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static stringToBoolean(str:string):boolean
+        {
+            return (str.toLowerCase() == &quot;true&quot; || str.toLowerCase() == &quot;1&quot;);
         }
-    }
 
+        /**
+         * YUIDoc_comment
+         *
+         * @method getExtension
+         * @param filename {string}
+         * @returns {string}
+         * @public
+         * @static
+         */
+        public static getExtension(filename:string):string
+        {
+            return filename.slice(filename.lastIndexOf(&quot;.&quot;) + 1, filename.length);
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method hyphenToCamelCase
+         * @param str {string}
+         * @returns {string}
+         * @public
+         * @static
+         */
+        public static hyphenToCamelCase(str:string):string
+        {
+            return str.replace(/-([a-z])/g, function (g)
+            {
+                return g[1].toUpperCase()
+            });
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method hyphenToPascalCase
+         * @param str {string}
+         * @returns {string}
+         * @public
+         * @static
+         */
+        public static hyphenToPascalCase(str:string):string
+        {
+            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
+            {
+                return hyphenated.toUpperCase();
+            });
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method camelCaseToHyphen
+         * @param str {string}
+         * @returns {string}
+         * @public
+         * @static
+         */
+        public static camelCaseToHyphen(str:string):string
+        {
+            return str.replace(/([a-z][A-Z])/g, function (g)
+            {
+                return g[0] + &#x27;-&#x27; + g[1].toLowerCase()
+            });
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method createUUID
+         * @returns {string}
+         * @public
+         * @static
+         */
+        public static createUUID():string
+        {
+            var uuid = (&#x27;xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx&#x27;).replace(/[xy]/g, function (c)
+            {
+                var r = Math.random() * 16 | 0;
+                var v = (c == &#x27;x&#x27;) ? r : (r &amp; 0x3 | 0x8);
+                return v.toString(16);
+            });
+
+            return uuid;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method queryStringToObject
+         * @param queryString {string}
+         * @returns {Object}
+         * @public
+         * @static
+         */
+        public static queryStringToObject(queryString:string):Object
+        {
+            var params = {};
+            var temp = null;
+
+            // Split into key/value pairs
+            var queries = queryString.substring(1).split(&quot;&amp;&quot;);
+
+            // Convert the array of strings into an object
+            var len = queries.length;
+            for (var i = 0; i &lt; len; i++)
+            {
+                temp = queries[i].split(&#x27;=&#x27;);
+                params[temp[0]] = temp[1];
+            }
+
+            return params;
+        }
+
+        /**
+         * Remove all whitespace from the string passed in.
+         * @example
+         *      var str = &quot;   a b    c d e f g &quot;;
+         *      StringUtil.removeAllWhitespace(str);
+         *      // &quot;abcdefg&quot;
+         *
+         * @method removeAllWhitespace
+         * @param str {string}
+         * @returns {string}
+         * @public
+         * @static
+         */
+        public static removeAllWhitespace(str:string):string
+        {
+            return str.replace(/\s+/g, &#x27;&#x27;);
+        }
+
+        /**
+         * Remove leading and trailing whitespace.
+         * @example
+         *      var str = &quot;   a b    c d e f g &quot;;
+         *      StringUtil.removeLeadingTrailingWhitespace(str);
+         *      // &quot;a b c d e f g&quot;
+         *
+         * @method removeLeadingTrailingWhitespace
+         * @param str {string}
+         * @returns {string}
+         * @public
+         * @static
+         */
+        public static removeLeadingTrailingWhitespace(str:string):string
+        {
+            return str.replace(/(^\s+|\s+$)/g, &#x27;&#x27;);
+        }
+
+        /**
+         *
+         * @method truncate
+         * @param text {string}
+         * @param length {int}
+         * @returns {string}
+         * @public
+         * @static
+         */
+        public static truncate(text:string, length:number):string
+        {
+            if (text.length &lt;= length)
+            {
+                return text;
+            }
+            else
+            {
+                return text.substr(0, length) + &quot;...&quot;;
+            }
+        }
+
+    }
 }
     </pre>
 </div>

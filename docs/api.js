@@ -40,6 +40,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "LocalStorageController",
         "LocalStorageEvent",
         "MathUtil",
+        "MerchantUtil",
         "MobileUtil",
         "MouseEvents",
         "NavigatorEvents",
@@ -72,7 +73,9 @@ YUI.add("yuidoc-meta", function(Y) {
         "URLLoaderDataFormat",
         "URLRequest",
         "URLRequestMethod",
+        "UndoManager",
         "Util",
+        "ValidationUtil",
         "ValueObject",
         "WindowEvents"
     ],

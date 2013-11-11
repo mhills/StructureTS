@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -278,113 +284,115 @@
 
 ///&lt;reference path=&#x27;&#x27;/&gt;
 
-/**
- * The NumberUtil...
- *
- * @class NumberUtil
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class NumberUtil
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = &#x27;NumberUtil&#x27;;
-
-    constructor()
-    {
-    }
-
-    /**
-     * YUIDoc_comment
+     * The NumberUtil...
      *
-     * @method bytesToMegabytes
-     * @param bytes {number}
-     * @returns {number}
-     */
-    public static bytesToMegabytes(bytes:number):number
+     * @class NumberUtil
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class NumberUtil
     {
-        return bytes / 1048576;
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = &#x27;NumberUtil&#x27;;
 
-    /**
-     * YUIDoc_comment
-     *
-     * @method centimeterToInch
-     * @param cm {number}
-     * @returns {number}
-     */
-    public static centimeterToInch(cm:number):number
-    {
-        return cm * 0.39370;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method inchToCentimeter
-     * @param inch {number}
-     * @returns {number}
-     */
-    public static inchToCentimeter(inch:number):number
-    {
-        return inch * 2.54;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method feetToMeter
-     * @param feet {number}
-     * @returns {number}
-     */
-    public static feetToMeter(feet:number):number
-    {
-        return feet / 3.2808;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method convertToHHMMSS
-     * @param seconds {number}
-     * @returns {string}
-     */
-    public static convertToHHMMSS(seconds:number):string
-    {
-        var sec:number = isNaN(seconds) ? 0 : seconds;//Changes NaN to 0
-
-        var s:number = sec % 60;
-        var m:number = Math.floor((sec % 3600 ) / 60);
-        var h:number = Math.floor(sec / (60 * 60));
-
-        var hourStr:string = (h == 0) ? &quot;&quot; : NumberUtil.doubleDigitFormat(h) + &quot;:&quot;;
-        var minuteStr:string = NumberUtil.doubleDigitFormat(m) + &quot;:&quot;;
-        var secondsStr:string = NumberUtil.doubleDigitFormat(s);
-
-        return hourStr + minuteStr + secondsStr;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method doubleDigitFormat
-     * @param num {number}
-     * @returns {string}
-     */
-    public static doubleDigitFormat(num:number):string
-    {
-        if (num &lt; 10)
+        constructor()
         {
-            return (&quot;0&quot; + num);
         }
-        return String(num);
-    }
 
-    //http://www.metric-conversions.org/length/inches-conversion.htm
+        /**
+         * YUIDoc_comment
+         *
+         * @method bytesToMegabytes
+         * @param bytes {number}
+         * @returns {number}
+         */
+        public static bytesToMegabytes(bytes:number):number
+        {
+            return bytes / 1048576;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method centimeterToInch
+         * @param cm {number}
+         * @returns {number}
+         */
+        public static centimeterToInch(cm:number):number
+        {
+            return cm * 0.39370;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method inchToCentimeter
+         * @param inch {number}
+         * @returns {number}
+         */
+        public static inchToCentimeter(inch:number):number
+        {
+            return inch * 2.54;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method feetToMeter
+         * @param feet {number}
+         * @returns {number}
+         */
+        public static feetToMeter(feet:number):number
+        {
+            return feet / 3.2808;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method convertToHHMMSS
+         * @param seconds {number}
+         * @returns {string}
+         */
+        public static convertToHHMMSS(seconds:number):string
+        {
+            var sec:number = isNaN(seconds) ? 0 : seconds;//Changes NaN to 0
+
+            var s:number = sec % 60;
+            var m:number = Math.floor((sec % 3600 ) / 60);
+            var h:number = Math.floor(sec / (60 * 60));
+
+            var hourStr:string = (h == 0) ? &quot;&quot; : NumberUtil.doubleDigitFormat(h) + &quot;:&quot;;
+            var minuteStr:string = NumberUtil.doubleDigitFormat(m) + &quot;:&quot;;
+            var secondsStr:string = NumberUtil.doubleDigitFormat(s);
+
+            return hourStr + minuteStr + secondsStr;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method doubleDigitFormat
+         * @param num {number}
+         * @returns {string}
+         */
+        public static doubleDigitFormat(num:number):string
+        {
+            if (num &lt; 10)
+            {
+                return (&quot;0&quot; + num);
+            }
+            return String(num);
+        }
+
+        //http://www.metric-conversions.org/length/inches-conversion.htm
 
 //    public static formatUnit(number:number, decimalPlacement:number = 2, decimalSeparator:string = &#x27;.&#x27;, thousandsSeparator:string = &#x27;&#x27;):number
 //    {
@@ -398,6 +406,7 @@ class NumberUtil
 //        return s + (j ? i.substr(0, j) + thousandsSeparator : &quot;&quot;) + i.substr(j).replace(/(\d{3})(?=\d)/g, &quot;$1&quot; + thousandsSeparator) + (decimalPlacement ? decimalPlacement + Math.abs(n - i).toFixed(decimalPlacement).slice(2) : &quot;&quot;);
 //    }
 
+    }
 }
     </pre>
 </div>

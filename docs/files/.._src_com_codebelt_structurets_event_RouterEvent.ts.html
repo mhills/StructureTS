@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -278,66 +284,69 @@
 
 ///&lt;reference path=&#x27;BaseEvent.ts&#x27;/&gt;
 
-/**
- * The RouterEvent...
- *
- * @class RouterEvent
- * @extends BaseEvent
- * @param type {string} The type of event. The type is case-sensitive.
- * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
- * Note: Bubbling will only work with DisplayObjectContainer classes throw the display list hierarchy. Any classes that do not have a parent cannot bubble.
- * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
- * @param [url=null] {string}
- * @param [silent=false] {boolean} Indicates whether setting hash value should dispatching changed event within the {{#crossLink &quot;RouterController&quot;}}{{/crossLink}}.
- * @param [data=null] {any}
- * @module StructureTS
- * @submodule event
- * @constructor
- * @version 0.1.0
- **/
-class RouterEvent extends BaseEvent
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;RouterEvent&#x27;;
-
-    /**
-     * YUIDoc_comment
+     * The RouterEvent...
      *
-     * @event CHANGE
-     * @type {string}
-     * @static
-     */
-    public static CHANGE:string = &#x27;RouterEvent.change&#x27;;
-
-    /**
-     * YUIDoc_comment
-     *
-     * @property url
-     * @type {string}
-     * @public
-     */
-    public url:string = null;
-
-    /**
-     * YUIDoc_comment
-     *
-     * @property silent
-     * @type {boolean}
-     * @public
-     */
-    public silent:boolean = null;
-
-
-    constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, url:string = null, silent:boolean = false, data:any = null)
+     * @class RouterEvent
+     * @extends BaseEvent
+     * @param type {string} The type of event. The type is case-sensitive.
+     * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
+     * Note: Bubbling will only work with DisplayObjectContainer classes throw the display list hierarchy. Any classes that do not have a parent cannot bubble.
+     * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
+     * @param [url=null] {string}
+     * @param [silent=false] {boolean} Indicates whether setting hash value should dispatching changed event within the {{#crossLink &quot;RouterController&quot;}}{{/crossLink}}.
+     * @param [data=null] {any}
+     * @module StructureTS
+     * @submodule event
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class RouterEvent extends BaseEvent
     {
-        super(type, bubbles, cancelable, data);
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;RouterEvent&#x27;;
 
-        this.url = url;
-        this.silent = silent;
+        /**
+         * YUIDoc_comment
+         *
+         * @event CHANGE
+         * @type {string}
+         * @static
+         */
+        public static CHANGE:string = &#x27;RouterEvent.change&#x27;;
+
+        /**
+         * YUIDoc_comment
+         *
+         * @property url
+         * @type {string}
+         * @public
+         */
+        public url:string = null;
+
+        /**
+         * YUIDoc_comment
+         *
+         * @property silent
+         * @type {boolean}
+         * @public
+         */
+        public silent:boolean = null;
+
+
+        constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, url:string = null, silent:boolean = false, data:any = null)
+        {
+            super(type, bubbles, cancelable, data);
+
+            this.url = url;
+            this.silent = silent;
+        }
+
     }
-
 }
     </pre>
 </div>

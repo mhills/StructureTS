@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -278,58 +284,61 @@
 
 ///&lt;reference path=&#x27;&#x27;/&gt;
 
-/**
- * The URLContentType...
- *
- * @class URLContentType
- * @module StructureTS
- * @submodule net
- * @constructor
- * @version 0.1.0
- **/
-class URLContentType
+module StructureTS
 {
+    /**
+     * The URLContentType...
+     *
+     * @class URLContentType
+     * @module StructureTS
+     * @submodule net
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class URLContentType
+    {
 //http://www.freeformatter.com/mime-types-list.html
 
-    /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = &#x27;URLContentType&#x27;;
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = &#x27;URLContentType&#x27;;
 
-    constructor()
-    {
+        constructor()
+        {
+        }
+
+        public static DEFAULT:string = &quot;application/x-www-form-urlencoded&quot;;
+
+        /*
+         * Audio
+         */
+        public static ATOM:string = &quot;application/atom+xml&quot;;
+        public static JSON:string = &quot;application/json&quot;;
+        public static PDF:string = &quot;application/pdf&quot;;
+        public static RDF:string = &quot;application/rdf+xml&quot;;
+        public static RSS:string = &quot;application/rss+xml&quot;;
+        public static SOAP:string = &quot;application/soap+xml&quot;;
+        public static FONT_WOFF:string = &quot;application/font-woff&quot;;
+        public static XML:string = &quot;application/xml&quot;;
+        public static XHTML:string = &quot;application/xhtml+xml&quot;;
+        public static ZIP:string = &quot;application/zip&quot;;
+        public static GZIP:string = &quot;application/gzip&quot;;
+
+        /*
+         * Audio
+         */
+        public static BASIC:string = &quot;audio/basic&quot;;
+        public static L24:string = &quot;audio/L24&quot;;
+        public static MP4:string = &quot;audio/mp4&quot;;
+        public static MP3:string = &quot;audio/mpeg&quot;;
+        public static MPEG:string = &quot;audio/mpeg&quot;;
+        public static OGG:string = &quot;audio/ogg&quot;;
+        public static VORBIS:string = &quot;audio/vorbis&quot;;
+        public static REAL_AUDIO:string = &quot;audio/vnd.rn-realaudio&quot;;
+        public static WAV:string = &quot;audio/vnd.wave&quot;;
+        public static WEBM:string = &quot;audio/webm&quot;;
     }
-
-    public static DEFAULT:string = &quot;application/x-www-form-urlencoded&quot;;
-
-    /*
-     * Audio
-     */
-    public static ATOM:string = &quot;application/atom+xml&quot;;
-    public static JSON:string = &quot;application/json&quot;;
-    public static PDF:string = &quot;application/pdf&quot;;
-    public static RDF:string = &quot;application/rdf+xml&quot;;
-    public static RSS:string = &quot;application/rss+xml&quot;;
-    public static SOAP:string = &quot;application/soap+xml&quot;;
-    public static FONT_WOFF:string = &quot;application/font-woff&quot;;
-    public static XML:string = &quot;application/xml&quot;;
-    public static XHTML:string = &quot;application/xhtml+xml&quot;;
-    public static ZIP:string = &quot;application/zip&quot;;
-    public static GZIP:string = &quot;application/gzip&quot;;
-
-    /*
-     * Audio
-     */
-    public static BASIC:string = &quot;audio/basic&quot;;
-    public static L24:string = &quot;audio/L24&quot;;
-    public static MP4:string = &quot;audio/mp4&quot;;
-    public static MP3:string = &quot;audio/mpeg&quot;;
-    public static MPEG:string = &quot;audio/mpeg&quot;;
-    public static OGG:string = &quot;audio/ogg&quot;;
-    public static VORBIS:string = &quot;audio/vorbis&quot;;
-    public static REAL_AUDIO:string = &quot;audio/vnd.rn-realaudio&quot;;
-    public static WAV:string = &quot;audio/vnd.wave&quot;;
-    public static WEBM:string = &quot;audio/webm&quot;;
 }
 /*Type message [edit]
  message/http: Defined in RFC 2616

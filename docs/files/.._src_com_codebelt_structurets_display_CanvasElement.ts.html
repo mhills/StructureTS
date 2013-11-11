@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -279,97 +285,101 @@
 ///&lt;reference path=&#x27;DisplayObjectContainer.ts&#x27;/&gt;
 ///&lt;reference path=&#x27;Canvas.ts&#x27;/&gt;
 
-/**
- * The CanvasElement...
- *
- * @class CanvasElement
- * @extends DisplayObjectContainer
- * @module StructureTS
- * @submodule view
- * @constructor
- * @version 0.1.0
- **/
-class CanvasElement extends DisplayObjectContainer
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;CanvasElement&#x27;;
-
-    public stage:Canvas = null;
-    public context:CanvasRenderingContext2D = null;
-    public x:number = 0;
-    public y:number = 0;
-    public width:number = 0;
-    public height:number = 0;
-    public scaleX:number = 1;
-    public scaleY:number = 1;
-    public rotation:number = 0;
-    public alpha:number = 1;
-    public visible:boolean = true;
-
-    constructor()
+     * The CanvasElement...
+     *
+     * @class CanvasElement
+     * @extends DisplayObjectContainer
+     * @module StructureTS
+     * @submodule view
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class CanvasElement extends DisplayObjectContainer
     {
-        super();
-        TweenLite.ticker.addEventListener(&quot;tick&quot;, this.layoutChildren.bind(this), this);
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;CanvasElement&#x27;;
+
+        public stage:Canvas = null;
+        public context:CanvasRenderingContext2D = null;
+        public x:number = 0;
+        public y:number = 0;
+        public scaleX:number = 1;
+        public scaleY:number = 1;
+        public rotation:number = 0;
+        public alpha:number = 1;
+        public visible:boolean = true;
+
+        constructor()
+        {
+            super();
+            TweenLite.ticker.addEventListener(&quot;tick&quot;, this.layoutChildren.bind(this), this);
+        }
+
+        public createChildren():any
+        {
+            //Meant to be overridden.
+            return this;
+        }
+
+        public render():any
+        {
+            //Meant to be overridden.
+            return this;
+        }
+
+        private readerStart():any
+        {
+            this.context.save();
+            return this;
+        }
+
+        public layoutChildren():any
+        {
+            if (!this.context || this.alpha &lt;= 0 || !this.visible)
+            {
+                return this;
+            }
+
+            this.readerStart();
+            this.context.globalAlpha = this.alpha;
+            this.render();
+            this.renderEnd();
+
+            return this;
+        }
+
+        private renderEnd():any
+        {
+            this.context.restore();
+            return this;
+        }
+
+        public addChild(child:CanvasElement):any
+        {
+            //TODO: Add to children array with super DisplayObjectContainer.
+            child.parent = this;
+            child.stage = this.stage;
+            child.context = this.context;
+            child.createChildren();
+
+            return this;
+        }
+
+        public removeChild(child:CanvasElement):any
+        {
+            //TODO: Remove children from array with super DisplayObjectContainer.
+            child.stage = null;
+            child.context = null;
+
+            return this;
+        }
+
     }
-
-    public createChildren():any
-    {
-        //Meant to be overridden.
-        return this;
-    }
-
-    public render():any
-    {
-        //Meant to be overridden.
-        return this;
-    }
-
-    private readerStart():any
-    {
-        this.context.save();
-        return this;
-    }
-
-    public layoutChildren():any
-    {
-        if (!this.context || this.alpha &lt;= 0 || !this.visible) return this;
-
-        this.readerStart();
-        this.context.globalAlpha = this.alpha;
-        this.render();
-        this.renderEnd();
-
-        return this;
-    }
-
-    private renderEnd():any
-    {
-        this.context.restore();
-        return this;
-    }
-
-    public addChild(child:CanvasElement):any
-    {
-        //TODO: Add to children array with super DisplayObjectContainer.
-        child.parent = this;
-        child.stage = this.stage;
-        child.context = this.context;
-        child.createChildren();
-
-        return this;
-    }
-
-    public removeChild(child:CanvasElement):any
-    {
-        //TODO: Remove children from array with super DisplayObjectContainer.
-        child.stage = null;
-        child.context = null;
-
-        return this;
-    }
-
 }
     </pre>
 </div>

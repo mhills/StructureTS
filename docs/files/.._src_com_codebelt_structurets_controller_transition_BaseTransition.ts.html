@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -283,123 +289,126 @@
 ///&lt;reference path=&#x27;../../display/DOMElement.ts&#x27;/&gt;
 ///&lt;reference path=&#x27;../../event/TweenEvent.ts&#x27;/&gt;
 
-/**
- * YUIDoc_comment
- *
- * @class BaseTransition
- * @extends EventDispatcher
- * @module StructureTS
- * @submodule controller
- * @constructor
- * @version 0.1.0
- **/
-class BaseTransition extends EventDispatcher implements ITransition
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;BaseTransition&#x27;;
-
-    /**
-     * Property of the TimelineMax object.
+     * YUIDoc_comment
      *
-     * @property transition
-     * @type {TimelineMax}
-     * @readOnly
-     */
-    public transition:TimelineMax = null;
-
-    constructor()
+     * @class BaseTransition
+     * @extends EventDispatcher
+     * @module StructureTS
+     * @submodule controller
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class BaseTransition extends EventDispatcher implements ITransition
     {
-        super();
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;BaseTransition&#x27;;
 
-    /**
-     * Creates and starts the transition for the specific transition type.
-     *
-     * @method createTransition
-     * @param transitionType {string)
+        /**
+         * Property of the TimelineMax object.
+         *
+         * @property transition
+         * @type {TimelineMax}
+         * @readOnly
+         */
+        public transition:TimelineMax = null;
+
+        constructor()
+        {
+            super();
+        }
+
+        /**
+         * Creates and starts the transition for the specific transition type.
+         *
+         * @method createTransition
+         * @param transitionType {string)
      * @param viewContainer {DisplayObjectContainer)
      * @param currentView {DOMElement)
      * @param nextView {DOMElement)
      * @param [duration=0.75] {number)
      * @returns {ITransition}
-     */
-    public createTransition(transitionType:string, viewContainer:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = 0.75):ITransition
-    {
-        return this;
+         */
+        public createTransition(transitionType:string, viewContainer:DisplayObjectContainer, currentView:DOMElement, nextView:DOMElement, duration:number = 0.75):ITransition
+        {
+            return this;
+        }
+
+        /**
+         * Gets called by the TimelineMax object when the transition starts. Dispatches the TweenEvent.START event. The data value of the TweenEvent event is set to the TimelineMax object.
+         *
+         * @method onTweenStart
+         * @returns {BaseTransition}
+         * @protected
+         * @chainable
+         */
+        public onTweenStart():any
+        {
+            this.dispatchEvent(new TweenEvent(TweenEvent.START, false, false, this.transition));
+
+            return this;
+        }
+
+        /**
+         * Gets called by the TimelineMax object every time the timeline updates (on every frame while the timeline is active). Dispatches the TweenEvent.START event. The data value of the TweenEvent event is set to the TimelineMax object.
+         *
+         * @method onTweenUpdate
+         * @returns {BaseTransition}
+         * @protected
+         * @chainable
+         */
+        public onTweenUpdate():any
+        {
+            this.dispatchEvent(new TweenEvent(TweenEvent.UPDATE, false, false, this.transition));
+
+            return this;
+        }
+
+        /**
+         * Gets called by the TimelineMax object when the transition completes. Dispatches the TweenEvent.COMPLETE event. The data value of the TweenEvent event is set to the TimelineMax object.
+         *
+         * @method onTweenComplete
+         * @returns {BaseTransition}
+         * @protected
+         * @chainable
+         */
+        public onTweenComplete():any
+        {
+            this.dispatchEvent(new TweenEvent(TweenEvent.COMPLETE, false, false, this.transition));
+
+            return this;
+        }
+
+        /**
+         * Tells TimelineMax to finishes/complete the transition right away.
+         *
+         * @method complete
+         * @returns {BaseTransition}
+         * @chainable
+         */
+        public complete():any
+        {
+            this.transition.progress(1);
+
+            return this;
+        }
+
+        /**
+         * @overridden EventDispatcher.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            this.complete();
+            this.transition = null;
+        }
+
     }
-
-    /**
-     * Gets called by the TimelineMax object when the transition starts. Dispatches the TweenEvent.START event. The data value of the TweenEvent event is set to the TimelineMax object.
-     *
-     * @method onTweenStart
-     * @returns {BaseTransition}
-     * @protected
-     * @chainable
-     */
-    public onTweenStart():any
-    {
-        this.dispatchEvent(new TweenEvent(TweenEvent.START, false, false, this.transition));
-
-        return this;
-    }
-
-    /**
-     * Gets called by the TimelineMax object every time the timeline updates (on every frame while the timeline is active). Dispatches the TweenEvent.START event. The data value of the TweenEvent event is set to the TimelineMax object.
-     *
-     * @method onTweenUpdate
-     * @returns {BaseTransition}
-     * @protected
-     * @chainable
-     */
-    public onTweenUpdate():any
-    {
-        this.dispatchEvent(new TweenEvent(TweenEvent.UPDATE, false, false, this.transition));
-
-        return this;
-    }
-
-    /**
-     * Gets called by the TimelineMax object when the transition completes. Dispatches the TweenEvent.COMPLETE event. The data value of the TweenEvent event is set to the TimelineMax object.
-     *
-     * @method onTweenComplete
-     * @returns {BaseTransition}
-     * @protected
-     * @chainable
-     */
-    public onTweenComplete():any
-    {
-        this.dispatchEvent(new TweenEvent(TweenEvent.COMPLETE, false, false, this.transition));
-
-        return this;
-    }
-
-    /**
-     * Tells TimelineMax to finishes/complete the transition right away.
-     *
-     * @method complete
-     * @returns {BaseTransition}
-     * @chainable
-     */
-    public complete():any
-    {
-        this.transition.progress(1);
-
-        return this;
-    }
-
-    /**
-     * @overridden EventDispatcher.destroy
-     */
-    public destroy():void
-    {
-        super.destroy();
-
-        this.complete();
-        this.transition = null;
-    }
-
 }
     </pre>
 </div>

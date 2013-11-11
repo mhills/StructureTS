@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -279,96 +285,95 @@
 ///&lt;reference path=&#x27;../display/DOMElement.ts&#x27;/&gt;
 ///&lt;reference path=&#x27;../util/StringUtil.ts&#x27;/&gt;
 
-/**
- * YUIDoc_comment
- *
- * @class TemplateFactory
- * @module StructureTS
- * @submodule util
- * @constructor
- * @version 0.1.0
- **/
-class TemplateFactory
+module StructureTS
 {
     /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public static CLASS_NAME:string = &#x27;TemplateFactory&#x27;;
-
-    public static UNDERSCORE:string = &#x27;underscore&#x27;;
-    public static HANDLEBARS:string = &#x27;handlebars&#x27;;
-
-    public static templateEngine:string = TemplateFactory.HANDLEBARS;
-    public static templateNamespace:string = &#x27;JST&#x27;;
-
-    constructor()
+     * YUIDoc_comment
+     *
+     * @class TemplateFactory
+     * @module StructureTS
+     * @submodule util
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class TemplateFactory
     {
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public static CLASS_NAME:string = &#x27;TemplateFactory&#x27;;
 
-    public static createTemplate(templatePath:string, data?:Object):string
-    {
-        return TemplateFactory.create(templatePath, data);
-    }
+        public static UNDERSCORE:string = &#x27;underscore&#x27;;
+        public static HANDLEBARS:string = &#x27;handlebars&#x27;;
 
-    public static createView(templatePath:string, data?:Object):DOMElement
-    {
-        var template:string = TemplateFactory.create(templatePath, data);
+        public static templateEngine:string = TemplateFactory.HANDLEBARS;
+        public static templateNamespace:string = &#x27;JST&#x27;;
 
-        var view:DOMElement = new DOMElement();
-        view.$element = jQuery(template);
-        return view;
-    }
-
-    private static create(templatePath:string, data:Object = null):string
-    {
-        //Checks the first charactor to see if it is a &quot;.&quot; or &quot;#&quot;.
-        var regex = /^([.#])(.+)/;
-        var template:string;
-        var isClassOrIdName:boolean = regex.test(templatePath);
-
-        if (isClassOrIdName)
+        constructor()
         {
-            var htmlString:string = $(templatePath).html();
-            htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
+        }
 
-            if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE)
+        public static createTemplate(templatePath:string, data:Object = null):string
+        {
+            return TemplateFactory.create(templatePath, data);
+        }
+
+        public static createView(templatePath:string, data:Object = null):DOMElement
+        {
+            var template:string = TemplateFactory.create(templatePath, data);
+
+            var view:DOMElement = new DOMElement();
+            view.$element = jQuery(template);
+            return view;
+        }
+
+        private static create(templatePath:string, data:Object = null):string
+        {
+            //Checks the first charactor to see if it is a &quot;.&quot; or &quot;#&quot;.
+            var regex = /^([.#])(.+)/;
+            var template:string = null;
+            var isClassOrIdName:boolean = regex.test(templatePath);
+
+            if (isClassOrIdName)
             {
-                // Underscore Template:
-                var templateMethod:Function = _.template(htmlString);
-                template = templateMethod(data);
+                var htmlString:string = $(templatePath).html();
+                htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
+
+                if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE)
+                {
+                    // Underscore Template:
+                    var templateMethod:Function = _.template(htmlString);
+                    template = templateMethod(data);
+                }
+                else
+                {
+                    // Handlebars Template
+                    var templateMethod:Function = Handlebars.compile(htmlString);
+                    template = templateMethod(data);
+                }
             }
             else
             {
-                // Handlebars Template
-                var templateMethod:Function = Handlebars.compile(htmlString);
-                template = templateMethod(data);
-            }
-        }
-        else
-        {
-            var templateObj:Object = window[TemplateFactory.templateNamespace];
-            if (!templateObj)
-            {
-                return template;
+                var templateObj:Object = window[TemplateFactory.templateNamespace];
+                if (!templateObj)
+                {
+                    // Returns null because the template namespace is not found.
+                    return null;
+                }
+
+                var templateFunction:Function = templateObj[templatePath];
+                if (templateFunction)
+                {
+                    // The templatePath gets a function storage in the associative array.
+                    // We call the function by passing in the data as the argument.
+                    template = templateFunction(data);
+                }
             }
 
-            var templateFunction:Function = templateObj[templatePath];
-            if (!templateFunction)
-            {
-                // Set to null so it can be used in a condition statement in the DOMElement class.
-                template = null;
-            }
-            else
-            {
-                // The templatePath gets a function storage in the associative array.
-                // We call the function by passing in the data as the argument.
-                template = templateFunction(data);
-            }
+            return template;
         }
 
-        return template;
     }
-
 }
     </pre>
 </div>

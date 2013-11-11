@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -276,89 +282,92 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * The MouseEvents...
- *
- * @class MouseEvents
- * @module StructureTS
- * @submodule nativeEvent
- * @static
- * @version 0.1.0
- **/
-class MouseEvents
+module StructureTS
 {
     /**
-     * The event occurs when the user clicks on an element.
+     * The MouseEvents...
      *
-     * @property CLICK
-     * @type {string}
+     * @class MouseEvents
+     * @module StructureTS
+     * @submodule nativeEvent
      * @static
-     */
-    public static CLICK:string = &#x27;click&#x27;;
+     * @version 0.1.0
+     **/
+    export class MouseEvents
+    {
+        /**
+         * The event occurs when the user clicks on an element.
+         *
+         * @property CLICK
+         * @type {string}
+         * @static
+         */
+        public static CLICK:string = &#x27;click&#x27;;
 
-    /**
-     * The event occurs when the user double-clicks on an element.
-     *
-     * @property DBL_CLICK
-     * @type {string}
-     * @static
-     */
-    public static DBL_CLICK:string = &#x27;dblclick&#x27;;
+        /**
+         * The event occurs when the user double-clicks on an element.
+         *
+         * @property DBL_CLICK
+         * @type {string}
+         * @static
+         */
+        public static DBL_CLICK:string = &#x27;dblclick&#x27;;
 
-    /**
-     * The event occurs when a user presses a mouse button over an element.
-     *
-     * @property MOUSE_DOWN
-     * @type {string}
-     * @static
-     */
-    public static MOUSE_DOWN:string = &#x27;mousedown&#x27;;
+        /**
+         * The event occurs when a user presses a mouse button over an element.
+         *
+         * @property MOUSE_DOWN
+         * @type {string}
+         * @static
+         */
+        public static MOUSE_DOWN:string = &#x27;mousedown&#x27;;
 
-    /**
-     * The event occurs when the pointer is moving while it is over an element.
-     *
-     * @property MOUSE_MOVE
-     * @type {string}
-     * @static
-     */
-    public static MOUSE_MOVE:string = &#x27;mousemove&#x27;;
+        /**
+         * The event occurs when the pointer is moving while it is over an element.
+         *
+         * @property MOUSE_MOVE
+         * @type {string}
+         * @static
+         */
+        public static MOUSE_MOVE:string = &#x27;mousemove&#x27;;
 
-    /**
-     * The event occurs when the pointer is moved onto an element.
-     *
-     * @property MOUSE_OVER
-     * @type {string}
-     * @static
-     */
-    public static MOUSE_OVER:string = &#x27;mouseover&#x27;;
+        /**
+         * The event occurs when the pointer is moved onto an element.
+         *
+         * @property MOUSE_OVER
+         * @type {string}
+         * @static
+         */
+        public static MOUSE_OVER:string = &#x27;mouseover&#x27;;
 
-    /**
-     * The event occurs when a user moves the mouse pointer out of an element.
-     *
-     * @property MOUSE_OUT
-     * @type {string}
-     * @static
-     */
-    public static MOUSE_OUT:string = &#x27;mouseout&#x27;;
+        /**
+         * The event occurs when a user moves the mouse pointer out of an element.
+         *
+         * @property MOUSE_OUT
+         * @type {string}
+         * @static
+         */
+        public static MOUSE_OUT:string = &#x27;mouseout&#x27;;
 
-    /**
-     * The event occurs when a user releases a mouse button over an element
-     *
-     * @property MOUSE_UP
-     * @type {string}
-     * @static
-     */
-    public static MOUSE_UP:string = &#x27;mouseup&#x27;;
+        /**
+         * The event occurs when a user releases a mouse button over an element
+         *
+         * @property MOUSE_UP
+         * @type {string}
+         * @static
+         */
+        public static MOUSE_UP:string = &#x27;mouseup&#x27;;
 
-    /**
-     *
-     *
-     * @property TAP
-     * @type {string}
-     * @static
-     */
-    public static TAP:string = &#x27;tap&#x27;;
+        /**
+         *
+         *
+         * @property TAP
+         * @type {string}
+         * @static
+         */
+        public static TAP:string = &#x27;tap&#x27;;
 
+    }
 }
     </pre>
 </div>

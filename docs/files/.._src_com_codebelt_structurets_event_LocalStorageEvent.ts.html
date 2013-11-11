@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -278,85 +284,88 @@
 
 ///&lt;reference path=&#x27;BaseEvent.ts&#x27;/&gt;
 
-/**
- * The LocalStorageEvent ....
- * Note: the event only dispatches in other browser windows and does not show up in the window where you made a change to the local storage.
- *
- * @class LocalStorageEvent
- * @extends BaseEvent
- * @param type {string} The type of event. The type is case-sensitive.
- * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
- * Note: With event-bubbling you can let one Event subsequently call on every ancestor ({{#crossLink &quot;EventDispatcher/parent:property&quot;}}{{/crossLink}})
- * (containers of containers of etc.) of the {{#crossLink &quot;DisplayObjectContainer&quot;}}{{/crossLink}} that originally dispatched the Event, all the way up to the surface ({{#crossLink &quot;Stage&quot;}}{{/crossLink}}). Any classes that do not have a parent cannot bubble.
- * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
- * @param nativeEvent {StorageEvent} The native browser event for localStorage.
- * @module StructureTS
- * @submodule event
- * @constructor
- * @version 0.1.0
- **/
-class LocalStorageEvent extends BaseEvent
+module StructureTS
 {
     /**
-     * @overridden ValueObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;LocalStorageEvent&#x27;;
-
-    /**
-     * The storage event is fired on a Document&#x27;s Window object when a storage area changes.
+     * The LocalStorageEvent ....
+     * Note: the event only dispatches in other browser windows and does not show up in the window where you made a change to the local storage.
      *
-     * @event STORAGE
-     * @type {string}
-     * @static
-     */
-    public static STORAGE:string = &#x27;storage&#x27;;
-
-    /**
-     * The named key that was added, removed, or modified
-     *
-     * @event key
-     * @type {string}
-     */
-    public key:string;
-
-    /**
-     * The previous value (now overwritten), or null if a new item was added
-     *
-     * @event oldValue
-     * @type {string}
-     */
-    public oldValue:string;
-
-    /**
-     * The new value, or null if an item was removed
-     *
-     * @event newValue
-     * @type {string}
-     */
-    public newValue:string;
-
-    /**
-     * The page which called a method that triggered this change
-     *
-     * @event key
-     * @type {string}
-     */
-    public url:string;
-
-
-    constructor(type:string, bubbles:boolean, cancelable:boolean, nativeEvent:StorageEvent)
+     * @class LocalStorageEvent
+     * @extends BaseEvent
+     * @param type {string} The type of event. The type is case-sensitive.
+     * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
+     * Note: With event-bubbling you can let one Event subsequently call on every ancestor ({{#crossLink &quot;EventDispatcher/parent:property&quot;}}{{/crossLink}})
+     * (containers of containers of etc.) of the {{#crossLink &quot;DisplayObjectContainer&quot;}}{{/crossLink}} that originally dispatched the Event, all the way up to the surface ({{#crossLink &quot;Stage&quot;}}{{/crossLink}}). Any classes that do not have a parent cannot bubble.
+     * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
+     * @param nativeEvent {StorageEvent} The native browser event for localStorage.
+     * @module StructureTS
+     * @submodule event
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class LocalStorageEvent extends BaseEvent
     {
-        super(type, bubbles, cancelable, nativeEvent);
+        /**
+         * @overridden ValueObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;LocalStorageEvent&#x27;;
 
-        if (nativeEvent)
+        /**
+         * The storage event is fired on a Document&#x27;s Window object when a storage area changes.
+         *
+         * @event STORAGE
+         * @type {string}
+         * @static
+         */
+        public static STORAGE:string = &#x27;storage&#x27;;
+
+        /**
+         * The named key that was added, removed, or modified
+         *
+         * @event key
+         * @type {string}
+         */
+        public key:string;
+
+        /**
+         * The previous value (now overwritten), or null if a new item was added
+         *
+         * @event oldValue
+         * @type {string}
+         */
+        public oldValue:string;
+
+        /**
+         * The new value, or null if an item was removed
+         *
+         * @event newValue
+         * @type {string}
+         */
+        public newValue:string;
+
+        /**
+         * The page which called a method that triggered this change
+         *
+         * @event key
+         * @type {string}
+         */
+        public url:string;
+
+
+        constructor(type:string, bubbles:boolean, cancelable:boolean, nativeEvent:StorageEvent)
         {
-            this.key = nativeEvent.key;
-            this.oldValue = nativeEvent.oldValue;
-            this.newValue = nativeEvent.newValue;
-            this.url = nativeEvent.url;
-        }
-    }
+            super(type, bubbles, cancelable, nativeEvent);
 
+            if (nativeEvent)
+            {
+                this.key = nativeEvent.key;
+                this.oldValue = nativeEvent.oldValue;
+                this.newValue = nativeEvent.newValue;
+                this.url = nativeEvent.url;
+            }
+        }
+
+    }
 }
     </pre>
 </div>

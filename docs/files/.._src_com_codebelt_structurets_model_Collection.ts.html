@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -281,355 +287,358 @@
 ///&lt;reference path=&#x27;../event/EventDispatcher.ts&#x27;/&gt;
 ///&lt;reference path=&#x27;../event/BaseEvent.ts&#x27;/&gt;
 
-/**
- * YUIDoc_comment
- *
- * @class Collection
- * @extends EventDispatcher
- * @module StructureTS
- * @submodule model
- * @constructor
- * @version 0.2.0
- **/
-class Collection extends EventDispatcher implements ICollection {
-    /**
-     * @overridden BaseObject.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;Collection&#x27;;
-
+module StructureTS
+{
     /**
      * YUIDoc_comment
      *
-     * @property items
-     * @type {array}
-     * @readOnly
-     */
-    public items:IValueObject[] = [];
-
-    /**
-     * YUIDoc_comment
-     *
-     * @property length
-     * @type {init}
-     * @default 0
-     * @readOnly
-     * @public
-     */
-    public length:number = 0;
-
-    constructor()
+     * @class Collection
+     * @extends EventDispatcher
+     * @module StructureTS
+     * @submodule model
+     * @constructor
+     * @version 0.2.0
+     **/
+    export class Collection extends EventDispatcher implements ICollection
     {
-        super();
-    }
+        /**
+         * @overridden BaseObject.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;Collection&#x27;;
 
-    /**
-     * Add an item to the current collection
-     * Requires that the item must be an instance of {{#crossLink &quot;IValueObject&quot;}}{{/crossLink}} or extends the {{#crossLink &quot;ValueObject&quot;}}{{/crossLink}} class.
-     *
-     * @method addItem
-     * @param item {IValueObject} The item or {{#crossLink &quot;ValueObject&quot;}}{{/crossLink}} to add.
-     * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
-     * @public
-     */
-    public addItem(item:IValueObject, silent:boolean = false):void
-    {
-        if (!(item instanceof ValueObject))
+        /**
+         * YUIDoc_comment
+         *
+         * @property items
+         * @type {array}
+         * @readOnly
+         */
+        public items:IValueObject[] = [];
+
+        /**
+         * YUIDoc_comment
+         *
+         * @property length
+         * @type {init}
+         * @default 0
+         * @readOnly
+         * @public
+         */
+        public length:number = 0;
+
+        constructor()
         {
-            throw new TypeError(&#x27;[&#x27; + this.getQualifiedClassName() + &#x27;] Item must be of the IValueObject type&#x27;);
+            super();
         }
 
-        if (!this.hasItem(item))
+        /**
+         * Add an item to the current collection
+         * Requires that the item must be an instance of {{#crossLink &quot;IValueObject&quot;}}{{/crossLink}} or extends the {{#crossLink &quot;ValueObject&quot;}}{{/crossLink}} class.
+         *
+         * @method addItem
+         * @param item {IValueObject} The item or {{#crossLink &quot;ValueObject&quot;}}{{/crossLink}} to add.
+         * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
+         * @public
+         */
+        public addItem(item:IValueObject, silent:boolean = false):void
         {
-            this.items.push(item);
+            if (!(item instanceof ValueObject))
+            {
+                throw new TypeError(&#x27;[&#x27; + this.getQualifiedClassName() + &#x27;] Item must be of the IValueObject type&#x27;);
+            }
+
+            if (!this.hasItem(item))
+            {
+                this.items.push(item);
+                this.length = this.items.length;
+            }
+
+            if (!silent)
+            {
+                this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
+            }
+        }
+
+        /**
+         * Removes an item from the collection, maintaining its current sort
+         * If the collection doesn&#x27;t have the item, it throws an error
+         *
+         * @method removeItem
+         * @param item {IValueObject} Item to remove
+         * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
+         * @public
+         */
+
+        public removeItem(item:IValueObject, silent:boolean = false):void
+        {
+            if (!(item instanceof ValueObject))
+            {
+                throw new TypeError(&#x27;[&#x27; + this.getQualifiedClassName() + &#x27;] Item must be of the IValueObject type&#x27;);
+            }
+
+            if (!this.hasItem(item))
+            {
+                throw new Error(&#x27;[&#x27; + this.getQualifiedClassName() + &#x27;] Collection does not have item &#x27; + item);
+            }
+
+            this.items.splice(this.getIndexOfItem(item), 1);
             this.length = this.items.length;
+
+            if (!silent)
+            {
+                this.dispatchEvent(new BaseEvent(BaseEvent.REMOVED));
+            }
         }
 
-        if (!silent)
+        /**
+         * Removes an array of items from the collection
+         *
+         * @method removeItems
+         * @param items {IValueObject[]} List of items to add to the current collection
+         * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
+         * @public
+         */
+        public removeItems(items:IValueObject[], silent:boolean = false):void
         {
-            this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
+            var len:number = items.length;
+            for (var i = 0; i &lt; len; i++)
+            {
+                this.removeItem(items[i]);
+            }
+
+            if (!silent)
+            {
+                this.dispatchEvent(new BaseEvent(BaseEvent.REMOVED));
+            }
         }
-    }
 
-    /**
-     * Removes an item from the collection, maintaining its current sort
-     * If the collection doesn&#x27;t have the item, it throws an error
-     *
-     * @method removeItem
-     * @param item {IValueObject} Item to remove
-     * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
-     * @public
-     */
-
-    public removeItem(item:IValueObject, silent:boolean = false):void
-    {
-        if (!(item instanceof ValueObject))
+        /**
+         * Checks if a collection has an item.
+         *
+         * @method hasItem
+         * @param item {IValueObject} Item to check
+         * @return {boolean}
+         * @public
+         */
+        public hasItem(item:IValueObject):boolean
         {
-            throw new TypeError(&#x27;[&#x27; + this.getQualifiedClassName() + &#x27;] Item must be of the IValueObject type&#x27;);
+            return this.getIndexOfItem(item) &gt; -1;
         }
 
-        if (!this.hasItem(item))
+        /**
+         * Returns the array index position of the value object.
+         *
+         * @method getIndexOfItem
+         * @param item {IValueObject} IValueObject get the index of.
+         * @return {boolean}
+         * @public
+         */
+        public getIndexOfItem(item:IValueObject):number
         {
-            throw new Error(&#x27;[&#x27; + this.getQualifiedClassName() + &#x27;] Collection does not have item &#x27; + item);
+            return this.items.indexOf(item);
         }
 
-        this.items.splice(this.getIndexOfItem(item), 1);
-        this.length = this.items.length;
-
-        if (!silent)
+        /**
+         * Adds an array of items to the collection
+         *
+         * @method addItems
+         * @param items {IValueObject[]} List of items to add to the current collection.
+         * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
+         */
+        public addItems(items:IValueObject[], silent:boolean = false):void
         {
-            this.dispatchEvent(new BaseEvent(BaseEvent.REMOVED));
-        }
-    }
+            var len:number = items.length;
+            for (var i = 0; i &lt; len; i++)
+            {
+                this.addItem(items[i]);
+            }
 
-    /**
-     * Removes an array of items from the collection
-     *
-     * @method removeItems
-     * @param items {IValueObject[]} List of items to add to the current collection
-     * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
-     * @public
-     */
-    public removeItems(items:IValueObject[], silent:boolean = false):void
-    {
-        var len:number = items.length;
-        for (var i = 0; i &lt; len; i++)
+            if (!silent)
+            {
+                this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
+            }
+        }
+
+        /**
+         * Finds an object by an index value.
+         * If the index is out of bounds, the collection will clamp it.
+         *
+         * @method getItemByIndex
+         * @param index {init} The index integer of the item to get
+         * @return {IValueObject} item to find
+         * @public
+         *
+         */
+        public getItemByIndex(index:number):IValueObject
         {
-            this.removeItem(items[i]);
+            if (index &lt; 0)
+            {
+                index = 0;
+            }
+
+            if (index &gt;= this.items.length)
+            {
+                index = this.items.length - 1;
+            }
+
+            // Return the item by the index. It will return null if the array is empty.
+            return this.items[index] || null;
         }
 
-        if (!silent)
+        /**
+         * Loops through each object in the collection and performs some function from it
+         *
+         * @method forEach
+         * @param operation {Function} Operation to perform, provides 2 parameters element, and index
+         * @public
+         */
+        public forEach(operation:any):void
         {
-            this.dispatchEvent(new BaseEvent(BaseEvent.REMOVED));
-        }
-    }
-
-    /**
-     * Checks if a collection has an item.
-     *
-     * @method hasItem
-     * @param item {IValueObject} Item to check
-     * @return {boolean}
-     * @public
-     */
-    public hasItem(item:IValueObject):boolean
-    {
-        return this.getIndexOfItem(item) &gt; -1;
-    }
-
-    /**
-     * Returns the array index position of the value object.
-     *
-     * @method getIndexOfItem
-     * @param item {IValueObject} IValueObject get the index of.
-     * @return {boolean}
-     * @public
-     */
-    public getIndexOfItem(item:IValueObject):number
-    {
-        return this.items.indexOf(item);
-    }
-
-    /**
-     * Adds an array of items to the collection
-     *
-     * @method addItems
-     * @param items {IValueObject[]} List of items to add to the current collection.
-     * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
-     */
-    public addItems(items:IValueObject[], silent:boolean = false):void
-    {
-        var len:number = items.length;
-        for (var i = 0; i &lt; len; i++)
-        {
-            this.addItem(items[i]);
-        }
-
-        if (!silent)
-        {
-            this.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
-        }
-    }
-
-    /**
-     * Finds an object by an index value.
-     * If the index is out of bounds, the collection will clamp it.
-     *
-     * @method getItemByIndex
-     * @param index {init} The index integer of the item to get
-     * @return {IValueObject} item to find
-     * @public
-     *
-     */
-    public getItemByIndex(index:number):IValueObject
-    {
-        if (index &lt; 0)
-        {
-            index = 0;
-        }
-
-        if (index &gt;= this.items.length)
-        {
-            index = this.items.length - 1;
-        }
-
-        // Return the item by the index. It will return null if the array is empty.
-        return this.items[index] || null;
-    }
-
-    /**
-     * Loops through each object in the collection and performs some function from it
-     *
-     * @method forEach
-     * @param operation {Function} Operation to perform, provides 2 parameters element, and index
-     * @public
-     */
-    public forEach(operation:any):void
-    {
 //        _.each(this.items, operation);
-    }
-
-    /**
-     * Examines each element in a collection, returning an array of all elements that have the given properties.
-     * When checking properties, this method performs a deep comparison between values to determine if they are equivalent to each other.
-     * @example
-     *      // Finds all value object that has &#x27;Robert&#x27; in it.
-     *      this._collection.find(&quot;Robert&quot;);
-     *      // Finds any value object that has &#x27;Robert&#x27; or &#x27;Heater&#x27; or 23 in it.
-     *      this._collection.find([&quot;Robert&quot;, &quot;Heather&quot;, 32]);
-     *
-     *      // Finds all value objects that same key and value you are searching for.
-     *      this._collection.find({ name: &#x27;apple&#x27;, organic: false, type: &#x27;fruit&#x27; });
-     *      this._collection.find([{ type: &#x27;vegetable&#x27; }, { name: &#x27;apple&#x27;, &#x27;organic: false, type&#x27;: &#x27;fruit&#x27; }]);
-     *
-     * @method find
-     * @param arg {Object|Array}
-     * @return {array} Returns a list of found IValueObject&#x27;s.
-     * @public
-     */
-    public find(arg:any):IValueObject[]
-    {
-        // If properties is not an array then make it an array object.
-        arg = (arg instanceof Array) ? arg : [arg];
-
-        var foundItems:IValueObject[] = [];
-        var len = arg.length;
-        var prop:any;
-        for (var i:number = 0; i &lt; len; i++)
-        {
-            prop = arg[i];
-            // Adds found value object to the foundItems array.
-            if ((typeof prop === &#x27;string&#x27;) || (typeof prop === &#x27;number&#x27;) || (typeof prop === &#x27;boolean&#x27;))
-            {
-                // If the item is not an object.
-                foundItems = foundItems.concat(this.findPropertyValue(prop));
-            }
-            else
-            {
-                // If the item is an object.
-                foundItems = foundItems.concat(_.where(this.items, prop));
-            }
         }
 
-        // Removes all duplicated objects found in the temp array.
-        return _.uniq(foundItems);
-    }
-
-
-    /**
-     * Loops through all properties of an object and check to see if the value matches the argument passed in.
-     *
-     * @method findPropertyValue
-     * @param arg {String|Number|Boolean&gt;}
-     * @return {array} Returns a list of found IValueObject&#x27;s.
-     * @private
-     */
-    private findPropertyValue(arg:any)
-    {
-        // If properties is not an array then make it an array object.
-        arg = (arg instanceof Array) ? arg : [arg];
-
-        var foundItems = [];
-        var itemsLength = this.items.length;
-        var itemsToFindLength = arg.length;
-        // Loop through each value object in the collection.
-        for (var i = 0; i &lt; itemsLength; i++)
+        /**
+         * Examines each element in a collection, returning an array of all elements that have the given properties.
+         * When checking properties, this method performs a deep comparison between values to determine if they are equivalent to each other.
+         * @example
+         *      // Finds all value object that has &#x27;Robert&#x27; in it.
+         *      this._collection.find(&quot;Robert&quot;);
+         *      // Finds any value object that has &#x27;Robert&#x27; or &#x27;Heater&#x27; or 23 in it.
+         *      this._collection.find([&quot;Robert&quot;, &quot;Heather&quot;, 32]);
+         *
+         *      // Finds all value objects that same key and value you are searching for.
+         *      this._collection.find({ name: &#x27;apple&#x27;, organic: false, type: &#x27;fruit&#x27; });
+         *      this._collection.find([{ type: &#x27;vegetable&#x27; }, { name: &#x27;apple&#x27;, &#x27;organic: false, type&#x27;: &#x27;fruit&#x27; }]);
+         *
+         * @method find
+         * @param arg {Object|Array}
+         * @return {array} Returns a list of found IValueObject&#x27;s.
+         * @public
+         */
+        public find(arg:any):IValueObject[]
         {
-            var valueObject = this.items[i];
-            // Loop through each properties on the value object.
-            for (var key in valueObject)
+            // If properties is not an array then make it an array object.
+            arg = (arg instanceof Array) ? arg : [arg];
+
+            var foundItems:IValueObject[] = [];
+            var len = arg.length;
+            var prop:any;
+            for (var i:number = 0; i &lt; len; i++)
             {
-                // Check if the key value is a property.
-                if (valueObject.hasOwnProperty(key))
+                prop = arg[i];
+                // Adds found value object to the foundItems array.
+                if ((typeof prop === &#x27;string&#x27;) || (typeof prop === &#x27;number&#x27;) || (typeof prop === &#x27;boolean&#x27;))
                 {
-                    var propertyValue = valueObject[key];
-                    // Loop through each of the string value&#x27;s to find a match in the value object.
-                    for (var j = 0; j &lt; itemsToFindLength; j++)
+                    // If the item is not an object.
+                    foundItems = foundItems.concat(this.findPropertyValue(prop));
+                }
+                else
+                {
+                    // If the item is an object.
+                    foundItems = foundItems.concat(_.where(this.items, prop));
+                }
+            }
+
+            // Removes all duplicated objects found in the temp array.
+            return _.uniq(foundItems);
+        }
+
+
+        /**
+         * Loops through all properties of an object and check to see if the value matches the argument passed in.
+         *
+         * @method findPropertyValue
+         * @param arg {String|Number|Boolean&gt;}
+         * @return {array} Returns a list of found IValueObject&#x27;s.
+         * @private
+         */
+        private findPropertyValue(arg:any)
+        {
+            // If properties is not an array then make it an array object.
+            arg = (arg instanceof Array) ? arg : [arg];
+
+            var foundItems = [];
+            var itemsLength = this.items.length;
+            var itemsToFindLength = arg.length;
+            // Loop through each value object in the collection.
+            for (var i = 0; i &lt; itemsLength; i++)
+            {
+                var valueObject = this.items[i];
+                // Loop through each properties on the value object.
+                for (var key in valueObject)
+                {
+                    // Check if the key value is a property.
+                    if (valueObject.hasOwnProperty(key))
                     {
-                        var value = arg[j];
-                        // If the value object property equals the string value then keep a reference to that value object.
-                        if (propertyValue === value)
+                        var propertyValue = valueObject[key];
+                        // Loop through each of the string value&#x27;s to find a match in the value object.
+                        for (var j = 0; j &lt; itemsToFindLength; j++)
                         {
-                            // Add found value object to the foundItems array.
-                            foundItems.push(valueObject);
-                            break;
+                            var value = arg[j];
+                            // If the value object property equals the string value then keep a reference to that value object.
+                            if (propertyValue === value)
+                            {
+                                // Add found value object to the foundItems array.
+                                foundItems.push(valueObject);
+                                break;
+                            }
                         }
                     }
                 }
             }
+            return foundItems;
         }
-        return foundItems;
-    }
 
-    /**
-     * Sorts the collection based on the sort function provided
-     *
-     * @method sort
-     * @param sort {Function} Sort to use, provides 2 users
-     * @public
-     */
-        //TODO: figure out to set the type to Function with out getting error: Type &#x27;(x: IValueObject) =&gt; boolean&#x27; requires a call signature, but type &#x27;Function&#x27; lacks one.
-    public sort(sort:any):void
-    {
-//        this.items.sort(sort);
-    }
-
-    /**
-     * Filters the collection based on the filter test operation provided
-     *
-     * @method filter
-     * @param filter {Function} Operation to perform, provides 2 parameters element, and index
-
-     * @public
-     */
-        //TODO: figure out to set the type to Function with out getting error: Type &#x27;(x: IValueObject) =&gt; boolean&#x27; requires a call signature, but type &#x27;Function&#x27; lacks one.
-    public filter(filter:any, removeItems:boolean = false):IValueObject[]
-    {
-        if (removeItems)
+        /**
+         * Sorts the collection based on the sort function provided
+         *
+         * @method sort
+         * @param sort {Function} Sort to use, provides 2 users
+         * @public
+         */
+            //TODO: figure out to set the type to Function with out getting error: Type &#x27;(x: IValueObject) =&gt; boolean&#x27; requires a call signature, but type &#x27;Function&#x27; lacks one.
+        public sort(sort:any):void
         {
+//        this.items.sort(sort);
+        }
+
+        /**
+         * Filters the collection based on the filter test operation provided
+         *
+         * @method filter
+         * @param filter {Function} Operation to perform, provides 2 parameters element, and index
+
+         * @public
+         */
+            //TODO: figure out to set the type to Function with out getting error: Type &#x27;(x: IValueObject) =&gt; boolean&#x27; requires a call signature, but type &#x27;Function&#x27; lacks one.
+        public filter(filter:any, removeItems:boolean = false):IValueObject[]
+        {
+            if (removeItems)
+            {
 //            _.filter(this.items, filter);
 //            this.length = this.items.length;
 //            return this.items;
-        }
-        else
-        {
+            }
+            else
+            {
 //            var collection:ICollection = this.copy();
 //            collection.filter(filter, true);
 //            _.filter(collection.items, filter);
 //            return
+            }
+            return null;
         }
-        return null;
-    }
 
-    /**
-     * Applies a function to each of the items in the list
-     *
-     * @method map
-     * @param {Function} map Operation to perform, provides 2 parameters element, and index
-     */
-    public map(map:any)
-    {
+        /**
+         * Applies a function to each of the items in the list
+         *
+         * @method map
+         * @param {Function} map Operation to perform, provides 2 parameters element, and index
+         */
+        public map(map:any)
+        {
 //        this.items = _.map(this.items, map);
-    }
+        }
 
 //    /**
 //     * YUIDoc_comment
@@ -641,48 +650,49 @@ class Collection extends EventDispatcher implements ICollection {
 //
 //    }
 
-    /**
-     * YUIDoc_comment
-     *
-     * @method copy
-     * @public
-     */
-    public copy():ICollection
-    {
-        var collection:ICollection = new Collection();
-        collection.addItems(this.items.slice(0));
-        return collection;
-    }
-
-    /**
-     * YUIDoc_comment
-     *
-     * @method clear
-     * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
-     * @public
-     */
-    public clear(silent:boolean = false):void
-    {
-        this.items = [];
-        this.length = 0;
-
-        if (!silent)
+        /**
+         * YUIDoc_comment
+         *
+         * @method copy
+         * @public
+         */
+        public copy():ICollection
         {
-            this.dispatchEvent(new BaseEvent(BaseEvent.CLEAR));
+            var collection:ICollection = new Collection();
+            collection.addItems(this.items.slice(0));
+            return collection;
         }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method clear
+         * @param [silent=false] {boolean} If you&#x27;d like to prevent the event from being dispatched.
+         * @public
+         */
+        public clear(silent:boolean = false):void
+        {
+            this.items = [];
+            this.length = 0;
+
+            if (!silent)
+            {
+                this.dispatchEvent(new BaseEvent(BaseEvent.CLEAR));
+            }
+        }
+
+        /**
+         * @overridden BaseObject.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            this.items = null;
+            this.length = null;
+        }
+
     }
-
-    /**
-     * @overridden BaseObject.destroy
-     */
-    public destroy():void
-    {
-        super.destroy();
-
-        this.items = null;
-        this.length = null;
-    }
-
 }
     </pre>
 </div>

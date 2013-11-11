@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -278,84 +284,87 @@
 
 ///&lt;reference path=&#x27;CanvasElement.ts&#x27;/&gt;
 
-/**
- * The Canvas...
- *
- * @class Canvas
- * @extends CanvasElement
- * @module StructureTS
- * @submodule view
- * @constructor
- * @version 0.1.0
- **/
-class Canvas extends CanvasElement
+module StructureTS
 {
     /**
-     * @overridden CanvasElement.CLASS_NAME
-     */
-    public CLASS_NAME:string = &#x27;Canvas&#x27;;
-
-    public element:any = null;
-
-    constructor()
+     * The Canvas...
+     *
+     * @class Canvas
+     * @extends CanvasElement
+     * @module StructureTS
+     * @submodule view
+     * @constructor
+     * @version 0.1.0
+     **/
+    export class Canvas extends CanvasElement
     {
-        super();
+        /**
+         * @overridden CanvasElement.CLASS_NAME
+         */
+        public CLASS_NAME:string = &#x27;Canvas&#x27;;
 
-        this.stage = this;
-    }
+        public element:any = null;
 
-    //TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the &#x27;#&#x27;.
-    public appendTo(type:string, enabled:boolean = true):any
-    {
+        constructor()
+        {
+            super();
+
+            this.stage = this;
+        }
+
+        //TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the &#x27;#&#x27;.
+        public appendTo(type:string, enabled:boolean = true):any
+        {
 //        this.element = canvas.element[0];
-        this.element = document.getElementById(type);
-        this.context = this.element.getContext(&quot;2d&quot;);
+            this.element = document.getElementById(type);
+            this.context = this.element.getContext(&quot;2d&quot;);
 
-        this.width = this.element.width;
-        this.height = this.element.height;
+            this.width = this.element.width;
+            this.height = this.element.height;
 
-        if (!this.isCreated)
-        {
-            this.createChildren();
-            this.isCreated = true;
+            if (!this.isCreated)
+            {
+                this.createChildren();
+                this.isCreated = true;
+            }
+
+            if (enabled)
+            {
+                this.enable();
+            }
+
+            return this;
         }
 
-        if (enabled)
+        /**
+         * @override
+         */
+        public addChild(child:CanvasElement):any
         {
-            this.enable();
+            child.parent = this.stage;
+            child.stage = this.stage;
+            child.context = this.context;
+            child.createChildren();
+
+            return this;
         }
 
-        return this;
+        public removeChild(child:CanvasElement):any
+        {
+            child.stage = null;
+            child.context = null;
+
+            return this;
+        }
+
+        public render():any
+        {
+            this.context.clearRect(0, 0, this.width, this.height);
+
+            return this;
+        }
+
     }
-
-    /**
-     * @override
-     */
-    public addChild(child:CanvasElement):any
-    {
-        child.parent = this.stage;
-        child.stage = this.stage;
-        child.context = this.context;
-        child.createChildren();
-
-        return this;
-    }
-
-    public removeChild(child:CanvasElement):any
-    {
-        child.stage = null;
-        child.context = null;
-
-        return this;
-    }
-
-    public render():any
-    {
-        this.context.clearRect(0, 0, this.width, this.height);
-
-        return this;
-    }
-
 }
     </pre>
 </div>

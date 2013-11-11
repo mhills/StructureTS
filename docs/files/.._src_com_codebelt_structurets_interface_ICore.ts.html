@@ -119,6 +119,8 @@
             
                 <li><a href="../classes/MathUtil.html">MathUtil</a></li>
             
+                <li><a href="../classes/MerchantUtil.html">MerchantUtil</a></li>
+            
                 <li><a href="../classes/MobileUtil.html">MobileUtil</a></li>
             
                 <li><a href="../classes/MouseEvents.html">MouseEvents</a></li>
@@ -173,6 +175,8 @@
             
                 <li><a href="../classes/TweenEvent.html">TweenEvent</a></li>
             
+                <li><a href="../classes/UndoManager.html">UndoManager</a></li>
+            
                 <li><a href="../classes/URLContentType.html">URLContentType</a></li>
             
                 <li><a href="../classes/URLLoader.html">URLLoader</a></li>
@@ -184,6 +188,8 @@
                 <li><a href="../classes/URLRequestMethod.html">URLRequestMethod</a></li>
             
                 <li><a href="../classes/Util.html">Util</a></li>
+            
+                <li><a href="../classes/ValidationUtil.html">ValidationUtil</a></li>
             
                 <li><a href="../classes/ValueObject.html">ValueObject</a></li>
             
@@ -276,40 +282,43 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/**
- * YUIDoc_comment
- *
- * @class ICore
- * @module StructureTS
- * @submodule interface
- * @interface
- * @version 0.1.0
- **/
-interface ICore
+module StructureTS
 {
-
     /**
-     * @property CLASS_NAME
-     * @readOnly
-     */
-    CLASS_NAME:string;
+     * YUIDoc_comment
+     *
+     * @class ICore
+     * @module StructureTS
+     * @submodule interface
+     * @interface
+     * @version 0.1.0
+     **/
+    export interface ICore
+    {
 
-    /**
-     * @property cid
-     * @readOnly
-     */
-    cid:number;
+        /**
+         * @property CLASS_NAME
+         * @readOnly
+         */
+            CLASS_NAME:string;
 
-    /**
-     * @method getQualifiedClassName
-     */
-    getQualifiedClassName():string;
+        /**
+         * @property cid
+         * @readOnly
+         */
+            cid:number;
 
-    /**
-     * @method destroy
-     */
-    destroy():void
+        /**
+         * @method getQualifiedClassName
+         */
+        getQualifiedClassName():string;
 
+        /**
+         * @method destroy
+         */
+        destroy():void
+
+    }
 }
     </pre>
 </div>
