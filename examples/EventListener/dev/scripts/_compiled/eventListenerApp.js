@@ -663,7 +663,7 @@ var StructureTS;
 
         DOMElement.prototype.addChildAt = function (child, index) {
             var children = this.$element.children();
-            var length = children.length - 1;
+            var length = children.length;
 
             if (index < 0 || index >= length) {
                 this.addChild(child);

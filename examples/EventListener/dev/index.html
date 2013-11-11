@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>StructureTS EventListener</title>
+
+        <style>
+            .rect {
+                width: 200px;
+                height: 200px;
+                background-color: #ff0000;
+            }
+
+            .rect.active {
+                background-color: #00ff00;
+            }
+        </style>
+
+        <script type="text/javascript" src="libs/jquery/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="libs/lodash/lodash.js"></script>
+        <script type="text/javascript" src="scripts/_compiled/eventListenerApp.js"></script>
+        <script>
+            window.onload = function (event)
+            {
+                // Get class from namespace.
+                var EventListenerApp = codeBelt.EventListenerApp;
+
+                var app = new EventListenerApp();
+                app.appendTo('body');
+            }
+        </script>
+    </head>
+    <body>
+        <div class="rect"></div>
+
+        <button class="enable">Enable</button>
+        <button class="disable">Disable</button>
+    </body>
+</html>
