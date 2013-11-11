@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>EcommJewellery</title>
+
+    <!-- WinJS references -->
+    <link href="//Microsoft.WinJS.2.0/css/ui-dark.css" rel="stylesheet" />
+    <script src="//Microsoft.WinJS.2.0/js/base.js"></script>
+    <script src="//Microsoft.WinJS.2.0/js/ui.js"></script>
+
+    <!-- EcommJewellery references -->
+    <link href="/css/default.css" rel="stylesheet" />
+    <script src="/js/data.js"></script>
+    <script src="/js/navigator.js"></script>
+    <script src="/js/default.js"></script>
+    <script src="pages/SearchResult/SearchResult.js"></script>
+</head>
+<body>
+<script>
+    // JavaScript Application
+    var app = new HondaApp();
+
+    var Activation = Windows.ApplicationModel.Activation;
+    var Navigation = WinJS.Navigation;
+    var Application = WinJS.Application;
+    Application.addEventListener("activated", onActivatedHandler);
+    Application.oncheckpoint = onCheckPointHandler;
+    Application.start();
+
+    /**
+     * This application is about to be suspended. Save any state
+     * that needs to persist across suspensions here. If you need to
+     * complete an asynchronous operation before your application is
+     * suspended, call args.setPromise().
+     *
+     * @method onActivatedHandler
+     * @param args
+     * @private
+     */
+    function onActivatedHandler(args)
+    {
+        app.appendTo('body');
+
+        if (args.detail.kind === Activation.ActivationKind.launch)
+        {
+            if (args.detail.previousExecutionState !== Activation.ApplicationExecutionState.terminated)
+            {
+                // This application has been newly launched. Initialize
+                console.log("Initialize");
+            }
+            else
+            {
+                // This application has been reactivated from suspension.
+                console.log("reactivated");
+            }
+
+            if (Application.sessionState.history)
+            {
+                console.log("Application.sessionState.history", Application.sessionState.history);
+                Navigation.history = Application.sessionState.history;
+            }
+        }
+    }
+
+    /**
+     * This application has been newly launched. Initialize.
+     * Or this application has been reactivated from suspension.
+     *
+     * @method onCheckPointHandler
+     * @param args {ApplicationActivationEvent}
+     * @public
+     */
+    function onCheckPointHandler(args)
+    {
+        console.log("onCheckPoint", Navigation.history);
+        Application.sessionState.history = Navigation.history;
+    }
+</script>
+</body>
+</html>
