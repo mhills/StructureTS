@@ -260,13 +260,13 @@
 
     
         <div class="extends">
-            Extends <a href="../classes/BaseObject.html" class="crosslink">BaseObject</a>
+            Extends <a href="..\classes\BaseObject.html" class="crosslink">BaseObject</a>
         </div>
     
 
     
         <div class="foundat">
-            Defined in: <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l30"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:30</code></a>
+            Defined in: <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l30"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:30</code></a>
         </div>
     
 
@@ -283,8 +283,9 @@
 
 
 <div class="box intro">
-    <p>The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the <a href="../classes/DisplayObjectContainer.html" class="crosslink">DisplayObjectContainer</a> class.
+    <p>The EventDispatcher class is the base class for all classes that dispatch events and is the base class for the <a href="..\classes\DisplayObjectContainer.html" class="crosslink">DisplayObjectContainer</a> class.
 The EventDispatcher provides methods for managing prioritized queues of event listeners and dispatching events.</p>
+
 </div>
 
 
@@ -322,7 +323,7 @@ The EventDispatcher provides methods for managing prioritized queues of event li
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l30"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:30</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l30"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:30</code></a>
         
         </p>
 
@@ -542,7 +543,7 @@ The EventDispatcher provides methods for managing prioritized queues of event li
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l85"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:85</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l85"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:85</code></a>
         
         </p>
 
@@ -554,6 +555,7 @@ The EventDispatcher provides methods for managing prioritized queues of event li
 
     <div class="description">
         <p>Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.</p>
+
     </div>
 
     
@@ -572,6 +574,7 @@ The EventDispatcher provides methods for managing prioritized queues of event li
 
                     <div class="param-description">
                         <p>The type of event.</p>
+
                     </div>
 
                     
@@ -587,6 +590,7 @@ The EventDispatcher provides methods for managing prioritized queues of event li
 
                     <div class="param-description">
                         <p>The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void</p>
+
                     </div>
 
                     
@@ -601,7 +605,8 @@ The EventDispatcher provides methods for managing prioritized queues of event li
                     
 
                     <div class="param-description">
-                        <p>Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.</p>
+                        <p>Binds the scope to a particular object (scope is basically what &quot;this&quot; refers to in your function). This can be very useful in JavaScript because scope isn&#39;t generally maintained.</p>
+
                     </div>
 
                     
@@ -618,6 +623,7 @@ The EventDispatcher provides methods for managing prioritized queues of event li
 
                     <div class="param-description">
                         <p>Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.</p>
+
                     </div>
 
                     
@@ -636,9 +642,9 @@ The EventDispatcher provides methods for managing prioritized queues of event li
             <div class="example-content">
                 <pre class="code prettyprint"><code> instance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
  private handlerMethod(event:BaseEvent):void {
-     console.log(event.target + " sent the event.");
- }
-</code></pre>
+     console.log(event.target + &quot; sent the event.&quot;);
+ }</code></pre>
+
             </div>
         </div>
     
@@ -672,11 +678,11 @@ The EventDispatcher provides methods for managing prioritized queues of event li
         
             
                 <p>Inherited from
-                <a href="../classes/BaseObject.html#method_destroy">BaseObject</a>:
+                <a href="..\classes\BaseObject.html#method_destroy">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l86"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:86</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l86"><code>..\src\com\codebelt\structurets\BaseObject.ts:86</code></a>
         
         </p>
 
@@ -693,11 +699,11 @@ called on the object or properties accessed. It is the responsibility of those w
 function to stop all running Timers, all running Sounds, remove any event
 listeners and take any other steps necessary to make an object eligible for garbage collection.
 It is critical that all subclasses call the super for this function in their overridden methods.</p>
-
 <p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs.
-The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the
-<a href="../classes/EventDispatcher.html#method_disable" class="crosslink">disable</a> method on all classes that extend
-<a href="../classes/EventDispatcher.html" class="crosslink">EventDispatcher</a>.</p>
+The <a href="..\classes\BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the
+<a href="..\classes\EventDispatcher.html#method_disable" class="crosslink">disable</a> method on all classes that extend
+<a href="..\classes\EventDispatcher.html" class="crosslink">EventDispatcher</a>.</p>
+
     </div>
 
     
@@ -714,8 +720,8 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
      this._childInstance.destroy();
      this._childInstance = null;
- }
-</code></pre>
+ }</code></pre>
+
             </div>
         </div>
     
@@ -758,7 +764,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l263"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:263</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l263"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:263</code></a>
         
         </p>
 
@@ -770,6 +776,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
     <div class="description">
         <p>The disable method is responsible for disabling event listeners and/or children of the containing objects.</p>
+
     </div>
 
     
@@ -788,8 +795,8 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
      this._childInstance.disable();
 
      super.enable();
- }
-</code></pre>
+ }</code></pre>
+
             </div>
         </div>
     
@@ -842,7 +849,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l167"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:167</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l167"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:167</code></a>
         
         </p>
 
@@ -865,14 +872,15 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
                 <li class="param">
                     
                         <code class="param-name">event</code>
-                        <span class="type"><a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a></span>
+                        <span class="type"><a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
-extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.</p>
+extend the <a href="..\classes\BaseEvent.html" class="crosslink">BaseEvent</a>.</p>
+
                     </div>
 
                     
@@ -893,8 +901,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
  instance.dispatchEvent(event);
 
  // Here is a common inline event being dispatched
- instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
-</code></pre>
+ instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));</code></pre>
+
             </div>
         </div>
     
@@ -937,7 +945,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l240"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:240</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l240"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:240</code></a>
         
         </p>
 
@@ -949,6 +957,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The enable method is responsible for enabling event listeners and/or children of the containing objects.</p>
+
     </div>
 
     
@@ -967,8 +976,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
      this._childInstance.enable();
 
      super.enable();
- }
-</code></pre>
+ }</code></pre>
+
             </div>
         </div>
     
@@ -1006,11 +1015,11 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="../classes/BaseObject.html#method_getQualifiedClassName">BaseObject</a>:
+                <a href="..\classes\BaseObject.html#method_getQualifiedClassName">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l73"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:73</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l73"><code>..\src\com\codebelt\structurets\BaseObject.ts:73</code></a>
         
         </p>
 
@@ -1022,6 +1031,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Returns the fully qualified class name of an object.</p>
+
     </div>
 
     
@@ -1035,7 +1045,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
                     
                         <span class="type">String</span>:
                     
-                    Returns the class name.
+                    <p>Returns the class name.</p>
+
                 
             </div>
         </div>
@@ -1046,8 +1057,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code> instance.getQualifiedClassName();
-</code></pre>
+                <pre class="code prettyprint"><code> instance.getQualifiedClassName();</code></pre>
+
             </div>
         </div>
     
@@ -1112,7 +1123,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l131"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:131</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l131"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:131</code></a>
         
         </p>
 
@@ -1124,6 +1135,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Removes a specified listener from the EventDispatcher object.</p>
+
     </div>
 
     
@@ -1142,6 +1154,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>The type of event.</p>
+
                     </div>
 
                     
@@ -1157,6 +1170,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>The listener object to remove.</p>
+
                     </div>
 
                     
@@ -1172,6 +1186,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>The scope of the listener object to be removed.</p>
+
                     </div>
 
                     
@@ -1190,9 +1205,9 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             <div class="example-content">
                 <pre class="code prettyprint"><code> instance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
  private handlerMethod(event:BaseEvent):void {
-     console.log(event.target + " sent the event.");
- }
-</code></pre>
+     console.log(event.target + &quot; sent the event.&quot;);
+ }</code></pre>
+
             </div>
         </div>
     
@@ -1232,7 +1247,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l48"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:48</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l48"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:48</code></a>
         
         </p>
 
@@ -1243,6 +1258,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Holds a reference to added listeners.</p>
+
     </div>
 
     
@@ -1271,11 +1287,11 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="../classes/BaseObject.html#property_cid">BaseObject</a>:
+                <a href="..\classes\BaseObject.html#property_cid">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l57"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:57</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l57"><code>..\src\com\codebelt\structurets\BaseObject.ts:57</code></a>
         
         </p>
 
@@ -1286,6 +1302,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The cid or client id is a unique identifier automatically assigned to most StructureTS objects upon instantiation.</p>
+
     </div>
 
     
@@ -1318,11 +1335,11 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
         
             
                 <p>Inherited from
-                <a href="../classes/BaseObject.html#property_CLASS_NAME">BaseObject</a>:
+                <a href="..\classes\BaseObject.html#property_CLASS_NAME">BaseObject</a>:
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l47"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:47</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l47"><code>..\src\com\codebelt\structurets\BaseObject.ts:47</code></a>
         
         </p>
 
@@ -1332,7 +1349,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
     </div>
 
     <div class="description">
-        <p>The fully qualified class name of the object. Use <a href="../classes/BaseObject.html#method_getQualifiedClassName" class="crosslink">getQualifiedClassName</a> method to retrieve the class name of a StructureTS object.</p>
+        <p>The fully qualified class name of the object. Use <a href="..\classes\BaseObject.html#method_getQualifiedClassName" class="crosslink">getQualifiedClassName</a> method to retrieve the class name of a StructureTS object.</p>
+
     </div>
 
     
@@ -1368,7 +1386,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l68"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:68</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l68"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:68</code></a>
         
         </p>
 
@@ -1379,6 +1397,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The isEnabled property is used to keep track of the enabled state of the object.</p>
+
     </div>
 
     
@@ -1416,7 +1435,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l57"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:57</code></a>
+        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l57"><code>..\src\com\codebelt\structurets\event\EventDispatcher.ts:57</code></a>
         
         </p>
 
@@ -1429,6 +1448,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
         <p>Indicates the object that contains child object. Use the parent property
 to specify a relative path to display objects that are above the current display object in the display
 list hierarchy.</p>
+
     </div>
 
     
