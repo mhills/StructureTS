@@ -33,7 +33,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObjectContainer.createChildren
+         * @overridden DOMElement.createChildren
          */
         public createChildren():void
         {
@@ -46,7 +46,6 @@ module codeBelt
             this._router.addRoute('contact', this.contactRouterHandler, this);
             this._router.addRoute('services', this.servicesRouterHandler, this);
             this._router.addRoute('menu', this.menuRouterHandler, this);
-//            this._router.addRoute('{?query}', this.resetRouterHandler, this);
 
             this._headerView = new HeaderView(this._router);
             this.addChild(this._headerView);
@@ -67,7 +66,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObjectContainer.enable
+         * @overridden DOMElement.enable
          */
         public enable():void
         {
@@ -82,7 +81,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObjectContainer.disable
+         * @overridden DOMElement.disable
          */
         public disable():void
         {
@@ -103,6 +102,13 @@ module codeBelt
 
             this._router.destroy();
             this._router = null;
+
+            this._headerView.destroy();
+            this._headerView = null;
+
+            this._footerView.destroy();
+            this._footerView = null;
+
             this._currentView.destroy();
             this._currentView = null;
         }

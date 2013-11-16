@@ -23,6 +23,11 @@ module codeBelt
      **/
     export class BannerAd extends Canvas
     {
+        /**
+         * @overridden Canvas.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'BannerAd';
+
         static BASE_PATH:string = "images/";
 
         private _cherry:Bitmap = null;
@@ -56,7 +61,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden DOMElement.enable
          */
         public enable():void
         {
@@ -66,7 +71,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden DOMElement.disable
          */
         public disable():any
         {

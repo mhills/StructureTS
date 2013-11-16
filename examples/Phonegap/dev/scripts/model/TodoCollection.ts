@@ -53,14 +53,20 @@ module codeBelt
             this._localStorage.removeItem(item.id, true);
         }
 
+        /**
+         * @overridden Collection.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            this._localStorage.destroy();
+            this._localStorage = null;
+        }
+
         public saveItem(item:TodoItemVO):void
         {
             this._localStorage.addItem(item.id, item, true);
-        }
-
-        public removeCompletedItems():void
-        {
-
         }
 
         private getItemsFromLocalStorage():void

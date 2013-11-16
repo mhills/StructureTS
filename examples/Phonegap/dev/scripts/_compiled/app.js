@@ -995,9 +995,6 @@ var StructureTS;
             return this.items[index] || null;
         };
 
-        Collection.prototype.forEach = function (operation) {
-        };
-
         Collection.prototype.find = function (arg) {
             arg = (arg instanceof Array) ? arg : [arg];
 
@@ -1043,20 +1040,6 @@ var StructureTS;
                 }
             }
             return foundItems;
-        };
-
-        Collection.prototype.sort = function (sort) {
-        };
-
-        Collection.prototype.filter = function (filter, removeItems) {
-            if (typeof removeItems === "undefined") { removeItems = false; }
-            if (removeItems) {
-            } else {
-            }
-            return null;
-        };
-
-        Collection.prototype.map = function (map) {
         };
 
         Collection.prototype.copy = function () {
@@ -1276,11 +1259,15 @@ var codeBelt;
             this._localStorage.removeItem(item.id, true);
         };
 
-        TodoCollection.prototype.saveItem = function (item) {
-            this._localStorage.addItem(item.id, item, true);
+        TodoCollection.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
+            this._localStorage.destroy();
+            this._localStorage = null;
         };
 
-        TodoCollection.prototype.removeCompletedItems = function () {
+        TodoCollection.prototype.saveItem = function (item) {
+            this._localStorage.addItem(item.id, item, true);
         };
 
         TodoCollection.prototype.getItemsFromLocalStorage = function () {
@@ -1365,6 +1352,15 @@ var codeBelt;
 
         ZombieApp.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
+
+            this._$todoButton = null;
+            this._$removeTasksButton = null;
+
+            this._todoContainer.destroy();
+            this._todoContainer = null;
+
+            this._todoCollection.destroy();
+            this._todoCollection = null;
         };
 
         ZombieApp.prototype.onDeviceReady = function (event) {

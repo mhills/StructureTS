@@ -59,5 +59,14 @@ module codeBelt
             super.disable();
         }
 
+        /**
+         * @overridden DOMElement.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+        }
+
     }
 }

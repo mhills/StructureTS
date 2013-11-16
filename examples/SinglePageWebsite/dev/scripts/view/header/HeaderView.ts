@@ -18,7 +18,6 @@ module codeBelt
         public CLASS_NAME:string = 'HeaderView';
 
         private _router:RouterController = null;
-
         private _$navLinks:JQuery = null;
 
         constructor(router:RouterController)
@@ -29,7 +28,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.createChildren
+         * @overridden DOMElement.createChildren
          */
         public createChildren():void
         {
@@ -39,7 +38,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.layoutChildren
+         * @overridden DOMElement.layoutChildren
          */
         public layoutChildren():void
         {
@@ -47,7 +46,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden DOMElement.enable
          */
         public enable():void
         {
@@ -59,7 +58,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden DOMElement.disable
          */
         public disable():void
         {
@@ -68,6 +67,19 @@ module codeBelt
             this._router.removeEventListener(RouterEvent.CHANGE, this.onRouteChange, this);
 
             super.disable();
+        }
+
+        /**
+         * @overridden DOMElement.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            // Note: we do not want to call destroy on _router because with was create outside of this class.
+            this._router = null;
+
+            this._$navLinks = null;
         }
 
         private onRouteChange(event:RouterEvent):void

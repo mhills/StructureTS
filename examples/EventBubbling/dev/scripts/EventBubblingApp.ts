@@ -14,10 +14,16 @@ module codeBelt
      *
      * @class EventBubblingApp
      * @extends Stage
+     * @module codeBelt
      * @constructor
      **/
     export class EventBubblingApp extends Stage
     {
+        /**
+         * @overridden Stage.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'EventBubblingApp';
+
         private _grandpaView:GrandparentView = null;
         private _clearButton:DOMElement = null;
         private _stageMessage:DOMElement = null;
@@ -28,7 +34,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DOMElement.createChildren
+         * @overridden Stage.createChildren
          */
         public createChildren():void
         {
@@ -42,7 +48,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.layoutChildren
+         * @overridden Stage.layoutChildren
          */
         public layoutChildren():void
         {
@@ -51,7 +57,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden Stage.enable
          */
         public enable():void
         {
@@ -66,7 +72,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden Stage.disable
          */
         public disable():void
         {
@@ -78,6 +84,23 @@ module codeBelt
             this._grandpaView.disable();
 
             super.disable();
+        }
+
+        /**
+         * @overridden Stage.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            this._grandpaView.destroy();
+            this._grandpaView = null;
+
+            this._clearButton.destroy();
+            this._clearButton = null;
+
+            this._stageMessage.destroy();
+            this._stageMessage = null;
         }
 
         private onClearClick(event:JQueryEventObject):void

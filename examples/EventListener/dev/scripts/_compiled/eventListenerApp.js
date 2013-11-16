@@ -836,6 +836,8 @@ var codeBelt;
         __extends(EventListenerApp, _super);
         function EventListenerApp() {
             _super.call(this);
+            this.CLASS_NAME = 'EventListenerApp';
+            this._$stateTest = null;
             this._rec = null;
             this._enableButton = null;
             this._disableButton = null;
@@ -843,33 +845,54 @@ var codeBelt;
         EventListenerApp.prototype.createChildren = function () {
             _super.prototype.createChildren.call(this);
 
-            this._rec = this.getChild('.rect');
-            this._enableButton = this.getChild('.enable');
-            this._disableButton = this.getChild('.disable');
+            this._$stateTest = this.$element.find('.js-stateText');
+
+            this._rec = this.getChild('.js-Square');
+            this._enableButton = this.getChild('#js-enableButton');
+            this._disableButton = this.getChild('#js-disableButton');
 
             this._enableButton.$element.addEventListener('click', this.enable, this);
             this._disableButton.$element.addEventListener('click', this.disable, this);
         };
 
         EventListenerApp.prototype.layoutChildren = function () {
+            var text = (this.isEnabled === true) ? 'enabled' : 'disabled';
+            this._$stateTest.text(text);
         };
 
         EventListenerApp.prototype.enable = function () {
             if (this.isEnabled === true)
                 return;
-            console.log("enable");
+
             this._rec.$element.addEventListener('click', this.changeColor, this);
 
             _super.prototype.enable.call(this);
+
+            this.layoutChildren();
         };
 
         EventListenerApp.prototype.disable = function () {
             if (this.isEnabled === false)
                 return;
-            console.log("disable");
+
             this._rec.$element.removeEventListener('click', this.changeColor, this);
 
             _super.prototype.disable.call(this);
+
+            this.layoutChildren();
+        };
+
+        EventListenerApp.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
+            this._rec.destroy();
+            this._rec = null;
+
+            this._enableButton.destroy();
+            this._enableButton = null;
+
+            this._disableButton.destroy();
+            this._disableButton = null;
         };
 
         EventListenerApp.prototype.changeColor = function (event) {

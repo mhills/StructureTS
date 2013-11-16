@@ -1292,6 +1292,7 @@ var codeBelt;
         __extends(BannerAd, _super);
         function BannerAd() {
             _super.call(this);
+            this.CLASS_NAME = 'BannerAd';
             this._cherry = null;
             this._cherryDipped = null;
             this._logo = null;

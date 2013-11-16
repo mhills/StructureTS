@@ -2035,6 +2035,11 @@ var StructureTS;
         RouterController.prototype.getBaseURL = function () {
             return Hasher.getBaseURL();
         };
+
+        RouterController.prototype.destroy = function () {
+            this._crossroads.removeAllRoutes();
+            this._crossroads = null;
+        };
         return RouterController;
     })(StructureTS.BaseController);
     StructureTS.RouterController = RouterController;
@@ -2068,6 +2073,10 @@ var codeBelt;
                 return;
 
             _super.prototype.disable.call(this);
+        };
+
+        FooterView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
         };
         return FooterView;
     })(StructureTS.DOMElement);
@@ -2116,6 +2125,14 @@ var codeBelt;
             _super.prototype.disable.call(this);
         };
 
+        HeaderView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
+            this._router = null;
+
+            this._$navLinks = null;
+        };
+
         HeaderView.prototype.onRouteChange = function (event) {
             var route = this._router.getHash();
             var $navItem = this._$navLinks.find('a[href*="' + route + '"]');
@@ -2158,6 +2175,10 @@ var codeBelt;
 
             _super.prototype.disable.call(this);
         };
+
+        ContentView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+        };
         return ContentView;
     })(StructureTS.DOMElement);
     codeBelt.ContentView = ContentView;
@@ -2189,6 +2210,10 @@ var codeBelt;
                 return;
 
             _super.prototype.disable.call(this);
+        };
+
+        AboutView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
         };
         return AboutView;
     })(codeBelt.ContentView);
@@ -2222,6 +2247,10 @@ var codeBelt;
 
             _super.prototype.disable.call(this);
         };
+
+        ContactView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+        };
         return ContactView;
     })(codeBelt.ContentView);
     codeBelt.ContactView = ContactView;
@@ -2253,6 +2282,10 @@ var codeBelt;
                 return;
 
             _super.prototype.disable.call(this);
+        };
+
+        HomeView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
         };
         return HomeView;
     })(codeBelt.ContentView);
@@ -2286,6 +2319,10 @@ var codeBelt;
 
             _super.prototype.disable.call(this);
         };
+
+        MenuView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+        };
         return MenuView;
     })(codeBelt.ContentView);
     codeBelt.MenuView = MenuView;
@@ -2317,6 +2354,10 @@ var codeBelt;
                 return;
 
             _super.prototype.disable.call(this);
+        };
+
+        ServicesView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
         };
         return ServicesView;
     })(codeBelt.ContentView);
@@ -2388,6 +2429,13 @@ var codeBelt;
 
             this._router.destroy();
             this._router = null;
+
+            this._headerView.destroy();
+            this._headerView = null;
+
+            this._footerView.destroy();
+            this._footerView = null;
+
             this._currentView.destroy();
             this._currentView = null;
         };
@@ -2442,7 +2490,6 @@ var codeBelt;
 })(codeBelt || (codeBelt = {}));
 var codeBelt;
 (function (codeBelt) {
-    var DOMElement = StructureTS.DOMElement;
     var Stage = StructureTS.Stage;
 
     var WebsiteApp = (function (_super) {
@@ -2479,6 +2526,9 @@ var codeBelt;
 
         WebsiteApp.prototype.destroy = function () {
             _super.prototype.destroy.call(this);
+
+            this._rootView.destroy();
+            this._rootView = null;
         };
         return WebsiteApp;
     })(StructureTS.Stage);

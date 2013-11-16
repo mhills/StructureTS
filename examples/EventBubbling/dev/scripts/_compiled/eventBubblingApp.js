@@ -904,13 +904,13 @@ var codeBelt;
         };
 
         ChildView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
             this._dispatchButton.destroy();
             this._dispatchButton = null;
 
             this._panelContainer.destroy();
             this._panelContainer = null;
-
-            _super.prototype.destroy.call(this);
         };
 
         ChildView.prototype.onButtonClick = function (event) {
@@ -985,13 +985,13 @@ var codeBelt;
         };
 
         ParentView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
             this._childView.destroy();
             this._childView = null;
 
             this._panelContainer.destroy();
             this._panelContainer = null;
-
-            _super.prototype.destroy.call(this);
         };
 
         ParentView.prototype.onBubbled = function (event) {
@@ -1060,13 +1060,13 @@ var codeBelt;
         };
 
         GrandparentView.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
             this._parentView.destroy();
             this._parentView = null;
 
             this._panelContainer.destroy();
             this._panelContainer = null;
-
-            _super.prototype.destroy.call(this);
         };
 
         GrandparentView.prototype.onBubbled = function (event) {
@@ -1093,6 +1093,7 @@ var codeBelt;
         __extends(EventBubblingApp, _super);
         function EventBubblingApp() {
             _super.call(this);
+            this.CLASS_NAME = 'EventBubblingApp';
             this._grandpaView = null;
             this._clearButton = null;
             this._stageMessage = null;
@@ -1134,6 +1135,19 @@ var codeBelt;
             this._grandpaView.disable();
 
             _super.prototype.disable.call(this);
+        };
+
+        EventBubblingApp.prototype.destroy = function () {
+            _super.prototype.destroy.call(this);
+
+            this._grandpaView.destroy();
+            this._grandpaView = null;
+
+            this._clearButton.destroy();
+            this._clearButton = null;
+
+            this._stageMessage.destroy();
+            this._stageMessage = null;
         };
 
         EventBubblingApp.prototype.onClearClick = function (event) {

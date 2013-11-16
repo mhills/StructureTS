@@ -95,6 +95,16 @@ module codeBelt
         }
 
         /**
+         * @overridden Stage.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            this._query = null;
+        }
+
+        /**
          *
          * @method onItemAddSuccess
          * @param item {Backbone.Model}

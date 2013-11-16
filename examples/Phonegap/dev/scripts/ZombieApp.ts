@@ -14,7 +14,6 @@ module codeBelt
 
     export class ZombieApp extends Stage
     {
-
         /**
          * @overridden Stage.CLASS_NAME
          */
@@ -104,6 +103,14 @@ module codeBelt
         {
             super.destroy();
 
+            this._$todoButton = null;
+            this._$removeTasksButton = null;
+
+            this._todoContainer.destroy();
+            this._todoContainer = null;
+
+            this._todoCollection.destroy();
+            this._todoCollection = null;
         }
 
         private onDeviceReady(event:Event)

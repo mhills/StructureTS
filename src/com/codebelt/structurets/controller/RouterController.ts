@@ -170,5 +170,10 @@ module StructureTS
             return Hasher.getBaseURL();
         }
 
+        public destroy():void
+        {
+            this._crossroads.removeAllRoutes();
+            this._crossroads = null;
+        }
     }
 }

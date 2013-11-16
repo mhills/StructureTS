@@ -12,10 +12,15 @@ module codeBelt
      * YUIDoc_comment
      *
      * @class GrandparentView
+     * @extends DOMElement
+     * @module codeBelt
      * @constructor
      **/
     export class GrandparentView extends DOMElement
     {
+        /**
+         * @overridden DOMElement.CLASS_NAME
+         */
         public CLASS_NAME:string = 'GrandparentView';
 
         private _panelContainer:DOMElement = null;
@@ -28,7 +33,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.createChildren
+         * @overridden DOMElement.createChildren
          */
         public createChildren():void
         {
@@ -43,7 +48,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.layoutChildren
+         * @overridden DOMElement.layoutChildren
          */
         public layoutChildren():void
         {
@@ -52,7 +57,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden DOMElement.enable
          */
         public enable():void
         {
@@ -66,7 +71,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden DOMElement.disable
          */
         public disable():void
         {
@@ -80,24 +85,24 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.destroy
+         * @overridden DOMElement.destroy
          */
         public destroy():void
         {
+            super.destroy();
+
             this._parentView.destroy();
             this._parentView = null;
 
             this._panelContainer.destroy();
             this._panelContainer = null;
-
-            super.destroy();
         }
 
         private onBubbled(event:BaseEvent):void
         {
             var checkbox:boolean = this._panelContainer.$element.find('[type=checkbox]')
-                .first()
-                .prop('checked');
+                                                                .first()
+                                                                .prop('checked');
 
             if (checkbox == true)
             {

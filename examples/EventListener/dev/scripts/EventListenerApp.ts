@@ -14,7 +14,12 @@ module codeBelt
      **/
     export class EventListenerApp extends Stage
     {
+        /**
+         * @overridden Stage.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'EventListenerApp';
 
+        private _$stateTest:JQuery = null;
         private _rec:DOMElement = null;
         private _enableButton:DOMElement = null;
         private _disableButton:DOMElement = null;
@@ -25,54 +30,79 @@ module codeBelt
         }
 
         /**
-         * @overridden DOMElement.createChildren
+         * @overridden Stage.createChildren
          */
         public createChildren():void
         {
             super.createChildren();
 
-            this._rec = this.getChild('.rect');
-            this._enableButton = this.getChild('.enable');
-            this._disableButton = this.getChild('.disable');
+            this._$stateTest = this.$element.find('.js-stateText')
+
+            this._rec = this.getChild('.js-Square');
+            this._enableButton = this.getChild('#js-enableButton');
+            this._disableButton = this.getChild('#js-disableButton');
 
             this._enableButton.$element.addEventListener('click', this.enable, this);
             this._disableButton.$element.addEventListener('click', this.disable, this);
         }
 
         /**
-         * @overridden DisplayObject.layoutChildren
+         * @overridden Stage.layoutChildren
          */
         public layoutChildren():void
         {
+            var text:string = (this.isEnabled === true) ? 'enabled' : 'disabled';
+            this._$stateTest.text(text);
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden Stage.enable
          */
         public enable():void
         {
             if (this.isEnabled === true) return;
-            console.log("enable");
+
             this._rec.$element.addEventListener('click', this.changeColor, this);
 
             super.enable();
+
+            this.layoutChildren();
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden Stage.disable
          */
         public disable():void
         {
             if (this.isEnabled === false) return;
-            console.log("disable");
+
             this._rec.$element.removeEventListener('click', this.changeColor, this);
 
             super.disable();
+
+            this.layoutChildren();
+        }
+
+        /**
+         * @overridden Stage.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            this._rec.destroy();
+            this._rec = null;
+
+            this._enableButton.destroy();
+            this._enableButton = null;
+
+            this._disableButton.destroy();
+            this._disableButton = null;
         }
 
         private changeColor(event:JQueryEventObject):void
         {
-            $(event.currentTarget).toggleClass('active')
+            $(event.currentTarget).toggleClass('active');
         }
 
     }

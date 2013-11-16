@@ -26,6 +26,11 @@ module codeBelt
      **/
     export class TodoApp extends Stage
     {
+        /**
+         * @overridden Stage.CLASS_NAME
+         */
+        public CLASS_NAME:string = 'TodoApp';
+
         private _appModel:AppModel = null;
 
         private _submitBtn:DOMElement = null;
@@ -39,7 +44,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DOMElement.createChildren
+         * @overridden Stage.createChildren
          */
         public createChildren():void
         {
@@ -58,7 +63,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden Stage.enable
          */
         public enable():void
         {
@@ -75,7 +80,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden Stage.disable
          */
         public disable():void
         {
@@ -88,6 +93,29 @@ module codeBelt
             this._appModel.removeEventListener(ListItemEvent.REMOVE_SUCCESS, this.onRemoveItemSuccess, this);
 
             super.disable();
+        }
+
+        /**
+         * @overridden Stage.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            this._appModel.destroy();
+            this._appModel = null;
+
+            this._submitBtn.destroy();
+            this._submitBtn = null;
+
+            this._noTasksMessage.destroy();
+            this._noTasksMessage = null;
+
+            this._incompleteItemList.destroy();
+            this._incompleteItemList = null;
+
+            this._input.destroy();
+            this._input = null;
         }
 
         private onSubmitButton(event:JQueryEventObject):void

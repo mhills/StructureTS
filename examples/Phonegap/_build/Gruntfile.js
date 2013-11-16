@@ -306,10 +306,8 @@ module.exports = function(grunt) {
 
     // Grunt tasks.
     grunt.registerTask('default', ['server']);
+    grunt.registerTask('dev', ['prod']);
     grunt.registerTask('prod', ['cssmin', 'handlebars', 'typescript', 'concat:prod']);
-//    grunt.registerTask('dev', ['env:dev', 'preprocess:dev', 'json', 'handlebars', 'typescript']);
-//    grunt.registerTask('prod', ['env:prod', 'preprocess:prod', 'cssmin', 'htmlmin', 'handlebars', 'typescript', 'concat:prod', 'uglify', 'copy:prod', 'concat:addBanner', 'manifest']);
-//
     grunt.registerTask('server', ['prod', 'express:prod', 'open:prod', 'watch:prod']);
 
 };

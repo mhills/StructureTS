@@ -25,7 +25,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden DOMElement.enable
          */
         public enable():void
         {
@@ -35,7 +35,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden DOMElement.disable
          */
         public disable():void
         {

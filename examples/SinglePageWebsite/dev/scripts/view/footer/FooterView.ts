@@ -24,7 +24,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.createChildren
+         * @overridden DOMElement.createChildren
          */
         public createChildren():void
         {
@@ -33,7 +33,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.layoutChildren
+         * @overridden DOMElement.layoutChildren
          */
         public layoutChildren():void
         {
@@ -41,7 +41,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden DOMElement.enable
          */
         public enable():void
         {
@@ -51,13 +51,22 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden DOMElement.disable
          */
         public disable():void
         {
             if (this.isEnabled === false) return;
 
             super.disable();
+        }
+
+        /**
+         * @overridden DOMElement.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
         }
 
     }

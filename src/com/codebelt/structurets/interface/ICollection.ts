@@ -89,23 +89,9 @@ module StructureTS
         getItemByIndex(index:number):IValueObject;
 
         /**
-         * @method forEach
-         */
-        forEach(operation:Function):any
-
-        /**
          * @method find
          */
         find(properties:any):IValueObject[]
 
-        /**
-         * @method sort
-         */
-        sort(sort:Function):any
-
-        /**
-         * @method filter
-         */
-        filter(filter:Function):any
     }
 }

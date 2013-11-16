@@ -12,10 +12,15 @@ module codeBelt
      * YUIDoc_comment
      *
      * @class ParentView
+     * @extends DOMElement
+     * @module codeBelt
      * @constructor
      **/
     export class ParentView extends DOMElement
     {
+        /**
+         * @overridden DOMElement.CLASS_NAME
+         */
         public CLASS_NAME:string = 'ParentView';
 
         private _panelContainer:DOMElement = null;
@@ -28,7 +33,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.createChildren
+         * @overridden DOMElement.createChildren
          */
         public createChildren():void
         {
@@ -43,7 +48,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.layoutChildren
+         * @overridden DOMElement.layoutChildren
          */
         public layoutChildren():void
         {
@@ -52,7 +57,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.enable
+         * @overridden DOMElement.enable
          */
         public enable():void
         {
@@ -66,7 +71,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.disable
+         * @overridden DOMElement.disable
          */
         public disable():void
         {
@@ -80,17 +85,17 @@ module codeBelt
         }
 
         /**
-         * @overridden DisplayObject.destroy
+         * @overridden DOMElement.destroy
          */
         public destroy():void
         {
+            super.destroy();
+
             this._childView.destroy();
             this._childView = null;
 
             this._panelContainer.destroy();
             this._panelContainer = null;
-
-            super.destroy();
         }
 
         private onBubbled(event:BaseEvent):void

@@ -1,11 +1,9 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 
 ///<reference path='view/RootView.ts'/>
 
 module codeBelt
 {
-    import DOMElement = StructureTS.DOMElement;
     import Stage = StructureTS.Stage;
 
     export class WebsiteApp extends Stage
@@ -23,7 +21,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DOMElement.createChildren
+         * @overridden Stage.createChildren
          */
         public createChildren():void
         {
@@ -34,7 +32,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DOMElement.enable
+         * @overridden Stage.enable
          */
         public enable():void
         {
@@ -46,7 +44,7 @@ module codeBelt
         }
 
         /**
-         * @overridden DOMElement.disable
+         * @overridden Stage.disable
          */
         public disable():void
         {
@@ -58,12 +56,14 @@ module codeBelt
         }
 
         /**
-         * @overridden DOMElement.destroy
+         * @overridden Stage.destroy
          */
         public destroy():void
         {
             super.destroy();
 
+            this._rootView.destroy();
+            this._rootView = null;
         }
 
     }

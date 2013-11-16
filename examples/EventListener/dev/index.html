@@ -7,11 +7,11 @@
             .rect {
                 width: 200px;
                 height: 200px;
-                background-color: #ff0000;
+                background-color: #00ff00;
             }
 
             .rect.active {
-                background-color: #00ff00;
+                background-color: #3c49ff;
             }
         </style>
 
@@ -30,9 +30,10 @@
         </script>
     </head>
     <body>
-        <div class="rect"></div>
+        <p>Click on the box. The current state is <span class="js-stateText">Enabled</span></p>
+        <div class="js-Square rect"></div>
 
-        <button class="enable">Enable</button>
-        <button class="disable">Disable</button>
+        <button id="js-enableButton" class="enable">Enable</button>
+        <button id="js-disableButton" class="disable">Disable</button>
     </body>
 </html>

@@ -42,7 +42,7 @@
                     <li class="menu-item"><a href="http://codebelt.github.io/StructureTS/docs/modules/StructureTS.html">Docs</a>
                     </li>
                     <li class="menu-item"><a href="http://www.codebelt.com/">Blog</a></li>
-                    <li id="menu-item-41"
+                    <!--<li id="menu-item-41"
                         class="menu-item menu-item-type-libraries menu-item-object-cpt-archive contains-sub-menu menu-item-41">
                         <a href="#/js-libraries/">JS Libraries</a>
                         <ul class="sub-menu">
@@ -63,7 +63,7 @@
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a
                                     href="#/js-libraries-new/">Submit a JS Library</a></li>
                         </ul>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
             <div class="nav-menu-mobile visible-phone"><select onchange="window.location.href=this.value;">
@@ -140,41 +140,229 @@
 
             <article id="post-285" class="post-285 articles type-articles status-publish hentry">
                 <header class="entry-header">
-                    <h1 class="entry-title">StructureTS</h1>
+                    <h1 class="entry-title">Getting Started with StructureTS (Work in Progress)</h1>
 
-                    <h2>An Event Driven TypeScript Framework</h2>
+                    <h2>An Event Driven JavaScript/TypeScript Framework.</h2>
                 </header>
                 <!-- .entry-header -->
 
                 <div class="entry-content">
-                    <p>For this discussion, we will discuss a User object which could represent a user in a company
-                        intranet. <a href="#">Value Object</a></p>
+                    <h2>Overview</h2>
 
-                    <h4><code>User</code> Object</h4>
+                    <ol>
+                        <li><strong>What is StructureTS</strong> <br/>StructureTS is a collection of classes written in TypeScript and also a workflow to create JavaScript applications.</li>
+                        <li><strong>Who is StructureTS for?</strong> <br/>Me, Robert S. <a href="http://www.codebelt.com/">www.codebelt.com</a></li>
+                        <li><strong>Why did you build it?</strong> <br/>To make my life easier.</li>
+                        <li><strong>Can I use it?</strong> <br/>Sure.</li>
+                        <li><strong>Is StructureTS based off another language?</strong> <br/>Yes, I am trying to develop the api and conventions to match <a href="http://en.wikipedia.org/wiki/ActionScript">ActionScript</a> because it is a solid ECMAScript object-oriented language.</li>
+                        <li><strong>If StructureTS is for you then why create all these examples and documentation?</strong> <br/>Basically its for people I work with now and in the future. I can show them why TypeScript and StructureTS is the best way to do JavaScript development for large and small projects.</li>
+                    </ol>
+
+                    <p><strong>StructureTS</strong> is built in TypeScript. If want to learn more about TypeScript checkout these links:</p>
 
                     <ul>
-                        <li><code>id</code></li>
-                        <li><code>serverId</code></li>
-                        <li><code>firstName</code></li>
-                        <li><code>lastName</code></li>
-                        <li><code>position</code></li>
-                        <li><code>profileThumbnailPath</code></li>
-                        <li><code>profileImagePath</code></li>
+                        <li><a href="http://www.codebelt.com/typescript/what-is-typescript/">What is TypeScript</a></li>
+                        <li><a href="http://www.codebelt.com/typescript/javascript-namespacing-with-typescript-internal-modules/">Namespacing with TypeScript</a></li>
                     </ul>
 
-                    <p>These would be created and defaulted in the init function:</p>
 
-<pre class="javascript" data-initialized="true" data-gclp-id="0">
-<code> User.prototype.init = function(userOrUndefined) { this.id = _getId(); this.serverId = ''; this.firstName = '';
-    this.lastName = ''; this.position = ''; this.profileThumbnailPath = ''; this.profileImagePath = '';
+                    <h2>Tabel of Contents</h2>
+                    <dl>
+                        <dt>Examples</dt>
+                        <dd>A couple of examples using <strong>StructureTS</strong>.</dd>
+                        <dt>Core Classes</dt>
+                        <dd>
+                            <ul>
+                                <li><code>DOMElement.ts</code></li>
+                                <li><code>Stage.ts</code></li>
+                                <li><code>BaseEvent.ts</code> & <code>EventDispatcher.ts</code></li>
+                                <li><code>ValueObject.ts</code></li>
+                                <li><code>Collection.ts</code></li>
+                                <li><strong>StructureTS</strong> jQuery <code>addEventListener</code> plugin</li>
+                            </ul>
+                        </dd>
+                        <dt>StructureTS Boilerplate - Grunt Workflow</dt>
+                        <dd>todo</dd>
+                        <dt>Folder Structure</dt>
+                        <dd>todo</dd>
+                    </dl>
 
-    if (userOrUndefined instanceof User) { this.copy(userOrUndefined); } else if (typeof userOrUndefined === 'object') {
-    this.fromJSON(userOrUndefined); }
+                    <h2>StructureTS Examples</h2>
+                    <h6>Event Bubbling Example (Done)</h6>
+                    <p>todo write description and show live example. <a href="https://github.com/codeBelt/StructureTS/tree/gh-pages/examples"target="_blank">Source Code</a></p>
 
-    return this; }; </code>
+                    <h6>Single Page Application (Part 1 Done)</h6>
+                    <p>todo write description and show live example.  <a href="https://github.com/codeBelt/StructureTS/tree/gh-pages/examples"target="_blank">Source Code</a></p>
+
+                    <h6>Parse.com Todo Example (Done)</h6>
+                    <p>todo write description and show live example.  <a href="https://github.com/codeBelt/StructureTS/tree/gh-pages/examples"target="_blank">Source Code</a></p>
+
+                    <h6>Phonegap Todo Example (Done)</h6>
+                    <p>todo write description and show live example.  <a href="https://github.com/codeBelt/StructureTS/tree/gh-pages/examples"target="_blank">Source Code</a></p>
+
+                    <h6>Canvas Banner Ad Example (Some what done)</h6>
+                    <p>todo write description and show live example.  <a href="https://github.com/codeBelt/StructureTS/tree/gh-pages/examples"target="_blank">Source Code</a></p>
+
+                    <h6>Event Listener Example (Some what done)</h6>
+                    <p>todo write description and show live example.  <a href="https://github.com/codeBelt/StructureTS/tree/gh-pages/examples"target="_blank">Source Code</a></p>
+
+                    <h6>Photo Gallery Example (Not Started)</h6>
+                    <p>todo write description and show live example.  <a href="https://github.com/codeBelt/StructureTS/tree/gh-pages/examples"target="_blank">Source Code</a></p>
+
+                    <h6>Windows 8.1 Store App Example (Not Started)</h6>
+                    <p>todo write description and show live example.  <a href="https://github.com/codeBelt/StructureTS/tree/gh-pages/examples"target="_blank">Source Code</a></p>
+
+                    <h2>Core Classes</h2>
+                    <h5><code>DOMElement.ts</code></h5>
+                    <p>One of the main classes you will be extending in <strong>StructureTS</strong> is the <code>DOMElement</code> class. The <code>DOMElement</code> will be used to create all our views when referring to DOM elements. It allows you to create, layout, add, remove and destroy children from views. Below is how you would create a view class in <strong>StructureTS</strong>.</p>
+
+<pre class="javascript">
+<code>
+///&lt;reference path='com/codebelt/structurets/display/DOMElement.ts'/>
+
+module codeBelt
+{
+    import DOMElement = StructureTS.DOMElement;
+
+    export class ExampleView extends DOMElement
+    {
+        public CLASS_NAME:string = 'ExampleView';
+
+        constructor()
+        {
+            super();
+        }
+
+        public createChildren():void
+        {
+            super.createChildren();
+
+            // Create and add your child objects to this parent class.
+        }
+
+        public layoutChildren():void
+        {
+            // Layout or update the child objects in this parent class.
+        }
+
+        public enable():void
+        {
+            if (this.isEnabled === true) return;
+
+            // Enable the child objects and add any event listeners.
+
+            super.enable();
+        }
+
+        public disable():void
+        {
+            if (this.isEnabled === false) return;
+
+            // Disable the child objects and remove any event listeners.
+
+            super.disable();
+        }
+
+        public destroy():void
+        {
+            super.destroy();
+
+            // Destroy the child objects and references to prevent memory leaks.
+        }
+
+    }
+}
+</code>
 </pre>
+                    <p>To make development faster I've created template the DOMElement class.</p>
+                       <ul>
+                           <li><a href="https://gist.github.com/codeBelt/5963427" target="_blank">DOMElement Template for PhpStorm/Webstorm</a></li>
+                           <li><a href="#" target="_blank">DOMElement Template for Sublime Test</a></li>
+                       </ul>
 
-                </div>
+                    <p>There is a specific lifecycle the <code>DOMElement</code> class follows:</p>
+                    <dl>
+                        <dt><code>createChildren()</code> is where you create the child objects for the view.</dt>
+                        <dd>gets called only once when the child view is added to another view. If the child view is removed and added to another view createChildren will not be called again. Example: this.addChild(childView);
+                            <ul>
+                                <li>
+
+asdfasdf
+<pre class="javascript">
+<code>
+public createChildren():void {
+    super.createChildren(“#htmlTemplatel”);
+}
+</code>
+</pre>
+                                </li>
+                                <li>layoutChildren is where you layout and update any of the child objects for the view.</li>
+                                <li>enable is where you enable the child objects for the view.</li>
+                                <li>disable is where you disable the child objects for the view.</li>
+                                <li>destroy is where you destroy the child objects for the view.</li>
+                            </ul>
+                        </dd>
+                        <dt><code>layoutChildren()</code> is where you layout and update any of the child objects for the view.</dt>
+                        <dd>gets called right after createChildren but it can be called later to update the children of a view.</dd>
+                        <dt><code>enable()</code> is where you enable the child objects for the view.</dt>
+                        <dd>is responsible for enabling event listeners and/or children of the containing view.</dd>
+                        <dt><code>disable()</code> is where you disable the child objects for the view.</dt>
+                        <dd>is responsible for disabling event listeners and/or children of the containing view.</dd>
+                        <dt><code>destroy()</code> is where you destroy the child objects for the view.</dt>
+                        <dd>the destroy method is to make child objects ready for garbage collection.</dd>
+                    </dl>
+                    <p>Later you can check out the doc's for the <a href="http://codebelt.github.io/StructureTS/docs/classes/DOMElement.html">DOMElement</a>. <strong>StructureTS</strong> view recap:</p>
+
+
+                    <h5><code>DOMElement.ts</code></h5>
+                    <p>todo</p>
+                    <p>Check out the doc's for <a href="">DOMElement</a></p>
+
+                    <h5><code>Stage.ts</code></h5>
+                    <p>todo</p>
+                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/Stage.html">Stage</a></p>
+
+                    <h5><code>BaseEvent.ts</code> & <code>EventDispatcher.ts</code></h5>
+                    <p>todo</p>
+                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/BaseEvent.html">BaseEvent</a></p>
+                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/EventDispatcher.html">EventDispatcher</a></p>
+                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/EventBroker.html">EventBroker</a></p>
+
+                    <h5><code>ValueObject.ts</code></h5>
+                    <p>todo</p>
+                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/ValueObject.html">ValueObject</a></p>
+
+                    <h5><code>Collection.ts</code></h5>
+                    <p>todo</p>
+                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/Collection.html">Collection</a></p>
+
+                    <h5><strong>StructureTS</strong> jQuery <code>addEventListener</code> plugin</h5>
+                    <p>todo</p>
+
+                    <h2>StructureTS Boilerplate - Grunt Workflow</h2>
+                    <p>todo</p>
+
+                    <h2>Folder Sturcture</h2>
+                    <p>todo</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <!-- .entry-content -->
 
                 <!-- .entry-meta -->
@@ -188,19 +376,10 @@
 
 
     <div id="secondary" class="widget-area" role="complementary">
-        <aside id="tm_latest_cp_widget-2" class="widget tm_latest_cp_widget"><h3 class="widget-title">Latest
-            Announcements</h3>
+        <aside id="tm_latest_cp_widget-2" class="widget tm_latest_cp_widget"><h3 class="widget-title">Latest Announcements</h3>
             <ul class="tm-latest-updates textwidget">
-                <li><a href="#">JS Libraries updated</a></li>
+                <li><a href="#"></a></li>
             </ul>
-        </aside>
-        <aside id="nav_menu-2" class="widget widget_nav_menu"><h3 class="widget-title">Resources</h3>
-
-            <div class="menu-resource_nav-container">
-                <ul id="menu-resource_nav" class="menu">
-                    <li><a href="#/getting-started/">Getting Started</a></li>
-                </ul>
-            </div>
         </aside>
     </div>
     <!-- #secondary -->
