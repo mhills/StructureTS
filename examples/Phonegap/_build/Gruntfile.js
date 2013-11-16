@@ -167,9 +167,9 @@ module.exports = function(grunt) {
                     '<%= DEVELOPMENT_PATH %>' + 'libs/jquery/jquery-2.0.3.js',
                     '<%= DEVELOPMENT_PATH %>' + 'libs/lodash/lodash.js',
                     '<%= DEVELOPMENT_PATH %>' + 'libs/handlebars/handlebars.js',
-                    '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/json.js',
-                    '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/templates.tmpl.js',
-                    '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/app.js'
+                    '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/json.js',
+                    '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/templates.tmpl.js',
+                    '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/app.js'
                 ],
                 dest: '<%= PRODUCTION_PATH %>' + 'js/app.js'
             },
@@ -194,7 +194,7 @@ module.exports = function(grunt) {
                     }
                 },
                 src: ['<%= DEVELOPMENT_PATH %>' + 'data/**/*.json'],
-                dest:  '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/json.js'
+                dest:  '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/json.js'
             }
         },
 
@@ -217,7 +217,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    '<%= DEVELOPMENT_PATH %>scripts/_compiled/templates.tmpl.js': ['<%= DEVELOPMENT_PATH %>' + 'templates/**/*.hbs']
+                    '<%= DEVELOPMENT_PATH %>scripts/compiled/templates.tmpl.js': ['<%= DEVELOPMENT_PATH %>' + 'templates/**/*.hbs']
                 }
             }
         },
@@ -225,7 +225,7 @@ module.exports = function(grunt) {
         typescript: {
             main: {
                 src: ['<%= DEVELOPMENT_PATH %>' + 'scripts/ZombieApp.ts'],
-                dest: '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/app.js',
+                dest: '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/app.js',
                 options: {
                     target: 'es3', //or es5
                     base_path: '',

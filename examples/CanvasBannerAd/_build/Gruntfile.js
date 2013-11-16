@@ -163,9 +163,9 @@ module.exports = function(grunt) {
                 src: [
                     '<%= DEVELOPMENT_PATH %>' + 'libs/jquery/jquery-1.9.1.js',
                     '<%= DEVELOPMENT_PATH %>' + 'libs/handlebars/handlebars.js',
-                    '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/json.js',
-                    '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/templates.tmpl.js',
-                    '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/app.js'
+                    '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/json.js',
+                    '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/templates.tmpl.js',
+                    '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/app.js'
                 ],
                 dest: '<%= PRODUCTION_PATH %>' + 'scripts/app.min.js'
             },
@@ -190,7 +190,7 @@ module.exports = function(grunt) {
                     }
                 },
                 src: ['<%= DEVELOPMENT_PATH %>' + 'data/**/*.json'],
-                dest:  '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/json.js'
+                dest:  '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/json.js'
             }
         },
 
@@ -212,7 +212,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    '<%= DEVELOPMENT_PATH %>scripts/_compiled/templates.tmpl.js': ['<%= DEVELOPMENT_PATH %>' + 'templates/**/*.hbs']
+                    '<%= DEVELOPMENT_PATH %>scripts/compiled/templates.tmpl.js': ['<%= DEVELOPMENT_PATH %>' + 'templates/**/*.hbs']
                 }
             }
         },
@@ -220,7 +220,7 @@ module.exports = function(grunt) {
         typescript: {
             dev: {
                 src: ['<%= DEVELOPMENT_PATH %>' + 'scripts/BannerAd.ts'],
-                dest: '<%= DEVELOPMENT_PATH %>' + 'scripts/_compiled/bannerAd.js',
+                dest: '<%= DEVELOPMENT_PATH %>' + 'scripts/compiled/bannerAd.js',
                 options: {
                     target: 'es3', //or es5
                     base_path: '',
