@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>StructureTS Single Page Website App</title>
+
+        <!-- The current version of the application -->
+        <meta name="version" content="<!-- @echo appVersion -->"/>
+
+        <!-- @if NODE_ENV == 'DEVELOPMENT' -->
+        <link rel="stylesheet" type="text/css" media="screen" href="styles/import.css" />
+        <!-- @endif -->
+
+        <!-- @if NODE_ENV == 'PRODUCTION' -->
+        <link rel="stylesheet" media="screen, projection" href="styles/main.min.css" />
+        <!-- @endif -->
+    </head>
+    <body>
+        <!-- @if NODE_ENV == 'DEVELOPMENT' -->
+        <script type="text/javascript" src="libs/jquery/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="libs/handlebars/handlebars.js"></script>
+        <script type="text/javascript" src="scripts/compiled/json.js"></script>
+        <script type="text/javascript" src="scripts/compiled/templates.tmpl.js"></script>
+        <script type="text/javascript" src="scripts/compiled/app.js"></script>
+        <!-- @endif -->
+
+        <!-- @if NODE_ENV == 'PRODUCTION' -->
+        <script src="scripts/app.min.js"></script>
+        <!-- @endif -->
+
+        <script>
+            window.onload = function(event) {
+                // Get class from namespace.
+                var WebsiteApp = codeBelt.WebsiteApp;
+
+                var app = new WebsiteApp();
+                app.appendTo('body');
+            }
+        </script>
+    </body>
+</html>

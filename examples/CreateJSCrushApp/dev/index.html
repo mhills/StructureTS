@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>StructureTS Single Page Website App</title>
+
+        <!-- The current version of the application -->
+        <meta name="version" content="0.1.0"/>
+
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="styles/import.css" />
+        
+
+        
+    </head>
+    <body>
+        
+        <script type="text/javascript" src="libs/jquery/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="libs/handlebars/handlebars.js"></script>
+        <script type="text/javascript" src="scripts/compiled/app.js"></script>
+        
+
+        
+
+        <script>
+            window.onload = function(event) {
+                // Get class from namespace.
+                var CreateJSApp = codeBelt.CreateJSApp;
+
+                var app = new CreateJSApp();
+                app.appendTo('body');
+            }
+        </script>
+    </body>
+</html>
