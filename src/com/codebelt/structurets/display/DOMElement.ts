@@ -37,7 +37,7 @@ module StructureTS
      * @module StructureTS
      * @submodule view
      * @constructor
-     * @version 0.1.1
+     * @version 0.1.2
      **/
     export class DOMElement extends DisplayObjectContainer
     {
@@ -112,6 +112,14 @@ module StructureTS
             // Use the data passed into the constructor first else use the arguments from createChildren.
             type = this._type || type;
             params = this._params || params;
+
+            // If the raw element is not null it must of been set before this addChild was called and
+            // we should it as the element for this display object.
+            if (this.element != null)
+            {
+                this.$element = jQuery(this.element);
+                return this;
+            }
 
             if (!this.$element)
             {
