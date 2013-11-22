@@ -32,7 +32,7 @@ module codeBelt
          */
         public createChildren():void
         {
-            super.createChildren('canvas', {width: 320, height: 480});
+            super.createChildren('canvas', {Width: 1320, Height: 480});// Note the capital Width and Height. This sets the w/h on the element itself and not the style w/h.
 
             this._canvasStage = new createjs.Stage(<HTMLCanvasElement>this.element);
 
@@ -47,7 +47,6 @@ module codeBelt
             this._canvasStage.addChild(backgroundImage);
 
             var frameImage:createjs.Bitmap = new createjs.Bitmap(image1);
-            frameImage.scaleX = 1;
             this._canvasStage.addChild(frameImage);
 
             this._canvasStage.update();
