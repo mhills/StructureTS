@@ -325,7 +325,7 @@ module.exports = function(grunt) {
 
     // Grunt tasks.
     grunt.registerTask('default', ['server']);
-    grunt.registerTask('dev', ['env:dev', 'preprocess:dev', 'json', 'handlebars', 'typescript']);
+    grunt.registerTask('dev', ['env:dev', 'preprocess:dev', 'typescript']);
     grunt.registerTask('server', ['dev', 'express:dev', 'open:dev', 'watch:dev']);
 
 };

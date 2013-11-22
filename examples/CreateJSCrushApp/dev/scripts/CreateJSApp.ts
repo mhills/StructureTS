@@ -1,9 +1,11 @@
 ///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
 
+///<reference path='view/GameView.ts'/>
 
 module codeBelt
 {
     import Stage = StructureTS.Stage;
+    import DOMElement = StructureTS.DOMElement;
 
     export class CreateJSApp extends Stage
     {
@@ -11,6 +13,9 @@ module codeBelt
          * @overridden Stage.CLASS_NAME
          */
         public CLASS_NAME:string = 'CreateJSApp';
+
+        private _gameView:GameView = null;
+        private _preload:createjs.LoadQueue = null;
 
         constructor()
         {
@@ -24,6 +29,19 @@ module codeBelt
         {
             super.createChildren();
 
+            var manifest = [
+                {src:"images/ui/back3.png", id:"background"},
+                {src:"images/ui/overlay.png", id:"overlay"},
+                {src:"images/ui/frame.png", id:"frame"}
+            ];
+
+            this._preload = new createjs.LoadQueue(true);
+
+
+//            this._preload.addEventListener("progress", handleProgress);
+            this._preload.addEventListener("complete", this.preloadComplete.bind(this));
+//            this._preload.addEventListener("fileload", handleFileLoad);
+            this._preload.loadManifest(manifest);
         }
 
         /**
@@ -43,6 +61,8 @@ module codeBelt
         {
             if (this.isEnabled === false) return;
 
+            this._gameView.destroy();
+
             super.disable();
         }
 
@@ -53,6 +73,15 @@ module codeBelt
         {
             super.destroy();
 
+            this._gameView.destroy();
+        }
+
+
+        private preloadComplete():void
+        {
+            this._gameView = new GameView(this._preload);
+            this.addChild(this._gameView);
+            this._gameView.enable();
         }
 
     }
