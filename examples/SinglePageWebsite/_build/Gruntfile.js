@@ -224,7 +224,7 @@ module.exports = function(grunt) {
                 options: {
                     target: 'es3', //or es5
                     base_path: '',
-                    sourcemap: false,
+                    sourcemap: true,
                     declaration: false,
                     nolib: false,
                     comments: false

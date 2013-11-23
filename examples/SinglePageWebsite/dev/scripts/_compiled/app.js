@@ -225,12 +225,17 @@ var StructureTS;
     })();
     StructureTS.BaseEvent = BaseEvent;
 })(StructureTS || (StructureTS = {}));
+
+
+
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+
+
 var StructureTS;
 (function (StructureTS) {
     var EventDispatcher = (function (_super) {

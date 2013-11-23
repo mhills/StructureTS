@@ -4,6 +4,9 @@
 
 ///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 
+///<reference path='../CreateJSApp.ts'/>
+///<reference path='../util/ImageFactory.ts'/>
+
 
 module codeBelt
 {
@@ -17,14 +20,11 @@ module codeBelt
         public CLASS_NAME:string = 'GameView';
 
         private _canvasStage:createjs.Stage = null;
-        private _preload:createjs.LoadQueue = null;
         private _onEnterFrameReference:any = null;
 
-        constructor(preload:createjs.LoadQueue)
+        constructor()
         {
             super();
-
-            this._preload = preload;
         }
 
         /**
@@ -36,20 +36,20 @@ module codeBelt
 
             this._canvasStage = new createjs.Stage(<HTMLCanvasElement>this.element);
 
-            createjs.Ticker.setFPS(60);
-
-            this._onEnterFrameReference = this.onEnterFrame.bind(this);
-
-            var image:HTMLImageElement = <HTMLImageElement>this._preload.getResult("background");
-            var image1:HTMLImageElement = <HTMLImageElement>this._preload.getResult("frame");
-
-            var backgroundImage:createjs.Bitmap = new createjs.Bitmap(image);
+            var backgroundImage:createjs.Bitmap = ImageFactory.create("background");
             this._canvasStage.addChild(backgroundImage);
 
-            var frameImage:createjs.Bitmap = new createjs.Bitmap(image1);
+            var frameImage:createjs.Bitmap = ImageFactory.create("frame");
             this._canvasStage.addChild(frameImage);
 
+            var candy:createjs.Bitmap = ImageFactory.create("1");
+            candy.x = 50;
+            candy.y = 100;
+            this._canvasStage.addChild(candy);
             this._canvasStage.update();
+
+            createjs.Ticker.setFPS(60);
+            this._onEnterFrameReference = this.onEnterFrame.bind(this);
         }
 
         /**
