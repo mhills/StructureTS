@@ -33,14 +33,15 @@ module codeBelt
                 {src:"images/ui/back3.png", id:"background"},
                 {src:"images/ui/frame.png", id:"frame"},
                 {src:"images/ui/overlay.png", id:"overlay"},
-                {src:"images/ui/candy/1.png", id:"1"},
-                {src:"images/ui/candy/2.png", id:"2"},
-                {src:"images/ui/candy/3.png", id:"3"},
-                {src:"images/ui/candy/4.png", id:"4"},
-                {src:"images/ui/candy/5.png", id:"5"},
-                {src:"images/ui/candy/6.png", id:"6"},
-                {src:"images/ui/candy/7.png", id:"7"},
-                {src:"images/ui/candy/8.png", id:"8"}
+
+                {src:"images/ui/candy/beanBlue.png", id:"beanBlue"},
+                {src:"images/ui/candy/beanPurple.png", id:"beanPurple"},
+                {src:"images/ui/candy/candyBlue.png", id:"candyBlue"},
+                {src:"images/ui/candy/candyGreen.png", id:"candyGreen"},
+                {src:"images/ui/candy/candyOrange.png", id:"candyOrange"},
+                {src:"images/ui/candy/candyYellow.png", id:"candyYellow"},
+                {src:"images/ui/candy/mintGreen.png", id:"mintGreen"},
+                {src:"images/ui/candy/mintRed.png", id:"mintRed"}
             ];
 
             CreateJSApp.ASSET_LOADER = new createjs.LoadQueue(true);
@@ -55,8 +56,8 @@ module codeBelt
 //            createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.FlashPlugin]);
 //            createjs.Sound.addEventListener("fileload", this.loadHandler.bind(this));
 //            createjs.Sound.registerSound("sounds/IttyBitty8Bit.mp3", "backgroundSound");
-
         }
+
 
         loadHandler(event) {
             console.log("loadHandler");

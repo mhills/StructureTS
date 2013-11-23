@@ -22,5 +22,19 @@ module codeBelt
             return new createjs.Bitmap(imageElement);
         }
 
+        public static getRandomGamePiece():createjs.Bitmap
+        {
+            var gamePieces:string[] = ['beanBlue', 'beanPurple', 'candyBlue', 'candyGreen', 'candyOrange', 'candyYellow', 'mintGreen', 'mintRed'];
+            var randomIndex:number = ImageFactory.randomRange(0, gamePieces.length);
+
+            var imageElement:HTMLImageElement = <HTMLImageElement>CreateJSApp.ASSET_LOADER.getResult(gamePieces[randomIndex]);
+            return new createjs.Bitmap(imageElement);
+        }
+
+        public static randomRange(min:number, max:number):number
+        {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
     }
 }

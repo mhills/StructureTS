@@ -842,6 +842,18 @@ var codeBelt;
             var imageElement = codeBelt.CreateJSApp.ASSET_LOADER.getResult(image);
             return new createjs.Bitmap(imageElement);
         };
+
+        ImageFactory.getRandomGamePiece = function () {
+            var gamePieces = ['beanBlue', 'beanPurple', 'candyBlue', 'candyGreen', 'candyOrange', 'candyYellow', 'mintGreen', 'mintRed'];
+            var randomIndex = ImageFactory.randomRange(0, gamePieces.length);
+
+            var imageElement = codeBelt.CreateJSApp.ASSET_LOADER.getResult(gamePieces[randomIndex]);
+            return new createjs.Bitmap(imageElement);
+        };
+
+        ImageFactory.randomRange = function (min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        };
         return ImageFactory;
     })();
     codeBelt.ImageFactory = ImageFactory;
@@ -857,9 +869,18 @@ var codeBelt;
             this.CLASS_NAME = 'GameView';
             this._canvasStage = null;
             this._onEnterFrameReference = null;
+            this._gamePiecesList = [];
+            this.CONTAINER_WIDTH = 320;
+            this.CONTAINER_HIEGHT = 480;
+            this.GAME_PIECE_WIDTH = 54;
+            this.GAME_PIECE_HEIGHT = 54;
+            this.NUM_COLUMNS = 6;
+            this.NUM_ROWS = 7;
+            this.V_SPACE = 0;
+            this.H_SPACE = 0;
         }
         GameView.prototype.createChildren = function () {
-            _super.prototype.createChildren.call(this, 'canvas', { Width: 1320, Height: 480 });
+            _super.prototype.createChildren.call(this, 'canvas', { Width: 320, Height: 480 });
 
             this._canvasStage = new createjs.Stage(this.element);
 
@@ -869,19 +890,45 @@ var codeBelt;
             var frameImage = codeBelt.ImageFactory.create("frame");
             this._canvasStage.addChild(frameImage);
 
-            var candy = codeBelt.ImageFactory.create("1");
-            candy.x = 50;
-            candy.y = 100;
-            this._canvasStage.addChild(candy);
-            this._canvasStage.update();
-
             createjs.Ticker.setFPS(60);
             this._onEnterFrameReference = this.onEnterFrame.bind(this);
+
+            var itemAspectRatio = this.GAME_PIECE_WIDTH / this.GAME_PIECE_HEIGHT;
+            var itemWidth = ((this.CONTAINER_WIDTH + this.H_SPACE) / this.NUM_COLUMNS) - this.H_SPACE;
+            var itemHeight = ((this.CONTAINER_HIEGHT + this.V_SPACE) / this.NUM_ROWS) - this.V_SPACE;
+
+            var item;
+            for (var i = 0; i < 40; i++) {
+                item = codeBelt.ImageFactory.getRandomGamePiece();
+                item.x = (i % this.NUM_COLUMNS) * (this.GAME_PIECE_WIDTH + this.H_SPACE);
+                item.y = Math.floor(i / this.NUM_COLUMNS) * (this.GAME_PIECE_HEIGHT + this.V_SPACE);
+                this._gamePiecesList.push(item);
+                this._canvasStage.addChild(item);
+            }
+
+            var gemSize = this.GAME_PIECE_WIDTH / this.NUM_COLUMNS;
+
+            if (gemSize > this.GAME_PIECE_HEIGHT / this.NUM_ROWS) {
+                gemSize = this.GAME_PIECE_HEIGHT / this.NUM_ROWS;
+            }
+
+            console.log("gemSize", gemSize);
+            console.log("itemAspectRatio", itemAspectRatio);
+
+            var x0 = (this.GAME_PIECE_WIDTH - (this.NUM_COLUMNS * gemSize)) / 2 + gemSize / 2;
+
+            var y0 = this.GAME_PIECE_HEIGHT - (this.GAME_PIECE_HEIGHT - (this.NUM_ROWS * gemSize)) / 2 - gemSize / 2 + 4;
+
+            console.log("x0", x0);
+            console.log("y0", y0);
+            this._canvasStage.update();
         };
 
         GameView.prototype.enable = function () {
             if (this.isEnabled === true)
                 return;
+
+            createjs.Ticker.addEventListener("tick", this._onEnterFrameReference);
 
             _super.prototype.enable.call(this);
         };
@@ -925,14 +972,14 @@ var codeBelt;
                 { src: "images/ui/back3.png", id: "background" },
                 { src: "images/ui/frame.png", id: "frame" },
                 { src: "images/ui/overlay.png", id: "overlay" },
-                { src: "images/ui/candy/1.png", id: "1" },
-                { src: "images/ui/candy/2.png", id: "2" },
-                { src: "images/ui/candy/3.png", id: "3" },
-                { src: "images/ui/candy/4.png", id: "4" },
-                { src: "images/ui/candy/5.png", id: "5" },
-                { src: "images/ui/candy/6.png", id: "6" },
-                { src: "images/ui/candy/7.png", id: "7" },
-                { src: "images/ui/candy/8.png", id: "8" }
+                { src: "images/ui/candy/beanBlue.png", id: "beanBlue" },
+                { src: "images/ui/candy/beanPurple.png", id: "beanPurple" },
+                { src: "images/ui/candy/candyBlue.png", id: "candyBlue" },
+                { src: "images/ui/candy/candyGreen.png", id: "candyGreen" },
+                { src: "images/ui/candy/candyOrange.png", id: "candyOrange" },
+                { src: "images/ui/candy/candyYellow.png", id: "candyYellow" },
+                { src: "images/ui/candy/mintGreen.png", id: "mintGreen" },
+                { src: "images/ui/candy/mintRed.png", id: "mintRed" }
             ];
 
             CreateJSApp.ASSET_LOADER = new createjs.LoadQueue(true);
