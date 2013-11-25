@@ -23,14 +23,18 @@ module codeBelt
         private _onEnterFrameReference:any = null;
         private _gamePiecesList:createjs.DisplayObject[] = [];
 
-        private CONTAINER_WIDTH:number = 320;
-        private CONTAINER_HIEGHT:number = 480;
-        private GAME_PIECE_WIDTH:number = 54;
-        private GAME_PIECE_HEIGHT:number = 54;
+        private CONTAINER_WIDTH:number = 293;
+        private CONTAINER_HIEGHT:number = 350;
         private NUM_COLUMNS:number = 6;
         private NUM_ROWS:number = 7;
         private V_SPACE:number = 0;
         private H_SPACE:number = 0;
+
+        private orignalGamePieceWidth:number = 54;
+        private orignalGamePieceHeight:number = 54;
+
+        private gamePieceWidth:number = 0;
+        private gamePieceHeight:number = 0;
 
         constructor()
         {
@@ -57,38 +61,60 @@ module codeBelt
             this._onEnterFrameReference = this.onEnterFrame.bind(this);
 
 
-            var itemAspectRatio:number = this.GAME_PIECE_WIDTH / this.GAME_PIECE_HEIGHT;
-            var itemWidth:number = ((this.CONTAINER_WIDTH + this.H_SPACE) / this.NUM_COLUMNS) - this.H_SPACE;
-            var itemHeight:number = ((this.CONTAINER_HIEGHT + this.V_SPACE) / this.NUM_ROWS) - this.V_SPACE;
+            var contianer:createjs.Container =  new createjs.Container();
+            contianer.x = 13;
+            contianer.y = 70;
 
+//            var itemAspectRatio:number = this.gamePieceWidth / this.gamePieceHeight;
+//            var itemWidth:number = ((this.CONTAINER_WIDTH + this.H_SPACE) / this.NUM_COLUMNS) - this.H_SPACE;
+//            var itemHeight:number = ((this.CONTAINER_HIEGHT + this.V_SPACE) / this.NUM_ROWS) - this.V_SPACE;
+
+
+            this.gamePieceWidth = Math.floor(this.CONTAINER_WIDTH / this.NUM_COLUMNS);
+            this.gamePieceHeight = Math.floor(this.CONTAINER_HIEGHT / this.NUM_ROWS);
+
+            var scaleX:number = this.gamePieceWidth / this.orignalGamePieceWidth;
+            var scaleY:number = this.gamePieceHeight / this.orignalGamePieceHeight;
+
+            var numGamePiece:number = this.NUM_COLUMNS * this.NUM_ROWS;
             var item:createjs.DisplayObject;
-            for (var i:number = 0; i < 40; i++)
+            for (var i:number = 0; i < numGamePiece; i++)
             {
                 item = ImageFactory.getRandomGamePiece();
-                item.x = (i % this.NUM_COLUMNS) * (this.GAME_PIECE_WIDTH + this.H_SPACE);
-                item.y = Math.floor(i / this.NUM_COLUMNS) * (this.GAME_PIECE_HEIGHT + this.V_SPACE);
+                item.x = (i % this.NUM_COLUMNS) * (this.gamePieceWidth + this.H_SPACE);
+                item.y = Math.floor(i / this.NUM_COLUMNS) * (this.gamePieceHeight + this.V_SPACE);
+
+                item.scaleX = item.scaleY = scaleX;
+
                 this._gamePiecesList.push(item);
-                this._canvasStage.addChild(item);
+                contianer.addChild(item);
             }
 
 
-            var gemSize = this.GAME_PIECE_WIDTH/this.NUM_COLUMNS;
+//            var gemSize = this.gamePieceWidth/this.NUM_COLUMNS;
+//
+//            if(gemSize > this.gamePieceHeight/this.NUM_ROWS) {
+//
+//                gemSize = this.gamePieceHeight/this.NUM_ROWS;
+//
+//            }
 
-            if(gemSize > this.GAME_PIECE_HEIGHT/this.NUM_ROWS) {
 
-                gemSize = this.GAME_PIECE_HEIGHT/this.NUM_ROWS;
 
-            }
+//            var shape:createjs.Shape = new createjs.Shape();
+//            shape.graphics.beginFill('#00ff00');
+//            shape.graphics.drawRect(0, 0, this.CONTAINER_WIDTH, this.CONTAINER_HIEGHT);
+//            shape.graphics.endFill();
+//            shape.alpha = 0.5;
+//            contianer.addChild(shape);
 
-            console.log("gemSize", gemSize);
-            console.log("itemAspectRatio", itemAspectRatio);
+                              this._canvasStage.addChild(contianer);
 
-            var x0 = (this.GAME_PIECE_WIDTH - (this.NUM_COLUMNS * gemSize))/2 + gemSize/2
-
-            var y0 = this.GAME_PIECE_HEIGHT - (this.GAME_PIECE_HEIGHT - (this.NUM_ROWS * gemSize))/2 - gemSize/2  + 4;
-
-            console.log("x0", x0);
-            console.log("y0", y0);
+//            var x0 = (this.gamePieceWidth - (this.NUM_COLUMNS * gemSize)) / 2 + gemSize / 2;
+//            var y0 = this.gamePieceHeight - (this.gamePieceHeight - (this.NUM_ROWS * gemSize))/2 - gemSize/2  + 4;
+//
+//            console.log("x0", x0);
+//            console.log("y0", y0);
             this._canvasStage.update();
 
 
