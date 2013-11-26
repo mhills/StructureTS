@@ -155,7 +155,6 @@
                         <li><strong>Why did you build it?</strong> <br/>To make my life easier.</li>
                         <li><strong>Can I use it?</strong> <br/>Sure.</li>
                         <li><strong>Is StructureTS based off another language?</strong> <br/>Yes, I am developing the api and conventions to match <a href="http://en.wikipedia.org/wiki/ActionScript">ActionScript</a> because it is a solid ECMAScript object-oriented language.</li>
-                        <li><strong>If StructureTS is for you then why create all these examples and documentation?</strong> <br/>Basically its for people I work with now and in the future. I can show them why TypeScript and StructureTS is the best way to do JavaScript development for large and small projects.</li>
                     </ol>
 
                     <p><strong>StructureTS</strong> is built in TypeScript. If want to learn more about TypeScript checkout these links:</p>
@@ -316,7 +315,7 @@ module myNamespace
                     <p>There is a specific lifecycle the <code>DOMElement</code> class follows:</p>
                     <dl>
                         <dt><code>createChildren()</code> is where you create the child objects for the view.</dt>
-                        <dd><p>gets called only once when the child view is added to another view. If the child view is removed and added to another view createChildren will not be called again. Example: this.addChild(childView);</p>
+                        <dd><p>This method gets called only once when the child view is added to another view. If the child view is removed and added to another view the createChildren method will not be called again.</p>
 
 <p>By default your view class will be a div element:</p>
 
@@ -337,7 +336,7 @@ public createChildren():void {
 </code>
 </pre>
 
-Lets take it a step further:
+Then you could nest other elements inside this base view/element.
 
 <pre class="javascript">
 <code>
@@ -350,55 +349,128 @@ public createChildren():void {
 </code>
 </pre>
 
-So thats cool but what if you wanted a block of html to be your view. We you can send createChild an id name to your Handlebars template that exists in your html file. And if you pass in a second argument of data it will render your Handlebars template with that data.
+So that's cool but what if you wanted a block of html to be your view. Let's say you had the below inline Handlebar template in your html file.
+<pre class="javascript">
+<code>
+&lt;script id="todoTemplate" type="text/template">
+    &lt;div id="htmlTemplatel" class="js-todo">
+        &lt;div id="input-wrapper">
+            &lt;input type="text" class="list-input" placeholder="{{ data.text }}">
+            &lt;input type="button" class="list-item-submit" value="Add">
+        &lt;/div>
+    &lt;/div>
+&lt;/script>
+</code>
+</pre>
+
+You would just pass in the id of the template which in this case is "#todoTemplate". There is a second <strong>optional</strong> argument where you can pass data for the Handlebar template to use.
 
 <pre class="javascript">
 <code>
 public createChildren():void {
-    super.createChildren('#htmlTemplatel');
+    super.createChildren('#todoTemplate', { data: this.viewData });
 
-    var another:DOMElement = new DOMElement('#anotherTemplate');
-    this.addChild(another);
 }
 </code>
 </pre>
 
-And if you are using precompiled template you would do:
+One more. Let's say you wanted the Handlebar templates in there own files and then pre-compiled them so they would be faster to use. With the StructureTS work flow you can do this. Then you just have to reference the path to the template.
 
 <pre class="javascript">
 <code>
 public createChildren():void {
-    super.createChildren('templates/HtmlTemplate.hbs');
+    super.createChildren('templates/home/HtmlTemplate.hbs');
 
-    var another:DOMElement = new DOMElement('templates/HtmlTemplate.hbs');
-    this.addChild(another);
 }
 </code>
 </pre>
+
+
 
                         </dd>
-                        <dt><code>layoutChildren()</code> is where you layout and update any of the child objects for the view.</dt>
-                        <dd>gets called right after createChildren but it can be called later to update the children of a view.</dd>
+                        <dt><code>layoutChildren()</code> is where you layout / update any of the child objects for the view.</dt>
+                        <dd>This method gets called right after createChildren is called but it can be called manually later to update the children of a view.
+<pre class="javascript">
+<code>
+public layoutChildren():void {
+    var contentHeight = this.getBounds('#js-content').height;
+    var tabContentHeight = this.pageHeight - contentHeight;
+
+    this.$element.find('.tabs-pane')
+                 .height(tabContentHeight);
+}
+</code>
+</pre>
+                        </dd>
                         <dt><code>enable()</code> is where you enable the child objects for the view.</dt>
-                        <dd>is responsible for enabling event listeners and/or children of the containing view.</dd>
+                        <dd>This method is responsible for enabling event listeners and/or children of the containing view. This way if you have children views nested with other children view you can be sure to all children and sub children of a parent view with can be enabled.
+<pre class="javascript">
+<code>
+public enable():void {
+    if (this.isEnabled === true) return;
+
+    this.$element.addEventListener('click', this.onMediaClick, this);
+
+    this._tabComponent.enable();
+
+    super.enable();
+}
+</code>
+</pre>
+                        </dd>
                         <dt><code>disable()</code> is where you disable the child objects for the view.</dt>
-                        <dd>is responsible for disabling event listeners and/or children of the containing view.</dd>
+                        <dd>This method is responsible for disabling event listeners and/or children of the containing view.  This way if you have children views nested with other children view you can be sure to all children and sub children of a parent view with can be disabled.
+<pre class="javascript">
+<code>
+public disable():void {
+    if (this.isEnabled === false) return;
+
+    this.$element.removeEventListener('click', this.onMediaClick, this);
+
+    this._tabComponent.disable();
+
+    super.disable();
+}
+</code>
+</pre>
+                        </dd>
                         <dt><code>destroy()</code> is where you destroy the child objects for the view.</dt>
-                        <dd>the destroy method is to make child objects ready for garbage collection.</dd>
+                        <dd>This method is responsible for cleaning up the view and getting the child objects ready for garbage collection.
+<pre class="javascript">
+<code>
+public destroy():void {
+    super.destroy();
+
+    this._tabComponent.destroy();
+    this._tabComponent = null;
+}
+</code>
+</pre>
+                        </dd>
                     </dl>
-                    <p>Later you can check out the doc's for the <a href="http://codebelt.github.io/StructureTS/docs/classes/DOMElement.html">DOMElement</a>. <strong>StructureTS</strong> view recap:</p>
+                    <p>Later you can check out the doc's for the <a href="http://codebelt.github.io/StructureTS/docs/classes/DOMElement.html" target="_blank">DOMElement</a>.</p>
 
-
-                    <h5><code>DOMElement.ts</code></h5>
-                    <p>todo</p>
-                    <p>Check out the doc's for <a href="">DOMElement</a></p>
 
                     <h5><code>Stage.ts</code></h5>
-                    <p>todo</p>
-                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/Stage.html">Stage</a></p>
+                    <p>The <code>Stage</code> class extends the <code>DOMElement</code> class. You will extend this class for your main class. The <code>Stage</code> class has one extra method for appending your application into the DOM. The method is call appendTo() and accepts a selector. The selector can be a element's id or class name or you can reference a tag name like "body". You can see an example <a href="https://github.com/codeBelt/StructureTS/blob/gh-pages/examples/SinglePageWebsite/dev/scripts/WebsiteApp.ts" target="_blank">here</a>.
+<pre class="javascript">
+<code>
+&lt;script>
+    window.onload = function(event) {
+        // Get class from your namespace.
+        var Main = codeBelt.Main;
 
-                    <h5><code>BaseEvent.ts</code> & <code>EventDispatcher.ts</code></h5>
-                    <p>todo</p>
+        var app = new Main();
+        app.appendTo('.wrapper');
+    }
+&lt;/script>
+</code>
+</pre>
+                    Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/Stage.html">Stage</a>
+                    </p>
+
+                    <h5><code>EventDispatcher.ts</code> & <code>BaseEvent.ts</code></h5>
+                    <p>Many of the <strong>StructureTS</strong> classes extend <code>EventDispatcher</code> and provide a way for you classes to dispatch events. For example the <code>DOMElement</code> class extends <code>EventDispatcher</code> ...</p>
                     <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/BaseEvent.html">BaseEvent</a></p>
                     <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/EventDispatcher.html">EventDispatcher</a></p>
                     <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/EventBroker.html">EventBroker</a></p>
