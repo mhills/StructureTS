@@ -469,11 +469,86 @@ public destroy():void {
                     Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/Stage.html">Stage</a>
                     </p>
 
-                    <h5><code>EventDispatcher.ts</code> & <code>BaseEvent.ts</code></h5>
-                    <p>Many of the <strong>StructureTS</strong> classes extend <code>EventDispatcher</code> and provide a way for you classes to dispatch events. For example the <code>DOMElement</code> class extends <code>EventDispatcher</code> ...</p>
-                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/BaseEvent.html">BaseEvent</a></p>
-                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/EventDispatcher.html">EventDispatcher</a></p>
-                    <p>Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/EventBroker.html">EventBroker</a></p>
+                    <h5><code>EventDispatcher.ts</code></h5>
+                    <p>Many of the <strong>StructureTS</strong> classes extend <code>EventDispatcher</code> which provides a way for you classes to dispatch events. For example the <code>DOMElement</code> class extends <code>EventDispatcher</code>. When you
+                        are dealing with views, events can bubble throughout the display list. If you want you
+                        can set events to be cancelable and use the stopPropagation() or stopImmediatePropagation()
+                        methods to prevent events bubbling up. Checkout the <strong>Event Bubbling Example</strong> to see this in action.
+
+<pre class="javascript">
+<code>
+// Basic way to dispatch an event:
+private someMethod():void {
+    var event:BaseEvent = new BaseEvent(BaseEvent.CHANGE);
+    this.dispatchEvent(event);
+}
+</code>
+</pre>
+In another class you would do the following to listen for the disptached event.
+<pre class="javascript">
+<code>
+public enable():void {
+    if (this.isEnabled === true) return;
+
+    this.objThatDispatchedEvent.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+
+    super.enable();
+}
+
+private handlerMethod(event:BaseEvent):void {
+    console.log(event.target + " sent the event.");
+}
+</code>
+</pre>
+                    Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/EventDispatcher.html">EventDispatcher</a>
+                    </p>
+                    <h5><code>BaseEvent.ts</code></h5>
+                    <p>In <strong>StructureTS</strong> there are several event classes you can use. All custom events
+                        need
+                        to extend the                         <code>BaseEvent</code> class.
+                        <pre class="javascript">
+<code>
+//BaseEvent(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
+var event:BaseEvent = new BaseEvent(BaseEvent.CHANGE, true, false, {data: "any data"});
+this.dispatchEvent(event);
+</code>
+</pre>
+
+                        Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/BaseEvent.html">BaseEvent</a></p>
+
+
+                    <h5><code>EventBroker.ts</code></h5>
+                    <p><strong>StructureTS</strong> is a event driven framework where you control who is dispatching
+                        and
+                        who is listening for certain events. I've also create a static class called <code>EventBroker</code>
+                            that
+                        acts as a global dispatcher. As a warning using this in large code bases will make your code harder for others to understand, test and modify since you have little control over who dispatches and who listens for certain events.
+
+                                                <pre class="javascript">
+<code>
+// Dispatching an event globally.
+var event:BaseEvent = new BaseEvent(BaseEvent.CHANGE);
+EventBroker.dispatchEvent(event);
+</code>
+</pre>
+                    Listening for global events:
+
+                                                                    <pre class="javascript">
+<code>
+// Listening for a global event.
+EventBroker.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
+
+private handlerMethod(event:BaseEvent):void {
+    console.log("Hey");
+}
+</code>
+</pre>
+
+
+
+
+
+                        Check out the doc's for <a href="http://codebelt.github.io/StructureTS/docs/classes/EventBroker.html">EventBroker</a></p>
 
                     <h5><code>ValueObject.ts</code></h5>
                     <p>todo</p>
