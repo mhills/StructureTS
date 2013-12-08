@@ -20,6 +20,7 @@ module.exports = function(grunt) {
         WINDOW_FILM_PATH: '../../../deploy/scripts/',
         SRC_PATH: '../src/',
         DEPLOY_PATH: '../deploy/',
+        TEST_PATH: '../test/',
 
 
         // A code block that will be added to all our minified code files.
@@ -139,6 +140,26 @@ module.exports = function(grunt) {
                     base_path: '',
                     sourcemap: false,
                     declaration: false
+                }
+            },
+            test: {
+                src: ['<%= TEST_PATH %>Test.spec.ts'],
+                dest: '<%= TEST_PATH %>spec/Test.spec.js',
+                options: {
+                    target: 'es3', // Options: es3, es5
+                    base_path: '',
+                    sourcemap: false,
+                    declaration: false
+                }
+            }
+        },
+
+        jasmine: {
+            pivotal: {
+                src: '<%= TEST_PATH %>js/**/*.js',
+                options: {
+                    specs: '<%= TEST_PATH %>spec/*.spec.js',
+                    helpers: '<%= TEST_PATH %>spec/*Helper.js'
                 }
             }
         },
@@ -380,6 +401,7 @@ module.exports = function(grunt) {
     grunt.registerTask('bubble', ['typescript:bubble']);
     grunt.registerTask('listener', ['typescript:listener']);
     grunt.registerTask('gallery', ['typescript:gallery']);
+    grunt.registerTask('test', ['typescript:test', 'jasmine']);
     grunt.registerTask('all', ['todo', 'canvas', 'bubble', 'listener', 'website']);
 
 };
