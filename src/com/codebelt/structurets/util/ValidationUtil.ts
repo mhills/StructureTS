@@ -42,6 +42,7 @@ module StructureTS
 
         constructor()
         {
+            //http://msdn.microsoft.com/en-us/library/ff650303.aspx
         }
 
         /**
@@ -55,8 +56,8 @@ module StructureTS
          */
         public static isValidEmailAddress(email:string):boolean
         {
-            var expression:RegExp = /[^@]+@[^@]+\.[a-zA-Z]{2,6}/;
-            return email.match(expression) != null;
+            var expression:RegExp = /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/;
+            return expression.test(email);
         }
 
         /**
@@ -70,7 +71,7 @@ module StructureTS
          */
         public static isValidPhoneNumber(phoneNumber:string):boolean
         {
-            var expression:RegExp = /^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,3})|(\(?\d{2,3}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$/i;
+            var expression:RegExp = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
             return expression.test(phoneNumber);
         }
 
@@ -102,6 +103,21 @@ module StructureTS
         {
             var expression:RegExp = /^([ABCEGHJKLMNPRSTVXY][0-9][A-Z] [0-9][A-Z][0-9])*$/;
             return expression.test(postalCode);
+        }
+
+        /**
+         * Determines if the String passed in is a Social Security Number.
+         *
+         * @method isSocialSecurityNumber
+         * @param ssn {string}
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static isSocialSecurityNumber(ssn:string):boolean
+        {
+            var expression:RegExp = /^\d{3}-\d{2}-\d{4}$/;
+            return expression.test(ssn);
         }
 
     }
