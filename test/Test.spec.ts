@@ -1,6 +1,8 @@
 ///<reference path='jasmine.d.ts'/>
 ///<reference path='../src/com/codebelt/structurets/util/NumberUtil.ts'/>
 ///<reference path='../src/com/codebelt/structurets/util/ValidationUtil.ts'/>
+///<reference path='../src/com/codebelt/structurets/util/StringUtil.ts'/>
+///<reference path='../src/com/codebelt/structurets/util/MerchantUtil.ts'/>
 
 //http://net.tutsplus.com/tutorials/javascript-ajax/testing-your-javascript-with-jasmine/
 
@@ -42,6 +44,7 @@ describe("ValidationUtil", function() {
         expect(ValidationUtil.isValidEmailAddress('first.last@123.iana.org')).toBeTruthy();
         expect(ValidationUtil.isValidEmailAddress('asdf@adsf.adsf')).toBeTruthy();
         expect(ValidationUtil.isValidEmailAddress('test@xn--example.com')).toBeTruthy();
+
         expect(ValidationUtil.isValidEmailAddress('first.last@sub.do,com')).toBeFalsy();
         expect(ValidationUtil.isValidEmailAddress('first\@last@iana.org')).toBeFalsy();
         expect(ValidationUtil.isValidEmailAddress('"first@last"@iana.org')).toBeFalsy();
@@ -68,5 +71,94 @@ describe("ValidationUtil", function() {
         expect(ValidationUtil.isValidPhoneNumber('(123) 456 7899')).toBeTruthy();
         expect(ValidationUtil.isValidPhoneNumber('1 123-234-4567')).toBeTruthy();
         expect(ValidationUtil.isValidPhoneNumber('1 123.234.4567')).toBeTruthy();
+
+        expect(ValidationUtil.isValidPhoneNumber('3456')).toBeFalsy();
+    });
+
+    it("isZipCode()", function() {
+        expect(ValidationUtil.isZipCode('55067')).toBeTruthy();
+        expect(ValidationUtil.isZipCode('55067-4434')).toBeTruthy();
+        expect(ValidationUtil.isZipCode('55067 4434')).toBeTruthy();
+        expect(ValidationUtil.isZipCode('550674434')).toBeTruthy();
+
+        expect(ValidationUtil.isZipCode('550673')).toBeFalsy();
+        expect(ValidationUtil.isZipCode('55067-44343')).toBeFalsy();
+        expect(ValidationUtil.isZipCode('55067 44343')).toBeFalsy();
+        expect(ValidationUtil.isZipCode('P8N 3G3')).toBeFalsy();
+    });
+
+    it("isPostalCode()", function() {
+        expect(ValidationUtil.isPostalCode('P8N 3G3')).toBeTruthy();
+        expect(ValidationUtil.isPostalCode('P8N3G3')).toBeTruthy();
+
+        expect(ValidationUtil.isPostalCode('P8N-3G3')).toBeFalsy();
+        expect(ValidationUtil.isPostalCode('P8N3G32')).toBeFalsy();
+        expect(ValidationUtil.isPostalCode('P8N 3G32')).toBeFalsy();
+        expect(ValidationUtil.isPostalCode('ADF REE')).toBeFalsy();
+    });
+
+    it("isSocialSecurityNumber()", function() {
+        expect(ValidationUtil.isSocialSecurityNumber('078051120')).toBeTruthy();
+        expect(ValidationUtil.isSocialSecurityNumber('078-05-1120')).toBeTruthy();
+
+        expect(ValidationUtil.isSocialSecurityNumber('078 05 1120')).toBeFalsy();
+        expect(ValidationUtil.isSocialSecurityNumber('078-05-11203')).toBeFalsy();
+        expect(ValidationUtil.isSocialSecurityNumber('078 05 11203')).toBeFalsy();
+        expect(ValidationUtil.isSocialSecurityNumber('0780511203')).toBeFalsy();
+        expect(ValidationUtil.isSocialSecurityNumber('346774')).toBeFalsy();
+    });
+});
+
+import StringUtil = StructureTS.StringUtil;
+describe("StringUtil", function() {
+    it("stringToBoolean()", function() {
+        expect(StringUtil.stringToBoolean("1")).toBeTruthy();
+        expect(StringUtil.stringToBoolean("true")).toBeTruthy();
+        expect(StringUtil.stringToBoolean("TRUE")).toBeTruthy();
+        expect(StringUtil.stringToBoolean("FALSE")).toBeFalsy();
+        expect(StringUtil.stringToBoolean("false")).toBeFalsy();
+        expect(StringUtil.stringToBoolean("0")).toBeFalsy();
+    });
+
+    it("getExtension()", function() {
+        expect(StringUtil.getExtension("file.exe")).toEqual("exe");
+        expect(StringUtil.getExtension("file.jpg.zip")).toEqual("zip");
+    });
+
+    it("hyphenToCamelCase()", function() {
+        expect(StringUtil.hyphenToCamelCase("hyphen-to-camel-case")).toEqual("hyphenToCamelCase");
+        expect(StringUtil.hyphenToCamelCase("hyphen-TO-camel-CASE")).toEqual("hyphenToCamelCase");
+    });
+
+    it("hyphenToPascalCase()", function() {
+        expect(StringUtil.hyphenToPascalCase("hyphen-to-camel-case")).toEqual("HyphenToCamelCase");
+        expect(StringUtil.hyphenToPascalCase("hyphen-TO-camel-CASE")).toEqual("HyphenToCamelCase");
+    });
+
+    it("camelCaseToHyphen()", function() {
+        expect(StringUtil.camelCaseToHyphen("hyphenToCamelCase")).toEqual("hyphen-to-camel-case");
+    });
+
+//    it("queryStringToObject()", function() {
+//    });
+
+    it("removeAllWhitespace()", function() {
+        expect(StringUtil.removeAllWhitespace("   a b    c d e f g ")).toEqual("abcdefg");
+    });
+
+    it("removeLeadingTrailingWhitespace()", function() {
+        expect(StringUtil.removeLeadingTrailingWhitespace("   a b    c d e f g ")).toEqual("a b    c d e f g");
+    });
+
+    it("truncate()", function() {
+        expect(StringUtil.truncate("Robert is cool and he knows it.", 14)).toEqual("Robert is cool...");
+    });
+});
+
+
+import MerchantUtil = StructureTS.MerchantUtil;
+describe("MerchantUtil", function(){
+    it("isCreditCard()", function() {
+        expect(MerchantUtil.isCreditCard("1234567890123456")).toBeTruthy();
     });
 });

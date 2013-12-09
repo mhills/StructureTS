@@ -86,7 +86,7 @@ module StructureTS
          */
         public static isZipCode(zipCode:string):boolean
         {
-            var expression:RegExp = /^\d{5}([\-]\d{4})?$/;
+            var expression:RegExp = /^([0-9]{5})(?:[-\s]*([0-9]{4}))?$/;
             return expression.test(zipCode);
         }
 
@@ -101,7 +101,7 @@ module StructureTS
          */
         public static isPostalCode(postalCode:string):boolean
         {
-            var expression:RegExp = /^([ABCEGHJKLMNPRSTVXY][0-9][A-Z] [0-9][A-Z][0-9])*$/;
+            var expression:RegExp = /^([A-Z][0-9][A-Z])\s*([0-9][A-Z][0-9])$/;
             return expression.test(postalCode);
         }
 
@@ -116,7 +116,7 @@ module StructureTS
          */
         public static isSocialSecurityNumber(ssn:string):boolean
         {
-            var expression:RegExp = /^\d{3}-\d{2}-\d{4}$/;
+            var expression:RegExp = /^\d{3}-?\d{2}-?\d{4}$/;
             return expression.test(ssn);
         }
 

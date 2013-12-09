@@ -86,9 +86,11 @@ module StructureTS
          */
         public static hyphenToCamelCase(str:string):string
         {
+            str = str.toLowerCase();
+
             return str.replace(/-([a-z])/g, function (g)
             {
-                return g[1].toUpperCase()
+                return g[1].toUpperCase();
             });
         }
 
@@ -103,6 +105,8 @@ module StructureTS
          */
         public static hyphenToPascalCase(str:string):string
         {
+            str = str.toLowerCase();
+
             return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
             {
                 return hyphenated.toUpperCase();
@@ -197,7 +201,7 @@ module StructureTS
          * @example
          *      var str = "   a b    c d e f g ";
          *      StringUtil.removeLeadingTrailingWhitespace(str);
-         *      // "a b c d e f g"
+         *      // "a b    c d e f g"
          *
          * @method removeLeadingTrailingWhitespace
          * @param str {string}
