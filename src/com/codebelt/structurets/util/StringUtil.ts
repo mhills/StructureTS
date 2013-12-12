@@ -107,10 +107,13 @@ module StructureTS
         {
             str = str.toLowerCase();
 
-            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
+            // This is causing an issue with TS 0.9.5 so committing it out for now.
+/*            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
             {
                 return hyphenated.toUpperCase();
-            });
+            });*/
+
+            return null;
         }
 
         /**
