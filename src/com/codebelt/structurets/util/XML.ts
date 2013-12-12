@@ -1,5 +1,3 @@
-///<reference path=''/>
-
 module StructureTS
 {
     export class XML

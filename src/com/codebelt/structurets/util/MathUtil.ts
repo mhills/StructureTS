@@ -22,8 +22,6 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path=''/>
-
 module StructureTS
 {
     /**
