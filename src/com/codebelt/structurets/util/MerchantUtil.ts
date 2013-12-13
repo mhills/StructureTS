@@ -41,14 +41,14 @@ module StructureTS
         public static CLASS_NAME:string = 'MerchantUtil';
 
         constructor()
-        {//    https://github.com/as3/as3-utils/tree/master/src/utils/validation
+        {
         }
 
 
         /**
          * Determines if credit card is valid using the Luhn formula.
          * @example
-         * MerchantUtil.isCreditCard("1234567890123456");
+         * MerchantUtil.isCreditCard("4556106734384949");
          *
          * @method isCreditCard
          * @param cardNumber {string} The credit card number.
@@ -66,7 +66,7 @@ module StructureTS
             var pre:number;
             var sum:number = 0;
             var alt:boolean = true;
-
+                                  console.log("cardNumber", cardNumber);
             var i:number = cardNumber.length;
             while (--i > -1)
             {
@@ -90,8 +90,8 @@ module StructureTS
          * Encode a credit card number as a string and encode all digits except the last <code>digitsShown</code>.
          *
          * @example
-         * MerchantUtil.encodeCreditCardNumber("1234567890123456"); // ************3456
-         * MerchantUtil.encodeCreditCardNumber("1234567890123456", 5, "x");  // xxxxxxxxxxx23456
+         * MerchantUtil.encodeCreditCardNumber("4556106734384949"); // ************4949
+         * MerchantUtil.encodeCreditCardNumber("4556106734384949", 5, "x");  // xxxxxxxxxxx84949
          *
          * @method encodeCreditCardNumber
          * @param strNumber {string} The credit card number as string.

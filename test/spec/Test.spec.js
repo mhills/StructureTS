@@ -39,6 +39,50 @@ var StructureTS;
             }
             return String(num);
         };
+
+        NumberUtil.unformatUnit = function (value) {
+            var withoutSpecialCharacters = value.replace(/[^\d.,-]/g, "");
+
+            var decimalIndex = withoutSpecialCharacters.length - 3;
+            var decimalSeparator = withoutSpecialCharacters.charAt(decimalIndex);
+            if (decimalSeparator === '.') {
+                withoutSpecialCharacters = value.replace(/[^\d.-]/g, "");
+            } else {
+                withoutSpecialCharacters = value.replace(/[^\d,-]/g, "");
+                decimalIndex = withoutSpecialCharacters.length - 3;
+
+                withoutSpecialCharacters = withoutSpecialCharacters.replace(",", ".");
+            }
+            return parseFloat(withoutSpecialCharacters);
+        };
+
+        NumberUtil.formatUnit = function (value, decimalPlacement, decimalSeparator, thousandsSeparator, currencySymbol, currencySymbolPlacement) {
+            if (typeof decimalPlacement === "undefined") { decimalPlacement = 2; }
+            if (typeof decimalSeparator === "undefined") { decimalSeparator = '.'; }
+            if (typeof thousandsSeparator === "undefined") { thousandsSeparator = ','; }
+            if (typeof currencySymbol === "undefined") { currencySymbol = ""; }
+            if (typeof currencySymbolPlacement === "undefined") { currencySymbolPlacement = 0; }
+            var str = String(Number(value).toFixed(decimalPlacement));
+            var result = '';
+            if (decimalPlacement != 0) {
+                result = str.substr(-1 - decimalPlacement);
+                str = str.substr(0, str.length - 1 - decimalPlacement);
+            }
+            while (str.length > 3) {
+                result = thousandsSeparator + str.substr(-3) + result;
+                str = str.substr(0, str.length - 3);
+            }
+            if (str.length > 0) {
+                if (currencySymbolPlacement === 0) {
+                    result = currencySymbol + str + result;
+                } else if (currencySymbolPlacement === 1) {
+                    result = str + result + currencySymbol;
+                } else {
+                    result = str + result;
+                }
+            }
+            return result;
+        };
         NumberUtil.CLASS_NAME = 'NumberUtil';
         return NumberUtil;
     })();
@@ -171,7 +215,7 @@ var StructureTS;
             var pre;
             var sum = 0;
             var alt = true;
-
+            console.log("cardNumber", cardNumber);
             var i = cardNumber.length;
             while (--i > -1) {
                 if (alt) {
@@ -256,6 +300,21 @@ describe("NumberUtil", function () {
 
     it("doubleDigitFormat() 8 seconds should be 08", function () {
         expect(NumberUtil.doubleDigitFormat(8)).toEqual('08');
+    });
+
+    it("unformat()", function () {
+        expect(NumberUtil.unformatUnit("$1,234,567.89")).toEqual(1234567.89);
+        expect(NumberUtil.unformatUnit("1.234.567,89 €")).toEqual(1234567.89);
+        expect(NumberUtil.unformatUnit("1 234 567,89£")).toEqual(1234567.89);
+        expect(NumberUtil.unformatUnit("123 456 789,99 $")).toEqual(123456789.99);
+        expect(NumberUtil.unformatUnit("-123.456.789,99 $")).toEqual(-123456789.99);
+        expect(NumberUtil.unformatUnit("$-123,456,789.99")).toEqual(-123456789.99);
+    });
+
+    it("formatCost()", function () {
+        expect(NumberUtil.formatUnit(1234567.89, 2, "*", ",", "$", 0)).toEqual('$1,234,567.89');
+        expect(NumberUtil.formatUnit(1234.5676, 2, "*", ",", "€", 1)).toEqual('08');
+        expect(NumberUtil.formatUnit(12341234.56, 2, "*", ",", "€", 1)).toEqual('08');
     });
 });
 
@@ -381,6 +440,26 @@ describe("StringUtil", function () {
 var MerchantUtil = StructureTS.MerchantUtil;
 describe("MerchantUtil", function () {
     it("isCreditCard()", function () {
-        expect(MerchantUtil.isCreditCard("1234567890123456")).toBeTruthy();
+        expect(MerchantUtil.isCreditCard("4556106734384949")).toBeTruthy();
+        expect(MerchantUtil.isCreditCard("1234567890123456")).toBeFalsy();
+    });
+
+    it("encodeCreditCardNumber()", function () {
+        expect(MerchantUtil.encodeCreditCardNumber("4556106734384949")).toEqual("************4949");
+        expect(MerchantUtil.encodeCreditCardNumber("4556106734384949", 5, "x")).toEqual("xxxxxxxxxxx84949");
+    });
+
+    it("getCreditCardProvider()", function () {
+        expect(MerchantUtil.getCreditCardProvider("1234567890123456")).toEqual("invalid");
+        expect(MerchantUtil.getCreditCardProvider("4556106734384949")).toEqual("visa");
+        expect(MerchantUtil.getCreditCardProvider("5428070016026573")).toEqual("mastercard");
+        expect(MerchantUtil.getCreditCardProvider("344499834236852")).toEqual("amex");
+        expect(MerchantUtil.getCreditCardProvider("30047198581956")).toEqual("diners");
+        expect(MerchantUtil.getCreditCardProvider("6771593131817460")).toEqual("other");
+    });
+
+    it("isValidExpirationDate()", function () {
+        expect(MerchantUtil.isValidExpirationDate(8, 2090)).toBeTruthy();
+        expect(MerchantUtil.isValidExpirationDate(11, 2013)).toBeFalsy();
     });
 });
