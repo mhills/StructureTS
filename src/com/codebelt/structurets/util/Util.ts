@@ -31,7 +31,7 @@ module StructureTS
      * @module StructureTS
      * @submodule util
      * @constructor
-     * @version 0.1.0
+     * @version 0.2.0
      **/
     export class Util
     {
@@ -125,6 +125,26 @@ module StructureTS
 
                     }
                 }
+            }
+
+            return object;
+        }
+
+        /**
+         * @method renamePropertyOnObject
+         * @param object {Object} The object you want to rename properties from.
+         * @param oldName {string}
+         * @param newName {string}
+         * @returns {any} Returns the object passed in renamed properties.
+         * @public
+         * @static
+         */
+        public static renamePropertyOnObject(object:any, oldName:string, newName:string):any
+        {
+            // Check for the old property name to avoid a ReferenceError in strict mode.
+            if (object.hasOwnProperty(oldName)) {
+                object[newName] = object[oldName];
+                delete object[oldName];
             }
 
             return object;
