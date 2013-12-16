@@ -41,7 +41,7 @@ module StructureTS
      * @module StructureTS
      * @submodule controller
      * @constructor
-     * @version 0.1.0
+     * @version 0.2.0
      **/
     export class RouterController extends BaseController
     {
@@ -59,12 +59,24 @@ module StructureTS
          */
         private _crossroads:Crossroads = null;
 
-        constructor()
+        /**
+         * Keeps a reference how the Router Controller will handle routes.
+         * If the value is true it will user the browsers history to dispatch events when the history state changes.
+         * If the value is false it directly dispatch events when the {{#crossLink "BaseObject/navigateTo:method"}}{{/crossLink}} method is called.
+         *
+         * @property _isStateManager
+         * @type {boolean}
+         * @private
+         */
+        private _isStateManager:boolean = false;
+
+        constructor(stateManager:boolean = false)
         {
             super();
 
-            this._crossroads = new Crossroads();
+            this._isStateManager = stateManager;
 
+            this._crossroads = new Crossroads();
         }
 
         public addRoute(pattern:string, handler:Function, scope:any, priority:number = 0):void
@@ -117,17 +129,15 @@ module StructureTS
         public navigateTo(hash:string, silently:boolean = false):void
         {
             hash = hash.replace('#/', '');
-            if (silently)
+
+            if (this._isStateManager === false)
             {
-                Hasher.changed.active = false;
-                Hasher.setHash(hash);
-                Hasher.changed.active = true;
+                this.changeUrl(hash, silently);
             }
             else
             {
-                Hasher.setHash(hash);
+                this.changeState(hash);
             }
-
         }
 
         /**
@@ -175,5 +185,37 @@ module StructureTS
             this._crossroads.removeAllRoutes();
             this._crossroads = null;
         }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method changeUrl
+         * @private
+         */
+        private changeUrl(hash:string, silently):void
+        {
+            if (silently)
+            {
+                Hasher.changed.active = false;
+                Hasher.setHash(hash);
+                Hasher.changed.active = true;
+            }
+            else
+            {
+                Hasher.setHash(hash);
+            }
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method changeState
+         * @private
+         */
+        private changeState(hash:string):void
+        {
+            this._crossroads.parse(hash);
+        }
+
     }
 }
