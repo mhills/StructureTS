@@ -35,7 +35,7 @@ module StructureTS
      * @module StructureTS
      * @submodule controller
      * @constructor
-     * @version 0.1.0
+     * @version 0.2.0
      **/
     export class BaseViewController extends DOMElement implements IViewController
     {
@@ -49,6 +49,15 @@ module StructureTS
             super();
         }
 
+        /**
+         * Allows you to update the view controller.
+         *
+         * @method update
+         * @param ...rest {rest}
+         * @returns {BaseViewController} Returns an instance of itself.
+         * @public
+         * @chainable
+         */
         public update(...rest):any
         {
 
@@ -60,10 +69,15 @@ module StructureTS
          *
          * @method setPageTitle
          * @param title {string}
+         * @returns {DOMElement} Returns an instance of itself.
+         * @public
+         * @chainable
          */
-        public setPageTitle(title:string)
+        public setPageTitle(title:string):any
         {
             document.title = title;
+
+            return this;
         }
 
     }
