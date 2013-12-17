@@ -225,7 +225,7 @@ module StructureTS
         }
 
         /**
-         * @overridden CollectiveObject.destroy
+         * @overridden BaseObject.destroy
          */
         public destroy():void
         {
