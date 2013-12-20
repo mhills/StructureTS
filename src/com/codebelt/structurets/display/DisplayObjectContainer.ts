@@ -34,7 +34,7 @@ module StructureTS
      * @module StructureTS
      * @submodule view
      * @constructor
-     * @version 0.1.0
+     * @version 0.1.1
      **/
     export class DisplayObjectContainer extends EventDispatcher
     {
@@ -240,6 +240,18 @@ module StructureTS
         public getChildIndex(child:DisplayObjectContainer):number
         {
             return this.children.indexOf(child);
+        }
+
+        /**
+         *
+         * @method contains
+         * @param child {DisplayObjectContainer}
+         * @returns {number}
+         * @public
+         */
+        public contains(child:DisplayObjectContainer):boolean
+        {
+            return this.children.indexOf(child) >= 0;
         }
 
         /**
