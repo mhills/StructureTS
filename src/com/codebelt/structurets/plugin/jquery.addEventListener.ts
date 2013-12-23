@@ -1,8 +1,35 @@
 (function ($, window, document)
 {
     /**
-     * @version 0.2.0
+     * @version 0.3.0
      */
+
+    /**
+     * A bind polyfill for browsers that don't support the bind method.
+     */
+    if (!Function.prototype.bind) {
+        Function.prototype.bind = function (oThis) {
+            if (typeof this !== "function") {
+                // closest thing possible to the ECMAScript 5 internal IsCallable function
+                throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+            }
+
+            var aArgs = Array.prototype.slice.call(arguments, 1),
+                fToBind = this,
+                fNOP = function () {},
+                fBound = function () {
+                    return fToBind.apply(this instanceof fNOP && oThis
+                        ? this
+                        : oThis,
+                        aArgs.concat(Array.prototype.slice.call(arguments)));
+                };
+
+            fNOP.prototype = this.prototype;
+            fBound.prototype = new fNOP();
+
+            return fBound;
+        };
+    }
 
     /**
      * Generates a hash string from the string being passed in. In this case it is a function that is casted as string value.
@@ -30,6 +57,9 @@
         return String(Math.abs(hash));
     }
 
+    /**
+     * The jQuery addEventListener plugin
+     */
     $.fn.addEventListener = function (type, selector, data, callback, scope)
     {
         var _callback;
@@ -64,6 +94,9 @@
         return this;
     }
 
+    /**
+     * The jQuery removeEventListener plugin
+     */
     $.fn.removeEventListener = function (type, selector, callback, scope)
     {
         var _callback;
