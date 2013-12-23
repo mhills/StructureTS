@@ -152,6 +152,11 @@ module StructureTS
         {
             super.addChild(child);
 
+            if (this.$element == null)
+            {
+                throw new Error('[' + this.getQualifiedClassName() + '] You cannot use the addChild method if the parent object is not added to the DOM.');
+            }
+
             if (!child.isCreated)
             {
                 child.createChildren();// Render the item before adding to the DOM
