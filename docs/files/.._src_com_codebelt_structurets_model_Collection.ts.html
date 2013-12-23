@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\src\com\codebelt\structurets\model\Collection.ts - StructureTS-Project</title>
+    <title>../src/com/codebelt/structurets/model/Collection.ts - StructureTS-Project</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -254,7 +254,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\model\Collection.ts</h1>
+                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/model/Collection.ts</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -297,7 +297,7 @@ module StructureTS
      * @module StructureTS
      * @submodule model
      * @constructor
-     * @version 0.2.0
+     * @version 0.2.1
      **/
     export class Collection extends EventDispatcher implements ICollection
     {
@@ -486,18 +486,6 @@ module StructureTS
         }
 
         /**
-         * Loops through each object in the collection and performs some function from it
-         *
-         * @method forEach
-         * @param operation {Function} Operation to perform, provides 2 parameters element, and index
-         * @public
-         */
-        public forEach(operation:any):void
-        {
-//        _.each(this.items, operation);
-        }
-
-        /**
          * Examines each element in a collection, returning an array of all elements that have the given properties.
          * When checking properties, this method performs a deep comparison between values to determine if they are equivalent to each other.
          * @example
@@ -552,12 +540,12 @@ module StructureTS
          * @return {array} Returns a list of found IValueObject&#x27;s.
          * @private
          */
-        private findPropertyValue(arg:any)
+        private findPropertyValue(arg:any):any[]
         {
             // If properties is not an array then make it an array object.
             arg = (arg instanceof Array) ? arg : [arg];
 
-            var foundItems = [];
+            var foundItems:any[] = [];
             var itemsLength = this.items.length;
             var itemsToFindLength = arg.length;
             // Loop through each value object in the collection.
@@ -588,67 +576,6 @@ module StructureTS
             }
             return foundItems;
         }
-
-        /**
-         * Sorts the collection based on the sort function provided
-         *
-         * @method sort
-         * @param sort {Function} Sort to use, provides 2 users
-         * @public
-         */
-            //TODO: figure out to set the type to Function with out getting error: Type &#x27;(x: IValueObject) =&gt; boolean&#x27; requires a call signature, but type &#x27;Function&#x27; lacks one.
-        public sort(sort:any):void
-        {
-//        this.items.sort(sort);
-        }
-
-        /**
-         * Filters the collection based on the filter test operation provided
-         *
-         * @method filter
-         * @param filter {Function} Operation to perform, provides 2 parameters element, and index
-
-         * @public
-         */
-            //TODO: figure out to set the type to Function with out getting error: Type &#x27;(x: IValueObject) =&gt; boolean&#x27; requires a call signature, but type &#x27;Function&#x27; lacks one.
-        public filter(filter:any, removeItems:boolean = false):IValueObject[]
-        {
-            if (removeItems)
-            {
-//            _.filter(this.items, filter);
-//            this.length = this.items.length;
-//            return this.items;
-            }
-            else
-            {
-//            var collection:ICollection = this.copy();
-//            collection.filter(filter, true);
-//            _.filter(collection.items, filter);
-//            return
-            }
-            return null;
-        }
-
-        /**
-         * Applies a function to each of the items in the list
-         *
-         * @method map
-         * @param {Function} map Operation to perform, provides 2 parameters element, and index
-         */
-        public map(map:any)
-        {
-//        this.items = _.map(this.items, map);
-        }
-
-//    /**
-//     * YUIDoc_comment
-//     *
-//     * @method clone
-//     * @public
-//     */
-//    public clone():void {
-//
-//    }
 
         /**
          * YUIDoc_comment

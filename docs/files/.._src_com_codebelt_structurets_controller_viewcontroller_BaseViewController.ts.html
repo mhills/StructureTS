@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\src\com\codebelt\structurets\controller\viewcontroller\BaseViewController.ts - StructureTS-Project</title>
+    <title>../src/com/codebelt/structurets/controller/viewcontroller/BaseViewController.ts - StructureTS-Project</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -254,7 +254,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\controller\viewcontroller\BaseViewController.ts</h1>
+                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/controller/viewcontroller/BaseViewController.ts</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -295,7 +295,7 @@ module StructureTS
      * @module StructureTS
      * @submodule controller
      * @constructor
-     * @version 0.1.0
+     * @version 0.2.0
      **/
     export class BaseViewController extends DOMElement implements IViewController
     {
@@ -309,6 +309,15 @@ module StructureTS
             super();
         }
 
+        /**
+         * Allows you to update the view controller.
+         *
+         * @method update
+         * @param ...rest {rest}
+         * @returns {BaseViewController} Returns an instance of itself.
+         * @public
+         * @chainable
+         */
         public update(...rest):any
         {
 
@@ -320,10 +329,15 @@ module StructureTS
          *
          * @method setPageTitle
          * @param title {string}
+         * @returns {DOMElement} Returns an instance of itself.
+         * @public
+         * @chainable
          */
-        public setPageTitle(title:string)
+        public setPageTitle(title:string):any
         {
             document.title = title;
+
+            return this;
         }
 
     }

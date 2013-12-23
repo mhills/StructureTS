@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\src\com\codebelt\structurets\display\DOMElement.ts - StructureTS-Project</title>
+    <title>../src/com/codebelt/structurets/display/DOMElement.ts - StructureTS-Project</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -254,7 +254,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\display\DOMElement.ts</h1>
+                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/display/DOMElement.ts</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -297,7 +297,7 @@ module StructureTS
      * @module StructureTS
      * @submodule view
      * @constructor
-     * @version 0.1.1
+     * @version 0.1.2
      **/
     export class DOMElement extends DisplayObjectContainer
     {
@@ -373,6 +373,14 @@ module StructureTS
             type = this._type || type;
             params = this._params || params;
 
+            // If the raw element is not null it must of been set before this addChild was called and
+            // we should it as the element for this display object.
+            if (this.element != null)
+            {
+                this.$element = jQuery(this.element);
+                return this;
+            }
+
             if (!this.$element)
             {
                 var html:string = TemplateFactory.createTemplate(type, params);
@@ -403,6 +411,11 @@ module StructureTS
         public addChild(child:DOMElement):any
         {
             super.addChild(child);
+
+            if (this.$element == null)
+            {
+                throw new Error(&#x27;[&#x27; + this.getQualifiedClassName() + &#x27;] You cannot use the addChild method if the parent object is not added to the DOM.&#x27;);
+            }
 
             if (!child.isCreated)
             {

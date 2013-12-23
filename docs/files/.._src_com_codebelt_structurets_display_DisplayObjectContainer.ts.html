@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\src\com\codebelt\structurets\display\DisplayObjectContainer.ts - StructureTS-Project</title>
+    <title>../src/com/codebelt/structurets/display/DisplayObjectContainer.ts - StructureTS-Project</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -254,7 +254,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\display\DisplayObjectContainer.ts</h1>
+                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/display/DisplayObjectContainer.ts</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -294,7 +294,7 @@ module StructureTS
      * @module StructureTS
      * @submodule view
      * @constructor
-     * @version 0.1.0
+     * @version 0.1.1
      **/
     export class DisplayObjectContainer extends EventDispatcher
     {
@@ -500,6 +500,18 @@ module StructureTS
         public getChildIndex(child:DisplayObjectContainer):number
         {
             return this.children.indexOf(child);
+        }
+
+        /**
+         *
+         * @method contains
+         * @param child {DisplayObjectContainer}
+         * @returns {number}
+         * @public
+         */
+        public contains(child:DisplayObjectContainer):boolean
+        {
+            return this.children.indexOf(child) &gt;= 0;
         }
 
         /**

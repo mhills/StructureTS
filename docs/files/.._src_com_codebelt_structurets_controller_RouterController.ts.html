@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\src\com\codebelt\structurets\controller\RouterController.ts - StructureTS-Project</title>
+    <title>../src/com/codebelt/structurets/controller/RouterController.ts - StructureTS-Project</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -254,7 +254,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\controller\RouterController.ts</h1>
+                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/controller/RouterController.ts</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -301,7 +301,7 @@ module StructureTS
      * @module StructureTS
      * @submodule controller
      * @constructor
-     * @version 0.1.0
+     * @version 0.2.0
      **/
     export class RouterController extends BaseController
     {
@@ -319,12 +319,24 @@ module StructureTS
          */
         private _crossroads:Crossroads = null;
 
-        constructor()
+        /**
+         * Keeps a reference how the Router Controller will handle routes.
+         * If the value is true it will user the browsers history to dispatch events when the history state changes.
+         * If the value is false it directly dispatch events when the {{#crossLink &quot;BaseObject/navigateTo:method&quot;}}{{/crossLink}} method is called.
+         *
+         * @property _isStateManager
+         * @type {boolean}
+         * @private
+         */
+        private _isStateManager:boolean = false;
+
+        constructor(stateManager:boolean = false)
         {
             super();
 
-            this._crossroads = new Crossroads();
+            this._isStateManager = stateManager;
 
+            this._crossroads = new Crossroads();
         }
 
         public addRoute(pattern:string, handler:Function, scope:any, priority:number = 0):void
@@ -377,17 +389,15 @@ module StructureTS
         public navigateTo(hash:string, silently:boolean = false):void
         {
             hash = hash.replace(&#x27;#/&#x27;, &#x27;&#x27;);
-            if (silently)
+
+            if (this._isStateManager === false)
             {
-                Hasher.changed.active = false;
-                Hasher.setHash(hash);
-                Hasher.changed.active = true;
+                this.changeUrl(hash, silently);
             }
             else
             {
-                Hasher.setHash(hash);
+                this.changeState(hash);
             }
-
         }
 
         /**
@@ -428,6 +438,43 @@ module StructureTS
         public getBaseURL():string
         {
             return Hasher.getBaseURL();
+        }
+
+        public destroy():void
+        {
+            this._crossroads.removeAllRoutes();
+            this._crossroads = null;
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method changeUrl
+         * @private
+         */
+        private changeUrl(hash:string, silently):void
+        {
+            if (silently)
+            {
+                Hasher.changed.active = false;
+                Hasher.setHash(hash);
+                Hasher.changed.active = true;
+            }
+            else
+            {
+                Hasher.setHash(hash);
+            }
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method changeState
+         * @private
+         */
+        private changeState(hash:string):void
+        {
+            this._crossroads.parse(hash);
         }
 
     }

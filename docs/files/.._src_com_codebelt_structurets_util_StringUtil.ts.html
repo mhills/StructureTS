@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>..\src\com\codebelt\structurets\util\StringUtil.ts - StructureTS-Project</title>
+    <title>../src/com/codebelt/structurets/util/StringUtil.ts - StructureTS-Project</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -254,7 +254,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: ..\src\com\codebelt\structurets\util\StringUtil.ts</h1>
+                        <h1 class="file-heading">File: ../src/com/codebelt/structurets/util/StringUtil.ts</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -281,8 +281,6 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
-
-///&lt;reference path=&#x27;&#x27;/&gt;
 
 module StructureTS
 {
@@ -346,9 +344,11 @@ module StructureTS
          */
         public static hyphenToCamelCase(str:string):string
         {
+            str = str.toLowerCase();
+
             return str.replace(/-([a-z])/g, function (g)
             {
-                return g[1].toUpperCase()
+                return g[1].toUpperCase();
             });
         }
 
@@ -363,10 +363,15 @@ module StructureTS
          */
         public static hyphenToPascalCase(str:string):string
         {
-            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
+            str = str.toLowerCase();
+
+            // This is causing an issue with TS 0.9.5 so committing it out for now.
+/*            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
             {
                 return hyphenated.toUpperCase();
-            });
+            });*/
+
+            return null;
         }
 
         /**
@@ -457,7 +462,7 @@ module StructureTS
          * @example
          *      var str = &quot;   a b    c d e f g &quot;;
          *      StringUtil.removeLeadingTrailingWhitespace(str);
-         *      // &quot;a b c d e f g&quot;
+         *      // &quot;a b    c d e f g&quot;
          *
          * @method removeLeadingTrailingWhitespace
          * @param str {string}
