@@ -256,7 +256,7 @@ module StructureTS
          * Gets a DOMElement by its cid.
          *
          * @method getChildByCid
-         * @param selector {number}
+         * @param cid {number}
          * @returns {DOMElement}
          * @override
          * @public
