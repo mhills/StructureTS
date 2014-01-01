@@ -22,7 +22,6 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='BaseController.ts'/>
 ///<reference path='../event/ApplicationCacheEvent.ts'/>
 
 module StructureTS

@@ -21,6 +21,7 @@ module.exports = function(grunt) {
         SRC_PATH: '../src/',
         DEPLOY_PATH: '../deploy/',
         TEST_PATH: '../test/',
+        JS_PATH: '../js/js',
 
 
         // A code block that will be added to all our minified code files.
@@ -150,6 +151,14 @@ module.exports = function(grunt) {
                     base_path: '',
                     sourcemap: false,
                     declaration: false
+                }
+            },
+            js: {
+                src: ['<%= SRC_PATH %>com/**/*.ts'],
+                dest: '<%= JS_PATH %>',
+                options: {
+                    target: 'es3', // Options: es3, es5
+                    module: 'amd'
                 }
             }
         },

@@ -24,7 +24,7 @@
 
 ///<reference path='BaseController.ts'/>
 
-module StructureST
+module StructureTS
 {
     /**
      * The UndoManager...
@@ -44,6 +44,7 @@ module StructureST
 
         constructor()
         {
+            super();
 //https://github.com/danielwanja/UndoManager/blob/master/src/managed/UndoManager.as
             //https://code.google.com/p/moonshineproject/source/browse/trunk/ide/src/com/moonshineproject/text/UndoManager.as?r=816
         }
@@ -56,7 +57,7 @@ module StructureST
          */
         public canRedo():boolean
         {
-
+            return true;
         }
 
         /**
@@ -67,7 +68,7 @@ module StructureST
          */
         public canUndo():boolean
         {
-
+            return true;
         }
 
         /**
@@ -98,7 +99,7 @@ module StructureST
          * @method peekRedo
          * @public
          */
-        public peekRedo():IOperation
+        public peekRedo()
         {
 
         }
@@ -109,7 +110,7 @@ module StructureST
          * @method peekUndo
          * @public
          */
-        public peekUndo():IOperation
+        public peekUndo()
         {
 
         }
@@ -120,7 +121,7 @@ module StructureST
          * @method popRedo
          * @public
          */
-        public popRedo():IOperation
+        public popRedo()
         {
 
         }
@@ -131,7 +132,7 @@ module StructureST
          * @method popUndo
          * @public
          */
-        public popUndo():IOperation
+        public popUndo()
         {
 
         }
@@ -142,7 +143,7 @@ module StructureST
          * @method adsf
          * @public
          */
-        public pushRedo(operation:IOperation):void
+        public pushRedo(operation):void
         {
 
         }
@@ -153,7 +154,7 @@ module StructureST
          * @method pushUndo
          * @public
          */
-        public pushUndo(operation:IOperation):void
+        public pushUndo(operation):void
         {
 
         }

@@ -51,7 +51,7 @@ module StructureTS
 
         public static isBlackBerry():boolean
         {
-            return !!navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/BB10; Touch/);
+            return Boolean(!!navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/BB10; Touch/));
         }
 
         public static isiOS():boolean

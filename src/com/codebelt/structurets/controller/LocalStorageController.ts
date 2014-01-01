@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='BaseController'/>
+///<reference path='BaseController.ts'/>
 ///<reference path='../event/LocalStorageEvent.ts'/>
 ///<reference path='../model/ValueObject.ts'/>
 
