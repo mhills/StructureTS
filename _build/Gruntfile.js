@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         SRC_PATH: '../src/',
         DEPLOY_PATH: '../deploy/',
         TEST_PATH: '../test/',
-        JS_PATH: '../js/js',
+        JS_PATH: '../js/',
 
 
         // A code block that will be added to all our minified code files.
@@ -158,7 +158,8 @@ module.exports = function(grunt) {
                 dest: '<%= JS_PATH %>',
                 options: {
                     target: 'es3', // Options: es3, es5
-                    module: 'amd'
+                    module: 'amd', //or commonjs
+                    declaration: true
                 }
             }
         },
@@ -174,13 +175,19 @@ module.exports = function(grunt) {
         },
 
         ts: {
-            todo: {
-                options: {
-                    out: true
-                },
-                src: ['<%= EXAMPLE_PATH %>ParseTodoApp/dev/scripts/TodoApp.ts'],
-                dest: '<%= EXAMPLE_PATH %>ParseTodoApp/prod/scripts/todoApp.js'
+            js: {
+                src: ['<%= SRC_PATH %>com/**/*.ts'],        // The source typescript files, http://gruntjs.com/configuring-tasks#files
+                outDir: '<%= JS_PATH %>',   // If specified, the generate javascript files are placed here. Only works if out is not specified
+                options: {                         // use to override the default options, http://gruntjs.com/configuring-tasks#options
+                    target: 'es3',                 // 'es3' (default) | 'es5'
+                    module: 'amd',            // 'amd' (default) | 'commonjs'
+                    sourceMap: false,               // true (default) | false
+                    declaration: false,            // true | false (default)
+                    removeComments: false           // true (default) | false
+                }
             }
+
+
         },
 
         jst: {
