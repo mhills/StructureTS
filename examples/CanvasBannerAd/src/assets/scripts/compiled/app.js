@@ -36,6 +36,15 @@ var StructureTS;
 
             return object;
         };
+
+        Util.renamePropertyOnObject = function (object, oldName, newName) {
+            if (object.hasOwnProperty(oldName)) {
+                object[newName] = object[oldName];
+                delete object[oldName];
+            }
+
+            return object;
+        };
         Util.CLASS_NAME = 'Util';
 
         Util._idCounter = 0;
@@ -328,6 +337,10 @@ var StructureTS;
             return this.children.indexOf(child);
         };
 
+        DisplayObjectContainer.prototype.contains = function (child) {
+            return this.children.indexOf(child) >= 0;
+        };
+
         DisplayObjectContainer.prototype.removeChild = function (child) {
             var index = this.getChildIndex(child);
             if (index !== -1) {
@@ -504,6 +517,24 @@ var StructureTS;
     StructureTS.Canvas = Canvas;
 })(StructureTS || (StructureTS = {}));
 (function ($, window, document) {
+    if (!Function.prototype.bind) {
+        Function.prototype.bind = function (oThis) {
+            if (typeof this !== "function") {
+                throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+            }
+
+            var aArgs = Array.prototype.slice.call(arguments, 1), fToBind = this, fNOP = function () {
+            }, fBound = function () {
+                return fToBind.apply(this instanceof fNOP && oThis ? this : oThis, aArgs.concat(Array.prototype.slice.call(arguments)));
+            };
+
+            fNOP.prototype = this.prototype;
+            fBound.prototype = new fNOP();
+
+            return fBound;
+        };
+    }
+
     var hashCode = function (str) {
         str = String(str);
 
@@ -597,15 +628,17 @@ var StructureTS;
         };
 
         StringUtil.hyphenToCamelCase = function (str) {
+            str = str.toLowerCase();
+
             return str.replace(/-([a-z])/g, function (g) {
                 return g[1].toUpperCase();
             });
         };
 
         StringUtil.hyphenToPascalCase = function (str) {
-            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated) {
-                return hyphenated.toUpperCase();
-            });
+            str = str.toLowerCase();
+
+            return null;
         };
 
         StringUtil.camelCaseToHyphen = function (str) {
@@ -746,6 +779,11 @@ var StructureTS;
             type = this._type || type;
             params = this._params || params;
 
+            if (this.element != null) {
+                this.$element = jQuery(this.element);
+                return this;
+            }
+
             if (!this.$element) {
                 var html = StructureTS.TemplateFactory.createTemplate(type, params);
                 if (html) {
@@ -762,6 +800,10 @@ var StructureTS;
 
         DOMElement.prototype.addChild = function (child) {
             _super.prototype.addChild.call(this, child);
+
+            if (this.$element == null) {
+                throw new Error('[' + this.getQualifiedClassName() + '] You cannot use the addChild method if the parent object is not added to the DOM.');
+            }
 
             if (!child.isCreated) {
                 child.createChildren();
@@ -1366,8 +1408,9 @@ var codeBelt;
         BannerAd.prototype.onCherryDippedComplete = function () {
             TweenLite.to(this._logo, 1, { rotation: 720, scaleX: 0.5, scaleY: 0.5, ease: Bounce.easeOut });
         };
-        BannerAd.BASE_PATH = "images/";
+        BannerAd.BASE_PATH = "assets/media/images/";
         return BannerAd;
-    })(StructureTS.Canvas);
+    })(Canvas);
     codeBelt.BannerAd = BannerAd;
 })(codeBelt || (codeBelt = {}));
+//# sourceMappingURL=app.js.map

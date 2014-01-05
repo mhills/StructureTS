@@ -1,10 +1,10 @@
-///<reference path='../../../../src/com/codebelt/structurets/display/Canvas.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/display/Bitmap.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/util/AssetLoader.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/util/ImageLoader.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/util/MathUtil.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/event/LoaderEvent.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/Canvas.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/Stage.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/Bitmap.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/util/AssetLoader.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/util/ImageLoader.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/util/MathUtil.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/event/LoaderEvent.ts'/>
 
 module codeBelt
 {
@@ -28,7 +28,7 @@ module codeBelt
          */
         public CLASS_NAME:string = 'BannerAd';
 
-        static BASE_PATH:string = "images/";
+        static BASE_PATH:string = "assets/media/images/";
 
         private _cherry:Bitmap = null;
         private _cherryDipped:Bitmap = null;
