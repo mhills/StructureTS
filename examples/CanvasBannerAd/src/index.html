@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- The current version of the application -->
+        <meta name="version" content="0.1.0"/>
+
+        <!-- Define charset for HTML5 Doctype -->
+        <meta charset="utf-8" />
+
+        <!-- build:css assets/styles/app.min.css -->
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/styles/reset.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/styles/styles.css" />
+        <!-- endbuild -->
+    </head>
+    <body>
+        <canvas id="stage" width="738" height="90" onclick="onBannerClick();">Your browser is unsupported</canvas>
+
+        <!-- build:js assets/scripts/app.min.js -->
+        <script type="text/javascript" src="assets/vendor/jquery/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="assets/vendor/handlebars/handlebars.js"></script>
+        <script type="text/javascript" src="assets/vendor/greensock/easing/EasePack.js"></script>
+        <script type="text/javascript" src="assets/vendor/greensock/TweenLite.js"></script>
+
+        <script type="text/javascript" src="assets/scripts/compiled/app.js"></script>
+        <!-- endbuild -->
+
+        <script type="text/javascript">
+            function onBannerClick() {
+                console.log("Banner ad was clicked on");
+            }
+
+            window.onload = function(event) {
+                // Get class from namespace.
+                var BannerAd = codeBelt.BannerAd;
+
+                var app = new BannerAd();
+                app.appendTo('stage');//TODO: need to fix if it is a class name or body tag. Currently only accepts an id name with out the '#'.
+            }
+        </script>
+    </body>
+</html>
