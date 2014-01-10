@@ -142,12 +142,70 @@ module StructureTS
         public static renamePropertyOnObject(object:any, oldName:string, newName:string):any
         {
             // Check for the old property name to avoid a ReferenceError in strict mode.
-            if (object.hasOwnProperty(oldName)) {
+            if (object.hasOwnProperty(oldName))
+            {
                 object[newName] = object[oldName];
                 delete object[oldName];
             }
 
             return object;
+        }
+
+        /**
+         * @method clone
+         * @param obj {Object} The object you to clone.
+         * @returns {any} Returns a clone object of the one passed in.
+         * @public
+         * @static
+         */
+        public static clone(obj:any):any
+        {
+
+            //other scripts: http://davidwalsh.name/javascript-clone
+            //http://oranlooney.com/functional-javascript/
+            //http://oranlooney.com/deep-copy-javascript/
+
+
+            // Handle the 3 simple types, and null or undefined
+            if (null == obj || "object" != typeof obj)
+            {
+                return obj;
+            }
+
+            // Handle Date
+            if (obj instanceof Date)
+            {
+                var copy:Date = new Date();
+                copy.setTime(obj.getTime());
+                return copy;
+            }
+
+            // Handle Array
+            if (obj instanceof Array)
+            {
+                var copy:any[] = [];
+                for (var i = 0, len = obj.length; i < len; i++)
+                {
+                    copy[i] = Util.clone(obj[i]);
+                }
+                return copy;
+            }
+
+            // Handle Object
+            if (obj instanceof Object)
+            {
+                var copy:any = {};
+                for (var attr in obj)
+                {
+                    if (obj.hasOwnProperty(attr))
+                    {
+                        copy[attr] = Util.clone(obj[attr]);
+                    }
+                }
+                return copy;
+            }
+
+            throw new Error("[Util] Unable to copy obj! Its type isn't supported.");
         }
 
     }

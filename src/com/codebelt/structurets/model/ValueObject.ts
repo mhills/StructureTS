@@ -71,7 +71,6 @@ module StructureTS
          */
         public toJSON():ValueObject
         {
-            //TODO: test on vo that extends multiple vo's
             var clone:ValueObject = <ValueObject>this.clone();
             return Util.deletePropertyFromObject(clone, ['cid', 'CLASS_NAME']);
         }
@@ -112,7 +111,7 @@ module StructureTS
          */
         public clone():Object
         {
-            return _.cloneDeep(this);
+            return Util.clone(this);
         }
 
         /**

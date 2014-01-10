@@ -67,6 +67,15 @@ module StructureTS
          */
         public static LOAD_COMPLETE:string = "LoaderEvent.loadComplete";
 
+        /**
+         * YUIDoc_comment
+         *
+         * @event ERROR
+         * @type {string}
+         * @static
+         */
+        public static ERROR:string = "LoaderEvent.error";
+
         constructor(type:string, bubbles:boolean = false, cancelable:boolean = false, data:any = null)
         {
             super(type, bubbles, cancelable, data);

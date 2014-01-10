@@ -158,6 +158,7 @@ module StructureTS
         {
             this._loader = new URLLoader();
             this._loader.addEventListener(LoaderEvent.COMPLETE, this.onDataLoadComplete, this);
+            this._loader.addEventListener(LoaderEvent.ERROR, this.onDataLoadError, this);
 
             if(this._request){
                 this._loader.load(this._request);
@@ -174,8 +175,6 @@ module StructureTS
          */
         public parseData():void
         {
-            // TODO: remove trace log
-            console.log(this, this._loader.data);
             this.data = this._loader.data;
 
             this.cleanupListeners();
@@ -190,6 +189,7 @@ module StructureTS
         public cleanupListeners():void
         {
             this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onDataLoadComplete, this);
+            this._loader.removeEventListener(LoaderEvent.ERROR, this.onDataLoadError, this);
         }
 
         /**
@@ -201,8 +201,33 @@ module StructureTS
          */
         public onDataLoadComplete(event:LoaderEvent):void
         {
-            console.log("event", event, this.data);
             this.parseData();
+            this.dispatchEvent(new RequestEvent(RequestEvent.SUCCESS, false, false, this.data))
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method onDataLoadComplete
+         * @param event {LoaderEvent}
+         * @protected
+         */
+        public onDataLoadError(event:LoaderEvent):void
+        {
+            this.dispatchEvent(new RequestEvent(RequestEvent.ERROR, false, false, this.data))
+        }
+
+        /**
+         * @overridden EventDispatcher.destroy
+         */
+        public destroy():void
+        {
+            super.destroy();
+
+            this._request = null;
+
+            this._loader.destroy();
+            this._loader = null;
         }
 
     }

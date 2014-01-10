@@ -108,24 +108,25 @@ module StructureTS
 
         public onLoadSuccess():void
         {
-            //console.log("onLoadSuccess", arguments);
+            //console.log('[' + this.getQualifiedClassName() + ']', 'onLoadSuccess', arguments);
         }
 
         public onBeforeSend():void
         {
-            //console.log("onBeforeSend", arguments);
+            //console.log('[' + this.getQualifiedClassName() + ']', 'onBeforeSend', arguments);
         }
 
         public onLoadError():void
         {
-            console.log("[URLLoader] - onLoadError", arguments);
+            console.log('[' + this.getQualifiedClassName() + ']', 'onLoadError', arguments);
+            this.dispatchEvent(new LoaderEvent(LoaderEvent.ERROR));
         }
 
         public onComplete(data):void
         {
-            this.ready = true;
-            //console.log("[URLLoader] - onComplete", data);
+            //console.log('[' + this.getQualifiedClassName() + ']', 'onComplete', data);
             this.data = data.responseText;
+            this.ready = true;
             this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
         }
 
