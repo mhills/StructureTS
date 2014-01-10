@@ -313,8 +313,8 @@ describe("NumberUtil", function () {
 
     it("formatCost()", function () {
         expect(NumberUtil.formatUnit(1234567.89, 2, "*", ",", "$", 0)).toEqual('$1,234,567.89');
-        expect(NumberUtil.formatUnit(1234.5676, 2, "*", ",", "€", 1)).toEqual('08');
-        expect(NumberUtil.formatUnit(12341234.56, 2, "*", ",", "€", 1)).toEqual('08');
+        expect(NumberUtil.formatUnit(1234.5676, 2, "*", ",", " $", 1)).toEqual('1,234.57 $');
+        expect(NumberUtil.formatUnit(12341234.56, 2, "*", ",", " €", 1)).toEqual('12,341,234.56 €');
     });
 });
 
@@ -413,11 +413,6 @@ describe("StringUtil", function () {
     it("hyphenToCamelCase()", function () {
         expect(StringUtil.hyphenToCamelCase("hyphen-to-camel-case")).toEqual("hyphenToCamelCase");
         expect(StringUtil.hyphenToCamelCase("hyphen-TO-camel-CASE")).toEqual("hyphenToCamelCase");
-    });
-
-    it("hyphenToPascalCase()", function () {
-        expect(StringUtil.hyphenToPascalCase("hyphen-to-camel-case")).toEqual("HyphenToCamelCase");
-        expect(StringUtil.hyphenToPascalCase("hyphen-TO-camel-CASE")).toEqual("HyphenToCamelCase");
     });
 
     it("camelCaseToHyphen()", function () {

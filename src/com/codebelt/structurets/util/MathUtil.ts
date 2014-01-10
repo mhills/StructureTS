@@ -74,13 +74,14 @@ module StructureTS
          * @method randomRange
          * @param min {number}
          * @param max {number}
+         * @param [wholeNumber=true] {number}
          * @return {number}
          */
-        public static randomRange(min:number, max:number, round:boolean = false):number
+        public static randomRange(min:number, max:number, wholeNumber:boolean = true):number
         {
             var num:number = (min + Math.random() * (max - min));
 
-            if (round)
+            if (wholeNumber)
             {
                 return Math.round(num);
             }
