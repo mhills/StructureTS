@@ -104,7 +104,7 @@ module StructureTS
             if (this._currentIndex == 0)
             {
                 this.dispatchEvent(new CarouselEvent(CarouselEvent.BEGIN));
-                //console.log('CarouselEvent.START');
+                //console.log('CarouselEvent.BEGIN');
             }
             if (this._currentIndex == this._maxIndex)
             {
