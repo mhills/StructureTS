@@ -23,6 +23,7 @@
  */
 
 ///<reference path='../event/ApplicationCacheEvent.ts'/>
+///<reference path='../event/EventDispatcher.ts'/>
 
 module StructureTS
 {

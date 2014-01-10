@@ -73,7 +73,7 @@ module StructureTS
         {
             //TODO: test on vo that extends multiple vo's
             var clone:ValueObject = <ValueObject>this.clone();
-            return Util.deletePropertyFromObject(clone, ['cid']);
+            return Util.deletePropertyFromObject(clone, ['cid', 'CLASS_NAME']);
         }
 
         /**

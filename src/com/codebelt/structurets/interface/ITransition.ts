@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../interface/IEventDispatcher.ts'/>
+///<reference path='./IEventDispatcher.ts'/>
 ///<reference path='../display/DisplayObjectContainer.ts'/>
 ///<reference path='../display/DOMElement.ts'/>
 

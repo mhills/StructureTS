@@ -26,6 +26,7 @@
 ///<reference path='../interface/IDataStore.ts'/>
 ///<reference path='../net/URLRequest.ts'/>
 ///<reference path='../net/URLLoader.ts'/>
+///<reference path='../event/RequestEvent.ts'/>
 ///<reference path='../event/LoaderEvent.ts'/>
 
 module StructureTS
@@ -46,49 +47,163 @@ module StructureTS
          */
         public CLASS_NAME:string = 'BaseRequest';
 
-        private _request:URLRequest;
-        private _loader:URLLoader;
+        /**
+         * YUIDoc_comment
+         *
+         * @property _baseUrl
+         * @type {string}
+         * @protected
+         */
+        public _baseUrl:string = null;
 
-        public src:string = '';
+        /**
+         * YUIDoc_comment
+         *
+         * @property _endpoint
+         * @type {string}
+         * @protected
+         */
+        public _endpoint:string = null;
+
+        /**
+         * YUIDoc_comment
+         *
+         * @property _request
+         * @type {URLRequest}
+         * @protected
+         */
+        public _request:URLRequest = null;
+
+        /**
+         * YUIDoc_comment
+         *
+         * @property _loader
+         * @type {URLLoader}
+         * @readonly
+         * @protected
+         */
+        public _loader:URLLoader = null;
+
+        /**
+         * YUIDoc_comment
+         *
+         * @property data
+         * @type {any}
+         * @public
+         */
         public data:any = null;
+
+        /**
+         * YUIDoc_comment
+         *
+         * @property complete
+         * @type {boolean}
+         * @default false
+         * @public
+         */
         public complete:boolean = false;
 
-        constructor(url:string)
+        /**
+         * YUIDoc_comment
+         *
+         * @property src
+         * @type {string}
+         * @public
+         */
+        public src:string = null;
+
+
+        constructor(baseUrl:string, endpoint:string)
         {
             super();
 
-            this.src = url;
-            this.configureRequest();
+            this._baseUrl = baseUrl;
+            this._endpoint = endpoint;
         }
 
-        private configureRequest():void
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method getloader
+         * @public
+         */
+        public getloader():URLLoader
         {
+            return this._loader;
+        }
+
+        /* ---------------------------------------------------------------------
+         Protected Methods
+         ------------------------------------------------------------------------ */
+        /**
+         * YUIDoc_comment
+         *
+         * @method configureRequest
+         * @protected
+         */
+        public configureRequest():void
+        {
+            this.src = this._baseUrl + this._endpoint;
             this._request = new URLRequest(this.src);
-            this._request.method = URLRequestMethod.GET;
-
-            this._loader = new URLLoader();
-            this._loader.addEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
-            this._loader.dataFormat = URLLoaderDataFormat.HTML;
         }
 
-        private onLoaderComplete(event:LoaderEvent):void
-        {
-            this.complete = true;
-            this.data = this._loader.data;
-            this.dispatchEvent(new LoaderEvent(LoaderEvent.COMPLETE));
-
-            this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onLoaderComplete, this);
-            this._loader = null;
-        }
-
+        /**
+         * YUIDoc_comment
+         *
+         * @method load
+         * @protected
+         */
         public load():void
         {
-            if (this.complete)
-            {
-                return;
-            }
+            this._loader = new URLLoader();
+            this._loader.addEventListener(LoaderEvent.COMPLETE, this.onDataLoadComplete, this);
 
-            this._loader.load(this._request);
+            if(this._request){
+                this._loader.load(this._request);
+            }else{
+                throw new Error('[' + this.getQualifiedClassName() + '] Error: No request object created for proxy. Override configureRequest');
+            }
         }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method parseData
+         * @protected
+         */
+        public parseData():void
+        {
+            // TODO: remove trace log
+            console.log(this, this._loader.data);
+            this.data = this._loader.data;
+
+            this.cleanupListeners();
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method cleanupListeners
+         * @protected
+         */
+        public cleanupListeners():void
+        {
+            this._loader.removeEventListener(LoaderEvent.COMPLETE, this.onDataLoadComplete, this);
+        }
+
+        /**
+         * YUIDoc_comment
+         *
+         * @method onDataLoadComplete
+         * @param event {LoaderEvent}
+         * @protected
+         */
+        public onDataLoadComplete(event:LoaderEvent):void
+        {
+            console.log("event", event, this.data);
+            this.parseData();
+        }
+
     }
 }

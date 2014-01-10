@@ -22,7 +22,7 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-///<reference path='../plugin/jquery.addEventListener.ts'/>
+///<reference path='../plugin/jquery.eventListener.ts'/>
 ///<reference path='DisplayObjectContainer.ts'/>
 ///<reference path='../event/BaseEvent.ts'/>
 ///<reference path='../util/TemplateFactory.ts'/>
@@ -329,7 +329,7 @@ module StructureTS
             var domElement:DOMElement;
             var $list:JQuery = this.$element.children(selector);
 
-            _.each($list, (item, index) =>
+            _.each($list, (item) =>
             {
                 $child = jQuery(item);
                 // If the jQuery element already has cid data property then must be an existing DisplayObjectContainer (DOMElement) in the children array.

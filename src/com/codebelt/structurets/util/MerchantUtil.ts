@@ -66,7 +66,6 @@ module StructureTS
             var pre:number;
             var sum:number = 0;
             var alt:boolean = true;
-                                  console.log("cardNumber", cardNumber);
             var i:number = cardNumber.length;
             while (--i > -1)
             {
