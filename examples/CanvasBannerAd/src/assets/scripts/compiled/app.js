@@ -45,6 +45,38 @@ var StructureTS;
 
             return object;
         };
+
+        Util.clone = function (obj) {
+            if (null == obj || "object" != typeof obj) {
+                return obj;
+            }
+
+            if (obj instanceof Date) {
+                var copy = new Date();
+                copy.setTime(obj.getTime());
+                return copy;
+            }
+
+            if (obj instanceof Array) {
+                var copy = [];
+                for (var i = 0, len = obj.length; i < len; i++) {
+                    copy[i] = Util.clone(obj[i]);
+                }
+                return copy;
+            }
+
+            if (obj instanceof Object) {
+                var copy = {};
+                for (var attr in obj) {
+                    if (obj.hasOwnProperty(attr)) {
+                        copy[attr] = Util.clone(obj[attr]);
+                    }
+                }
+                return copy;
+            }
+
+            throw new Error("[Util] Unable to copy obj! Its type isn't supported.");
+        };
         Util.CLASS_NAME = 'Util';
 
         Util._idCounter = 0;
@@ -902,7 +934,7 @@ var StructureTS;
             var domElement;
             var $list = this.$element.children(selector);
 
-            _.each($list, function (item, index) {
+            _.each($list, function (item) {
                 $child = jQuery(item);
 
                 if (!$child.data('cid')) {
@@ -1010,11 +1042,11 @@ var StructureTS;
             return num;
         };
 
-        MathUtil.randomRange = function (min, max, round) {
-            if (typeof round === "undefined") { round = false; }
+        MathUtil.randomRange = function (min, max, wholeNumber) {
+            if (typeof wholeNumber === "undefined") { wholeNumber = true; }
             var num = (min + Math.random() * (max - min));
 
-            if (round) {
+            if (wholeNumber) {
                 return Math.round(num);
             }
             return num;
@@ -1218,6 +1250,8 @@ var StructureTS;
         LoaderEvent.COMPLETE = "LoaderEvent.complete";
 
         LoaderEvent.LOAD_COMPLETE = "LoaderEvent.loadComplete";
+
+        LoaderEvent.ERROR = "LoaderEvent.error";
         return LoaderEvent;
     })(StructureTS.BaseEvent);
     StructureTS.LoaderEvent = LoaderEvent;
