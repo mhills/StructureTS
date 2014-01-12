@@ -1,5 +1,5 @@
-///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/Stage.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
 
 module codeBelt
 {
@@ -13,15 +13,14 @@ module codeBelt
             super();
         }
 
-        public createChildren():DOMElement
+        public createChildren():void
         {
             super.createChildren();
 
             var thumbnails:DOMElement = this.getChild('.gallery-thumbnails');
             var images:DOMElement[] = thumbnails.getChildren();
             console.log(thumbnails.numChildren)
-            console.log(images)
-            return this;
+            console.log(images);
         }
 
         /**
@@ -30,6 +29,7 @@ module codeBelt
         public enable():void
         {
             if (this.isEnabled === true) return;
+
 
             super.enable();
         }

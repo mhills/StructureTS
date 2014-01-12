@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- The current version of the application -->
+        <meta name="version" content="0.1.0"/>
+
+        <!-- Define charset for HTML5 Doctype -->
+        <meta charset="utf-8" />
+
+        <!-- build:css assets/styles/app.min.css -->
+        <!-- endbuild -->
+
+    </head>
+    <body>
+        //http://wowslider.com/slider-jquery-elegant-linear-demo.html
+        <div id="gallery">
+            <div class="gallery-large">
+
+            </div>
+            <div class="gallery-thumbnails">
+                <img name="img1" src="http://bit.ly/2rz3hy" alt=""/>
+                <img name="img2" src="http://bit.ly/1ug1e6" alt=""/>
+                <img name="img3" src="http://bit.ly/1yIAYc" alt=""/>
+                <img name="img4" src="http://bit.ly/2LHyDW" alt=""/>
+                <img name="img5" src="http://bit.ly/2wyHSR" alt=""/>
+                <img name="img6" src="http://bit.ly/yRo1i" alt=""/>
+                <div class="ll">asdfasdf</div>
+                <div>asdfff</div>
+            </div>
+        </div>
+
+        <!-- build:js assets/scripts/app.min.js -->
+        <script type="text/javascript" src="assets/vendor/jquery/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="assets/vendor/handlebars/handlebars.js"></script>
+        <script type="text/javascript" src="assets/vendor/lodash/lodash.js"></script>
+
+        <script type="text/javascript" src="assets/scripts/compiled/app.js"></script>
+        <!-- endbuild -->
+
+        <script type="text/javascript">
+            window.onload = function(event) {
+                // Get class from namespace.
+                var PhotoGalleryApp = codeBelt.PhotoGalleryApp;
+
+                var app = new PhotoGalleryApp();
+                app.appendTo('body');
+
+            }
+        </script>
+    </body>
+</html>
