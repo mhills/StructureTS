@@ -175,20 +175,20 @@ module StructureTS
             // Handle Date
             if (obj instanceof Date)
             {
-                var copy:Date = new Date();
-                copy.setTime(obj.getTime());
-                return copy;
+                var date:Date = new Date();
+                date.setTime(obj.getTime());
+                return date;
             }
 
             // Handle Array
             if (obj instanceof Array)
             {
-                var copy:any[] = [];
+                var array:any[] = [];
                 for (var i = 0, len = obj.length; i < len; i++)
                 {
-                    copy[i] = Util.clone(obj[i]);
+                    array[i] = Util.clone(obj[i]);
                 }
-                return copy;
+                return array;
             }
 
             // Handle Object
