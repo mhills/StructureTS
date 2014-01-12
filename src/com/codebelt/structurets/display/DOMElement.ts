@@ -263,7 +263,7 @@ module StructureTS
          */
         public getChildByCid(cid:number):DOMElement
         {
-            var domElement:DOMElement = <DOMElement>_.find(this.children, function (child)
+            var domElement:DOMElement = <DOMElement>this.children.filter(function (child)
             {
                 return child.cid == cid;
             });
@@ -289,15 +289,12 @@ module StructureTS
                 throw new TypeError('[' + this.getQualifiedClassName() + '] getChild(' + selector + ') Cannot find DOM $element');
             }
 
-            // Loop through the children array to see if the cid found on the jQueryElement matches any in the children array.
+            // Check to see if there the element already has a cid value and is a child of this parent object.
             var cid:number = jQueryElement.data('cid');
-            var domElement:DOMElement = <DOMElement>_.find(this.children, function (domElement)
-            {
-                return domElement.cid == cid;
-            });
+            var domElement:DOMElement = this.getChildByCid(cid);
 
-            // Create a DOMElement from the jQueryElement.
-            if (!domElement)
+            // Creates a DOMElement from the jQueryElement.
+            if (domElement == null)
             {
                 // Create a new DOMElement and assign the jQuery element to it.
                 domElement = new DOMElement();
@@ -329,23 +326,25 @@ module StructureTS
             var domElement:DOMElement;
             var $list:JQuery = this.$element.children(selector);
 
-            _.each($list, (item) =>
+            var listLength:number = $list.length;
+            for (var i:number = 0; i < listLength; i++)
             {
-                $child = jQuery(item);
+                $child = jQuery($list[i]);
+
                 // If the jQuery element already has cid data property then must be an existing DisplayObjectContainer (DOMElement) in the children array.
                 if (!$child.data('cid'))
                 {
                     domElement = new DOMElement();
                     domElement.$element = $child;
                     domElement.$element.attr('data-cid', domElement.cid);
-                    domElement.element = item;
+                    domElement.element = $child.get(0);
                     domElement.isCreated = true;
 
                     // Added to the super addChild method because we don't need to append the element to the DOM.
                     // At this point it already exists and we are just getting a reference to the DOM element.
                     super.addChild(domElement);
                 }
-            });
+            }
 
             return <DOMElement[]>this.children;
         }
