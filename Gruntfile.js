@@ -137,7 +137,7 @@ module.exports = function(grunt) {
 
         ts: {
             js: {
-                src: ['<%= SRC_PATH %>com/**/*.ts'],        // The source typescript files, http://gruntjs.com/configuring-tasks#files
+                src: ['<%= SRC_PATH %>com/codebelt/**/*.ts'],        // The source typescript files, http://gruntjs.com/configuring-tasks#files
                 outDir: '<%= JS_PATH %>',   // If specified, the generate javascript files are placed here. Only works if out is not specified
                 options: {                         // use to override the default options, http://gruntjs.com/configuring-tasks#options
                     target: 'es3',                 // 'es3' (default) | 'es5'

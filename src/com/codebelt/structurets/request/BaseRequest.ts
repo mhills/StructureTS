@@ -113,14 +113,13 @@ module StructureTS
         public src:string = null;
 
 
-        constructor(baseUrl:string, endpoint:string)
+        constructor(baseUrl:string, endpoint:string = '')
         {
             super();
 
             this._baseUrl = baseUrl;
             this._endpoint = endpoint;
         }
-
 
         /**
          * YUIDoc_comment

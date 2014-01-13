@@ -25,7 +25,7 @@
 ///<reference path='../interface/IDataStore.ts'/>
 ///<reference path='../event/EventDispatcher.ts'/>
 ///<reference path='../controller/LocalStorageController.ts'/>
-///<reference path='../event/LoaderEvent.ts'/>
+///<reference path='../event/RequestEvent.ts'/>
 ///<reference path='../event/LanguageEvent.ts'/>
 ///<reference path='../request/BaseRequest.ts'/>
 ///<reference path='vo/LanguageConfigVO.ts'/>
@@ -90,7 +90,7 @@ module StructureTS
         public loadConfig(path:string):void
         {
             this._request = new BaseRequest(path);
-            this._request.addEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+            this._request.addEventListener(RequestEvent.SUCCESS, this.onConfigLoaded, this);
             this._request.load();
         }
 
@@ -115,7 +115,7 @@ module StructureTS
             this._localStorageController.addItem('language', vo.id, true);
 
             this._request = new BaseRequest(vo.path);
-            this._request.addEventListener(LoaderEvent.COMPLETE, this.onLanguageDataLoad, this);
+            this._request.addEventListener(RequestEvent.SUCCESS, this.onLanguageDataLoad, this);
             this._request.load();
         }
 
@@ -158,12 +158,12 @@ module StructureTS
         /**
          *
          * @method onConfigLoaded
-         * @param event {LoaderEvent}
+         * @param event {RequestEvent}
          * @protected
          */
-        public onConfigLoaded(event:LoaderEvent):void
+        public onConfigLoaded(event:RequestEvent):void
         {
-            this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+            this._request.removeEventListener(RequestEvent.SUCCESS, this.onConfigLoaded, this);
 
             var firstLanguageId:string = null;
             var jsonData:any = JSON.parse(event.target.data);
@@ -187,7 +187,7 @@ module StructureTS
             // If there is no default language set in LocalStorage then use the first one in the _availableLanguagesDictionary.
             this.currentLanguage = (languageIdFound) ? this.currentLanguage : firstLanguageId;
 
-            this.dispatchEvent(new LoaderEvent(LanguageEvent.CONFIG_LOADED, false, false, this.data));
+            this.dispatchEvent(new RequestEvent(LanguageEvent.CONFIG_LOADED, false, false, this.data));
 
             // Get the language vo and get the json file path to load that specific language.
             var currentLanguageVO:LanguageConfigVO = this.getLangConfigById(this.currentLanguage);
@@ -197,16 +197,16 @@ module StructureTS
         /**
          *
          * @method onLanguageDataLoad
-         * @param event {LoaderEvent}
+         * @param event {RequestEvent}
          * @protected
          */
-        public onLanguageDataLoad(event:LoaderEvent):void
+        public onLanguageDataLoad(event:RequestEvent):void
         {
             this.data = JSON.parse(event.target.data);
-            this._request.removeEventListener(LoaderEvent.COMPLETE, this.onConfigLoaded, this);
+            this._request.removeEventListener(RequestEvent.SUCCESS, this.onConfigLoaded, this);
             this._request = null;
 
-            this.dispatchEvent(new LoaderEvent(LanguageEvent.LANGUAGE_LOADED, false, false, this.data));
+            this.dispatchEvent(new RequestEvent(LanguageEvent.LANGUAGE_LOADED, false, false, this.data));
         }
 
         /**
