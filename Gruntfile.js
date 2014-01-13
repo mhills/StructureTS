@@ -13,15 +13,12 @@ module.exports = function(grunt) {
 
         // Constants for the Gruntfile so we can easily change the path for
         // our environments.
-        BASE_PATH: '../',
-        DEVELOPMENT_PATH: '../dev/',
-        PRODUCTION_PATH: '../prod/',
-        EXAMPLE_PATH: '../examples/',
-        WINDOW_FILM_PATH: '../../../deploy/scripts/',
-        SRC_PATH: '../src/',
-        DEPLOY_PATH: '../deploy/',
-        TEST_PATH: '../test/',
-        JS_PATH: '../js/',
+        BASE_PATH: '',
+        EXAMPLE_PATH: 'examples/',
+        SRC_PATH: 'src/',
+        DEPLOY_PATH: 'deploy/',
+        TEST_PATH: 'test/',
+        JS_PATH: 'js/',
 
 
         // A code block that will be added to all our minified code files.
@@ -35,42 +32,6 @@ module.exports = function(grunt) {
             '* Copyright(c): <%= grunt.template.today("yyyy") %>',
             '*/'
         ],
-
-
-        // Task configuration.
-        concat: {
-//            main: {
-//                options: {
-//                    separator: '',
-//                    stripBanners: true
-//                },
-//                dist: {
-//                    files: {
-//                        '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/styles.min.css': [
-//                            '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/gallery.css',
-//                            '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/shadows.css',
-//                            '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/buttons.css',
-//                            '<%= EXAMPLE_PATH %>SinglePageWebsite/styles/style.css'
-//                        ]
-//                    }
-//                }
-//            },
-//            film: {
-                options: {
-                    separator: '\n',
-                    stripBanners: true
-                },
-                dist: {
-                    files: {
-                        '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/filmapp.js': [
-                            '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/json.js',
-                            '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/templates.js',
-                            '<%= EXAMPLE_PATH %>WindowFilm/prod/scripts/typescript.js'
-                        ]
-                    }
-                }
-//            }
-        },
 
         typescript: {
             website: {
@@ -186,8 +147,6 @@ module.exports = function(grunt) {
                     removeComments: false           // true (default) | false
                 }
             }
-
-
         },
 
         jst: {
