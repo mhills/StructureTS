@@ -1,5 +1,5 @@
-///<reference path='../../../../../../src/com/codebelt/structurets/model/ValueObject.ts'/>
-///<reference path='../../../../../../src/com/codebelt/structurets/interface/IValueObject.ts'/>
+///<reference path='../../../../../../../src/com/codebelt/structurets/model/ValueObject.ts'/>
+///<reference path='../../../../../../../src/com/codebelt/structurets/interface/IValueObject.ts'/>
 
 module codeBelt
 {

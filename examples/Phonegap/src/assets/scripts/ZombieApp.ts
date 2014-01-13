@@ -1,6 +1,6 @@
-///<reference path='../../../../src/com/codebelt/structurets/display/Stage.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
-///<reference path='../../../../src/com/codebelt/structurets/util/StringUtil.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/Stage.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/display/DOMElement.ts'/>
+///<reference path='../../../../../src/com/codebelt/structurets/util/StringUtil.ts'/>
 
 ///<reference path='model/vo/TodoItemVO.ts'/>
 ///<reference path='model/TodoCollection.ts'/>

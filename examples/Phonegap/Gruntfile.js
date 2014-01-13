@@ -359,13 +359,10 @@ module.exports = function(grunt) {
         'json',
         'handlebars',
         'typescript',
-        'clean',
-        'copy',
         'useminPrepare', 'concat', 'uglify', 'cssmin',
         'usemin',
         'usebanner',
         'htmlmin',
-        'manifest',
         'open:web',
         'express:web',
         'express-keepalive'

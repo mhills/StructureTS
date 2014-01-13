@@ -1,5 +1,5 @@
-///<reference path='../../../../../src/com/codebelt/structurets/model/Collection.ts'/>
-///<reference path='../../../../../src/com/codebelt/structurets/controller/LocalStorageController.ts'/>
+///<reference path='../../../../../../src/com/codebelt/structurets/model/Collection.ts'/>
+///<reference path='../../../../../../src/com/codebelt/structurets/controller/LocalStorageController.ts'/>
 
 ///<reference path='vo/TodoItemVO.ts'/>
 
