@@ -19,8 +19,10 @@ module codeBelt
 
             var thumbnails:DOMElement = this.getChild('.gallery-thumbnails');
             var images:DOMElement[] = thumbnails.getChildren();
-            console.log(thumbnails.numChildren)
+            console.log(thumbnails.numChildren);
             console.log(images);
+            console.log(thumbnails.getChildByCid(4));
+
         }
 
         /**
@@ -33,6 +35,7 @@ module codeBelt
 
             super.enable();
         }
+
 
         /**
          * @overridden DOMElement.disable

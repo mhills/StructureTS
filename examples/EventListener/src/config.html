@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- The current version of the application -->
+    <meta name="version" content="<!-- @echo appVersion -->"/>
+
+    <!-- Define charset for HTML5 Doctype -->
+    <meta charset="utf-8" />
+
+    <!-- build:css assets/styles/app.min.css -->
+    <style>
+        .rect {
+            width: 200px;
+            height: 200px;
+            background-color: #00ff00;
+        }
+
+        .rect.active {
+            background-color: #3c49ff;
+        }
+    </style>
+    <!-- endbuild -->
+
+</head>
+<body>
+    <p>Click on the box. The current state is <span class="js-stateText">Enabled</span></p>
+    <div class="js-Square rect"></div>
+
+    <button id="js-enableButton" class="enable">Enable</button>
+    <button id="js-disableButton" class="disable">Disable</button>
+
+    <!-- build:js assets/scripts/app.min.js -->
+    <script type="text/javascript" src="assets/vendor/jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="assets/vendor/handlebars/handlebars.js"></script>
+    <script type="text/javascript" src="assets/vendor/lodash/lodash.js"></script>
+
+    <script type="text/javascript" src="assets/scripts/compiled/app.js"></script>
+    <!-- endbuild -->
+
+    <script>
+        window.onload = function (event)
+        {
+            // Get class from namespace.
+            var EventListenerApp = codeBelt.EventListenerApp;
+
+            var app = new EventListenerApp();
+            app.appendTo('body');
+        }
+    </script>
+</body>
+</html>

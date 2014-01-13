@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>StructureTS Single Page Website App</title>
+<head>
+    <!-- The current version of the application -->
+    <meta name="version" content="0.1.0"/>
 
-        <!-- The current version of the application -->
-        <meta name="version" content="0.1.0"/>
+    <!-- Define charset for HTML5 Doctype -->
+    <meta charset="utf-8" />
 
-        
-        <link rel="stylesheet" type="text/css" media="screen" href="styles/import.css" />
-        
+    <!-- build:css assets/styles/app.min.css -->
+    <link rel="stylesheet" href="assets/styles/all.css" media="screen" type="text/css"/>
+    <!-- endbuild -->
 
-        
-    </head>
-    <body>
-        
-        <script type="text/javascript" src="libs/jquery/jquery-1.9.1.js"></script>
-        <script type="text/javascript" src="libs/handlebars/handlebars.js"></script>
-        <script type="text/javascript" src="scripts/compiled/json.js"></script>
-        <script type="text/javascript" src="scripts/compiled/templates.tmpl.js"></script>
-        <script type="text/javascript" src="scripts/compiled/app.js"></script>
-        
+</head>
+<body>
+    <!-- build:js assets/scripts/app.min.js -->
+    <script type="text/javascript" src="assets/vendor/jquery/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="assets/vendor/handlebars/handlebars.js"></script>
+    <script type="text/javascript" src="assets/vendor/lodash/lodash.js"></script>
 
-        
+    <script type="text/javascript" src="assets/scripts/compiled/json.js"></script>
+    <script type="text/javascript" src="assets/scripts/compiled/templates.tmpl.js"></script>
+    <script type="text/javascript" src="assets/scripts/compiled/app.js"></script>
+    <!-- endbuild -->
 
-        <script>
-            window.onload = function(event) {
-                // Get class from namespace.
-                var WebsiteApp = codeBelt.WebsiteApp;
+    <script>
+        window.onload = function (event)
+        {
+            // Get class from namespace.
+            var WebsiteApp = codeBelt.WebsiteApp;
 
-                var app = new WebsiteApp();
-                app.appendTo('body');
-            }
-        </script>
-    </body>
+            var app = new WebsiteApp();
+            app.appendTo('body');
+        }
+    </script>
+</body>
 </html>

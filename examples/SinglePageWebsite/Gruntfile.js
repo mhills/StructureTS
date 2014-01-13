@@ -165,7 +165,7 @@ module.exports = function(grunt) {
          */
         typescript: {
             main: {
-                src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/EventBubblingApp.ts'],
+                src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/WebsiteApp.ts'],
                 dest: '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/compiled/app.js',
                 options: {
                     target: 'es3', //or es5

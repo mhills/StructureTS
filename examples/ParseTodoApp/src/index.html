@@ -1,28 +1,17 @@
 <!DOCTYPE html>
+<html lang="en">
     <head>
-        <meta charset="utf-8">
-        <title>Parse StructureTS Todo App</title>
-
         <!-- The current version of the application -->
         <meta name="version" content="0.1.0"/>
 
-        
-        <link rel="stylesheet" type="text/css" media="screen" href="styles/import.css" />
-        
+        <!-- Define charset for HTML5 Doctype -->
+        <meta charset="utf-8" />
 
-        
-
-        
-        <script type="text/javascript" src="libs/handlebars/handlebars.js"></script>
-        <script type="text/javascript" src="libs/lodash/lodash.js"></script>
-        <script type="text/javascript" src="libs/jquery/jquery-1.9.1.js"></script>
-        <script type="text/javascript" src="libs/parse-1.2.8.js"></script>
-        <script type="text/javascript" src="scripts/compiled/app.js"></script>
-        
-
-        
+        <!-- build:css assets/styles/app.min.css -->
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/styles/reset.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/styles/styles.css" />
+        <!-- endbuild -->
     </head>
-
     <body>
         <h1>Parse StructureTS Todo App</h1>
 
@@ -46,6 +35,15 @@
         <script id="noTodoItemsTemplate" type="text/template">
             <li class="no-incomplete-message">There are no incomplete tasks! Consider adding one above.</li>
         </script>
+
+        <!-- build:js assets/scripts/app.min.js -->
+        <script type="text/javascript" src="assets/vendor/jquery/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="assets/vendor/handlebars/handlebars.js"></script>
+        <script type="text/javascript" src="assets/vendor/lodash/lodash.js"></script>
+        <script type="text/javascript" src="assets/vendor/parse-1.2.8.js"></script>
+
+        <script type="text/javascript" src="assets/scripts/compiled/app.js"></script>
+        <!-- endbuild -->
 
         <script type="text/javascript">
             window.onload = function(event) {

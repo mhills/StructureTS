@@ -17,7 +17,7 @@ module.exports = function(grunt) {
          */
         BASE_PATH: '',
         DEVELOPMENT_PATH: 'src/',
-        PRODUCTION_PATH: 'web/',
+        PRODUCTION_PATH: 'www/',
 
         /**
          * A code block that will be added to our minified code files.
@@ -165,7 +165,7 @@ module.exports = function(grunt) {
          */
         typescript: {
             main: {
-                src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/EventBubblingApp.ts'],
+                src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/ZombieApp.ts'],
                 dest: '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/compiled/app.js',
                 options: {
                     target: 'es3', //or es5
@@ -335,10 +335,10 @@ module.exports = function(grunt) {
      * grunt doc    (Will generate the YUI documentation from the code comments)
      */
     grunt.registerTask('default', [
-        'server'
+        'web'
     ]);
 
-    grunt.registerTask('server', [
+    /*grunt.registerTask('server', [
         'src',
         'express:src',
         'open:src',
@@ -351,7 +351,7 @@ module.exports = function(grunt) {
         'json',
         'handlebars',
         'typescript'
-    ]);
+    ]);*/
 
     grunt.registerTask('web', [
         'env:web',
