@@ -263,12 +263,12 @@ module StructureTS
          */
         public getChildByCid(cid:number):DOMElement
         {
-            var domElement:DOMElement = <DOMElement>this.children.filter(function (child)
+            var domElement:DOMElement[] = <DOMElement[]>this.children.filter(function (child)
             {
                 return child.cid == cid;
             });
 
-            return domElement || null;
+            return domElement[0] || null;
         }
 
         /**
