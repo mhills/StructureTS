@@ -33,9 +33,11 @@ module StructureTS
          */
         public CLASS_NAME:string = 'JsonRequest';
 
-        constructor(baseUrl:string, endpoint:string)
+        constructor(baseUrl:string)
         {
-            super(baseUrl, endpoint);
+            super(baseUrl);
+
+            this.configureRequest();
         }
 
         /**
