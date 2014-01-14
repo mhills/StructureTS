@@ -155,6 +155,8 @@ module StructureTS
          */
         public load():void
         {
+            this.complete = false;
+
             this._loader = new URLLoader();
             this._loader.addEventListener(LoaderEvent.COMPLETE, this.onDataLoadComplete, this);
             this._loader.addEventListener(LoaderEvent.ERROR, this.onDataLoadError, this);
@@ -175,8 +177,6 @@ module StructureTS
         public parseData():void
         {
             this.data = this._loader.data;
-
-            this.cleanupListeners();
         }
 
         /**
@@ -201,7 +201,9 @@ module StructureTS
         public onDataLoadComplete(event:LoaderEvent):void
         {
             this.parseData();
-            this.dispatchEvent(new RequestEvent(RequestEvent.SUCCESS, false, false, this.data))
+            this.complete = true;
+            this.cleanupListeners();
+            this.dispatchEvent(new RequestEvent(RequestEvent.SUCCESS, false, false, this.data));
         }
 
         /**
@@ -213,7 +215,8 @@ module StructureTS
          */
         public onDataLoadError(event:LoaderEvent):void
         {
-            this.dispatchEvent(new RequestEvent(RequestEvent.ERROR, false, false, this.data))
+            this.cleanupListeners();
+            this.dispatchEvent(new RequestEvent(RequestEvent.ERROR, false, false, this.data));
         }
 
         /**
@@ -223,6 +226,7 @@ module StructureTS
         {
             super.destroy();
 
+            this.data = null;
             this._request = null;
 
             this._loader.destroy();

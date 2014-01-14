@@ -155,7 +155,7 @@ module StructureTS
         {
             event.preventDefault();
 
-            var $currentTarget = $(event.currentTarget);
+            var $currentTarget = jQuery(event.currentTarget);
             var tabIndex:number = $currentTarget.data(this._tabButtonAttributeName);
             this.changeTab(tabIndex);
             this.showContent(tabIndex);

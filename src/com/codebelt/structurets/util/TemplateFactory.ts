@@ -76,7 +76,7 @@ module StructureTS
 
             if (isClassOrIdName)
             {
-                var htmlString:string = $(templatePath).html();
+                var htmlString:string = jQuery(templatePath).html();
                 htmlString = StringUtil.removeLeadingTrailingWhitespace(htmlString);
 
                 if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE)

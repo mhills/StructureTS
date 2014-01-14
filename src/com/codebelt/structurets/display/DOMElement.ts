@@ -126,7 +126,7 @@ module StructureTS
                 var html:string = TemplateFactory.createTemplate(type, params);
                 if (html)
                 {
-                    this.$element = $(html);
+                    this.$element = jQuery(html);
                 }
                 else
                 {
