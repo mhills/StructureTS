@@ -208,5 +208,19 @@ module StructureTS
             throw new Error("[Util] Unable to copy obj! Its type isn't supported.");
         }
 
+        /**
+         * YUIDoc_comment
+         *
+         * @method toBoolean
+         * @param strNum {string|number}
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static toBoolean(strNum:string):boolean
+        {
+            return (strNum == "1" || strNum.toLowerCase() == "true");
+        }
+
     }
 }

@@ -48,20 +48,6 @@ module StructureTS
         /**
          * YUIDoc_comment
          *
-         * @method stringToBoolean
-         * @param str {string}
-         * @returns {boolean}
-         * @public
-         * @static
-         */
-        public static stringToBoolean(str:string):boolean
-        {
-            return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
-        }
-
-        /**
-         * YUIDoc_comment
-         *
          * @method getExtension
          * @param filename {string}
          * @returns {string}
@@ -106,10 +92,10 @@ module StructureTS
             str = str.toLowerCase();
 
             // This is causing an issue with TS 0.9.5 so committing it out for now.
-/*            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
-            {
-                return hyphenated.toUpperCase();
-            });*/
+            /*            return str.replace(/(\-|^)([a-z])/gi, function (match, delimiter, hyphenated)
+             {
+             return hyphenated.toUpperCase();
+             });*/
 
             return null;
         }
