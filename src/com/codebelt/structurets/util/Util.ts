@@ -217,9 +217,11 @@ module StructureTS
          * @public
          * @static
          */
-        public static toBoolean(strNum:string):boolean
+        public static toBoolean(strNum:any):boolean
         {
-            return (strNum == "1" || strNum.toLowerCase() == "true");
+            strNum = (typeof strNum === 'string') ? strNum.toLowerCase() : strNum;
+
+            return (strNum == "1" || strNum == "true");
         }
 
     }
