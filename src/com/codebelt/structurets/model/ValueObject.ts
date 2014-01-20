@@ -72,7 +72,7 @@ module StructureTS
         public toJSON():ValueObject
         {
             var clone:ValueObject = <ValueObject>this.clone();
-            return Util.deletePropertyFromObject(clone, ['cid', 'CLASS_NAME']);
+            return Util.deletePropertyFromObject(clone, ['cid']);
         }
 
         /**
