@@ -175,6 +175,12 @@ var StructureTS;
 
             throw new Error("[Util] Unable to copy obj! Its type isn't supported.");
         };
+
+        Util.toBoolean = function (strNum) {
+            strNum = (typeof strNum === 'string') ? strNum.toLowerCase() : strNum;
+
+            return (strNum == "1" || strNum == "true");
+        };
         Util.CLASS_NAME = 'Util';
 
         Util._idCounter = 0;
@@ -498,6 +504,14 @@ var StructureTS;
             return this.children[index];
         };
 
+        DisplayObjectContainer.prototype.getChildByCid = function (cid) {
+            var children = this.children.filter(function (child) {
+                return child.cid == cid;
+            });
+
+            return children[0] || null;
+        };
+
         DisplayObjectContainer.prototype.setSize = function (unscaledWidth, unscaledHeight) {
             this.unscaledWidth = unscaledWidth;
             this.unscaledHeight = unscaledHeight;
@@ -527,10 +541,6 @@ var StructureTS;
     var StringUtil = (function () {
         function StringUtil() {
         }
-        StringUtil.stringToBoolean = function (str) {
-            return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
-        };
-
         StringUtil.getExtension = function (filename) {
             return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
         };
@@ -626,7 +636,7 @@ var StructureTS;
             var isClassOrIdName = regex.test(templatePath);
 
             if (isClassOrIdName) {
-                var htmlString = $(templatePath).html();
+                var htmlString = jQuery(templatePath).html();
                 htmlString = StructureTS.StringUtil.removeLeadingTrailingWhitespace(htmlString);
 
                 if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
@@ -695,7 +705,7 @@ var StructureTS;
             if (!this.$element) {
                 var html = StructureTS.TemplateFactory.createTemplate(type, params);
                 if (html) {
-                    this.$element = $(html);
+                    this.$element = jQuery(html);
                 } else {
                     this.$element = jQuery("<" + type + "/>", params);
                 }
@@ -769,14 +779,6 @@ var StructureTS;
 
         DOMElement.prototype.getChildAt = function (index) {
             return _super.prototype.getChildAt.call(this, index);
-        };
-
-        DOMElement.prototype.getChildByCid = function (cid) {
-            var domElement = this.children.filter(function (child) {
-                return child.cid == cid;
-            });
-
-            return domElement[0] || null;
         };
 
         DOMElement.prototype.getChild = function (selector) {

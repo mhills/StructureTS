@@ -130,7 +130,7 @@ module codeBelt
             var $element:JQuery = $(event.currentTarget);
 
             var cid:number = $element.data('cid');
-            var domElement:DOMElement = this._incompleteItemList.getChildByCid(cid);
+            var domElement:DOMElement = <DOMElement>this._incompleteItemList.getChildByCid(cid);
             var id:string = domElement.$element.children('input').data('id');
 
             this._appModel.markItemComplete(id);

@@ -193,7 +193,7 @@ module codeBelt
 
         private deleteTodo(voId:string, cid:number):void
         {
-            var child:DOMElement = this._todoContainer.getChildByCid(cid);
+            var child:DOMElement = <DOMElement>this._todoContainer.getChildByCid(cid);
             var vo:TodoItemVO = <TodoItemVO>this._todoCollection.find({id: voId})[0];
 
             this._todoCollection.removeItem(vo);

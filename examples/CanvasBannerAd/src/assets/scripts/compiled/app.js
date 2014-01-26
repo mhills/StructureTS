@@ -52,17 +52,17 @@ var StructureTS;
             }
 
             if (obj instanceof Date) {
-                var copy = new Date();
-                copy.setTime(obj.getTime());
-                return copy;
+                var date = new Date();
+                date.setTime(obj.getTime());
+                return date;
             }
 
             if (obj instanceof Array) {
-                var copy = [];
+                var array = [];
                 for (var i = 0, len = obj.length; i < len; i++) {
-                    copy[i] = Util.clone(obj[i]);
+                    array[i] = Util.clone(obj[i]);
                 }
-                return copy;
+                return array;
             }
 
             if (obj instanceof Object) {
@@ -76,6 +76,12 @@ var StructureTS;
             }
 
             throw new Error("[Util] Unable to copy obj! Its type isn't supported.");
+        };
+
+        Util.toBoolean = function (strNum) {
+            strNum = (typeof strNum === 'string') ? strNum.toLowerCase() : strNum;
+
+            return (strNum == "1" || strNum == "true");
         };
         Util.CLASS_NAME = 'Util';
 
@@ -400,6 +406,14 @@ var StructureTS;
             return this.children[index];
         };
 
+        DisplayObjectContainer.prototype.getChildByCid = function (cid) {
+            var children = this.children.filter(function (child) {
+                return child.cid == cid;
+            });
+
+            return children[0] || null;
+        };
+
         DisplayObjectContainer.prototype.setSize = function (unscaledWidth, unscaledHeight) {
             this.unscaledWidth = unscaledWidth;
             this.unscaledHeight = unscaledHeight;
@@ -651,10 +665,6 @@ var StructureTS;
     var StringUtil = (function () {
         function StringUtil() {
         }
-        StringUtil.stringToBoolean = function (str) {
-            return (str.toLowerCase() == "true" || str.toLowerCase() == "1");
-        };
-
         StringUtil.getExtension = function (filename) {
             return filename.slice(filename.lastIndexOf(".") + 1, filename.length);
         };
@@ -750,7 +760,7 @@ var StructureTS;
             var isClassOrIdName = regex.test(templatePath);
 
             if (isClassOrIdName) {
-                var htmlString = $(templatePath).html();
+                var htmlString = jQuery(templatePath).html();
                 htmlString = StructureTS.StringUtil.removeLeadingTrailingWhitespace(htmlString);
 
                 if (TemplateFactory.templateEngine == TemplateFactory.UNDERSCORE) {
@@ -819,7 +829,7 @@ var StructureTS;
             if (!this.$element) {
                 var html = StructureTS.TemplateFactory.createTemplate(type, params);
                 if (html) {
-                    this.$element = $(html);
+                    this.$element = jQuery(html);
                 } else {
                     this.$element = jQuery("<" + type + "/>", params);
                 }
@@ -895,14 +905,6 @@ var StructureTS;
             return _super.prototype.getChildAt.call(this, index);
         };
 
-        DOMElement.prototype.getChildByCid = function (cid) {
-            var domElement = _.find(this.children, function (child) {
-                return child.cid == cid;
-            });
-
-            return domElement || null;
-        };
-
         DOMElement.prototype.getChild = function (selector) {
             var jQueryElement = this.$element.find(selector).first();
             if (jQueryElement.length == 0) {
@@ -910,11 +912,9 @@ var StructureTS;
             }
 
             var cid = jQueryElement.data('cid');
-            var domElement = _.find(this.children, function (domElement) {
-                return domElement.cid == cid;
-            });
+            var domElement = this.getChildByCid(cid);
 
-            if (!domElement) {
+            if (domElement == null) {
                 domElement = new DOMElement();
                 domElement.$element = jQueryElement;
                 domElement.$element.attr('data-cid', domElement.cid);
@@ -929,24 +929,24 @@ var StructureTS;
 
         DOMElement.prototype.getChildren = function (selector) {
             if (typeof selector === "undefined") { selector = ''; }
-            var _this = this;
             var $child;
             var domElement;
             var $list = this.$element.children(selector);
 
-            _.each($list, function (item) {
-                $child = jQuery(item);
+            var listLength = $list.length;
+            for (var i = 0; i < listLength; i++) {
+                $child = jQuery($list[i]);
 
                 if (!$child.data('cid')) {
                     domElement = new DOMElement();
                     domElement.$element = $child;
                     domElement.$element.attr('data-cid', domElement.cid);
-                    domElement.element = item;
+                    domElement.element = $child.get(0);
                     domElement.isCreated = true;
 
-                    _super.prototype.addChild.call(_this, domElement);
+                    _super.prototype.addChild.call(this, domElement);
                 }
-            });
+            }
 
             return this.children;
         };
