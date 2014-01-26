@@ -46,6 +46,35 @@ module StructureTS
         }
 
         /**
+         * Determines if the String passed has a length.
+         *
+         * @method isEmpty
+         * @param text {string}
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static isEmpty(text:string):boolean
+        {
+            return text.length < 1;
+        }
+
+        /**
+         * Determines if the two values passed in are the same.
+         *
+         * @method isMatch
+         * @param value1 {any}
+         * @param value2 {any}
+         * @returns {boolean}
+         * @public
+         * @static
+         */
+        public static isMatch(value1:any, value2:any):boolean
+        {
+            return value1 === value2;
+        }
+
+        /**
          * Determines if the String passed in is a valid email address.
          *
          * @method isValidEmailAddress
