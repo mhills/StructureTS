@@ -51,6 +51,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "RouterController",
         "RouterEvent",
         "Stage",
+        "StatusVO",
         "StringUtil",
         "TabComponent",
         "TemplateFactory",
@@ -80,6 +81,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "WindowEvents"
     ],
     "modules": [
+        "LiquidPlumr",
         "StructureTS",
         "controller",
         "core",
@@ -110,6 +112,11 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "interface",
             "name": "interface",
+            "description": "YUIDoc_comment"
+        },
+        {
+            "displayName": "LiquidPlumr",
+            "name": "LiquidPlumr",
             "description": "YUIDoc_comment"
         },
         {

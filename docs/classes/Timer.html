@@ -141,6 +141,8 @@
             
                 <li><a href="../classes/Stage.html">Stage</a></li>
             
+                <li><a href="../classes/StatusVO.html">StatusVO</a></li>
+            
                 <li><a href="../classes/StringUtil.html">StringUtil</a></li>
             
                 <li><a href="../classes/TabComponent.html">TabComponent</a></li>
@@ -207,6 +209,8 @@
             
                 <li><a href="../modules/interface.html">interface</a></li>
             
+                <li><a href="../modules/LiquidPlumr.html">LiquidPlumr</a></li>
+            
                 <li><a href="../modules/model.html">model</a></li>
             
                 <li><a href="../modules/nativeEvent.html">nativeEvent</a></li>
@@ -266,7 +270,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l30"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:30</code></a>
+            Defined in: <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l30"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:30</code></a>
         </div>
     
 
@@ -284,6 +288,7 @@
 
 <div class="box intro">
     <p>Constructs a new Timer object with the specified delay and repeatCount states.</p>
+
 </div>
 
 
@@ -321,7 +326,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l30"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:30</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l30"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:30</code></a>
         
         </p>
 
@@ -636,7 +641,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l85"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:85</code></a>
+        <a href="../files/src_com_codebelt_structurets_event_EventDispatcher.ts.html#l85"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:85</code></a>
         
         </p>
 
@@ -648,6 +653,7 @@
 
     <div class="description">
         <p>Registers an event listener object with an EventDispatcher object so that the listener receives notification of an event.</p>
+
     </div>
 
     
@@ -666,6 +672,7 @@
 
                     <div class="param-description">
                         <p>The type of event.</p>
+
                     </div>
 
                     
@@ -681,6 +688,7 @@
 
                     <div class="param-description">
                         <p>The listener function that processes the event. This function must accept an Event object as its only parameter and must return nothing, as this example shows. @example function(event:Event):void</p>
+
                     </div>
 
                     
@@ -695,7 +703,8 @@
                     
 
                     <div class="param-description">
-                        <p>Binds the scope to a particular object (scope is basically what "this" refers to in your function). This can be very useful in JavaScript because scope isn't generally maintained.</p>
+                        <p>Binds the scope to a particular object (scope is basically what &quot;this&quot; refers to in your function). This can be very useful in JavaScript because scope isn&#39;t generally maintained.</p>
+
                     </div>
 
                     
@@ -712,6 +721,7 @@
 
                     <div class="param-description">
                         <p>Influences the order in which the listeners are called. Listeners with lower priorities are called after ones with higher priorities.</p>
+
                     </div>
 
                     
@@ -730,9 +740,9 @@
             <div class="example-content">
                 <pre class="code prettyprint"><code> instance.addEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
  private handlerMethod(event:BaseEvent):void {
-     console.log(event.target + " sent the event.");
- }
-</code></pre>
+     console.log(event.target + &quot; sent the event.&quot;);
+ }</code></pre>
+
             </div>
         </div>
     
@@ -773,7 +783,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l217"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:217</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l217"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:217</code></a>
         
         </p>
 
@@ -826,7 +836,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l86"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:86</code></a>
+        <a href="../files/src_com_codebelt_structurets_BaseObject.ts.html#l86"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:86</code></a>
         
         </p>
 
@@ -843,11 +853,11 @@ called on the object or properties accessed. It is the responsibility of those w
 function to stop all running Timers, all running Sounds, remove any event
 listeners and take any other steps necessary to make an object eligible for garbage collection.
 It is critical that all subclasses call the super for this function in their overridden methods.</p>
-
 <p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs.
 The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the
 <a href="../classes/EventDispatcher.html#method_disable" class="crosslink">disable</a> method on all classes that extend
 <a href="../classes/EventDispatcher.html" class="crosslink">EventDispatcher</a>.</p>
+
     </div>
 
     
@@ -864,8 +874,8 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
      this._childInstance.destroy();
      this._childInstance = null;
- }
-</code></pre>
+ }</code></pre>
+
             </div>
         </div>
     
@@ -905,7 +915,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l263"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:263</code></a>
+        <a href="../files/src_com_codebelt_structurets_event_EventDispatcher.ts.html#l263"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:263</code></a>
         
         </p>
 
@@ -917,6 +927,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
     <div class="description">
         <p>The disable method is responsible for disabling event listeners and/or children of the containing objects.</p>
+
     </div>
 
     
@@ -935,8 +946,8 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
      this._childInstance.disable();
 
      super.enable();
- }
-</code></pre>
+ }</code></pre>
+
             </div>
         </div>
     
@@ -986,7 +997,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l167"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:167</code></a>
+        <a href="../files/src_com_codebelt_structurets_event_EventDispatcher.ts.html#l167"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:167</code></a>
         
         </p>
 
@@ -1017,6 +1028,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
                     <div class="param-description">
                         <p>The Event object that is dispatched into the event flow. You can create custom events, the only requirement is all events must
 extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.</p>
+
                     </div>
 
                     
@@ -1037,8 +1049,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
  instance.dispatchEvent(event);
 
  // Here is a common inline event being dispatched
- instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));
-</code></pre>
+ instance.dispatchEvent(new BaseEvent(BaseEvent.CHANGE));</code></pre>
+
             </div>
         </div>
     
@@ -1078,7 +1090,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l240"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:240</code></a>
+        <a href="../files/src_com_codebelt_structurets_event_EventDispatcher.ts.html#l240"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:240</code></a>
         
         </p>
 
@@ -1090,6 +1102,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The enable method is responsible for enabling event listeners and/or children of the containing objects.</p>
+
     </div>
 
     
@@ -1108,8 +1121,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
      this._childInstance.enable();
 
      super.enable();
- }
-</code></pre>
+ }</code></pre>
+
             </div>
         </div>
     
@@ -1152,7 +1165,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l104"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:104</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l104"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:104</code></a>
         
         </p>
 
@@ -1164,6 +1177,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Returns the total number of times the timer has fired since it started at zero.</p>
+
     </div>
 
     
@@ -1177,7 +1191,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
                     
                         <span class="type">Number</span>:
                     
-                    The total number of times the timer has fired since it started at zero.
+                    <p>The total number of times the timer has fired since it started at zero.</p>
+
                 
             </div>
         </div>
@@ -1223,7 +1238,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l115"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:115</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l115"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:115</code></a>
         
         </p>
 
@@ -1235,6 +1250,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Returns the delay time in milliseconds.</p>
+
     </div>
 
     
@@ -1248,7 +1264,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
                     
                         <span class="type">Number</span>:
                     
-                    Returns the delay time in milliseconds.
+                    <p>Returns the delay time in milliseconds.</p>
+
                 
             </div>
         </div>
@@ -1293,7 +1310,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l73"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:73</code></a>
+        <a href="../files/src_com_codebelt_structurets_BaseObject.ts.html#l73"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:73</code></a>
         
         </p>
 
@@ -1305,6 +1322,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Returns the fully qualified class name of an object.</p>
+
     </div>
 
     
@@ -1318,7 +1336,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
                     
                         <span class="type">String</span>:
                     
-                    Returns the class name.
+                    <p>Returns the class name.</p>
+
                 
             </div>
         </div>
@@ -1329,8 +1348,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code> instance.getQualifiedClassName();
-</code></pre>
+                <pre class="code prettyprint"><code> instance.getQualifiedClassName();</code></pre>
+
             </div>
         </div>
     
@@ -1373,7 +1392,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l141"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:141</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l141"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:141</code></a>
         
         </p>
 
@@ -1385,6 +1404,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Returns the total number of times the timer is set to run.</p>
+
     </div>
 
     
@@ -1398,7 +1418,8 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
                     
                         <span class="type">Number</span>:
                     
-                    Returns the total number of times the timer is set to run.
+                    <p>Returns the total number of times the timer is set to run.</p>
+
                 
             </div>
         </div>
@@ -1463,7 +1484,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l131"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:131</code></a>
+        <a href="../files/src_com_codebelt_structurets_event_EventDispatcher.ts.html#l131"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:131</code></a>
         
         </p>
 
@@ -1475,6 +1496,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Removes a specified listener from the EventDispatcher object.</p>
+
     </div>
 
     
@@ -1493,6 +1515,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>The type of event.</p>
+
                     </div>
 
                     
@@ -1508,6 +1531,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>The listener object to remove.</p>
+
                     </div>
 
                     
@@ -1523,6 +1547,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
                     <div class="param-description">
                         <p>The scope of the listener object to be removed.</p>
+
                     </div>
 
                     
@@ -1541,9 +1566,9 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             <div class="example-content">
                 <pre class="code prettyprint"><code> instance.removeEventListener(BaseEvent.CHANGE, this.handlerMethod, this);
  private handlerMethod(event:BaseEvent):void {
-     console.log(event.target + " sent the event.");
- }
-</code></pre>
+     console.log(event.target + &quot; sent the event.&quot;);
+ }</code></pre>
+
             </div>
         </div>
     
@@ -1582,7 +1607,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l168"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:168</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l168"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:168</code></a>
         
         </p>
 
@@ -1594,6 +1619,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Stops the timer, if it is running, and sets the currentCount property back to 0, like the reset button of a stopwatch.</p>
+
     </div>
 
     
@@ -1646,7 +1672,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l126"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:126</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l126"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:126</code></a>
         
         </p>
 
@@ -1658,6 +1684,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Sets the delay, in milliseconds, between timer events.</p>
+
     </div>
 
     
@@ -1733,7 +1760,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l152"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:152</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l152"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:152</code></a>
         
         </p>
 
@@ -1745,6 +1772,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Set the total number of times the timer is set to run. If the repeat count is set to 0, the timer continues indefinitely. If the repeat count is nonzero, the timer runs the specified number of times. If repeatCount is set to a total that is the same or less then currentCount the timer stops and will not fire again.</p>
+
     </div>
 
     
@@ -1810,7 +1838,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l182"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:182</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l182"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:182</code></a>
         
         </p>
 
@@ -1822,6 +1850,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Starts the timer, if it is not already running.</p>
+
     </div>
 
     
@@ -1864,7 +1893,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l204"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:204</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l204"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:204</code></a>
         
         </p>
 
@@ -1876,6 +1905,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Stops the timer.</p>
+
     </div>
 
     
@@ -1916,7 +1946,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l48"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:48</code></a>
+        <a href="../files/src_com_codebelt_structurets_event_EventDispatcher.ts.html#l48"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:48</code></a>
         
         </p>
 
@@ -1927,6 +1957,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>Holds a reference to added listeners.</p>
+
     </div>
 
     
@@ -1962,7 +1993,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l48"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:48</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l48"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:48</code></a>
         
         </p>
 
@@ -1973,6 +2004,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>A reference to the setInterval object.</p>
+
     </div>
 
     
@@ -2005,7 +2037,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l57"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:57</code></a>
+        <a href="../files/src_com_codebelt_structurets_BaseObject.ts.html#l57"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:57</code></a>
         
         </p>
 
@@ -2016,6 +2048,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The cid or client id is a unique identifier automatically assigned to most StructureTS objects upon instantiation.</p>
+
     </div>
 
     
@@ -2052,7 +2085,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l47"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:47</code></a>
+        <a href="../files/src_com_codebelt_structurets_BaseObject.ts.html#l47"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:47</code></a>
         
         </p>
 
@@ -2063,6 +2096,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The fully qualified class name of the object. Use <a href="../classes/BaseObject.html#method_getQualifiedClassName" class="crosslink">getQualifiedClassName</a> method to retrieve the class name of a StructureTS object.</p>
+
     </div>
 
     
@@ -2098,7 +2132,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l57"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:57</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l57"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:57</code></a>
         
         </p>
 
@@ -2109,6 +2143,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The total number of times the timer has fired since it started at zero. If the timer has been reset, only the fires since the reset are counted.</p>
+
     </div>
 
     
@@ -2144,7 +2179,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l66"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:66</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l66"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:66</code></a>
         
         </p>
 
@@ -2156,6 +2191,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
     <div class="description">
         <p>The delay, in milliseconds, between timer events. If you set the delay interval while the timer is running, the timer will restart at the same repeatCount iteration.
 <strong>Note:</strong> A delay lower than 20 milliseconds is not recommended.</p>
+
     </div>
 
     
@@ -2188,7 +2224,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l68"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:68</code></a>
+        <a href="../files/src_com_codebelt_structurets_event_EventDispatcher.ts.html#l68"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:68</code></a>
         
         </p>
 
@@ -2199,6 +2235,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
 
     <div class="description">
         <p>The isEnabled property is used to keep track of the enabled state of the object.</p>
+
     </div>
 
     
@@ -2233,7 +2270,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_event_EventDispatcher.ts.html#l57"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:57</code></a>
+        <a href="../files/src_com_codebelt_structurets_event_EventDispatcher.ts.html#l57"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;event&#x2F;EventDispatcher.ts:57</code></a>
         
         </p>
 
@@ -2246,6 +2283,7 @@ extend the <a href="../classes/BaseEvent.html" class="crosslink">BaseEvent</a>.<
         <p>Indicates the object that contains child object. Use the parent property
 to specify a relative path to display objects that are above the current display object in the display
 list hierarchy.</p>
+
     </div>
 
     
@@ -2281,7 +2319,7 @@ list hierarchy.</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l76"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:76</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l76"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:76</code></a>
         
         </p>
 
@@ -2292,6 +2330,7 @@ list hierarchy.</p>
 
     <div class="description">
         <p>The total number of times the timer is set to run. If the repeat count is set to 0, the timer continues indefinitely. If the repeat count is nonzero, the timer runs the specified number of times. If repeatCount is set to a total that is the same or less then currentCount the timer stops and will not fire again.</p>
+
     </div>
 
     
@@ -2325,7 +2364,7 @@ list hierarchy.</p>
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_Timer.ts.html#l85"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:85</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_Timer.ts.html#l85"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;Timer.ts:85</code></a>
         
         </p>
 
@@ -2335,7 +2374,8 @@ list hierarchy.</p>
     </div>
 
     <div class="description">
-        <p>The timer's current state; true if the timer is running, otherwise false.</p>
+        <p>The timer&#39;s current state; true if the timer is running, otherwise false.</p>
+
     </div>
 
     

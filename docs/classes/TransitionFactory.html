@@ -141,6 +141,8 @@
             
                 <li><a href="../classes/Stage.html">Stage</a></li>
             
+                <li><a href="../classes/StatusVO.html">StatusVO</a></li>
+            
                 <li><a href="../classes/StringUtil.html">StringUtil</a></li>
             
                 <li><a href="../classes/TabComponent.html">TabComponent</a></li>
@@ -207,6 +209,8 @@
             
                 <li><a href="../modules/interface.html">interface</a></li>
             
+                <li><a href="../modules/LiquidPlumr.html">LiquidPlumr</a></li>
+            
                 <li><a href="../modules/model.html">model</a></li>
             
                 <li><a href="../modules/nativeEvent.html">nativeEvent</a></li>
@@ -266,7 +270,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/.._src_com_codebelt_structurets_util_TransitionFactory.ts.html#l40"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;TransitionFactory.ts:40</code></a>
+            Defined in: <a href="../files/src_com_codebelt_structurets_util_TransitionFactory.ts.html#l40"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;TransitionFactory.ts:40</code></a>
         </div>
     
 
@@ -284,6 +288,7 @@
 
 <div class="box intro">
     <p>YUIDoc_comment</p>
+
 </div>
 
 
@@ -321,7 +326,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_TransitionFactory.ts.html#l40"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;TransitionFactory.ts:40</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_TransitionFactory.ts.html#l40"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;TransitionFactory.ts:40</code></a>
         
         </p>
 
@@ -466,7 +471,7 @@
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l86"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:86</code></a>
+        <a href="../files/src_com_codebelt_structurets_BaseObject.ts.html#l86"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:86</code></a>
         
         </p>
 
@@ -483,11 +488,11 @@ called on the object or properties accessed. It is the responsibility of those w
 function to stop all running Timers, all running Sounds, remove any event
 listeners and take any other steps necessary to make an object eligible for garbage collection.
 It is critical that all subclasses call the super for this function in their overridden methods.</p>
-
 <p>Note: super.destroy(); should be called first before you clean up any other objects/items in the current classs.
 The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destroy</a> method also calls the
 <a href="../classes/EventDispatcher.html#method_disable" class="crosslink">disable</a> method on all classes that extend
 <a href="../classes/EventDispatcher.html" class="crosslink">EventDispatcher</a>.</p>
+
     </div>
 
     
@@ -504,8 +509,8 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
      this._childInstance.destroy();
      this._childInstance = null;
- }
-</code></pre>
+ }</code></pre>
+
             </div>
         </div>
     
@@ -547,7 +552,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l73"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:73</code></a>
+        <a href="../files/src_com_codebelt_structurets_BaseObject.ts.html#l73"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:73</code></a>
         
         </p>
 
@@ -559,6 +564,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
     <div class="description">
         <p>Returns the fully qualified class name of an object.</p>
+
     </div>
 
     
@@ -572,7 +578,8 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
                     
                         <span class="type">String</span>:
                     
-                    Returns the class name.
+                    <p>Returns the class name.</p>
+
                 
             </div>
         </div>
@@ -583,8 +590,8 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             <h4>Example:</h4>
 
             <div class="example-content">
-                <pre class="code prettyprint"><code> instance.getQualifiedClassName();
-</code></pre>
+                <pre class="code prettyprint"><code> instance.getQualifiedClassName();</code></pre>
+
             </div>
         </div>
     
@@ -643,7 +650,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_TransitionFactory.ts.html#l107"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;TransitionFactory.ts:107</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_TransitionFactory.ts.html#l107"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;TransitionFactory.ts:107</code></a>
         
         </p>
 
@@ -655,6 +662,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
     <div class="description">
         <p>The registerTransition method allows you to add custom transitions to the <a href="../classes/TransitionFactory.html" class="crosslink">TransitionFactory</a>.</p>
+
     </div>
 
     
@@ -673,6 +681,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
                     <div class="param-description">
                         <p>The key value for the transition being passed in.</p>
+
                     </div>
 
                     
@@ -688,6 +697,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
                     <div class="param-description">
                         <p>A transition that implements <a href="../classes/ITransition.html" class="crosslink">ITransition</a>.</p>
+
                     </div>
 
                     
@@ -736,7 +746,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_util_TransitionFactory.ts.html#l57"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;TransitionFactory.ts:57</code></a>
+        <a href="../files/src_com_codebelt_structurets_util_TransitionFactory.ts.html#l57"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;util&#x2F;TransitionFactory.ts:57</code></a>
         
         </p>
 
@@ -747,6 +757,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
     <div class="description">
         <p>YUIDoc_comment</p>
+
     </div>
 
     
@@ -779,7 +790,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l57"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:57</code></a>
+        <a href="../files/src_com_codebelt_structurets_BaseObject.ts.html#l57"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:57</code></a>
         
         </p>
 
@@ -790,6 +801,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
     <div class="description">
         <p>The cid or client id is a unique identifier automatically assigned to most StructureTS objects upon instantiation.</p>
+
     </div>
 
     
@@ -826,7 +838,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
             
         
         
-        <a href="../files/.._src_com_codebelt_structurets_BaseObject.ts.html#l47"><code>..&#x2F;src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:47</code></a>
+        <a href="../files/src_com_codebelt_structurets_BaseObject.ts.html#l47"><code>src&#x2F;com&#x2F;codebelt&#x2F;structurets&#x2F;BaseObject.ts:47</code></a>
         
         </p>
 
@@ -837,6 +849,7 @@ The <a href="../classes/BaseObject.html#method_destroy" class="crosslink">destro
 
     <div class="description">
         <p>The fully qualified class name of the object. Use <a href="../classes/BaseObject.html#method_getQualifiedClassName" class="crosslink">getQualifiedClassName</a> method to retrieve the class name of a StructureTS object.</p>
+
     </div>
 
     
