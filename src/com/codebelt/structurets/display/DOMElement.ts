@@ -253,25 +253,6 @@ module StructureTS
         }
 
         /**
-         * Gets a DOMElement by its cid.
-         *
-         * @method getChildByCid
-         * @param cid {number}
-         * @returns {DOMElement}
-         * @override
-         * @public
-         */
-        public getChildByCid(cid:number):DOMElement
-        {
-            var domElement:DOMElement[] = <DOMElement[]>this.children.filter(function (child)
-            {
-                return child.cid == cid;
-            });
-
-            return domElement[0] || null;
-        }
-
-        /**
          * Returns a DOMElement object with the first found DOM element by the passed in selector.
          *
          * @method getChild
@@ -291,7 +272,7 @@ module StructureTS
 
             // Check to see if there the element already has a cid value and is a child of this parent object.
             var cid:number = jQueryElement.data('cid');
-            var domElement:DOMElement = this.getChildByCid(cid);
+            var domElement:DOMElement = <DOMElement>this.getChildByCid(cid);
 
             // Creates a DOMElement from the jQueryElement.
             if (domElement == null)

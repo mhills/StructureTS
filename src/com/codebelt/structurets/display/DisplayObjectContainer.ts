@@ -315,6 +315,25 @@ module StructureTS
         }
 
         /**
+         * Gets a DisplayObjectContainer by its cid.
+         *
+         * @method getChildByCid
+         * @param cid {number}
+         * @returns {DisplayObjectContainer}
+         * @override
+         * @public
+         */
+        public getChildByCid(cid:number):DisplayObjectContainer
+        {
+            var children:DisplayObjectContainer[] = <DisplayObjectContainer[]>this.children.filter(function (child)
+            {
+                return child.cid == cid;
+            });
+
+            return children[0] || null;
+        }
+
+        /**
          * The setSize method sets the bounds within which the containing DisplayObjectContainer would
          * like that component to lay itself out. It is expected that calling setSize will automatically
          * call {{#crossLink "DisplayObjectContainer/layoutChildren:method"}}{{/crossLink}}.
