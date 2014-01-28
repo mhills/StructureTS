@@ -23,7 +23,6 @@
  */
 
 ///<reference path='BaseController.ts'/>
-///<reference path='../util/BrowserUtils.ts'/>
 ///<reference path='../event/RouterEvent.ts'/>
 
 ///<reference path='../../../millermedeiros/hasher/Hasher.ts'/>

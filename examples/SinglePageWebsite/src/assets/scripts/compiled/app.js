@@ -915,35 +915,6 @@ var StructureTS;
 })(StructureTS || (StructureTS = {}));
 var StructureTS;
 (function (StructureTS) {
-    var BrowserUtils = (function () {
-        function BrowserUtils() {
-        }
-        BrowserUtils.hasBrowserHistory = function () {
-            return !!(window.history && history.pushState);
-        };
-
-        BrowserUtils.hasLocalStorage = function () {
-            try  {
-                return ('localStorage' in window) && window.localStorage !== null;
-            } catch (error) {
-                return false;
-            }
-        };
-
-        BrowserUtils.hasSessionStorage = function () {
-            try  {
-                return ('sessionStorage' in window) && window.sessionStorage !== null;
-            } catch (error) {
-                return false;
-            }
-        };
-        BrowserUtils.CLASS_NAME = 'BrowserUtils';
-        return BrowserUtils;
-    })();
-    StructureTS.BrowserUtils = BrowserUtils;
-})(StructureTS || (StructureTS = {}));
-var StructureTS;
-(function (StructureTS) {
     var RouterEvent = (function (_super) {
         __extends(RouterEvent, _super);
         function RouterEvent(type, bubbles, cancelable, url, silent, data) {

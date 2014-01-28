@@ -36,7 +36,12 @@ module StructureTS
     export class Util
     {
         /**
-         * @overridden BaseObject.CLASS_NAME
+         * The fully qualified class name of the object.
+         *
+         * @property CLASS_NAME
+         * @type {string}
+         * @final
+         * @protected
          */
         public static CLASS_NAME:string = 'Util';
 
