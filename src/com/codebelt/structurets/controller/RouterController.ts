@@ -63,17 +63,29 @@ module StructureTS
          * If the value is true it will user the browsers history to dispatch events when the history state changes.
          * If the value is false it directly dispatch events when the {{#crossLink "BaseObject/navigateTo:method"}}{{/crossLink}} method is called.
          *
-         * @property _isStateManager
+         * @property _useDeepLinking
          * @type {boolean}
          * @private
          */
-        private _isStateManager:boolean = false;
+        private _useDeepLinking:boolean = true;
 
-        constructor(stateManager:boolean = false)
+        /**
+         * If _useDeepLinking is set to false user can manual type in the hash/deep link to make the application change to
+         * different views. If this is not wanted for security concerns you can set allowManualDeepLinking to false and users
+         * cannot update the app via url hash changes.
+         *
+         * @property _allowManualDeepLinking
+         * @type {boolean}
+         * @private
+         */
+        private _allowManualDeepLinking:boolean = true;
+
+        constructor(useDeepLinking:boolean = true, allowManualDeepLinking:boolean = true)
         {
             super();
 
-            this._isStateManager = stateManager;
+            this._useDeepLinking = useDeepLinking;
+            this._allowManualDeepLinking = allowManualDeepLinking;
 
             this._crossroads = new Crossroads();
         }
@@ -96,9 +108,16 @@ module StructureTS
 
             this._crossroads.routed.add(this.onAllRoutesHandler, this);
 
-//        Hasher.prependHash = '!';
-            Hasher.initialized.add(this.parseHash.bind(this)); //parse initial hash
-            Hasher.changed.add(this.parseHash.bind(this)); //parse hash changes
+            if (this._useDeepLinking === false && this._allowManualDeepLinking === false)
+            {
+                this.parseHash('', '');
+            }
+            else
+            {
+                Hasher.initialized.add(this.parseHash.bind(this)); //parse initial hash
+                Hasher.changed.add(this.parseHash.bind(this)); //parse hash changes
+            }
+
             Hasher.init(); //start listening for hash changes
         }
 
@@ -114,7 +133,7 @@ module StructureTS
          * @param newHash {string}
          * @param oldHash {string}
          */
-        public parseHash(newHash, oldHash):void
+        public parseHash(newHash:string, oldHash:string):void
         {
             this._crossroads.parse(newHash);
         }
@@ -129,7 +148,7 @@ module StructureTS
         {
             hash = hash.replace('#/', '');
 
-            if (this._isStateManager === false)
+            if (this._useDeepLinking === true)
             {
                 this.changeUrl(hash, silently);
             }
