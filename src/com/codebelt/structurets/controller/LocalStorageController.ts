@@ -127,9 +127,9 @@ module StructureTS
          * @method getItem
          * @param key {string}
          * @param [useNamespace=false] {string}
-         * @returns {string}
+         * @returns {any}
          */
-        public getItem(key:string, useNamespace:boolean = false):string
+        public getItem(key:string, useNamespace:boolean = false):any
         {
             if (useNamespace)
             {
